@@ -19,7 +19,7 @@ To Do:
 [![PyPI version][pypi-image]][pypi-link]
 [![Travis][travis-image]][travis-link]
 
-[pypi-image]: https://badge.fury.io/py/takuhai.svg
+[pypi-image]: https://badge.fury.io/py/nakametpy.svg
 [pypi-link]: https://pypi.org/project/nakametpy/
 [travis-image]: https://travis-ci.org/daizutabi/takuhai.svg?branch=master
 [travis-link]: https://travis-ci.org/github/muchojp/NakaMetPy
