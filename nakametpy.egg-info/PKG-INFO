@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: nakametpy
-Version: 0.2.4
-Summary: UNKNOWN
+Version: 0.2.5
+Summary: Meteorological modules for calculation and colormap.
 Home-page: https://github.com/muchojp/NakaMetPy
 Author: Yuki Nakamura
 Author-email: contact.muchiwo@gmail.com
