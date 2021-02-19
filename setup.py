@@ -19,7 +19,7 @@ console_scripts = [
 setup(
     name='nakametpy',
     # version='0.1.0', # (2021.01.19)
-    version='0.2.2', # (2021.02.18)
+    version='0.2.3', # (2021.02.18)
     packages=packages,
     install_requires=install_requires,
     url = 'https://github.com/muchojp/NakaMetPy',
