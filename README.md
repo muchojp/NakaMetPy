@@ -24,6 +24,6 @@ Future:
 
 [pypi-image]: https://badge.fury.io/py/nakametpy.svg
 [pypi-link]: https://pypi.org/project/nakametpy/
-[travis-image]: https://travis-ci.org/daizutabi/takuhai.svg?branch=master
+[travis-image]: https://travis-ci.org/muchojp/NakaMetPy.svg?branch=main
 [travis-link]: https://travis-ci.org/github/muchojp/NakaMetPy
  
