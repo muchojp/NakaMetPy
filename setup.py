@@ -8,7 +8,7 @@ install_requires = [
 
 packages = [
     'nakametpy',
-    'test'
+    'tests'
 ]
 
 console_scripts = [
