@@ -18,8 +18,10 @@ console_scripts = [
 
 setup(
     name='nakametpy',
+    python_requires='>3.6.0',
     # version='0.1.0', # (2021.01.19)
-    version='0.2.3', # (2021.02.18)
+    version='0.2.4', # (2021.02.18)
+    desctiption='Meteorological modules for calculation and colormap.'
     packages=packages,
     install_requires=install_requires,
     url = 'https://github.com/muchojp/NakaMetPy',
