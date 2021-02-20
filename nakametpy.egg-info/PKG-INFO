@@ -5,7 +5,7 @@ Summary: Meteorological modules for calculation and colormap.
 Home-page: https://github.com/muchojp/NakaMetPy
 Author: Yuki Nakamura
 Author-email: contact.muchiwo@gmail.com
-License: UNKNOWN
+License: BSD 3-clause
 Description: このモジュールはMetPyをNumPyのみで動作するように書き換えたものです。
         気象データをNumPyでベクトル(配列)として扱うことを想定しています。
         
