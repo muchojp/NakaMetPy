@@ -10,7 +10,7 @@ NakaMetPyは今後はもっと拡充していく予定です。
 
 # Abstract
 `nakametpy` is a rewrited package of `MetPy` based on `NumPy`.
-I appreciate your for your contribution.
+I appreciate your contribution.
 
 # How to Install
 ## via Anaconda
