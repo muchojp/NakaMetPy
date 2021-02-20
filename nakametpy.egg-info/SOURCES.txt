@@ -1,5 +1,7 @@
 LICENSE
+MANIFEST.in
 README.md
+requirements.txt
 setup.cfg
 setup.py
 nakametpy/__init__.py
