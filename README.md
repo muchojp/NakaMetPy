@@ -8,11 +8,25 @@ NakaMetPyは今後はもっと拡充していく予定です。
 皆さんのContributionもお待ちしています。
 GitHubで公開することでバージョンの管理を楽にすることも考えています。
 
-Licence: BSD-3-Clause
+# How to Install
+## via Anaconda
+
+```
+conda install -c muchiwo nakametpy
+````
+
+## via PyPI
+
+```
+pip install nakametpy
+````
+
+Licence: `BSD-3-Clause`
 
 To Do: 
  - MetPyの関数の移植
  - 方位角平均を取る関数の作成
+ - ドキュメンテーションの作成
 
 Future:
  - Matplotlibの気象でよく使うであろうカラーマップを返す関数の実装(0.3.0)
@@ -20,6 +34,7 @@ Future:
 
 ---
 [![PyPI version][pypi-image]][pypi-link]
+[![Anaconda version][anaconda-v-image]][anaconda-v-link]
 [![Travis][travis-image]][travis-link]
 
 [pypi-image]: https://badge.fury.io/py/nakametpy.svg
