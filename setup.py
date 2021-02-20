@@ -23,7 +23,7 @@ setup(
     name='nakametpy',
     python_requires='>=3.6.0',
     # version='0.1.0', # (2021.01.19)
-    version='0.2.6', # (2021.02.20)
+    version='0.2.7', # (2021.02.20)
     description='Meteorological modules for calculation and colormap.',
     packages=packages,
     # install_requires=install_requires,
