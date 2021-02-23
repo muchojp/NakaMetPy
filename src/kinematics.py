@@ -161,7 +161,7 @@ def distance_2d(lons, lats):
 def gradient_h_4d(var, dx, dy, wrfon=0):
     r'''
     変数の勾配を求める関数。
-    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -201,7 +201,7 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
 def gradient_h_3d(var, dx, dy, wrfon=0):
     r'''
     変数の勾配を求める関数。
-    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -241,7 +241,7 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
 def gradient_h_2d(var, dx, dy, wrfon=0):
     r'''
     変数の勾配を求める関数。
-    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -281,7 +281,7 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
 def divergence_2d(fx, fy, dx, dy, wrfon=0):
     r'''
     変数の発散を求める関数。
-    `distance_2d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_2dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -369,7 +369,7 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
     `numpy.ndarray`
         vertical gradient
 
-    .. math:: GRAD_{n+1/2} &= \frac{\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \
+    .. math:: GRAD_{n+1/2} &= \frac{\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} 
         &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{-\left(p_{n+1} - p_{n}\right)}
 
     '''
@@ -390,15 +390,15 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
 def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''
     変数の移流を求める関数。
-    `distance_3d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_3dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
     var: `numpy.ndarray`
-        variable
+        variable  
         計算したい変数
     wind_u: `numpy.ndarray`
-        eastward wind
+        eastward wind 
         The same shape as var
         変数と同じ形で無ければならない。
     wind_v: `numpy.ndarray`
@@ -432,7 +432,7 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
 def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''
     変数の移流を求める関数。
-    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -480,7 +480,7 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある。
 
-    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -553,7 +553,7 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある。
 
-    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -639,7 +639,7 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある。
 
-    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -714,7 +714,7 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある。
 
-    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
