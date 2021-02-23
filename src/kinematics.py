@@ -334,6 +334,12 @@ def vert_grad_3d(variables, pres_3d, z_dim=0):
     -------
     `numpy.ndarray`
         vertical gradient
+
+    Notes
+    -----
+    .. math:: {VerticalGradient}_{n+1/2} &= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
+        &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}
+
     
     '''
     if pres_3d.ndim == 1:
@@ -369,8 +375,10 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
     `numpy.ndarray`
         vertical gradient
 
-    .. math:: GRAD_{n+1/2} &= \frac{\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} 
-        &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{-\left(p_{n+1} - p_{n}\right)}
+    Notes
+    -----
+    .. math:: {VerticalGradient}_{n+1/2} &= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
+        &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}
 
     '''
     if pres_4d.ndim == 1:
