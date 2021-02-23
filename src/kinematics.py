@@ -159,6 +159,30 @@ def distance_2d(lons, lats):
 
 
 def gradient_h_4d(var, dx, dy, wrfon=0):
+    r'''
+    変数の勾配を求める関数。
+    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    var: `numpy.ndarray`
+        variable
+        計算したい変数
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        grad_x(4d), grad_y(4d)
+    
+    '''
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -175,6 +199,30 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
 
 
 def gradient_h_3d(var, dx, dy, wrfon=0):
+    r'''
+    変数の勾配を求める関数。
+    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    var: `numpy.ndarray`
+        variable
+        計算したい変数
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        grad_x(3d), grad_y(3d)
+    
+    '''
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -191,6 +239,30 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
 
 
 def gradient_h_2d(var, dx, dy, wrfon=0):
+    r'''
+    変数の勾配を求める関数。
+    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    var: `numpy.ndarray`
+        variable
+        計算したい変数
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        grad_x(2d), grad_y(2d)
+    
+    '''
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -207,6 +279,30 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
 
 
 def divergence_2d(fx, fy, dx, dy, wrfon=0):
+    r'''
+    変数の発散を求める関数。
+    `distans_2d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    var: `numpy.ndarray`
+        variable
+        計算したい変数
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        divergence
+    
+    '''
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
     grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
@@ -220,6 +316,26 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
 
 
 def vert_grad_3d(variables, pres_3d, z_dim=0):
+    r'''
+    変数の鉛直圧力勾配を求める関数。
+
+    Parameters
+    ----------
+    variables: `numpy.ndarray`
+        variable
+        計算したい変数
+    pres_3d: `numpy.ndarray`
+        pressure(3d)
+        The same shape as var
+        Use pressure_3d from 1d pressure array
+        変数と同じ形で無ければならない。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        vertical gradient
+    
+    '''
     if pres_3d.ndim == 1:
         pres_3d = np.tile(pres_3d, (variables.shape[-2]*variables.shape[-1])).reshape([variables.shape[-2], \
             variables.shape[-1], variables.shape[-3]]).transpose(2, 0, 1)
@@ -235,12 +351,24 @@ def vert_grad_3d(variables, pres_3d, z_dim=0):
 
 def vert_grad_4d(variables, pres_4d, z_dim=1):
     r'''
-    気圧座標系における鉛直勾配を計算する関数。
-    気圧の配列はtopからbottomの方向を想定している([..., 500, 600, 700, ...])。
+    変数の鉛直圧力勾配を求める関数。
 
-    まずは1次元の気圧の配列を4次元に変換する。
-
+    Parameters
+    ----------
+    variables: `numpy.ndarray`
+        variable
+        計算したい変数
+    pres_4d: `numpy.ndarray`
+        pressure(4d)
+        The same shape as var
+        Use pressure_4d from 1d pressure array
+        変数と同じ形で無ければならない。
     
+    Returns
+    -------
+    `numpy.ndarray`
+        vertical gradient
+
     .. math:: GRAD_{n+1/2} &= \frac{\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \
         &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{-\left(p_{n+1} - p_{n}\right)}
 
@@ -260,6 +388,38 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
 
 
 def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
+    r'''
+    変数の移流を求める関数。
+    `distans_3d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    var: `numpy.ndarray`
+        variable
+        計算したい変数
+    wind_u: `numpy.ndarray`
+        eastward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    wind_v: `numpy.ndarray`
+        northward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        advection
+    
+    '''
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
@@ -270,6 +430,38 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
 
 
 def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
+    r'''
+    変数の移流を求める関数。
+    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    var: `numpy.ndarray`
+        variable
+        計算したい変数
+    wind_u: `numpy.ndarray`
+        eastward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    wind_v: `numpy.ndarray`
+        northward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        advection
+    
+    '''
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
@@ -282,7 +474,61 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
 
 def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity, pressure, dx, dy, time_step=3600, wrfon=0):
     r'''
-    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。
+    Q1を気温を用いて求める関数です。
+
+    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。 
+    temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
+    その前後の時間の気温のデータも与える必要がある。
+
+    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    temperature_1: `numpy.ndarray`
+        temperature
+        計算したい時間の前の時間のtemp
+        temperature_2と同じ形で無ければならない。
+    temperature_2: `numpy.ndarray`
+        temperature
+        計算したい時間のtemp
+    temperature_3: `numpy.ndarray`
+        temperature
+        計算したい時間の後の時間のtemp
+        temperature_2と同じ形で無ければならない。
+    wind_u: `numpy.ndarray`
+        eastward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    wind_v: `numpy.ndarray`
+        northward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    p_velocity: `numpy.ndarray`
+        vertical p velocity
+        The same shape as var
+        変数と同じ形で無ければならない。
+    pressure: `numpy.ndarray`
+        pressure
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    timestep: `float`
+        default = 3600 (for ERA5)
+        This varies on dataset.
+        使用するデータによって変更する必要がある。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        Q1 or Q11, Q12, Q13
+    
     '''
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
@@ -301,7 +547,72 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
 
 def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, time_step=3600, wrfon=0):
     r'''
-    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。
+    Q2を相対湿度と気温を用いて混合比から求める関数です。
+
+    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。 
+    temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
+    その前後の時間の気温のデータも与える必要がある。
+
+    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    temperature_1: `numpy.ndarray`
+        temperature
+        計算したい時間の前の時間のtemp
+        temperature_2と同じ形で無ければならない。
+    temperature_2: `numpy.ndarray`
+        temperature
+        計算したい時間のtemp
+    temperature_3: `numpy.ndarray`
+        temperature
+        計算したい時間の後の時間のtemp
+        temperature_2と同じ形で無ければならない。
+    rh_1: `numpy.ndarray`
+        Relative Humidity
+        計算したい時間の前の時間の相対湿度
+        rh_2と同じ形で無ければならない。
+    rh_2: `numpy.ndarray`
+        Relative Humidity
+        計算したい時間の相対湿度
+    rh_3: `numpy.ndarray`
+        Relative Humidity
+        計算したい時間の後の時間の相対湿度
+        rh_2と同じ形で無ければならない。
+    wind_u: `numpy.ndarray`
+        eastward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    wind_v: `numpy.ndarray`
+        northward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    p_velocity: `numpy.ndarray`
+        vertical p velocity
+        The same shape as var
+        変数と同じ形で無ければならない。
+    pressure: `numpy.ndarray`
+        pressure
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    timestep: `float`
+        default = 3600 (for ERA5)
+        This varies on dataset.
+        使用するデータによって変更する必要がある。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        Q2 or Q21, Q22, Q23
+    
     '''
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
@@ -322,7 +633,61 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
 
 def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, time_step=3600, wrfon=0):
     r'''
-    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。
+    Q2を比湿を用いて混合比から求める関数です。
+
+    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。 
+    temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
+    その前後の時間の気温のデータも与える必要がある。
+
+    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    sh_1: `numpy.ndarray`
+        Relative Humidity
+        計算したい時間の前の時間の比湿
+        sh_2と同じ形で無ければならない。
+    sh_2: `numpy.ndarray`
+        Relative Humidity
+        計算したい時間の比湿
+    sh_3: `numpy.ndarray`
+        Relative Humidity
+        計算したい時間の後の時間の比湿
+        sh_2と同じ形で無ければならない。
+    wind_u: `numpy.ndarray`
+        eastward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    wind_v: `numpy.ndarray`
+        northward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    p_velocity: `numpy.ndarray`
+        vertical p velocity
+        The same shape as var
+        変数と同じ形で無ければならない。
+    pressure: `numpy.ndarray`
+        pressure
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    timestep: `float`
+        default = 3600 (for ERA5)
+        This varies on dataset.
+        使用するデータによって変更する必要がある。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        Q2 or Q21, Q22, Q23
+    
     '''
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
@@ -343,7 +708,61 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
 
 def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, time_step=3600, wrfon=0):
     r'''
-    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。
+    Q2を比湿を用いて比湿から求める関数です。
+
+    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。 
+    temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
+    その前後の時間の気温のデータも与える必要がある。
+
+    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    sh_1: `numpy.ndarray`
+        Relative Humidity
+        計算したい時間の前の時間の比湿
+        sh_2と同じ形で無ければならない。
+    sh_2: `numpy.ndarray`
+        Relative Humidity
+        計算したい時間の比湿
+    sh_3: `numpy.ndarray`
+        Relative Humidity
+        計算したい時間の後の時間の比湿
+        sh_2と同じ形で無ければならない。
+    wind_u: `numpy.ndarray`
+        eastward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    wind_v: `numpy.ndarray`
+        northward wind
+        The same shape as var
+        変数と同じ形で無ければならない。
+    p_velocity: `numpy.ndarray`
+        vertical p velocity
+        The same shape as var
+        変数と同じ形で無ければならない。
+    pressure: `numpy.ndarray`
+        pressure
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dx: `numpy.ndarray`
+        dx
+        The same shape as var
+        変数と同じ形で無ければならない。
+    dy: `numpy.ndarray`
+        dy
+        The same dimention as var
+        変数と同じ形で無ければならない。
+    timestep: `float`
+        default = 3600 (for ERA5)
+        This varies on dataset.
+        使用するデータによって変更する必要がある。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        Q2 or Q21, Q22, Q23
+    
     '''
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
@@ -362,15 +781,64 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
 
 
 def pressure_4d(pres, time_dim=24, lat_dim=201, lon_dim=401):
+    r'''
+    1次元の気圧の配列から4次元の気圧の配列を返す関数。
+    気圧を計算に用いる際に使います。
+
+    Parameters
+    ----------
+    pres: `numpy.ndarray`
+        pressure(1d)
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        pressure(4d)
+    
+    '''
     return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
 
 
 def pressure_3d(pres, lat_dim=201, lon_dim=401):
+    r'''
+    1次元の気圧の配列から3次元の気圧の配列を返す関数。
+    気圧を計算に用いる際に使います。
+
+    Parameters
+    ----------
+    pres: `numpy.ndarray`
+        pressure(1d)
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        pressure(3d)
+    
+    '''
     return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
 
 
 
 def vert_grad_4d_height(variables, height, z_dim=1):
+    r'''
+    変数の鉛直高度勾配を求める関数。
+
+    Parameters
+    ----------
+    variables: `numpy.ndarray`
+        variable
+        計算したい変数
+    height: `numpy.ndarray`
+        height(4d)
+        The same shape as var
+        ジオポテンシャル高度を用いる。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        vertical gradient
+
+    '''
     vertical_grad = np.ma.zeros(variables.shape)
     diff_pres = np.diff(height, axis=z_dim)
     grad_var = np.diff(variables, axis=z_dim)/diff_pres
@@ -383,6 +851,25 @@ def vert_grad_4d_height(variables, height, z_dim=1):
 
 
 def vert_grad_3d_height(variables, height, z_dim=0):
+    r'''
+    変数の鉛直高度勾配を求める関数。
+
+    Parameters
+    ----------
+    variables: `numpy.ndarray`
+        variable
+        計算したい変数
+    height: `numpy.ndarray`
+        height(3d)
+        The same shape as var
+        ジオポテンシャル高度を用いる。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        vertical gradient
+
+    '''
     vertical_grad = np.ma.zeros(variables.shape)
     diff_pres = np.diff(height, axis=z_dim)
     grad_var = np.diff(variables, axis=z_dim)/diff_pres
@@ -395,6 +882,25 @@ def vert_grad_3d_height(variables, height, z_dim=0):
 
 
 def vert_grad_2d_height(variables, height, z_dim=0):
+    r'''
+    変数の鉛直高度勾配を求める関数。
+
+    Parameters
+    ----------
+    variables: `numpy.ndarray`
+        variable
+        計算したい変数
+    height: `numpy.ndarray`
+        height(2d)
+        The same shape as var
+        ジオポテンシャル高度を用いる。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        vertical gradient
+
+    '''
     vertical_grad = np.ma.zeros(variables.shape)
     diff_pres = np.diff(height, axis=z_dim)
     grad_var = np.diff(variables, axis=z_dim)/diff_pres
@@ -406,16 +912,59 @@ def vert_grad_2d_height(variables, height, z_dim=0):
     return vertical_grad
 
 def richardson_number(temp, rh, height, pres, u, v):
+    r'''
+    リチャードソン数を求める関数。
+    変数はすべて同じ形で無ければならない。
+    Variables should be the same shape.
+
+    Parameters
+    ----------
+    temp: `numpy.ndarray`
+        Temperature
+    rh: `numpy.ndarray`
+        Relative Humidity
+    height: `numpy.ndarray`
+        (Geopotential) Height
+    pres: `numpy.ndarray`
+        pressure
+    u: `numpy.ndarray`
+        eastward wind
+    v: `numpy.ndarray`
+        northward wind
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Richardson Number
+    
+    '''
     v_pt = potential_temperature(pressure_4d(pres), virtual_temperature(temp, mixing_ratio_from_relative_humidity(rh, temp, pres)))
     return g/v_pt(vert_grad_4d_height(v_pt, height))/(vert_grad_4d_height(u, height)**2+vert_grad_4d_height(v, height)**2)
 
 
 
 def geostrophic_wind(geopotential, dx, dy, f0=f0):
-    r'''
-    地衡風を求める。
-    ジオポテンシャルの水平微分を行い、コリオリパラメタで割った後、
-    u成分にマイナスをかける。
+    r''' 
+    地衡風を求める。 
+    ジオポテンシャルの水平微分を行い、コリオリパラメタで割った後、 
+    u成分にマイナスをかける。 
+
+    Parameters
+    ----------
+    geopotential: `numpy.ndarray`
+        Geopotential (Not Geopotential Height)
+        ジオポテンシャル (ジオポテンシャル高度では無い)
+    dx: `numpy.ndarray`
+        東西方向の距離
+    dy: `numpy.ndarray`
+        南北方向の距離
+
+    Returns
+    -------
+    `numpy.ndarray`
+        geostrophic wind
+        地衡風
+    
     '''
     terms = gradient_h_4d(geopotential, dx, dy)/f0
     terms[0] = -terms[0]
@@ -423,9 +972,30 @@ def geostrophic_wind(geopotential, dx, dy, f0=f0):
 
 
 def ageostrophic_wind(geopotential, u_wind, v_wind, dx, dy, f0=f0):
-    r'''
-    非地衡風成分を求める。
-    実際の風の東西・南北成分から地衡風成分を引く
+    r''' 
+    非地衡風成分を求める。 
+    実際の風の東西・南北成分から地衡風成分を引く。 
+
+    Parameters
+    ----------
+    geopotential: `numpy.ndarray`
+        Geopotential (Not Geopotential Height)
+        ジオポテンシャル (ジオポテンシャル高度では無い)
+    u_wind: `numpy.ndarray`
+        eastward wind
+    v_wind: `numpy.ndarray`
+        northward wind
+    dx: `numpy.ndarray`
+        東西方向の距離
+    dy: `numpy.ndarray`
+        南北方向の距離
+
+    Returns
+    -------
+    `numpy.ndarray`
+        ageostrophic wind
+        非地衡風
+    
     '''
     terms = geostrophic_wind(geopotential, dx, dy, f0)
     terms[0] -= u_wind
@@ -434,25 +1004,80 @@ def ageostrophic_wind(geopotential, u_wind, v_wind, dx, dy, f0=f0):
 
 
 def relative_vorticity(u, v, dx, dy):
+    r''' 
+    相対渦度を求める。
+
+    Parameters
+    ----------
+    u: `numpy.ndarray`
+        eastward wind
+    v: `numpy.ndarray`
+        northward wind
+    dx: `numpy.ndarray`
+        東西方向の距離
+    dy: `numpy.ndarray`
+        南北方向の距離
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Relative Vorticity
+        相対渦度
+    
+    '''
     v_x_comp, _ = gradient_h_4d(v, dx, dy)
-    _, u_y_comp = gradient_h_4d(v, dx, dy)
+    _, u_y_comp = gradient_h_4d(u, dx, dy)
     return v_x_comp - u_y_comp
 
 
 
 def lapse_rate(pressure, temperature, height):
-    r"""
-    実際の断熱減率などの呼び方がある。
-    詳しくはHolton 5th edition pp54
+    r""" 
+    実際の断熱減率などの呼び方がある。 
+    詳しくはHolton 5th edition pp54 
+
+    変数はすべて同じ形で無ければならない。
+    Variables should be the same shape.
+
+    Parameters
+    ----------
+    pressure: `numpy.ndarray`
+        Pressure
+    temperature: `numpy.ndarray`
+        Temperature
+    height: `numpy.ndarray`
+        (Geopotential) Height
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Lapse Rate
+    
     """
     theta = potential_temperature(pressure, temperature)
     return GammaD-temperature/theta*vert_grad_4d_height(theta, height)
 
 
 def pseudoadiabatic_lapse_rate(pressure, temperature):
-    r"""
-    偽断熱減率、湿潤断熱減率などの呼び方がある。
-    詳しくはHolton 5th edition pp61
+    r""" 
+    偽断熱減率、湿潤断熱減率などの呼び方がある。 
+    詳しくはHolton 5th edition pp61 
+
+    変数はすべて同じ形で無ければならない。
+    Variables should be the same shape.
+
+    Parameters
+    ----------
+    pressure: `numpy.ndarray`
+        Pressure
+    temperature: `numpy.ndarray`
+        Temperature
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Psuedadiabatic Lapse Rate
+    
     """
     qs = saturation_mixing_ratio(pressure, temperature)
     numerator = 1 + LatHeatC*qs/(R*temperature)
@@ -461,5 +1086,24 @@ def pseudoadiabatic_lapse_rate(pressure, temperature):
 
 
 def static_stability(pressure, temperature):
+    r""" 
+    大気の安定度を求める関数。
+
+    変数はすべて同じ形で無ければならない。
+    Variables should be the same shape.
+
+    Parameters
+    ----------
+    pressure: `numpy.ndarray`
+        Pressure
+    temperature: `numpy.ndarray`
+        Temperature
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Static Stability
+    
+    """
     return -(R*temperature/pressure)*vert_grad_4d(np.log(potential_temperature(pressure, temperature)), pressure)
 
