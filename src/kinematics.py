@@ -15,8 +15,8 @@
 # 更新日：2021/01/25 地衡風と非地衡風、相対渦度、気温減率、偽断熱減率、静的安定パラメタを求める関数の実装
 #
 import numpy as np
-from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
-from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re, f0, GammaD
+from nakametpy.thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
+from nakametpy.constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re, f0, GammaD
 
 
 
@@ -161,7 +161,7 @@ def distance_2d(lons, lats):
 def gradient_h_4d(var, dx, dy, wrfon=0):
     r'''
     変数の勾配を求める関数。
-    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -201,7 +201,7 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
 def gradient_h_3d(var, dx, dy, wrfon=0):
     r'''
     変数の勾配を求める関数。
-    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -241,7 +241,7 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
 def gradient_h_2d(var, dx, dy, wrfon=0):
     r'''
     変数の勾配を求める関数。
-    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -281,7 +281,7 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
 def divergence_2d(fx, fy, dx, dy, wrfon=0):
     r'''
     変数の発散を求める関数。
-    `distans_2d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_2d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -390,7 +390,7 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
 def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''
     変数の移流を求める関数。
-    `distans_3d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_3d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -432,7 +432,7 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
 def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''
     変数の移流を求める関数。
-    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -480,7 +480,7 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある。
 
-    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -553,7 +553,7 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある。
 
-    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -639,7 +639,7 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある。
 
-    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
@@ -714,7 +714,7 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある。
 
-    `distans_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    `distance_4d`を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
