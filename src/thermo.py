@@ -233,7 +233,7 @@ def dewpoint(e):
     pressure to instead calculate the temperature. This yield the following
     formula for dewpoint in degrees Celsius:
 
-    .. math:: T = \frac{243.5 log(e / 6.112)}{17.67 - log(e / 6.112)}
+    .. math:: T = \frac{243.5 \log(e / 6.112)}{17.67 - \log(e / 6.112)}
 
     """
     val = np.log(e / sat_pressure_0c)
@@ -285,13 +285,13 @@ def equivalent_potential_temperature(pressure, temperature, dewpoint):
 
     Which is then used to calculate the potential temperature at the LCL:
 
-    .. math:: \theta_{DL}=T_{K}\left(\frac{1000}{p-e}\right)^k
-              \left(\frac{T_{K}}{T_{L}}\right)^{.28r}
+    .. math:: \theta_{DL}=T_{K}\left(\frac{1000}{p-e}\right)^\kappa
+              \left(\frac{T_{K}}{T_{L}}\right)^{0.28r}
 
     Both of these are used to calculate the final equivalent potential temperature:
 
     .. math:: \theta_{E}=\theta_{DL}\exp\left[\left(\frac{3036.}{T_{L}}
-                                              -1.78\right)*r(1+.448r)\right]
+                                              -1.78\right)\times r(1+0.448r)\right]
 
     Parameters
     ----------
@@ -515,14 +515,12 @@ def relative_humidity_from_mixing_ratio(pressure, temperature, mixing_ratio):
     -----
     Formula based on that from [Hobbs1977]_ pg. 74.
 
-    .. math:: relative_humidity = \frac{w}{w_s}
+    .. math:: RH = \frac{w}{w_s}
 
     * :math:`relative_humidity` is relative humidity as a unitless ratio
     * :math:`w` is mixing ratio
     * :math:`w_s` is the saturation mixing ratio
 
-    .. versionchanged:: 1.0
-       Changed signature from ``(mixing_ratio, temperature, pressure)``
 
     See Also
     --------
@@ -561,9 +559,6 @@ def relative_humidity_from_specific_humidity(pressure, temperature, specific_hum
     * :math:`q` is specific humidity
     * :math:`w_s` is the saturation mixing ratio
 
-    .. versionchanged:: 1.0
-       Changed signature from ``(specific_humidity, temperature, pressure)``
-
     See Also
     --------
     relative_humidity_from_mixing_ratio
@@ -596,11 +591,12 @@ def k_index_3d(pressure, temperature, rh):
     -----
     Formula based on that from [George1960]
 
-    .. math:: KI = T_850 - T_500 + Td_850 - \left(T_700 - Td_700\right)
+    .. math:: KI = T_{850} - T_{500} + Td_{850} - \left(T_{700} - Td_{700}\right)
 
     * :math:`KI` is K index  
     * :math:`T` is temperature  
-    * :math:`Td` is dew-point temperature  
+    * :math:`Td` is dew-point temperature
+    
     Subscript means its pressure level  
 
     """
@@ -634,11 +630,12 @@ def k_index_2d(t850, t700, t500, rh850, rh700):
     -----
     Formula based on that from [George1960]
 
-    .. math:: KI = T_850 - T_500 + Td_850 - \left(T_700 - Td_700\right)
+    .. math:: KI = T_{850} - T_{500} + Td_{850} - \left(T_{700} - Td_{700}\right)
 
     * :math:`KI` is K index  
     * :math:`T` is temperature  
-    * :math:`Td` is dew-point temperature  
+    * :math:`Td` is dew-point temperature
+
     Subscript means its pressure level  
 
     """
@@ -651,7 +648,7 @@ def showalter_stability_index(t850, t500, p850, p500):
     この計算では乾燥断熱減率のみを考慮しているため、湿潤断熱変化も含めたSSIを
     求める方法が必要である。
     
-    .. math:: SSI = T_500 - T_{850\rightawwow 500}^*
+    .. math:: SSI = T_{500} - T_{850\rightarrow 500}^*
     '''
     return t500 - potential_temperature(p850, t850)/exner_function(p500)
 

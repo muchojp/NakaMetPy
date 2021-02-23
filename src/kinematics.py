@@ -390,15 +390,19 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
 def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''
     変数の移流を求める関数。
+    
     distance_3dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
     var: `numpy.ndarray`
-        variable  
+        variable
         計算したい変数
+        
     wind_u: `numpy.ndarray`
-        eastward wind 
+    
+        eastward wind
+
         The same shape as var
         変数と同じ形で無ければならない。
     wind_v: `numpy.ndarray`
