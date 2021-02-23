@@ -22,9 +22,24 @@ from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g,
 
 def distance_4d(lons, lats, lev_len = 37, t_len = 24):
     r'''
-    各格子点間の距離を求める関数。次元は[時間、鉛直方向、緯度、経度]である。
+    各格子点間の距離を求める関数。次元は[時間、鉛直方向、緯度、経度]である。  
 
-    地球半径の値は6371229mを使用。
+    地球半径の値は6371229mを使用。  
+
+    Calculate the distance from latitude and longitude
+
+    Parameters
+    ----------
+    lons: `numpy.ndarray`
+        longitude(1d)
+    lats: `numpy.ndarray`
+        latitude(1d)
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        dx(t_len, lev_len, lats, lons), dy(t_len, lev_len, lats, lons)
+    
     '''
     # lons, latsが1次元の場合、2次元に変換する
     if lats.ndim == 1:
@@ -53,6 +68,27 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
 
 
 def distance_3d(lons, lats, t_len = 24):
+    r'''
+    各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。  
+    Single Levelの変数を計算する際に用いる。
+    
+    地球半径の値は6371229mを使用。  
+
+    Calculate the distance from latitude and longitude
+
+    Parameters
+    ----------
+    lons: `numpy.ndarray`
+        longitude(1d)
+    lats: `numpy.ndarray`
+        latitude(1d)
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        dx(t_len, lats, lons), dy(t_len, lats, lons)
+    
+    '''
     # lons, latsが1次元の場合、2次元に変換する
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
@@ -81,6 +117,26 @@ def distance_3d(lons, lats, t_len = 24):
 
 
 def distance_2d(lons, lats):
+    r'''
+    各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。  
+    
+    地球半径の値は6371229mを使用。  
+
+    Calculate the distance from latitude and longitude
+
+    Parameters
+    ----------
+    lons: `numpy.ndarray`
+        longitude(1d)
+    lats: `numpy.ndarray`
+        latitude(1d)
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        dx(lats, lons), dy(lats, lons)
+    
+    '''
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
     radius = Re # m
@@ -100,17 +156,6 @@ def distance_2d(lons, lats):
     dy = radius * y_rad
     
     return dx, dy
-
-
-"""def wrong_divergence(fx, fy, dx, dy):
-    div = np.ma.zeros(fx.shape)
-    diff_x = np.diff(fx, axis=-1)
-    diff_y = np.diff(fy, axis=-2)
-    div_x = np.diff(diff_x/dx)
-    div_y = np.diff(diff_y/dy, axis=-2)
-    div[:, 1:-1] += div_x
-    div[1:-1, :] += div_y
-    return div"""
 
 
 def gradient_h_4d(var, dx, dy, wrfon=0):

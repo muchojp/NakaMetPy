@@ -20,15 +20,16 @@ def mixing_ratio_from_relative_humidity(relative_humidity, temperature, pressure
 
     Parameters
     ----------
-    relative_humidity: array_like
-        The relative humidity expressed as a unitless ratio in the range [0, 1]. Can also pass
-        a percentage if proper units are attached.
-        値は[0, 1]であるようだが、過冷却などを考えると1を越す値も欲しい。
-        実際に1を越す値を入れるとどのようになるのか振る舞いを見てみたい。
+    relative_humidity: `numpy.ndarray`
+        Relative Humidity
+        相対湿度
+        値は(0, 1]である必要がある
     temperature: `numpy.ndarray`
         Air temperature
+        気温
     pressure: `numpy.ndarray`
         Total atmospheric pressure
+        全圧
 
     Returns
     -------
@@ -656,165 +657,165 @@ def showalter_stability_index(t850, t500, p850, p500):
 
 
 # def gradient_richardson_number(height, potential_temperature, u, v, vertical_dim=0):
-    r"""Calculate the gradient (or flux) Richardson number.
+#     r"""Calculate the gradient (or flux) Richardson number.
 
-    .. math::   Ri = (g/\theta) * \frac{\left(\partial \theta/\partial z\)}
-             {[\left(\partial u / \partial z\right)^2 + \left(\partial v / \partial z\right)^2}
+#     .. math::   Ri = (g/\theta) * \frac{\left(\partial \theta/\partial z\)}
+#              {[\left(\partial u / \partial z\right)^2 + \left(\partial v / \partial z\right)^2}
 
-    See [Holton2004]_ pg. 121-122. As noted by [Holton2004]_, flux Richardson
-    number values below 0.25 indicate turbulence.
+#     See [Holton2004]_ pg. 121-122. As noted by [Holton2004]_, flux Richardson
+#     number values below 0.25 indicate turbulence.
 
-    Parameters
-    ----------
-    height : `numpy.ndarray`
-        Atmospheric height
+#     Parameters
+#     ----------
+#     height : `numpy.ndarray`
+#         Atmospheric height
 
-    potential_temperature : `numpy.ndarray`
-        Atmospheric potential temperature
+#     potential_temperature : `numpy.ndarray`
+#         Atmospheric potential temperature
 
-    u : `numpy.ndarray`
-        X component of the wind
+#     u : `numpy.ndarray`
+#         X component of the wind
 
-    v : `numpy.ndarray`
-        y component of the wind
+#     v : `numpy.ndarray`
+#         y component of the wind
 
-    vertical_dim : int, optional
-        The axis corresponding to vertical, defaults to 0. Automatically determined from
-        xarray DataArray arguments.
+#     vertical_dim : int, optional
+#         The axis corresponding to vertical, defaults to 0. Automatically determined from
+#         xarray DataArray arguments.
 
-    Returns
-    -------
-    `numpy.ndarray`
-        Gradient Richardson number
-    """
-    dthetadz = first_derivative(potential_temperature, x=height, axis=vertical_dim)
-    dudz = first_derivative(u, x=height, axis=vertical_dim)
-    dvdz = first_derivative(v, x=height, axis=vertical_dim)
+#     Returns
+#     -------
+#     `numpy.ndarray`
+#         Gradient Richardson number
+#     """
+#     dthetadz = first_derivative(potential_temperature, x=height, axis=vertical_dim)
+#     dudz = first_derivative(u, x=height, axis=vertical_dim)
+#     dvdz = first_derivative(v, x=height, axis=vertical_dim)
 
-    return (g / potential_temperature) * (dthetadz / (dudz ** 2 + dvdz ** 2))
+#     return (g / potential_temperature) * (dthetadz / (dudz ** 2 + dvdz ** 2))
 
 
 # def first_derivative(f, axis=None, x=None, delta=None):
-    r"""Calculate the first derivative of a grid of values.
+#     r"""Calculate the first derivative of a grid of values.
 
-    Works for both regularly-spaced data and grids with varying spacing.
+#     Works for both regularly-spaced data and grids with varying spacing.
 
-    Either `x` or `delta` must be specified, or `f` must be given as an `xarray.DataArray` with
-    attached coordinate and projection information. If `f` is an `xarray.DataArray`, and `x` or
-    `delta` are given, `f` will be converted to a `numpy.ndarray` and the derivative returned
-    as a `numpy.ndarray`, otherwise, if neither `x` nor `delta` are given, the attached
-    coordinate information belonging to `axis` will be used and the derivative will be returned
-    as an `xarray.DataArray`.
+#     Either `x` or `delta` must be specified, or `f` must be given as an `xarray.DataArray` with
+#     attached coordinate and projection information. If `f` is an `xarray.DataArray`, and `x` or
+#     `delta` are given, `f` will be converted to a `numpy.ndarray` and the derivative returned
+#     as a `numpy.ndarray`, otherwise, if neither `x` nor `delta` are given, the attached
+#     coordinate information belonging to `axis` will be used and the derivative will be returned
+#     as an `xarray.DataArray`.
 
-    This uses 3 points to calculate the derivative, using forward or backward at the edges of
-    the grid as appropriate, and centered elsewhere. The irregular spacing is handled
-    explicitly, using the formulation as specified by [Bowen2005]_.
+#     This uses 3 points to calculate the derivative, using forward or backward at the edges of
+#     the grid as appropriate, and centered elsewhere. The irregular spacing is handled
+#     explicitly, using the formulation as specified by [Bowen2005]_.
 
-    Parameters
-    ----------
-    f : array-like
-        Array of values of which to calculate the derivative
-    axis : int or str, optional
-        The array axis along which to take the derivative. If `f` is ndarray-like, must be an
-        integer. If `f` is a `DataArray`, can be a string (referring to either the coordinate
-        dimension name or the axis type) or integer (referring to axis number), unless using
-        implicit conversion to `numpy.ndarray`, in which case it must be an integer. Defaults
-        to 0. For reference, the current standard axis types are 'time', 'vertical', 'y', and
-        'x'.
-    x : array-like, optional
-        The coordinate values corresponding to the grid points in `f`
-    delta : array-like, optional
-        Spacing between the grid points in `f`. Should be one item less than the size
-        of `f` along `axis`.
+#     Parameters
+#     ----------
+#     f : array-like
+#         Array of values of which to calculate the derivative
+#     axis : int or str, optional
+#         The array axis along which to take the derivative. If `f` is ndarray-like, must be an
+#         integer. If `f` is a `DataArray`, can be a string (referring to either the coordinate
+#         dimension name or the axis type) or integer (referring to axis number), unless using
+#         implicit conversion to `numpy.ndarray`, in which case it must be an integer. Defaults
+#         to 0. For reference, the current standard axis types are 'time', 'vertical', 'y', and
+#         'x'.
+#     x : array-like, optional
+#         The coordinate values corresponding to the grid points in `f`
+#     delta : array-like, optional
+#         Spacing between the grid points in `f`. Should be one item less than the size
+#         of `f` along `axis`.
 
-    Returns
-    -------
-    array-like
-        The first derivative calculated along the selected axis
+#     Returns
+#     -------
+#     array-like
+#         The first derivative calculated along the selected axis
 
 
-    .. versionchanged:: 1.0
-       Changed signature from ``(f, **kwargs)``
+#     .. versionchanged:: 1.0
+#        Changed signature from ``(f, **kwargs)``
 
-    See Also
-    --------
-    second_derivative
+#     See Also
+#     --------
+#     second_derivative
 
-    """
-    n, axis, delta = _process_deriv_args(f, axis, x, delta)
-    take = make_take(n, axis)
+#     """
+#     n, axis, delta = _process_deriv_args(f, axis, x, delta)
+#     take = make_take(n, axis)
 
-    # First handle centered case
-    slice0 = take(slice(None, -2))
-    slice1 = take(slice(1, -1))
-    slice2 = take(slice(2, None))
-    delta_slice0 = take(slice(None, -1))
-    delta_slice1 = take(slice(1, None))
+#     # First handle centered case
+#     slice0 = take(slice(None, -2))
+#     slice1 = take(slice(1, -1))
+#     slice2 = take(slice(2, None))
+#     delta_slice0 = take(slice(None, -1))
+#     delta_slice1 = take(slice(1, None))
 
-    combined_delta = delta[delta_slice0] + delta[delta_slice1]
-    delta_diff = delta[delta_slice1] - delta[delta_slice0]
-    center = (- delta[delta_slice1] / (combined_delta * delta[delta_slice0]) * f[slice0]
-              + delta_diff / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
-              + delta[delta_slice0] / (combined_delta * delta[delta_slice1]) * f[slice2])
+#     combined_delta = delta[delta_slice0] + delta[delta_slice1]
+#     delta_diff = delta[delta_slice1] - delta[delta_slice0]
+#     center = (- delta[delta_slice1] / (combined_delta * delta[delta_slice0]) * f[slice0]
+#               + delta_diff / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
+#               + delta[delta_slice0] / (combined_delta * delta[delta_slice1]) * f[slice2])
 
-    # Fill in "left" edge with forward difference
-    slice0 = take(slice(None, 1))
-    slice1 = take(slice(1, 2))
-    slice2 = take(slice(2, 3))
-    delta_slice0 = take(slice(None, 1))
-    delta_slice1 = take(slice(1, 2))
+#     # Fill in "left" edge with forward difference
+#     slice0 = take(slice(None, 1))
+#     slice1 = take(slice(1, 2))
+#     slice2 = take(slice(2, 3))
+#     delta_slice0 = take(slice(None, 1))
+#     delta_slice1 = take(slice(1, 2))
 
-    combined_delta = delta[delta_slice0] + delta[delta_slice1]
-    big_delta = combined_delta + delta[delta_slice0]
-    left = (- big_delta / (combined_delta * delta[delta_slice0]) * f[slice0]
-            + combined_delta / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
-            - delta[delta_slice0] / (combined_delta * delta[delta_slice1]) * f[slice2])
+#     combined_delta = delta[delta_slice0] + delta[delta_slice1]
+#     big_delta = combined_delta + delta[delta_slice0]
+#     left = (- big_delta / (combined_delta * delta[delta_slice0]) * f[slice0]
+#             + combined_delta / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
+#             - delta[delta_slice0] / (combined_delta * delta[delta_slice1]) * f[slice2])
 
-    # Now the "right" edge with backward difference
-    slice0 = take(slice(-3, -2))
-    slice1 = take(slice(-2, -1))
-    slice2 = take(slice(-1, None))
-    delta_slice0 = take(slice(-2, -1))
-    delta_slice1 = take(slice(-1, None))
+#     # Now the "right" edge with backward difference
+#     slice0 = take(slice(-3, -2))
+#     slice1 = take(slice(-2, -1))
+#     slice2 = take(slice(-1, None))
+#     delta_slice0 = take(slice(-2, -1))
+#     delta_slice1 = take(slice(-1, None))
 
-    combined_delta = delta[delta_slice0] + delta[delta_slice1]
-    big_delta = combined_delta + delta[delta_slice1]
-    right = (delta[delta_slice1] / (combined_delta * delta[delta_slice0]) * f[slice0]
-             - combined_delta / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
-             + big_delta / (combined_delta * delta[delta_slice1]) * f[slice2])
+#     combined_delta = delta[delta_slice0] + delta[delta_slice1]
+#     big_delta = combined_delta + delta[delta_slice1]
+#     right = (delta[delta_slice1] / (combined_delta * delta[delta_slice0]) * f[slice0]
+#              - combined_delta / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
+#              + big_delta / (combined_delta * delta[delta_slice1]) * f[slice2])
 
-    return concatenate((left, center, right), axis=axis)
+#     return concatenate((left, center, right), axis=axis)
 
 
 # def _process_deriv_args(f, axis, x, delta):
-    """Handle common processing of arguments for derivative functions."""
-    n = f.ndim
-    axis = normalize_axis_index(axis if axis is not None else 0, n)
+#     """Handle common processing of arguments for derivative functions."""
+#     n = f.ndim
+#     axis = normalize_axis_index(axis if axis is not None else 0, n)
 
-    if f.shape[axis] < 3:
-        raise ValueError('f must have at least 3 point along the desired axis.')
+#     if f.shape[axis] < 3:
+#         raise ValueError('f must have at least 3 point along the desired axis.')
 
-    if delta is not None:
-        if x is not None:
-            raise ValueError('Cannot specify both "x" and "delta".')
+#     if delta is not None:
+#         if x is not None:
+#             raise ValueError('Cannot specify both "x" and "delta".')
 
-        delta = np.atleast_1d(delta)
-        if delta.size == 1:
-            diff_size = list(f.shape)
-            diff_size[axis] -= 1
-            delta_units = getattr(delta, 'units', None)
-            delta = np.broadcast_to(delta, diff_size, subok=True)
-            if not hasattr(delta, 'units') and delta_units is not None:
-                delta = delta * delta_units
-        else:
-            delta = _broadcast_to_axis(delta, axis, n)
-    elif x is not None:
-        x = _broadcast_to_axis(x, axis, n)
-        delta = np.diff(x, axis=axis)
-    else:
-        raise ValueError('Must specify either "x" or "delta" for value positions.')
+#         delta = np.atleast_1d(delta)
+#         if delta.size == 1:
+#             diff_size = list(f.shape)
+#             diff_size[axis] -= 1
+#             delta_units = getattr(delta, 'units', None)
+#             delta = np.broadcast_to(delta, diff_size, subok=True)
+#             if not hasattr(delta, 'units') and delta_units is not None:
+#                 delta = delta * delta_units
+#         else:
+#             delta = _broadcast_to_axis(delta, axis, n)
+#     elif x is not None:
+#         x = _broadcast_to_axis(x, axis, n)
+#         delta = np.diff(x, axis=axis)
+#     else:
+#         raise ValueError('Must specify either "x" or "delta" for value positions.')
 
-    return n, axis, delta
+#     return n, axis, delta
 
 
 
