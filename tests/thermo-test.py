@@ -1,5 +1,5 @@
 import unittest
-from ..src.thermo import potential_temperature
+from .src.thermo import potential_temperature
 
 class ThermoTest(unittest.TestCase):
     def test_theta(self):
