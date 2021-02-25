@@ -23,6 +23,6 @@ if sys.version_info < (3,):
 # os.environ['PINT_ARRAY_PROTOCOL_FALLBACK'] = '0'
 
 # from nakametpy._version import get_version  # noqa: E402
-from nakametpy._version import get_version  # noqa: E402
+from ._version import get_version  # noqa: E402
 __version__ = get_version()
 del get_version
