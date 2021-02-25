@@ -12,7 +12,7 @@
 # 単位はPa, K, RHは[0, 1]とする。
 #
 import numpy as np
-from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re
+from nakametpy.constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re
 
 
 def mixing_ratio_from_relative_humidity(relative_humidity, temperature, pressure):
@@ -20,19 +20,20 @@ def mixing_ratio_from_relative_humidity(relative_humidity, temperature, pressure
 
     Parameters
     ----------
-    relative_humidity: array_like
-        The relative humidity expressed as a unitless ratio in the range [0, 1]. Can also pass
-        a percentage if proper units are attached.
-        値は[0, 1]であるようだが、過冷却などを考えると1を越す値も欲しい。
-        実際に1を越す値を入れるとどのようになるのか振る舞いを見てみたい。
-    temperature: `pint.Quantity`
+    relative_humidity: `numpy.ndarray`
+        Relative Humidity
+        相対湿度
+        値は(0, 1]である必要がある
+    temperature: `numpy.ndarray`
         Air temperature
-    pressure: `pint.Quantity`
+        気温
+    pressure: `numpy.ndarray`
         Total atmospheric pressure
+        全圧
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         Dimensionless mixing ratio
 
     Notes
@@ -62,14 +63,14 @@ def saturation_mixing_ratio(tot_press, temperature):
 
     Parameters
     ----------
-    tot_press: `pint.Quantity`
+    tot_press: `numpy.ndarray`
         Total atmospheric pressure
-    temperature: `pint.Quantity`
+    temperature: `numpy.ndarray`
         air temperature
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         The saturation mixing ratio, dimensionless
 
     """
@@ -87,18 +88,18 @@ def mixing_ratio(part_press, tot_press, molecular_weight_ratio=0.622):
 
     Parameters
     ----------
-    part_press : `pint.Quantity`
+    part_press : `numpy.ndarray`
         Partial pressure of the constituent gas
-    tot_press : `pint.Quantity`
+    tot_press : `numpy.ndarray`
         Total air pressure
-    molecular_weight_ratio : `pint.Quantity` or float, optional
+    molecular_weight_ratio : `numpy.ndarray` or float, optional
         The ratio of the molecular weight of the constituent gas to that assumed
         for air. Defaults to the ratio for water vapor to dry air
         (:math:`\epsilon\approx0.622`).
         水の分子量と空気の平均の分子量の比=18/28.8
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         The (mass) mixing ratio, dimensionless (e.g. Kg/Kg or g/g)
 
     Notes
@@ -121,12 +122,12 @@ def mixing_ratio_from_specific_humidity(specific_humidity):
 
     Parameters
     ----------
-    specific_humidity: `pint.Quantity`
+    specific_humidity: `numpy.ndarray`
         Specific humidity of air
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         Mixing ratio
 
     Notes
@@ -153,12 +154,12 @@ def saturation_vapor_pressure(temperature):
 
     Parameters
     ----------
-    temperature : `pint.Quantity`
+    temperature : `numpy.ndarray`
         air temperature
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         The saturation water vapor (partial) pressure
 
     See Also
@@ -190,14 +191,14 @@ def dewpoint_from_relative_humidity(temperature, rh):
 
     Parameters
     ----------
-    temperature : `pint.Quantity`
+    temperature : `numpy.ndarray`
         air temperature
-    rh : `pint.Quantity`
+    rh : `numpy.ndarray`
         relative humidity expressed as a ratio in the range 0 < rh <= 1
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         The dewpoint temperature
 
     See Also
@@ -214,12 +215,12 @@ def dewpoint(e):
 
     Parameters
     ----------
-    e : `pint.Quantity`
+    e : `numpy.ndarray`
         Water vapor partial pressure
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         dewpoint temperature
 
     See Also
@@ -232,7 +233,7 @@ def dewpoint(e):
     pressure to instead calculate the temperature. This yield the following
     formula for dewpoint in degrees Celsius:
 
-    .. math:: T = \frac{243.5 log(e / 6.112)}{17.67 - log(e / 6.112)}
+    .. math:: T = \frac{243.5 \log(e / 6.112)}{17.67 - \log(e / 6.112)}
 
     """
     val = np.log(e / sat_pressure_0c)
@@ -244,18 +245,18 @@ def dewpoint_from_specific_humidity(pressure, temperature, specific_humidity):
 
     Parameters
     ----------
-    pressure: `pint.Quantity`
+    pressure: `numpy.ndarray`
         Total atmospheric pressure
 
-    temperature: `pint.Quantity`
+    temperature: `numpy.ndarray`
         Air temperature
 
-    specific_humidity: `pint.Quantity`
+    specific_humidity: `numpy.ndarray`
         Specific humidity of air
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         Dew point temperature
 
 
@@ -284,26 +285,26 @@ def equivalent_potential_temperature(pressure, temperature, dewpoint):
 
     Which is then used to calculate the potential temperature at the LCL:
 
-    .. math:: \theta_{DL}=T_{K}\left(\frac{1000}{p-e}\right)^k
-              \left(\frac{T_{K}}{T_{L}}\right)^{.28r}
+    .. math:: \theta_{DL}=T_{K}\left(\frac{1000}{p-e}\right)^\kappa
+              \left(\frac{T_{K}}{T_{L}}\right)^{0.28r}
 
     Both of these are used to calculate the final equivalent potential temperature:
 
     .. math:: \theta_{E}=\theta_{DL}\exp\left[\left(\frac{3036.}{T_{L}}
-                                              -1.78\right)*r(1+.448r)\right]
+                                              -1.78\right)\times r(1+0.448r)\right]
 
     Parameters
     ----------
-    pressure: `pint.Quantity`
+    pressure: `numpy.ndarray`
         Total atmospheric pressure
-    temperature: `pint.Quantity`
+    temperature: `numpy.ndarray`
         Temperature of parcel
-    dewpoint: `pint.Quantity`
+    dewpoint: `numpy.ndarray`
         Dewpoint of parcel
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         The equivalent potential temperature of the parcel
 
     Notes
@@ -334,14 +335,14 @@ def potential_temperature(pressure, temperature):
 
     Parameters
     ----------
-    pressure : `pint.Quantity`
+    pressure : `numpy.ndarray`
         total atmospheric pressure
-    temperature : `pint.Quantity`
+    temperature : `numpy.ndarray`
         air temperature
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         The potential temperature corresponding to the temperature and
         pressure.
 
@@ -377,15 +378,15 @@ def exner_function(pressure, reference_pressure=P0):
 
     Parameters
     ----------
-    pressure : `pint.Quantity`
+    pressure : `numpy.ndarray`
         total atmospheric pressure
-    reference_pressure : `pint.Quantity`, optional
+    reference_pressure : `numpy.ndarray`, optional
         The reference pressure against which to calculate the Exner function, defaults to
         metpy.constants.P0
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         The value of the Exner function at the given pressure
 
     See Also
@@ -402,12 +403,12 @@ def specific_humidity_from_mixing_ratio(mixing_ratio):
 
     Parameters
     ----------
-    mixing_ratio: `pint.Quantity`
+    mixing_ratio: `numpy.ndarray`
         mixing ratio
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         Specific humidity
 
     Notes
@@ -435,18 +436,18 @@ def virtual_temperature(temperature, mixing_ratio, molecular_weight_ratio=epsilo
 
     Parameters
     ----------
-    temperature: `pint.Quantity`
+    temperature: `numpy.ndarray`
         air temperature
-    mixing_ratio : `pint.Quantity`
+    mixing_ratio : `numpy.ndarray`
         dimensionless mass mixing ratio
-    molecular_weight_ratio : `pint.Quantity` or float, optional
+    molecular_weight_ratio : `numpy.ndarray` or float, optional
         The ratio of the molecular weight of the constituent gas to that assumed
         for air. Defaults to the ratio for water vapor to dry air.
         (:math:`\epsilon\approx0.622`).
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         The corresponding virtual temperature of the parcel
 
     Notes
@@ -466,20 +467,20 @@ def density(pressure, temperature, mixing_ratio, molecular_weight_ratio=epsilone
 
     Parameters
     ----------
-    pressure: `pint.Quantity`
+    pressure: `numpy.ndarray`
         Total atmospheric pressure
-    temperature: `pint.Quantity`
+    temperature: `numpy.ndarray`
         air temperature
-    mixing_ratio : `pint.Quantity`
+    mixing_ratio : `numpy.ndarray`
         dimensionless mass mixing ratio
-    molecular_weight_ratio : `pint.Quantity` or float, optional
+    molecular_weight_ratio : `numpy.ndarray` or float, optional
         The ratio of the molecular weight of the constituent gas to that assumed
         for air. Defaults to the ratio for water vapor to dry air.
         (:math:`\epsilon\approx0.622`).
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         The corresponding density of the parcel
 
     Notes
@@ -496,32 +497,30 @@ def relative_humidity_from_mixing_ratio(pressure, temperature, mixing_ratio):
 
     Parameters
     ----------
-    pressure: `pint.Quantity`
+    pressure: `numpy.ndarray`
         Total atmospheric pressure
 
-    temperature: `pint.Quantity`
+    temperature: `numpy.ndarray`
         Air temperature
 
-    mixing_ratio: `pint.Quantity`
+    mixing_ratio: `numpy.ndarray`
         Dimensionless mass mixing ratio
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         Relative humidity
 
     Notes
     -----
     Formula based on that from [Hobbs1977]_ pg. 74.
 
-    .. math:: relative_humidity = \frac{w}{w_s}
+    .. math:: RH = \frac{w}{w_s}
 
     * :math:`relative_humidity` is relative humidity as a unitless ratio
     * :math:`w` is mixing ratio
     * :math:`w_s` is the saturation mixing ratio
 
-    .. versionchanged:: 1.0
-       Changed signature from ``(mixing_ratio, temperature, pressure)``
 
     See Also
     --------
@@ -536,32 +535,29 @@ def relative_humidity_from_specific_humidity(pressure, temperature, specific_hum
 
     Parameters
     ----------
-    pressure: `pint.Quantity`
+    pressure: `numpy.ndarray`
         Total atmospheric pressure
 
-    temperature: `pint.Quantity`
+    temperature: `numpy.ndarray`
         Air temperature
 
-    specific_humidity: `pint.Quantity`
+    specific_humidity: `numpy.ndarray`
         Specific humidity of air
 
     Returns
     -------
-    `pint.Quantity`
+    `numpy.ndarray`
         Relative humidity
 
     Notes
     -----
     Formula based on that from [Hobbs1977]_ pg. 74. and [Salby1996]_ pg. 118.
 
-    .. math:: relative_humidity = \frac{q}{(1-q)w_s}
+    .. math:: RH = \frac{q}{(1-q)w_s}
 
     * :math:`relative_humidity` is relative humidity as a unitless ratio
     * :math:`q` is specific humidity
     * :math:`w_s` is the saturation mixing ratio
-
-    .. versionchanged:: 1.0
-       Changed signature from ``(specific_humidity, temperature, pressure)``
 
     See Also
     --------
@@ -595,11 +591,12 @@ def k_index_3d(pressure, temperature, rh):
     -----
     Formula based on that from [George1960]
 
-    .. math:: KI = T_850 - T_500 + Td_850 - \left(T_700 - Td_700\right)
+    .. math:: KI = T_{850} - T_{500} + Td_{850} - \left(T_{700} - Td_{700}\right)
 
     * :math:`KI` is K index  
     * :math:`T` is temperature  
-    * :math:`Td` is dew-point temperature  
+    * :math:`Td` is dew-point temperature
+    
     Subscript means its pressure level  
 
     """
@@ -633,11 +630,12 @@ def k_index_2d(t850, t700, t500, rh850, rh700):
     -----
     Formula based on that from [George1960]
 
-    .. math:: KI = T_850 - T_500 + Td_850 - \left(T_700 - Td_700\right)
+    .. math:: KI = T_{850} - T_{500} + Td_{850} - \left(T_{700} - Td_{700}\right)
 
     * :math:`KI` is K index  
     * :math:`T` is temperature  
-    * :math:`Td` is dew-point temperature  
+    * :math:`Td` is dew-point temperature
+
     Subscript means its pressure level  
 
     """
@@ -650,171 +648,171 @@ def showalter_stability_index(t850, t500, p850, p500):
     この計算では乾燥断熱減率のみを考慮しているため、湿潤断熱変化も含めたSSIを
     求める方法が必要である。
     
-    .. math:: SSI = T_500 - T_{850\rightawwow 500}^*
+    .. math:: SSI = T_{500} - T_{850\rightarrow 500}^*
     '''
     return t500 - potential_temperature(p850, t850)/exner_function(p500)
 
 
 # def gradient_richardson_number(height, potential_temperature, u, v, vertical_dim=0):
-    r"""Calculate the gradient (or flux) Richardson number.
+#     r"""Calculate the gradient (or flux) Richardson number.
 
-    .. math::   Ri = (g/\theta) * \frac{\left(\partial \theta/\partial z\)}
-             {[\left(\partial u / \partial z\right)^2 + \left(\partial v / \partial z\right)^2}
+#     .. math::   Ri = (g/\theta) * \frac{\left(\partial \theta/\partial z\)}
+#              {[\left(\partial u / \partial z\right)^2 + \left(\partial v / \partial z\right)^2}
 
-    See [Holton2004]_ pg. 121-122. As noted by [Holton2004]_, flux Richardson
-    number values below 0.25 indicate turbulence.
+#     See [Holton2004]_ pg. 121-122. As noted by [Holton2004]_, flux Richardson
+#     number values below 0.25 indicate turbulence.
 
-    Parameters
-    ----------
-    height : `pint.Quantity`
-        Atmospheric height
+#     Parameters
+#     ----------
+#     height : `numpy.ndarray`
+#         Atmospheric height
 
-    potential_temperature : `pint.Quantity`
-        Atmospheric potential temperature
+#     potential_temperature : `numpy.ndarray`
+#         Atmospheric potential temperature
 
-    u : `pint.Quantity`
-        X component of the wind
+#     u : `numpy.ndarray`
+#         X component of the wind
 
-    v : `pint.Quantity`
-        y component of the wind
+#     v : `numpy.ndarray`
+#         y component of the wind
 
-    vertical_dim : int, optional
-        The axis corresponding to vertical, defaults to 0. Automatically determined from
-        xarray DataArray arguments.
+#     vertical_dim : int, optional
+#         The axis corresponding to vertical, defaults to 0. Automatically determined from
+#         xarray DataArray arguments.
 
-    Returns
-    -------
-    `pint.Quantity`
-        Gradient Richardson number
-    """
-    dthetadz = first_derivative(potential_temperature, x=height, axis=vertical_dim)
-    dudz = first_derivative(u, x=height, axis=vertical_dim)
-    dvdz = first_derivative(v, x=height, axis=vertical_dim)
+#     Returns
+#     -------
+#     `numpy.ndarray`
+#         Gradient Richardson number
+#     """
+#     dthetadz = first_derivative(potential_temperature, x=height, axis=vertical_dim)
+#     dudz = first_derivative(u, x=height, axis=vertical_dim)
+#     dvdz = first_derivative(v, x=height, axis=vertical_dim)
 
-    return (g / potential_temperature) * (dthetadz / (dudz ** 2 + dvdz ** 2))
+#     return (g / potential_temperature) * (dthetadz / (dudz ** 2 + dvdz ** 2))
 
 
 # def first_derivative(f, axis=None, x=None, delta=None):
-    r"""Calculate the first derivative of a grid of values.
+#     r"""Calculate the first derivative of a grid of values.
 
-    Works for both regularly-spaced data and grids with varying spacing.
+#     Works for both regularly-spaced data and grids with varying spacing.
 
-    Either `x` or `delta` must be specified, or `f` must be given as an `xarray.DataArray` with
-    attached coordinate and projection information. If `f` is an `xarray.DataArray`, and `x` or
-    `delta` are given, `f` will be converted to a `pint.Quantity` and the derivative returned
-    as a `pint.Quantity`, otherwise, if neither `x` nor `delta` are given, the attached
-    coordinate information belonging to `axis` will be used and the derivative will be returned
-    as an `xarray.DataArray`.
+#     Either `x` or `delta` must be specified, or `f` must be given as an `xarray.DataArray` with
+#     attached coordinate and projection information. If `f` is an `xarray.DataArray`, and `x` or
+#     `delta` are given, `f` will be converted to a `numpy.ndarray` and the derivative returned
+#     as a `numpy.ndarray`, otherwise, if neither `x` nor `delta` are given, the attached
+#     coordinate information belonging to `axis` will be used and the derivative will be returned
+#     as an `xarray.DataArray`.
 
-    This uses 3 points to calculate the derivative, using forward or backward at the edges of
-    the grid as appropriate, and centered elsewhere. The irregular spacing is handled
-    explicitly, using the formulation as specified by [Bowen2005]_.
+#     This uses 3 points to calculate the derivative, using forward or backward at the edges of
+#     the grid as appropriate, and centered elsewhere. The irregular spacing is handled
+#     explicitly, using the formulation as specified by [Bowen2005]_.
 
-    Parameters
-    ----------
-    f : array-like
-        Array of values of which to calculate the derivative
-    axis : int or str, optional
-        The array axis along which to take the derivative. If `f` is ndarray-like, must be an
-        integer. If `f` is a `DataArray`, can be a string (referring to either the coordinate
-        dimension name or the axis type) or integer (referring to axis number), unless using
-        implicit conversion to `pint.Quantity`, in which case it must be an integer. Defaults
-        to 0. For reference, the current standard axis types are 'time', 'vertical', 'y', and
-        'x'.
-    x : array-like, optional
-        The coordinate values corresponding to the grid points in `f`
-    delta : array-like, optional
-        Spacing between the grid points in `f`. Should be one item less than the size
-        of `f` along `axis`.
+#     Parameters
+#     ----------
+#     f : array-like
+#         Array of values of which to calculate the derivative
+#     axis : int or str, optional
+#         The array axis along which to take the derivative. If `f` is ndarray-like, must be an
+#         integer. If `f` is a `DataArray`, can be a string (referring to either the coordinate
+#         dimension name or the axis type) or integer (referring to axis number), unless using
+#         implicit conversion to `numpy.ndarray`, in which case it must be an integer. Defaults
+#         to 0. For reference, the current standard axis types are 'time', 'vertical', 'y', and
+#         'x'.
+#     x : array-like, optional
+#         The coordinate values corresponding to the grid points in `f`
+#     delta : array-like, optional
+#         Spacing between the grid points in `f`. Should be one item less than the size
+#         of `f` along `axis`.
 
-    Returns
-    -------
-    array-like
-        The first derivative calculated along the selected axis
+#     Returns
+#     -------
+#     array-like
+#         The first derivative calculated along the selected axis
 
 
-    .. versionchanged:: 1.0
-       Changed signature from ``(f, **kwargs)``
+#     .. versionchanged:: 1.0
+#        Changed signature from ``(f, **kwargs)``
 
-    See Also
-    --------
-    second_derivative
+#     See Also
+#     --------
+#     second_derivative
 
-    """
-    n, axis, delta = _process_deriv_args(f, axis, x, delta)
-    take = make_take(n, axis)
+#     """
+#     n, axis, delta = _process_deriv_args(f, axis, x, delta)
+#     take = make_take(n, axis)
 
-    # First handle centered case
-    slice0 = take(slice(None, -2))
-    slice1 = take(slice(1, -1))
-    slice2 = take(slice(2, None))
-    delta_slice0 = take(slice(None, -1))
-    delta_slice1 = take(slice(1, None))
+#     # First handle centered case
+#     slice0 = take(slice(None, -2))
+#     slice1 = take(slice(1, -1))
+#     slice2 = take(slice(2, None))
+#     delta_slice0 = take(slice(None, -1))
+#     delta_slice1 = take(slice(1, None))
 
-    combined_delta = delta[delta_slice0] + delta[delta_slice1]
-    delta_diff = delta[delta_slice1] - delta[delta_slice0]
-    center = (- delta[delta_slice1] / (combined_delta * delta[delta_slice0]) * f[slice0]
-              + delta_diff / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
-              + delta[delta_slice0] / (combined_delta * delta[delta_slice1]) * f[slice2])
+#     combined_delta = delta[delta_slice0] + delta[delta_slice1]
+#     delta_diff = delta[delta_slice1] - delta[delta_slice0]
+#     center = (- delta[delta_slice1] / (combined_delta * delta[delta_slice0]) * f[slice0]
+#               + delta_diff / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
+#               + delta[delta_slice0] / (combined_delta * delta[delta_slice1]) * f[slice2])
 
-    # Fill in "left" edge with forward difference
-    slice0 = take(slice(None, 1))
-    slice1 = take(slice(1, 2))
-    slice2 = take(slice(2, 3))
-    delta_slice0 = take(slice(None, 1))
-    delta_slice1 = take(slice(1, 2))
+#     # Fill in "left" edge with forward difference
+#     slice0 = take(slice(None, 1))
+#     slice1 = take(slice(1, 2))
+#     slice2 = take(slice(2, 3))
+#     delta_slice0 = take(slice(None, 1))
+#     delta_slice1 = take(slice(1, 2))
 
-    combined_delta = delta[delta_slice0] + delta[delta_slice1]
-    big_delta = combined_delta + delta[delta_slice0]
-    left = (- big_delta / (combined_delta * delta[delta_slice0]) * f[slice0]
-            + combined_delta / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
-            - delta[delta_slice0] / (combined_delta * delta[delta_slice1]) * f[slice2])
+#     combined_delta = delta[delta_slice0] + delta[delta_slice1]
+#     big_delta = combined_delta + delta[delta_slice0]
+#     left = (- big_delta / (combined_delta * delta[delta_slice0]) * f[slice0]
+#             + combined_delta / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
+#             - delta[delta_slice0] / (combined_delta * delta[delta_slice1]) * f[slice2])
 
-    # Now the "right" edge with backward difference
-    slice0 = take(slice(-3, -2))
-    slice1 = take(slice(-2, -1))
-    slice2 = take(slice(-1, None))
-    delta_slice0 = take(slice(-2, -1))
-    delta_slice1 = take(slice(-1, None))
+#     # Now the "right" edge with backward difference
+#     slice0 = take(slice(-3, -2))
+#     slice1 = take(slice(-2, -1))
+#     slice2 = take(slice(-1, None))
+#     delta_slice0 = take(slice(-2, -1))
+#     delta_slice1 = take(slice(-1, None))
 
-    combined_delta = delta[delta_slice0] + delta[delta_slice1]
-    big_delta = combined_delta + delta[delta_slice1]
-    right = (delta[delta_slice1] / (combined_delta * delta[delta_slice0]) * f[slice0]
-             - combined_delta / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
-             + big_delta / (combined_delta * delta[delta_slice1]) * f[slice2])
+#     combined_delta = delta[delta_slice0] + delta[delta_slice1]
+#     big_delta = combined_delta + delta[delta_slice1]
+#     right = (delta[delta_slice1] / (combined_delta * delta[delta_slice0]) * f[slice0]
+#              - combined_delta / (delta[delta_slice0] * delta[delta_slice1]) * f[slice1]
+#              + big_delta / (combined_delta * delta[delta_slice1]) * f[slice2])
 
-    return concatenate((left, center, right), axis=axis)
+#     return concatenate((left, center, right), axis=axis)
 
 
 # def _process_deriv_args(f, axis, x, delta):
-    """Handle common processing of arguments for derivative functions."""
-    n = f.ndim
-    axis = normalize_axis_index(axis if axis is not None else 0, n)
+#     """Handle common processing of arguments for derivative functions."""
+#     n = f.ndim
+#     axis = normalize_axis_index(axis if axis is not None else 0, n)
 
-    if f.shape[axis] < 3:
-        raise ValueError('f must have at least 3 point along the desired axis.')
+#     if f.shape[axis] < 3:
+#         raise ValueError('f must have at least 3 point along the desired axis.')
 
-    if delta is not None:
-        if x is not None:
-            raise ValueError('Cannot specify both "x" and "delta".')
+#     if delta is not None:
+#         if x is not None:
+#             raise ValueError('Cannot specify both "x" and "delta".')
 
-        delta = np.atleast_1d(delta)
-        if delta.size == 1:
-            diff_size = list(f.shape)
-            diff_size[axis] -= 1
-            delta_units = getattr(delta, 'units', None)
-            delta = np.broadcast_to(delta, diff_size, subok=True)
-            if not hasattr(delta, 'units') and delta_units is not None:
-                delta = delta * delta_units
-        else:
-            delta = _broadcast_to_axis(delta, axis, n)
-    elif x is not None:
-        x = _broadcast_to_axis(x, axis, n)
-        delta = np.diff(x, axis=axis)
-    else:
-        raise ValueError('Must specify either "x" or "delta" for value positions.')
+#         delta = np.atleast_1d(delta)
+#         if delta.size == 1:
+#             diff_size = list(f.shape)
+#             diff_size[axis] -= 1
+#             delta_units = getattr(delta, 'units', None)
+#             delta = np.broadcast_to(delta, diff_size, subok=True)
+#             if not hasattr(delta, 'units') and delta_units is not None:
+#                 delta = delta * delta_units
+#         else:
+#             delta = _broadcast_to_axis(delta, axis, n)
+#     elif x is not None:
+#         x = _broadcast_to_axis(x, axis, n)
+#         delta = np.diff(x, axis=axis)
+#     else:
+#         raise ValueError('Must specify either "x" or "delta" for value positions.')
 
-    return n, axis, delta
+#     return n, axis, delta
 
 
 
