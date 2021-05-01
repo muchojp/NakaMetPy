@@ -10,7 +10,8 @@ Welcome to nakametpy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   main
+   kinematics
+   thermo
 
 
 Indices and tables
