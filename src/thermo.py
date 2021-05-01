@@ -12,7 +12,7 @@
 # 単位はPa, K, RHは[0, 1]とする。
 #
 import numpy as np
-from constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re
+from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re
 
 
 def mixing_ratio_from_relative_humidity(relative_humidity, temperature, pressure):
@@ -476,7 +476,7 @@ def density(pressure, temperature, mixing_ratio, molecular_weight_ratio=epsilone
     molecular_weight_ratio : `numpy.ndarray` or float, optional
         The ratio of the molecular weight of the constituent gas to that assumed
         for air. Defaults to the ratio for water vapor to dry air.
-        (:math:`\epsilon\approx0.622`).
+        (:math:`\varepsilon\approx0.622`).
 
     Returns
     -------
