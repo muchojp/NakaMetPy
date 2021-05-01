@@ -1,0 +1,8 @@
+documentation
+=============
+
+.. toctree::
+   :maxdepth: 4
+
+   kinematics
+   thermo
