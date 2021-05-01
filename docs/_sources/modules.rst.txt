@@ -4,5 +4,6 @@ documentation
 .. toctree::
    :maxdepth: 4
 
+   constants
    kinematics
    thermo
