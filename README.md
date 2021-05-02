@@ -39,6 +39,7 @@ Future:
 ---
 [![PyPI version][pypi-image]][pypi-link]
 [![Anaconda version][anaconda-v-image]][anaconda-v-link]
+[![pytest](https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml/badge.svg)](https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml)
 [![Travis][travis-image]][travis-link]
 
 [pypi-image]: https://badge.fury.io/py/nakametpy.svg
@@ -47,4 +48,6 @@ Future:
 [anaconda-v-link]: https://anaconda.org/muchiwo/nakametpy
 [travis-image]: https://travis-ci.org/muchojp/NakaMetPy.svg?branch=main
 [travis-link]: https://travis-ci.org/github/muchojp/NakaMetPy
+[github-actions-image]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml/badge.svg
+[github-actions-link]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml
  
