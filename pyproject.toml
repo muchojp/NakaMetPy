@@ -6,6 +6,7 @@ authors = ["muchojp <contact.muchiwo@mail.com>"]
 license = "BSD-3-Clause"
 readme = "README.md"
 homepage = "https://github.com/muchojp/NakaMetPy"
+repository = "https://github.com/muchojp/NakaMetPy"
 documentation = "https://muchojp.github.io/NakaMetPy/"
 
 [tool.poetry.dependencies]
