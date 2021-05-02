@@ -47,13 +47,18 @@ pip install nakametpy
 
 Licence: `BSD-3-Clause`
 
+Next: 
+ - ドキュメンテーションの公開(`dev`には公開済み)
+ - Colormapの実装
+
+
 To Do: 
  - MetPyの関数の移植(Further addition of MetPy function)
  - 方位角平均を取る関数の作成(Add function of Azimuthal Mean)
- - ドキュメンテーションの作成(Create docummentation webpage)
+ - ~~ドキュメンテーションの作成(Create docummentation webpage)~~
 
 Future:
- - Matplotlibの気象でよく使うであろうカラーマップを返す関数の実装(0.3.0)(Add colormap function which is used often in Meteorology)
- - 計算部分のGPU対応(1.0.0)(GPU compatible)
+ - ~~Matplotlibの気象でよく使うであろうカラーマップを返す関数の実装(0.3.0)(Add colormap function which is used often in Meteorology)~~
+ - 計算部分のGPU対応(1.x or 2.x)(GPU compatible)
 
  
