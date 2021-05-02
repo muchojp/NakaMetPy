@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 # install_requires = [
 #     'numpy>=1.17.0',
@@ -9,10 +9,8 @@ def _requires_from_file(filename):
     return open(filename).read().splitlines()
 
 
-packages = [
-    'src',
-    'tests'
-]
+# packages = ['src', 'tests']
+
 
 console_scripts = [
     # 'sample_lib_cli=sample_lib_cli.call:main',
@@ -25,7 +23,8 @@ setup(
     # version='0.1.0', # (2021.01.19)
     version='0.2.8', # (2021.02.20)
     description='Meteorological modules for calculation and colormap.',
-    packages=packages,
+    # packages=packages,
+    pachages=find_packages(),
     # install_requires=install_requires,
     install_requires=_requires_from_file('requirements.txt'),
     url = 'https://github.com/muchojp/NakaMetPy',
