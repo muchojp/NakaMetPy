@@ -3,6 +3,11 @@ name = "NakaMetPy"
 version = "0.2.7"
 description = "Meteorological Tools for Calculation and Colormap."
 authors = ["muchojp <contact.muchiwo@mail.com>"]
+licence = "BSD-3-Clause"
+readme = "README.md"
+python = "^3.6"
+homepage = "https://github.com/muchojp/NakaMetPy"
+documentation = "https://muchojp.github.io/NakaMetPy/"
 
 [tool.poetry.dependencies]
 python = "^3.6"
