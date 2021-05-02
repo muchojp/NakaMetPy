@@ -49,7 +49,7 @@ Licence: `BSD-3-Clause`
 
 Next(`0.3.0`): 
  - ドキュメンテーションの公開(`dev`には公開済み)
- - Colormapの実装
+ - Colormapの実装(add colormaps)
  - JMAのデータを読む時に便利な関数の実装
 
 
