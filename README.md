@@ -1,7 +1,4 @@
-
-
 # NakaMetPy
----
 
 [![PyPI version][pypi-image]][pypi-link]
 [![Anaconda version][anaconda-v-image]][anaconda-v-link]
