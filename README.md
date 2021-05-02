@@ -1,4 +1,23 @@
-# 概要
+
+
+# NakaMetPy
+---
+
+[![PyPI version][pypi-image]][pypi-link]
+[![Anaconda version][anaconda-v-image]][anaconda-v-link]
+[![pytest](https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml/badge.svg)](https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml)
+<!-- [![Travis][travis-image]][travis-link] -->
+
+[pypi-image]: https://badge.fury.io/py/nakametpy.svg
+[pypi-link]: https://pypi.org/project/nakametpy
+[anaconda-v-image]: https://anaconda.org/muchiwo/nakametpy/badges/version.svg
+[anaconda-v-link]: https://anaconda.org/muchiwo/nakametpy
+<!-- [travis-image]: https://travis-ci.org/muchojp/NakaMetPy.svg?branch=main
+[travis-link]: https://travis-ci.org/github/muchojp/NakaMetPy -->
+[github-actions-image]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml/badge.svg
+[github-actions-link]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml
+
+## 概要
 このモジュールはMetPyをNumPyのみで動作するように書き換えたものです。
 気象データをNumPyでベクトル(配列)として扱うことを想定しています。
 
@@ -8,18 +27,18 @@
 NakaMetPyは今後はもっと拡充していく予定です。
 皆さんのContributionもお待ちしています。
 
-# Abstract
+## Abstract
 `nakametpy` is a rewrited package of `MetPy` based on `NumPy`.
 I appreciate your contribution.
 
-# How to Install
-## via Anaconda
+## How to Install
+### via Anaconda
 
 ```
 conda install -c muchiwo nakametpy
 ````
 
-## via PyPI
+### via PyPI
 
 ```
 pip install nakametpy
@@ -37,17 +56,4 @@ Future:
  - 計算部分のGPU対応(1.0.0)(GPU compatible)
 
 ---
-[![PyPI version][pypi-image]][pypi-link]
-[![Anaconda version][anaconda-v-image]][anaconda-v-link]
-[![pytest](https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml/badge.svg)](https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml)
-<!-- [![Travis][travis-image]][travis-link] -->
-
-[pypi-image]: https://badge.fury.io/py/nakametpy.svg
-[pypi-link]: https://pypi.org/project/nakametpy
-[anaconda-v-image]: https://anaconda.org/muchiwo/nakametpy/badges/version.svg
-[anaconda-v-link]: https://anaconda.org/muchiwo/nakametpy
-<!-- [travis-image]: https://travis-ci.org/muchojp/NakaMetPy.svg?branch=main
-[travis-link]: https://travis-ci.org/github/muchojp/NakaMetPy -->
-[github-actions-image]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml/badge.svg
-[github-actions-link]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml
  
