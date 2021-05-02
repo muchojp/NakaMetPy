@@ -47,13 +47,15 @@ pip install nakametpy
 
 Licence: `BSD-3-Clause`
 
-Next: 
+Next(`0.3.0`): 
  - ドキュメンテーションの公開(`dev`には公開済み)
  - Colormapの実装
+ - JMAのデータを読む時に便利な関数の実装
 
 
 To Do: 
  - MetPyの関数の移植(Further addition of MetPy function)
+ - NCLに実装されている関数の移植(adding the NCL's function)
  - 方位角平均を取る関数の作成(Add function of Azimuthal Mean)
  - ~~ドキュメンテーションの作成(Create docummentation webpage)~~
 
