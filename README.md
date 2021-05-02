@@ -28,6 +28,10 @@ NakaMetPyは今後はもっと拡充していく予定です。
 `nakametpy` is a rewrited package of `MetPy` based on `NumPy`.
 I appreciate your contribution.
 
+## Documentation
+ドキュメンテーションは[こちら](https://muchojp.github.io/NakaMetPy/ "Docs")のページにあります。
+Documentation is [HERE](https://muchojp.github.io/NakaMetPy/).
+
 ## How to Install
 ### via Anaconda
 
@@ -52,5 +56,4 @@ Future:
  - Matplotlibの気象でよく使うであろうカラーマップを返す関数の実装(0.3.0)(Add colormap function which is used often in Meteorology)
  - 計算部分のGPU対応(1.0.0)(GPU compatible)
 
----
  
