@@ -283,6 +283,10 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
     変数の発散を求める関数。
     distance_2dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
+    URL: https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml
+
+    を参考にし、`v1.0.0`から緯度依存の効果を追加する予定である。
+
     Parameters
     ----------
     var: `numpy.ndarray`
@@ -313,6 +317,11 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
     div[:, 1:-1] += (grad_x_stag[:, :-1]+grad_x_stag[:, 1:])/2
     div[1:-1, :] += (grad_y_stag[:-1, :]+grad_y_stag[1:, :])/2
     return div
+
+
+# def uv2dv_cfd(u, v, lat, lon, boundOpt=2):
+#     div = np.ma.zeros(u.shape[-2]-2, u.shape[-1]-2)
+
 
 
 def vert_grad_3d(variables, pres_3d, z_dim=0):
