@@ -21,14 +21,15 @@ setup(
     name='nakametpy',
     python_requires='>=3.6.0',
     # version='0.1.0', # (2021.01.19)
-    version='0.2.8', # (2021.02.20)
+    # version='0.2.8', # (2021.02.20)
+    version='1.0.0', # (2021.06.04)
     description='Meteorological modules for calculation and colormap.',
     # packages=packages,
     pachages=find_packages(),
     # install_requires=install_requires,
     install_requires=_requires_from_file('requirements.txt'),
     url = 'https://github.com/muchojp/NakaMetPy',
-    author = 'Yuki Nakamura',
+    author = 'muchojp',
     author_email = 'contact.muchiwo@gmail.com',
     license='BSD 3-clause',
     # entry_points={'console_scripts': console_scripts},
