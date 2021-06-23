@@ -17,6 +17,8 @@
 import numpy as np
 from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
 from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re, f0, GammaD
+import traceback
+import sys
 
 
 
@@ -292,18 +294,17 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
 
 def divergence_2d(fx, fy, dx, dy, wrfon=0):
     r'''
-    変数の発散を求める関数。
+    直交座標系において変数の発散を求める関数。
     distance_2dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
-
-    URL: https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml
-
-    を参考にし、`v1.0.0`から緯度依存の効果を追加する予定である。
 
     Parameters
     ----------
-    var: `numpy.ndarray`
-        variable
-        計算したい変数
+    fx: `numpy.ndarray`
+        x-flux
+        x(東西)方向のフラックス
+    fy: `numpy.ndarray`
+        y-flux
+        y(南北)方向のフラックス
     dx: `numpy.ndarray`
         dx
         var.shape[-1]-1 == dx.shape[-1]
@@ -333,10 +334,105 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
     div[:, 1:-1] += (grad_x_stag[:, :-1]+grad_x_stag[:, 1:])/2
     div[1:-1, :] += (grad_y_stag[:-1, :]+grad_y_stag[1:, :])/2
     return div
+    
 
 
-# def uv2dv_cfd(u, v, lat, lon, boundOpt=2):
-#     div = np.ma.zeros(u.shape[-2]-2, u.shape[-1]-2)
+def divergence(fx, fy, dx, dy, wrfon=0):
+    r'''
+    直交座標系において変数の発散を求める関数。
+    divergence_2dの拡張で3次元以上の配列に対応している。
+    distance_?dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+
+    Parameters
+    ----------
+    fx: `numpy.ndarray`
+        x-flux
+        x(東西)方向のフラックス
+    fy: `numpy.ndarray`
+        y-flux
+        y(南北)方向のフラックス
+    dx: `numpy.ndarray`
+        dx
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
+    dy: `numpy.ndarray`
+        dy
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        divergence
+    
+    '''
+    div = np.ma.zeros(fx.shape)
+    grad_x_stag = np.diff(fx, axis=-1)/dx
+    grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
+    div[..., 0] = grad_x_stag[..., 0]
+    div[..., -1] = grad_x_stag[..., -1]
+    div[..., 0, :] = grad_y_stag[..., 0, :]
+    div[..., -1, :] = grad_y_stag[..., -1, :]
+    div[..., 1:-1] += (grad_x_stag[..., :-1]+grad_x_stag[..., 1:])/2
+    div[..., 1:-1, :] += (grad_y_stag[..., :-1, :]+grad_y_stag[..., 1:, :])/2
+    return div
+
+
+def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
+    r'''
+    URL: https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml
+    
+    Parameters
+    ----------
+    fx: `numpy.ndarray`
+        x-flux
+        x(東西)方向のフラックス
+    fy: `numpy.ndarray`
+        y-flux
+        y(南北)方向のフラックス
+    dx: `numpy.ndarray`
+        dx
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
+    dy: `numpy.ndarray`
+        dy
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
+    lat: `numpy.ndarray`
+        lat
+        緯度パラメータの計算
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
+    boundOpt: `int`
+        boundOpt
+        今は4(境界は片方の成分の収束のみで計算)のみ対応
+
+    '''
+    if boundOpt != 4:
+        try:
+            raise ValueError('Only boudOpt 4 is available now.')
+        except:
+            traceback.print_exc()
+        # except ValueError as e:
+            # print(e)
+            
+    div = np.ma.zeros(fx.shape)
+    grad_x_stag = np.diff(fx, axis=-1)/dx
+    grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
+    lat_factor = (fy / Re) * np.cos(lat)
+    div[..., 0] = grad_x_stag[..., 0]
+    div[..., -1] = grad_x_stag[..., -1]
+    div[..., 0, :] = grad_y_stag[..., 0, :]
+    div[..., -1, :] = grad_y_stag[..., -1, :]
+    div[..., 1:-1] += (grad_x_stag[..., :-1]+grad_x_stag[..., 1:])/2
+    div[..., 1:-1, :] += (grad_y_stag[..., :-1, :]+grad_y_stag[..., 1:, :])/2 - lat_factor[..., 1:-1, :]
+    return div
 
 
 
