@@ -2,4 +2,3 @@ src/__pycache__/*
 build
 dist
 nakametpy*
-.pytest_cache
