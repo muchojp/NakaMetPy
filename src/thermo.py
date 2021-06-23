@@ -356,12 +356,6 @@ def potential_temperature(pressure, temperature):
 
     .. math:: \Theta = T (P_0 / P)^\kappa
 
-    Examples
-    --------
-    >>> from metpy.units import units
-    >>> metpy.calc.potential_temperature(800. * units.mbar, 273. * units.kelvin)
-    <Quantity(290.966533, 'kelvin')>
-
     """
     return temperature / exner_function(pressure)
 

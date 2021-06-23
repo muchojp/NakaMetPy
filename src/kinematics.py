@@ -168,20 +168,20 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
     Parameters
     ----------
     var: `numpy.ndarray`
-        variable
+        variable \\
         計算したい変数
     dx: `numpy.ndarray`
-        dx
-        var.shape[-1]-1 == dx.shape[-1]
+        dx \\
+        var.shape[-1]-1 == dx.shape[-1] \\
         経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
-        dy
-        var.shape[-2]-1 == dy.shape[-2]
-        経度方向の次元はvar.shape[-2]-1でなければならない
+        dy \\
+        var.shape[-2]-1 == dy.shape[-2] \\
+        経度方向の次元はvar.shape[-2]-1でなければならない \\
     wrfon: `int`
-        wrfon
-        Flag whether input data is wrfout or not
-        入力データがwrfoutか否かのフラグ
+        wrfon \\
+        Flag whether input data is wrfout or not \\ 
+        入力データがwrfoutか否かのフラグ \\
     
     Returns
     -------
@@ -212,19 +212,19 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
     Parameters
     ----------
     var: `numpy.ndarray`
-        variable
-        計算したい変数
+        variable \\
+        計算したい変数 
     dx: `numpy.ndarray`
-        dx
-        var.shape[-1]-1 == dx.shape[-1]
+        dx \\
+        var.shape[-1]-1 == dx.shape[-1] \\
         経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
-        dy
-        var.shape[-2]-1 == dy.shape[-2]
+        dy \\
+        var.shape[-2]-1 == dy.shape[-2] \\
         経度方向の次元はvar.shape[-2]-1でなければならない
     wrfon: `int`
-        wrfon
-        Flag whether input data is wrfout or not
+        wrfon \\
+        Flag whether input data is wrfout or not \\
         入力データがwrfoutか否かのフラグ
     
     Returns
@@ -421,7 +421,7 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
             traceback.print_exc()
         # except ValueError as e:
             # print(e)
-            
+
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
     grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
