@@ -23,7 +23,7 @@ setup(
     # version='0.1.0', # (2021.01.19)
     # version='0.2.8', # (2021.02.20)
     # version='1.0.0', # (2021.06.04)
-    version='2021.6.4', # (2021.06.04)
+    version='2021.6.5', # (2021.06.04)
     description='Meteorological modules for calculation and colormap.',
     packages=packages,
     # packages=find_packages('src'),
