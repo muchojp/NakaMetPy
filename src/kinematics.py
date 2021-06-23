@@ -15,8 +15,8 @@
 # 更新日：2021/01/25 地衡風と非地衡風、相対渦度、気温減率、偽断熱減率、静的安定パラメタを求める関数の実装
 #
 import numpy as np
-from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
-from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re, f0, GammaD
+from thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
+from constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re, f0, GammaD
 import traceback
 import sys
 
