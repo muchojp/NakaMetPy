@@ -1,4 +1,4 @@
 build
 dist
-nakametpy*
+src/nakametpy.egg-info
 !src/nakametpy/*
