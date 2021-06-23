@@ -20,8 +20,9 @@
 
 そのため、変数単位はMetPyとは異なり自分で気をつけて関数に与えなければなりません。
 また、関数の鉛直層数および時間のサイズはERA5の気圧面の次元のサイズをデフォルトで与えています。そのため、JRA-55やNCEP FNLで使用する際にはlev_lenやt_lenの値を毎回与える必要があります。
+さらに、WRFの計算結果を入力する場合は`wrfon`のオプションを1にする必要があります。
 
-NakaMetPyは今後はもっと拡充していく予定です。
+NakaMetPyは少なくとも2023年1月あたりまでは開発が継続される予定です。
 皆さんのContributionもお待ちしています。
 
 ## Abstract
@@ -47,20 +48,13 @@ pip install nakametpy
 
 Licence: `BSD-3-Clause`
 
-Next(`1.0.0`): 
- - ドキュメンテーションの公開(`dev`には公開済み)
- - Colormapの実装(add colormaps)
- - JMAのデータを読む時に便利な関数の実装
+Next(`2021.7.0`): 
+ - GPU(cupy)対応(GPU(cupy) compatible)
 
 
 To Do: 
  - MetPyの関数の移植(Further addition of MetPy function)
  - NCLに実装されている関数の移植(adding the NCL's function)
  - 方位角平均を取る関数の作成(Add function of Azimuthal Mean)
- - ~~ドキュメンテーションの作成(Create docummentation webpage)~~
-
-Future:
- - ~~Matplotlibの気象でよく使うであろうカラーマップを返す関数の実装(0.3.0)(Add colormap function which is used often in Meteorology)~~
- - 計算部分のGPU対応(1.x or 2.x)(GPU compatible)
 
  
