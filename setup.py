@@ -9,7 +9,7 @@ def _requires_from_file(filename):
     return open(filename).read().splitlines()
 
 
-# packages = ['src', 'tests']
+packages = ['src', 'tests']
 
 
 console_scripts = [
@@ -23,10 +23,10 @@ setup(
     # version='0.1.0', # (2021.01.19)
     # version='0.2.8', # (2021.02.20)
     # version='1.0.0', # (2021.06.04)
-    version='2021.6.2', # (2021.06.04)
+    version='2021.6.3', # (2021.06.04)
     description='Meteorological modules for calculation and colormap.',
-    # packages=packages,
-    packages=find_packages('src'),
+    packages=packages,
+    # packages=find_packages('src'),
     # install_requires=install_requires,
     install_requires=_requires_from_file('requirements.txt'),
     url = 'https://github.com/muchojp/NakaMetPy',
