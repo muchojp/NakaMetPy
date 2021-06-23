@@ -12,7 +12,7 @@
 # 単位はPa, K, RHは[0, 1]とする。
 #
 import numpy as np
-from constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re
+from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re
 
 
 def mixing_ratio_from_relative_humidity(relative_humidity, temperature, pressure):
