@@ -170,12 +170,16 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
         計算したい変数
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -210,12 +214,16 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
         計算したい変数
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -250,12 +258,16 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
         計算したい変数
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -294,12 +306,16 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
         計算したい変数
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -338,6 +354,10 @@ def vert_grad_3d(variables, pres_3d, z_dim=0):
         The same shape as var
         Use pressure_3d from 1d pressure array
         変数と同じ形で無ければならない。
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -428,12 +448,16 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
         変数と同じ形で無ければならない。
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -470,12 +494,16 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
         変数と同じ形で無ければならない。
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -534,16 +562,20 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
         変数と同じ形で無ければならない。
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
     timestep: `float`
         default = 3600 (for ERA5)
         This varies on dataset.
         使用するデータによって変更する必要がある。
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -618,16 +650,20 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
         変数と同じ形で無ければならない。
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
     timestep: `float`
         default = 3600 (for ERA5)
         This varies on dataset.
         使用するデータによって変更する必要がある。
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -693,16 +729,20 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
         変数と同じ形で無ければならない。
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
     timestep: `float`
         default = 3600 (for ERA5)
         This varies on dataset.
         使用するデータによって変更する必要がある。
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
@@ -768,16 +808,20 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
         変数と同じ形で無ければならない。
     dx: `numpy.ndarray`
         dx
-        The same shape as var
-        変数と同じ形で無ければならない。
+        var.shape[-1]-1 == dx.shape[-1]
+        経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
         dy
-        The same dimention as var
-        変数と同じ形で無ければならない。
+        var.shape[-2]-1 == dy.shape[-2]
+        経度方向の次元はvar.shape[-2]-1でなければならない
     timestep: `float`
         default = 3600 (for ERA5)
         This varies on dataset.
         使用するデータによって変更する必要がある。
+    wrfon: `int`
+        wrfon
+        Flag whether input data is wrfout or not
+        入力データがwrfoutか否かのフラグ
     
     Returns
     -------
