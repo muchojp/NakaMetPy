@@ -1,20 +1,16 @@
-.. NakaMetPy documentation master file, created by
-   sphinx-quickstart on Sat Jun 26 00:27:25 2021.
+.. nakametpy documentation master file, created by
+   sphinx-quickstart on Sat Jun 26 01:42:21 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to NakaMetPy's documentation!
+Welcome to nakametpy's documentation!
 =====================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
 
-   kinematics
-   thermo
-   cmap
-   jma
-
+   nakametpy
 
 
 Indices and tables
