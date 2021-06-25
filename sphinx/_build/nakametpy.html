@@ -1,0 +1,1705 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nakametpy package &mdash; NakaMetPy  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NakaMetPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">nakametpy package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-nakametpy.cmaps">nakametpy.cmaps module</a></li>
+<li><a class="reference internal" href="#module-nakametpy.constants">nakametpy.constants module</a></li>
+<li><a class="reference internal" href="#module-nakametpy.jma">nakametpy.jma module</a></li>
+<li><a class="reference internal" href="#module-nakametpy.kinematics">nakametpy.kinematics module</a></li>
+<li><a class="reference internal" href="#module-nakametpy.thermo">nakametpy.thermo module</a></li>
+<li><a class="reference internal" href="#module-nakametpy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NakaMetPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>nakametpy package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/nakametpy.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="nakametpy-package">
+<h1>nakametpy package<a class="headerlink" href="#nakametpy-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-nakametpy.cmaps">
+<span id="nakametpy-cmaps-module"></span><h2>nakametpy.cmaps module<a class="headerlink" href="#module-nakametpy.cmaps" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.BrWhGr">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">BrWhGr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.cmaps.BrWhGr" title="Permalink to this definition">¶</a></dt>
+<dd><p>緑白ブラウンのカラーマップ。
+水蒸気の発散収束を表す際に便利。
+levelは256である。</p>
+<p>オブジェクトは*BrWhGr_256lev*という名前でも受け取れる。</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.precip3">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">precip3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.cmaps.precip3" title="Permalink to this definition">¶</a></dt>
+<dd><p>降水量をプロットする際に利用することを想定したカラーマップ
+<a href="#id1"><span class="problematic" id="id2">*</span></a>precip3_16lev*を参考にした。</p>
+<p>オブジェクトは*precip3_256lev*</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.sunshine">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">sunshine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.cmaps.sunshine" title="Permalink to this definition">¶</a></dt>
+<dd><p>NCLのcolor table中のsunshine_9levに対応する。
+levelは256である。</p>
+<p>オブジェクトは*sunshine_256lev*という名前でも受け取れる。</p>
+</dd></dl>
+
+</section>
+<section id="module-nakametpy.constants">
+<span id="nakametpy-constants-module"></span><h2>nakametpy.constants module<a class="headerlink" href="#module-nakametpy.constants" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-nakametpy.jma">
+<span id="nakametpy-jma-module"></span><h2>nakametpy.jma module<a class="headerlink" href="#module-nakametpy.jma" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.jma.load_jmara_grib2">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.jma.</span></span><span class="sig-name descname"><span class="pre">load_jmara_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.jma.load_jmara_grib2" title="Permalink to this definition">¶</a></dt>
+<dd><p>気象庁解析雨量をダウンロードしたファイルのパスを引数にとり、
+<a href="#id3"><span class="problematic" id="id4">*</span></a>np.ndarray*を返す。欠損値は負の値として表現される。</p>
+<p>もし負の値をmaskしたい場合は、<a href="#id5"><span class="problematic" id="id6">*</span></a>numpy.ma.mask_less*を用いて
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">np.ma.masked_less(load_jmara_grib2(i_file),</span> <span class="pre">0)</span>
+<span class="pre">`</span></code>
+とすると*masked_array*で得ることができる。</p>
+<p>また、jma_rain_lat, jma_rain_lonはそれぞれ返り値に対応する
+np.ndarray型の緯度経度である。</p>
+</dd></dl>
+
+</section>
+<section id="module-nakametpy.kinematics">
+<span id="nakametpy-kinematics-module"></span><h2>nakametpy.kinematics module<a class="headerlink" href="#module-nakametpy.kinematics" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.advection_h_3d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">advection_h_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.advection_h_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の移流を求める関数。</p>
+<p>distance_3dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
+計算したい変数</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – <p>eastward wind</p>
+<p>The same shape as var
+変数と同じ形で無ければならない。</p>
+</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>advection</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.advection_h_4d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">advection_h_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.advection_h_4d" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の移流を求める関数。
+distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
+計算したい変数</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>advection</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.ageostrophic_wind">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">ageostrophic_wind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geopotential</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_wind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_wind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.ageostrophic_wind" title="Permalink to this definition">¶</a></dt>
+<dd><p>非地衡風成分を求める。
+実際の風の東西・南北成分から地衡風成分を引く。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geopotential</strong> (<cite>numpy.ndarray</cite>) – Geopotential (Not Geopotential Height)
+ジオポテンシャル (ジオポテンシャル高度では無い)</p></li>
+<li><p><strong>u_wind</strong> (<cite>numpy.ndarray</cite>) – eastward wind</p></li>
+<li><p><strong>v_wind</strong> (<cite>numpy.ndarray</cite>) – northward wind</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – 東西方向の距離</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – 南北方向の距離</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ageostrophic wind
+非地衡風</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.distance_2d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">distance_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lats</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.distance_2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。</p>
+<p>地球半径の値は6371229mを使用。</p>
+<p>Calculate the distance from latitude and longitude</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d)</p></li>
+<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dx(lats, lons), dy(lats, lons)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.distance_3d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">distance_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.distance_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。
+Single Levelの変数を計算する際に用いる。</p>
+<p>地球半径の値は6371229mを使用。</p>
+<p>Calculate the distance from latitude and longitude</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d)</p></li>
+<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dx(t_len, lats, lons), dy(t_len, lats, lons)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.distance_4d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">distance_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lev_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">37</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.distance_4d" title="Permalink to this definition">¶</a></dt>
+<dd><p>各格子点間の距離を求める関数。次元は[時間、鉛直方向、緯度、経度]である。</p>
+<p>地球半径の値は6371229mを使用。</p>
+<p>Calculate the distance from latitude and longitude</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d)</p></li>
+<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dx(t_len, lev_len, lats, lons), dy(t_len, lev_len, lats, lons)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.divergence">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">divergence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.divergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>直交座標系において変数の発散を求める関数。
+divergence_2dの拡張で3次元以上の配列に対応している。
+<a href="#id22"><span class="problematic" id="id23">distance_</span></a>?dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – x-flux
+x(東西)方向のフラックス</p></li>
+<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – y-flux
+y(南北)方向のフラックス</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>divergence</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.divergence_2d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">divergence_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.divergence_2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>直交座標系において変数の発散を求める関数。
+distance_2dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – x-flux
+x(東西)方向のフラックス</p></li>
+<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – y-flux
+y(南北)方向のフラックス</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>divergence</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.geostrophic_wind">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">geostrophic_wind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geopotential</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.geostrophic_wind" title="Permalink to this definition">¶</a></dt>
+<dd><p>地衡風を求める。
+ジオポテンシャルの水平微分を行い、コリオリパラメタで割った後、
+u成分にマイナスをかける。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geopotential</strong> (<cite>numpy.ndarray</cite>) – Geopotential (Not Geopotential Height)
+ジオポテンシャル (ジオポテンシャル高度では無い)</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – 東西方向の距離</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – 南北方向の距離</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>geostrophic wind
+地衡風</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.gradient_h_2d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">gradient_h_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.gradient_h_2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の勾配を求める関数。
+distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
+計算したい変数</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>grad_x(2d), grad_y(2d)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.gradient_h_3d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">gradient_h_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.gradient_h_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の勾配を求める関数。
+distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable \
+計算したい変数</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx \
+var.shape[-1]-1 == dx.shape[-1] \
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy \
+var.shape[-2]-1 == dy.shape[-2] \
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon \
+Flag whether input data is wrfout or not \
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>grad_x(3d), grad_y(3d)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.gradient_h_4d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">gradient_h_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.gradient_h_4d" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の勾配を求める関数。
+distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable \
+計算したい変数</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx \
+var.shape[-1]-1 == dx.shape[-1] \
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy \
+var.shape[-2]-1 == dy.shape[-2] \
+経度方向の次元はvar.shape[-2]-1でなければならない \</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon \
+Flag whether input data is wrfout or not \
+入力データがwrfoutか否かのフラグ \</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>grad_x(4d), grad_y(4d)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.lapse_rate">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">lapse_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.lapse_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>実際の断熱減率などの呼び方がある。
+詳しくはHolton 5th edition pp54</p>
+<p>変数はすべて同じ形で無ければならない。
+Variables should be the same shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Temperature</p></li>
+<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – (Geopotential) Height</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Lapse Rate</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.pressure_3d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">pressure_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pres</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">201</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">401</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.pressure_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>1次元の気圧の配列から3次元の気圧の配列を返す関数。
+気圧を計算に用いる際に使います。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pres</strong> (<cite>numpy.ndarray</cite>) – pressure(1d)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pressure(3d)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.pressure_4d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">pressure_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pres</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">201</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">401</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.pressure_4d" title="Permalink to this definition">¶</a></dt>
+<dd><p>1次元の気圧の配列から4次元の気圧の配列を返す関数。
+気圧を計算に用いる際に使います。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pres</strong> (<cite>numpy.ndarray</cite>) – pressure(1d)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pressure(4d)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.pseudoadiabatic_lapse_rate">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">pseudoadiabatic_lapse_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.pseudoadiabatic_lapse_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>偽断熱減率、湿潤断熱減率などの呼び方がある。
+詳しくはHolton 5th edition pp61</p>
+<p>変数はすべて同じ形で無ければならない。
+Variables should be the same shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Temperature</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Psuedadiabatic Lapse Rate</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.q_1">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">q_1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.q_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Q1を気温を用いて求める関数です。</p>
+<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。
+temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
+その前後の時間の気温のデータも与える必要がある。</p>
+<p>distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>temperature_1</strong> (<cite>numpy.ndarray</cite>) – temperature
+計算したい時間の前の時間のtemp
+temperature_2と同じ形で無ければならない。</p></li>
+<li><p><strong>temperature_2</strong> (<cite>numpy.ndarray</cite>) – temperature
+計算したい時間のtemp</p></li>
+<li><p><strong>temperature_3</strong> (<cite>numpy.ndarray</cite>) – temperature
+計算したい時間の後の時間のtemp
+temperature_2と同じ形で無ければならない。</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – vertical p velocity
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – pressure
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>timestep</strong> (<cite>float</cite>) – default = 3600 (for ERA5)
+This varies on dataset.
+使用するデータによって変更する必要がある。</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Q1 or Q11, Q12, Q13</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.q_2_rh">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">q_2_rh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.q_2_rh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Q2を相対湿度と気温を用いて混合比から求める関数です。</p>
+<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。
+temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
+その前後の時間の気温のデータも与える必要がある。</p>
+<p>distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>temperature_1</strong> (<cite>numpy.ndarray</cite>) – temperature
+計算したい時間の前の時間のtemp
+temperature_2と同じ形で無ければならない。</p></li>
+<li><p><strong>temperature_2</strong> (<cite>numpy.ndarray</cite>) – temperature
+計算したい時間のtemp</p></li>
+<li><p><strong>temperature_3</strong> (<cite>numpy.ndarray</cite>) – temperature
+計算したい時間の後の時間のtemp
+temperature_2と同じ形で無ければならない。</p></li>
+<li><p><strong>rh_1</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+計算したい時間の前の時間の相対湿度
+rh_2と同じ形で無ければならない。</p></li>
+<li><p><strong>rh_2</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+計算したい時間の相対湿度</p></li>
+<li><p><strong>rh_3</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+計算したい時間の後の時間の相対湿度
+rh_2と同じ形で無ければならない。</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – vertical p velocity
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – pressure
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>timestep</strong> (<cite>float</cite>) – default = 3600 (for ERA5)
+This varies on dataset.
+使用するデータによって変更する必要がある。</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Q2 or Q21, Q22, Q23</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.q_2_sh_mix">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">q_2_sh_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sh_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sh_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sh_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.q_2_sh_mix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Q2を比湿を用いて混合比から求める関数です。</p>
+<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。
+temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
+その前後の時間の気温のデータも与える必要がある。</p>
+<p>distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sh_1</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+計算したい時間の前の時間の比湿
+sh_2と同じ形で無ければならない。</p></li>
+<li><p><strong>sh_2</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+計算したい時間の比湿</p></li>
+<li><p><strong>sh_3</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+計算したい時間の後の時間の比湿
+sh_2と同じ形で無ければならない。</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – vertical p velocity
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – pressure
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>timestep</strong> (<cite>float</cite>) – default = 3600 (for ERA5)
+This varies on dataset.
+使用するデータによって変更する必要がある。</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Q2 or Q21, Q22, Q23</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.q_2_sh_sh">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">q_2_sh_sh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sh_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sh_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sh_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.q_2_sh_sh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Q2を比湿を用いて比湿から求める関数です。</p>
+<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。
+temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
+その前後の時間の気温のデータも与える必要がある。</p>
+<p>distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sh_1</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+計算したい時間の前の時間の比湿
+sh_2と同じ形で無ければならない。</p></li>
+<li><p><strong>sh_2</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+計算したい時間の比湿</p></li>
+<li><p><strong>sh_3</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+計算したい時間の後の時間の比湿
+sh_2と同じ形で無ければならない。</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – vertical p velocity
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – pressure
+The same shape as var
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>timestep</strong> (<cite>float</cite>) – default = 3600 (for ERA5)
+This varies on dataset.
+使用するデータによって変更する必要がある。</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Q2 or Q21, Q22, Q23</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.relative_vorticity">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">relative_vorticity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.relative_vorticity" title="Permalink to this definition">¶</a></dt>
+<dd><p>相対渦度を求める。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<cite>numpy.ndarray</cite>) – eastward wind</p></li>
+<li><p><strong>v</strong> (<cite>numpy.ndarray</cite>) – northward wind</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – 東西方向の距離</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – 南北方向の距離</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative Vorticity
+相対渦度</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.richardson_number">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">richardson_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pres</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.richardson_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>リチャードソン数を求める関数。
+変数はすべて同じ形で無ければならない。
+Variables should be the same shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>temp</strong> (<cite>numpy.ndarray</cite>) – Temperature</p></li>
+<li><p><strong>rh</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity</p></li>
+<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – (Geopotential) Height</p></li>
+<li><p><strong>pres</strong> (<cite>numpy.ndarray</cite>) – pressure</p></li>
+<li><p><strong>u</strong> (<cite>numpy.ndarray</cite>) – eastward wind</p></li>
+<li><p><strong>v</strong> (<cite>numpy.ndarray</cite>) – northward wind</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Richardson Number</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.static_stability">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">static_stability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.static_stability" title="Permalink to this definition">¶</a></dt>
+<dd><p>大気の安定度を求める関数。</p>
+<p>変数はすべて同じ形で無ければならない。
+Variables should be the same shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Temperature</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Static Stability</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.uv2dv_cfd">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">uv2dv_cfd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.uv2dv_cfd" title="Permalink to this definition">¶</a></dt>
+<dd><p>URL: <a class="reference external" href="https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml">https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – x-flux
+x(東西)方向のフラックス</p></li>
+<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – y-flux
+y(南北)方向のフラックス</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
+var.shape[-1]-1 == dx.shape[-1]
+経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
+var.shape[-2]-1 == dy.shape[-2]
+経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
+<li><p><strong>lat</strong> (<cite>numpy.ndarray</cite>) – lat
+緯度パラメータの計算</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>boundOpt</strong> (<cite>int</cite>) – boundOpt
+今は4(境界は片方の成分の収束のみで計算)のみ対応</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.vert_grad_2d_height">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">vert_grad_2d_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.vert_grad_2d_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の鉛直高度勾配を求める関数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
+計算したい変数</p></li>
+<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – height(2d)
+The same shape as var
+ジオポテンシャル高度を用いる。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>vertical gradient</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.vert_grad_3d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">vert_grad_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pres_3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.vert_grad_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の鉛直圧力勾配を求める関数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
+計算したい変数</p></li>
+<li><p><strong>pres_3d</strong> (<cite>numpy.ndarray</cite>) – pressure(3d)
+The same shape as var
+Use pressure_3d from 1d pressure array
+変数と同じ形で無ければならない。</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
+Flag whether input data is wrfout or not
+入力データがwrfoutか否かのフラグ</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>vertical gradient</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{VerticalGradient}_{n+1/2} &amp;= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
+&amp;= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}\end{split}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.vert_grad_3d_height">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">vert_grad_3d_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.vert_grad_3d_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の鉛直高度勾配を求める関数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
+計算したい変数</p></li>
+<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – height(3d)
+The same shape as var
+ジオポテンシャル高度を用いる。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>vertical gradient</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.vert_grad_4d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">vert_grad_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pres_4d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.vert_grad_4d" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の鉛直圧力勾配を求める関数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
+計算したい変数</p></li>
+<li><p><strong>pres_4d</strong> (<cite>numpy.ndarray</cite>) – pressure(4d)
+The same shape as var
+Use pressure_4d from 1d pressure array
+変数と同じ形で無ければならない。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>vertical gradient</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{VerticalGradient}_{n+1/2} &amp;= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
+&amp;= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}\end{split}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.vert_grad_4d_height">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">vert_grad_4d_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.kinematics.vert_grad_4d_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>変数の鉛直高度勾配を求める関数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
+計算したい変数</p></li>
+<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – height(4d)
+The same shape as var
+ジオポテンシャル高度を用いる。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>vertical gradient</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-nakametpy.thermo">
+<span id="nakametpy-thermo-module"></span><h2>nakametpy.thermo module<a class="headerlink" href="#module-nakametpy.thermo" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.density">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixing_ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">molecular_weight_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.622</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate density.</p>
+<p>This calculation must be given an air parcel’s pressure, temperature, and mixing ratio.
+The implementation uses the formula outlined in <span id="id7">[Hobbs2006]</span> pg.67.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+<li><p><strong>mixing_ratio</strong> (<cite>numpy.ndarray</cite>) – dimensionless mass mixing ratio</p></li>
+<li><p><strong>molecular_weight_ratio</strong> (<cite>numpy.ndarray</cite> or float, optional) – The ratio of the molecular weight of the constituent gas to that assumed
+for air. Defaults to the ratio for water vapor to dry air.
+(<span class="math notranslate nohighlight">\(\varepsilon\approx0.622\)</span>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The corresponding density of the parcel</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\rho = \frac{p}{R_dT_v}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.dewpoint">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">dewpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.dewpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the ambient dewpoint given the vapor pressure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>e</strong> (<cite>numpy.ndarray</cite>) – Water vapor partial pressure</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dewpoint temperature</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.dewpoint_from_relative_humidity" title="nakametpy.thermo.dewpoint_from_relative_humidity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dewpoint_from_relative_humidity</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.saturation_vapor_pressure" title="nakametpy.thermo.saturation_vapor_pressure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saturation_vapor_pressure</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">vapor_pressure</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>This function inverts the <span id="id8">[Bolton1980]</span> formula for saturation vapor
+pressure to instead calculate the temperature. This yield the following
+formula for dewpoint in degrees Celsius:</p>
+<div class="math notranslate nohighlight">
+\[T = \frac{243.5 \log(e / 6.112)}{17.67 - \log(e / 6.112)}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.dewpoint_from_relative_humidity">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">dewpoint_from_relative_humidity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.dewpoint_from_relative_humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the ambient dewpoint given air temperature and relative humidity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+<li><p><strong>rh</strong> (<cite>numpy.ndarray</cite>) – relative humidity expressed as a ratio in the range 0 &lt; rh &lt;= 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The dewpoint temperature</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.dewpoint" title="nakametpy.thermo.dewpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dewpoint</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.saturation_vapor_pressure" title="nakametpy.thermo.saturation_vapor_pressure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saturation_vapor_pressure</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.dewpoint_from_specific_humidity">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">dewpoint_from_specific_humidity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specific_humidity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.dewpoint_from_specific_humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the dewpoint from specific humidity, temperature, and pressure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
+<li><p><strong>specific_humidity</strong> (<cite>numpy.ndarray</cite>) – Specific humidity of air</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dew point temperature</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0: </span>Changed signature from <code class="docutils literal notranslate"><span class="pre">(specific_humidity,</span> <span class="pre">temperature,</span> <span class="pre">pressure)</span></code></p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.relative_humidity_from_mixing_ratio" title="nakametpy.thermo.relative_humidity_from_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relative_humidity_from_mixing_ratio</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.dewpoint_from_relative_humidity" title="nakametpy.thermo.dewpoint_from_relative_humidity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dewpoint_from_relative_humidity</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.equivalent_potential_temperature">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">equivalent_potential_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dewpoint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.equivalent_potential_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate equivalent potential temperature.</p>
+<p>This calculation must be given an air parcel’s pressure, temperature, and dewpoint.
+The implementation uses the formula outlined in <span id="id9">[Bolton1980]</span>:</p>
+<p>First, the LCL temperature is calculated:</p>
+<div class="math notranslate nohighlight">
+\[T_{L}=\frac{1}{\frac{1}{T_{D}-56}+\frac{ln(T_{K}/T_{D})}{800}}+56\]</div>
+<p>Which is then used to calculate the potential temperature at the LCL:</p>
+<div class="math notranslate nohighlight">
+\[\theta_{DL}=T_{K}\left(\frac{1000}{p-e}\right)^\kappa
+\left(\frac{T_{K}}{T_{L}}\right)^{0.28r}\]</div>
+<p>Both of these are used to calculate the final equivalent potential temperature:</p>
+<div class="math notranslate nohighlight">
+\[\theta_{E}=\theta_{DL}\exp\left[\left(\frac{3036.}{T_{L}}
+-1.78\right)\times r(1+0.448r)\right]\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Temperature of parcel</p></li>
+<li><p><strong>dewpoint</strong> (<cite>numpy.ndarray</cite>) – Dewpoint of parcel</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The equivalent potential temperature of the parcel</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><span id="id10">[Bolton1980]</span> formula for Theta-e is used, since according to
+<span id="id11">[DaviesJones2009]</span> it is the most accurate non-iterative formulation
+available.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.exner_function">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">exner_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_pressure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.exner_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Exner function.</p>
+<div class="math notranslate nohighlight">
+\[\Pi = \left( \frac{p}{p_0} \right)^\kappa\]</div>
+<p>This can be used to calculate potential temperature from temperature (and visa-versa),
+since</p>
+<div class="math notranslate nohighlight">
+\[\Pi = \frac{T}{\theta}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – total atmospheric pressure</p></li>
+<li><p><strong>reference_pressure</strong> (<cite>numpy.ndarray</cite>, optional) – The reference pressure against which to calculate the Exner function, defaults to
+metpy.constants.P0</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value of the Exner function at the given pressure</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.potential_temperature" title="nakametpy.thermo.potential_temperature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">potential_temperature</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">temperature_from_potential_temperature</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.k_index_2d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">k_index_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t850</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t700</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh850</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh700</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.k_index_2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>相対湿度、気温(およびリファレンスのための気圧)からK指数を計算する。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Pressure level value</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
+<li><p><strong>rh</strong> (<cite>numpy.ndarray</cite>) – Dimensionless relative humidity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>K Index in Kelvin</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Formula based on that from [George1960]</p>
+<div class="math notranslate nohighlight">
+\[KI = T_{850} - T_{500} + Td_{850} - \left(T_{700} - Td_{700}\right)\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(KI\)</span> is K index</p></li>
+<li><p><span class="math notranslate nohighlight">\(T\)</span> is temperature</p></li>
+<li><p><span class="math notranslate nohighlight">\(Td\)</span> is dew-point temperature</p></li>
+</ul>
+<p>Subscript means its pressure level</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.k_index_3d">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">k_index_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.k_index_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>相対湿度、気温(およびリファレンスのための気圧)からK指数を計算する。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Pressure level value</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
+<li><p><strong>rh</strong> (<cite>numpy.ndarray</cite>) – Dimensionless relative humidity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>K index</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Formula based on that from [George1960]</p>
+<div class="math notranslate nohighlight">
+\[KI = T_{850} - T_{500} + Td_{850} - \left(T_{700} - Td_{700}\right)\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(KI\)</span> is K index</p></li>
+<li><p><span class="math notranslate nohighlight">\(T\)</span> is temperature</p></li>
+<li><p><span class="math notranslate nohighlight">\(Td\)</span> is dew-point temperature</p></li>
+</ul>
+<p>Subscript means its pressure level</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.mixing_ratio">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">mixing_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part_press</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tot_press</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">molecular_weight_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.622</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.mixing_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the mixing ratio of a gas.</p>
+<p>This calculates mixing ratio given its partial pressure and the total pressure of
+the air. There are no required units for the input arrays, other than that
+they have the same units.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part_press</strong> (<cite>numpy.ndarray</cite>) – Partial pressure of the constituent gas</p></li>
+<li><p><strong>tot_press</strong> (<cite>numpy.ndarray</cite>) – Total air pressure</p></li>
+<li><p><strong>molecular_weight_ratio</strong> (<cite>numpy.ndarray</cite> or float, optional) – The ratio of the molecular weight of the constituent gas to that assumed
+for air. Defaults to the ratio for water vapor to dry air
+(<span class="math notranslate nohighlight">\(\epsilon\approx0.622\)</span>).
+水の分子量と空気の平均の分子量の比=18/28.8</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The (mass) mixing ratio, dimensionless (e.g. Kg/Kg or g/g)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function is a straightforward implementation of the equation given in many places,
+such as <span id="id12">[Hobbs1977]</span> pg.73:</p>
+<div class="math notranslate nohighlight">
+\[r = \epsilon \frac{e}{p - e}\]</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.saturation_mixing_ratio" title="nakametpy.thermo.saturation_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saturation_mixing_ratio</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">vapor_pressure</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.mixing_ratio_from_relative_humidity">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">mixing_ratio_from_relative_humidity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">relative_humidity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.mixing_ratio_from_relative_humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the mixing ratio from relative humidity, temperature, and pressure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>relative_humidity</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+相対湿度
+値は(0, 1]である必要がある</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature
+気温</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure
+全圧</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dimensionless mixing ratio</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Formula adapted from <span id="id13">[Hobbs1977]</span> pg. 74.</p>
+<div class="math notranslate nohighlight">
+\[w = (RH)(w_s)\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(w\)</span> is mixing ratio</p></li>
+<li><p><span class="math notranslate nohighlight">\(RH\)</span> is relative humidity as a unitless ratio</p></li>
+<li><p><span class="math notranslate nohighlight">\(w_s\)</span> is the saturation mixing ratio</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.relative_humidity_from_mixing_ratio" title="nakametpy.thermo.relative_humidity_from_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relative_humidity_from_mixing_ratio</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.saturation_mixing_ratio" title="nakametpy.thermo.saturation_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saturation_mixing_ratio</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.mixing_ratio_from_specific_humidity">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">mixing_ratio_from_specific_humidity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specific_humidity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.mixing_ratio_from_specific_humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the mixing ratio from specific humidity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>specific_humidity</strong> (<cite>numpy.ndarray</cite>) – Specific humidity of air</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Mixing ratio</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Formula from <span id="id14">[Salby1996]</span> pg. 118.</p>
+<div class="math notranslate nohighlight">
+\[w = \frac{q}{1-q}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(w\)</span> is mixing ratio</p></li>
+<li><p><span class="math notranslate nohighlight">\(q\)</span> is the specific humidity</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.mixing_ratio" title="nakametpy.thermo.mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixing_ratio</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.specific_humidity_from_mixing_ratio" title="nakametpy.thermo.specific_humidity_from_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">specific_humidity_from_mixing_ratio</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.potential_temperature">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">potential_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.potential_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the potential temperature.</p>
+<p>Uses the Poisson equation to calculation the potential temperature
+given <cite>pressure</cite> and <cite>temperature</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – total atmospheric pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The potential temperature corresponding to the temperature and
+pressure.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dry_lapse</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Formula:</p>
+<div class="math notranslate nohighlight">
+\[\Theta = T (P_0 / P)^\kappa\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.relative_humidity_from_mixing_ratio">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">relative_humidity_from_mixing_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixing_ratio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.relative_humidity_from_mixing_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the relative humidity from mixing ratio, temperature, and pressure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
+<li><p><strong>mixing_ratio</strong> (<cite>numpy.ndarray</cite>) – Dimensionless mass mixing ratio</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative humidity</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Formula based on that from <span id="id15">[Hobbs1977]</span> pg. 74.</p>
+<div class="math notranslate nohighlight">
+\[RH = \frac{w}{w_s}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(relative_humidity\)</span> is relative humidity as a unitless ratio</p></li>
+<li><p><span class="math notranslate nohighlight">\(w\)</span> is mixing ratio</p></li>
+<li><p><span class="math notranslate nohighlight">\(w_s\)</span> is the saturation mixing ratio</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.mixing_ratio_from_relative_humidity" title="nakametpy.thermo.mixing_ratio_from_relative_humidity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixing_ratio_from_relative_humidity</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.saturation_mixing_ratio" title="nakametpy.thermo.saturation_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saturation_mixing_ratio</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.relative_humidity_from_specific_humidity">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">relative_humidity_from_specific_humidity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specific_humidity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.relative_humidity_from_specific_humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the relative humidity from specific humidity, temperature, and pressure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
+<li><p><strong>specific_humidity</strong> (<cite>numpy.ndarray</cite>) – Specific humidity of air</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative humidity</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Formula based on that from <span id="id16">[Hobbs1977]</span> pg. 74. and <span id="id17">[Salby1996]</span> pg. 118.</p>
+<div class="math notranslate nohighlight">
+\[RH = \frac{q}{(1-q)w_s}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(relative_humidity\)</span> is relative humidity as a unitless ratio</p></li>
+<li><p><span class="math notranslate nohighlight">\(q\)</span> is specific humidity</p></li>
+<li><p><span class="math notranslate nohighlight">\(w_s\)</span> is the saturation mixing ratio</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.relative_humidity_from_mixing_ratio" title="nakametpy.thermo.relative_humidity_from_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relative_humidity_from_mixing_ratio</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.saturation_mixing_ratio">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">saturation_mixing_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tot_press</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.saturation_mixing_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the saturation mixing ratio of water vapor.</p>
+<p>This calculation is given total pressure and the temperature. The implementation
+uses the formula outlined in <span id="id18">[Hobbs1977]</span> pg.73.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tot_press</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The saturation mixing ratio, dimensionless</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.saturation_vapor_pressure">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">saturation_vapor_pressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.saturation_vapor_pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the saturation water vapor (partial) pressure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The saturation water vapor (partial) pressure</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vapor_pressure</span></code>, <a class="reference internal" href="#nakametpy.thermo.dewpoint" title="nakametpy.thermo.dewpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dewpoint</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Instead of temperature, dewpoint may be used in order to calculate
+the actual (ambient) water vapor (partial) pressure.</p>
+<p>The formula used is that from <span id="id19">[Bolton1980]</span> for T in degrees Celsius:</p>
+<div class="math notranslate nohighlight">
+\[6.112 e^\frac{17.67T}{T + 243.5}\]</div>
+<p>下記の式は既にケルビンに直してある</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.showalter_stability_index">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">showalter_stability_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t850</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p850</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.showalter_stability_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>500hPaにおける気温から850 hPaから500 hPaに断熱変化させた際の気温を引いた指数。
+この計算では乾燥断熱減率のみを考慮しているため、湿潤断熱変化も含めたSSIを
+求める方法が必要である。</p>
+<div class="math notranslate nohighlight">
+\[SSI = T_{500} - T_{850\rightarrow 500}^*\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.specific_humidity_from_mixing_ratio">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">specific_humidity_from_mixing_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mixing_ratio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.specific_humidity_from_mixing_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the specific humidity from the mixing ratio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mixing_ratio</strong> (<cite>numpy.ndarray</cite>) – mixing ratio</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Specific humidity</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Formula from <span id="id20">[Salby1996]</span> pg. 118.</p>
+<div class="math notranslate nohighlight">
+\[q = \frac{w}{1+w}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(w\)</span> is mixing ratio</p></li>
+<li><p><span class="math notranslate nohighlight">\(q\)</span> is the specific humidity</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.thermo.mixing_ratio" title="nakametpy.thermo.mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixing_ratio</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.mixing_ratio_from_specific_humidity" title="nakametpy.thermo.mixing_ratio_from_specific_humidity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixing_ratio_from_specific_humidity</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.thermo.virtual_temperature">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">virtual_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixing_ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">molecular_weight_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.622</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nakametpy.thermo.virtual_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate virtual temperature.</p>
+<p>This calculation must be given an air parcel’s temperature and mixing ratio.
+The implementation uses the formula outlined in <span id="id21">[Hobbs2006]</span> pg.80.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+<li><p><strong>mixing_ratio</strong> (<cite>numpy.ndarray</cite>) – dimensionless mass mixing ratio</p></li>
+<li><p><strong>molecular_weight_ratio</strong> (<cite>numpy.ndarray</cite> or float, optional) – The ratio of the molecular weight of the constituent gas to that assumed
+for air. Defaults to the ratio for water vapor to dry air.
+(<span class="math notranslate nohighlight">\(\epsilon\approx0.622\)</span>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The corresponding virtual temperature of the parcel</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[T_v = T \frac{\text{w} + \epsilon}{\epsilon\,(1 + \text{w})}\]</div>
+</dd></dl>
+
+</section>
+<section id="module-nakametpy">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nakametpy" title="Permalink to this headline">¶</a></h2>
+<p>Tools for calculating with weather data.</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, muchojp
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
