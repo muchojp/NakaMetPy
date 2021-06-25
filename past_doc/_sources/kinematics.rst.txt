@@ -1,7 +1,0 @@
-kinematics module
-=================
-
-.. automodule:: kinematics
-   :members:
-   :undoc-members:
-   :show-inheritance:
