@@ -48,13 +48,13 @@ pip install nakametpy
 
 Licence: `BSD-3-Clause`
 
+## Update plans
 Next(`2021.7.0`): 
- - GPU(cupy)対応(GPU(cupy) compatible)
-
+ - GPU(cupy) 対応 \[GPU(cupy) compatible\]
 
 To Do: 
- - MetPyの関数の移植(Further addition of MetPy function)
- - NCLに実装されている関数の移植(adding the NCL's function)
- - 方位角平均を取る関数の作成(Add function of Azimuthal Mean)
+ - MetPyの関数の移植\[Further addition of MetPy function\]
+ - NCLに実装されている関数の移植\[adding the NCL's function\]
+ - 方位角平均を取る関数の作成\[Add function of Azimuthal Mean\]
 
  
