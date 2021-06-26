@@ -38,13 +38,13 @@ Documentation is [HERE](https://muchojp.github.io/NakaMetPy/).
 
 ```
 conda install -c muchiwo nakametpy
-````
+```
 
 ### via PyPI
 
 ```
 pip install nakametpy
-````
+```
 
 Licence: `BSD-3-Clause`
 
