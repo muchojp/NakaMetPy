@@ -95,7 +95,7 @@ def mixing_ratio(part_press, tot_press, molecular_weight_ratio=0.622):
     molecular_weight_ratio : `numpy.ndarray` or float, optional
         The ratio of the molecular weight of the constituent gas to that assumed
         for air. Defaults to the ratio for water vapor to dry air
-        (:math:`\epsilon\approx0.622`).
+        (:math:`\varepsilon\approx0.622`).
         水の分子量と空気の平均の分子量の比=18/28.8
     Returns
     -------
@@ -107,7 +107,7 @@ def mixing_ratio(part_press, tot_press, molecular_weight_ratio=0.622):
     This function is a straightforward implementation of the equation given in many places,
     such as [Hobbs1977]_ pg.73:
 
-    .. math:: r = \epsilon \frac{e}{p - e}
+    .. math:: r = \varepsilon \frac{e}{p - e}
 
     See Also
     --------
@@ -437,7 +437,7 @@ def virtual_temperature(temperature, mixing_ratio, molecular_weight_ratio=epsilo
     molecular_weight_ratio : `numpy.ndarray` or float, optional
         The ratio of the molecular weight of the constituent gas to that assumed
         for air. Defaults to the ratio for water vapor to dry air.
-        (:math:`\epsilon\approx0.622`).
+        (:math:`\varepsilon\approx0.622`).
 
     Returns
     -------
@@ -446,7 +446,7 @@ def virtual_temperature(temperature, mixing_ratio, molecular_weight_ratio=epsilo
 
     Notes
     -----
-    .. math:: T_v = T \frac{\text{w} + \epsilon}{\epsilon\,(1 + \text{w})}
+    .. math:: T_v = T \frac{\text{w} + \varepsilon}{\varepsilon\,(1 + \text{w})}
 
     """
     return temperature * ((mixing_ratio + molecular_weight_ratio)
