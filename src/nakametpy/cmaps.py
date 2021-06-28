@@ -2,9 +2,15 @@ from matplotlib.colors import LinearSegmentedColormap
 
 def sunshine():
     r'''
-    NCLのcolor table中のsunshine_9levに対応する。
+    NCLのcolor table中の `sunshine_9lev` に対応する。
     levelは256である。
 
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----    
     オブジェクトは*sunshine_256lev*という名前でも受け取れる。
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
@@ -28,6 +34,12 @@ def BrWhGr():
     水蒸気の発散収束を表す際に便利。
     levelは256である。
 
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----    
     オブジェクトは*BrWhGr_256lev*という名前でも受け取れる。
     '''
     cdict = {'red':   [(0.0,  0.4, 0.4),
@@ -52,10 +64,15 @@ def BrWhGr():
 
 def precip3():
     r'''
-    降水量をプロットする際に利用することを想定したカラーマップ
-    *precip3_16lev*を参考にした。
+    降水量をプロットする際に利用することを想定したカラーマップ。
 
-    オブジェクトは*precip3_256lev*
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは `precip3_256lev` という名前でも受け取れる。
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
                     (0.2,  0.4, 0.4),
