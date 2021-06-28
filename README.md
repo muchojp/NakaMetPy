@@ -51,6 +51,7 @@ Licence: `BSD-3-Clause`
 ## Update plans
 Next(`2021.x.0`): 
  - ~GPU(cupy)対応 \[GPU(cupy) compatible\]~
+ 
  軽い負荷の作業では GPU を利用するとかえって CPU only より遅くなることが多いため、ひとまず保留する。
 
 To Do: 
