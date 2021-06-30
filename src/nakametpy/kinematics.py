@@ -384,7 +384,7 @@ def divergence(fx, fy, dx, dy, wrfon=0):
 
 def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     r'''
-    URL: https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml
+    Divergence caluculation function from NCL.
     
     Parameters
     ----------
@@ -412,6 +412,15 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     boundOpt: `int`
         boundOpt
         今は4(境界は片方の成分の収束のみで計算)のみ対応
+
+    Returns
+    -------
+    `numpy.ndarray`
+        divergence with latitude parameter
+
+    Notes
+    -----
+    URL: https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml
 
     '''
     if boundOpt != 4:
@@ -630,47 +639,47 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
     Parameters
     ----------
     temperature_1: `numpy.ndarray`
-        temperature
-        計算したい時間の前の時間のtemp
+        temperature \\
+        計算したい時間の前の時間のtemp \\
         temperature_2と同じ形で無ければならない。
     temperature_2: `numpy.ndarray`
-        temperature
+        temperature \\
         計算したい時間のtemp
     temperature_3: `numpy.ndarray`
-        temperature
-        計算したい時間の後の時間のtemp
+        temperature \\
+        計算したい時間の後の時間のtemp \\
         temperature_2と同じ形で無ければならない。
     wind_u: `numpy.ndarray`
-        eastward wind
-        The same shape as var
+        eastward wind \\
+        The same shape as var \\
         変数と同じ形で無ければならない。
     wind_v: `numpy.ndarray`
-        northward wind
-        The same shape as var
+        northward wind \\
+        The same shape as var \\
         変数と同じ形で無ければならない。
     p_velocity: `numpy.ndarray`
-        vertical p velocity
-        The same shape as var
+        vertical p velocity \\
+        The same shape as var \\
         変数と同じ形で無ければならない。
     pressure: `numpy.ndarray`
-        pressure
-        The same shape as var
+        pressure \\
+        The same shape as var \\
         変数と同じ形で無ければならない。
     dx: `numpy.ndarray`
-        dx
-        var.shape[-1]-1 == dx.shape[-1]
+        dx \\
+        var.shape[-1]-1 == dx.shape[-1] \\
         経度方向の次元はvar.shape[-1]-1でなければならない
     dy: `numpy.ndarray`
-        dy
-        var.shape[-2]-1 == dy.shape[-2]
+        dy \\
+        var.shape[-2]-1 == dy.shape[-2] \\
         経度方向の次元はvar.shape[-2]-1でなければならない
     timestep: `float`
-        default = 3600 (for ERA5)
-        This varies on dataset.
+        default = 3600 (for ERA5) \\
+        This varies on dataset. \\
         使用するデータによって変更する必要がある。
     wrfon: `int`
-        wrfon
-        Flag whether input data is wrfout or not
+        wrfon \\
+        Flag whether input data is wrfout or not \\
         入力データがwrfoutか否かのフラグ
     
     Returns
