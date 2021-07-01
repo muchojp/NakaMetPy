@@ -30,5 +30,4 @@ def get_version():
             return version(__package__)
         except PackageNotFoundError:
             return 'Unknown' """
-    # return '0.1.0' # (2021.01.19)
     return '2021.6.6' # (2021.02.20)
