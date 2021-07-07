@@ -46,7 +46,16 @@ conda install -c muchiwo nakametpy
 pip install nakametpy
 ```
 
-Licence: `BSD-3-Clause`
+## Licence
+`BSD-3-Clause`
+
+## New Feature
+Latest: `2021.7.x` 
+
+気象庁が解析雨量をプロットする際に用いるカラーマップや
+GrADSのcolormaps.gsに搭載されているカラーマップを追加しました。
+
+added colormaps in GrADS (colormaps.gs)
 
 ## Update plans
 Next(`2021.x.0`): 
