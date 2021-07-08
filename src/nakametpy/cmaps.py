@@ -745,7 +745,7 @@ def get_colormap(name):
 def get_colormap_list():
     return cmap_names
 
-def _plot_each_colorbar(cmap_name, output='../../img'):
+def _plot_each_colorbar(cmap_name, output='../../img/docs'):
     import matplotlib.pyplot as plt
     import matplotlib as mpl
     import os
