@@ -703,7 +703,7 @@ cmap_list = [sunshine_256lev,
             grads_cool_256lev]
 
 
-cmap_names = ['sunshile',
+cmap_names = ['sunshine',
             'BrWhGr',
             'precip3',
             'jma_linear',
