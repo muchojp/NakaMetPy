@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.insert(0, '/work1/nakamura_yuki/modules/NakaMetPy/src/nakametpy')
+sys.path.insert(0, '../../src/nakametpy')
 
 
 # -- Project information -----------------------------------------------------
@@ -30,7 +30,8 @@ author = 'muchojp'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.todo','sphinx.ext.napoleon', 'sphinx.ext.githubpages'
+    'sphinx.ext.todo',
+    'sphinx.ext.githubpages','sphinx.ext.napoleon'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
