@@ -742,3 +742,28 @@ def get_colormap(name):
 def get_colormap_list():
     return cmap_names
 
+def _plot_each_colorbar(cmap_name, output='../../img'):
+    import matplotlib.pyplot as plt
+    import matplotlib as mpl
+    import os
+
+    fig = plt.figure()
+    ax = fig.add_axes([0.05, 0.80, 0.9, 0.1])
+
+    cb = mpl.colorbar.ColorbarBase(ax, orientation='horizontal', 
+                                cmap=get_colormap(cmap_name))
+
+    ax.set_axis_off()
+    # # Turn off *all* ticks & spines, not just the ones with colormaps.
+    # for i_ax in ax:
+    #     i_ax.set_axis_off()
+
+    plt.savefig(os.path.join(output, f'{cmap_name}.png'), bbox_inches='tight', dpi=250)
+    plt.close(fig)
+
+
+if __name__=='__main__':
+    for i_cmp_name in get_colormap_list():
+        _plot_each_colorbar(i_cmp_name)
+    
+
