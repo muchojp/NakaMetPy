@@ -17,7 +17,7 @@ def sunshine():
     -----    
     オブジェクトは*sunshine_256lev*という名前でも受け取れる。
 
-    .. image:: ../../img/sunshine.png
+    .. image:: img/sunshine.png
        :width: 600
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
@@ -745,7 +745,7 @@ def get_colormap(name):
 def get_colormap_list():
     return cmap_names
 
-def _plot_each_colorbar(cmap_name, output='../../img/docs'):
+def _plot_each_colorbar(cmap_name, output='./img'):
     import matplotlib.pyplot as plt
     import matplotlib as mpl
     import os
