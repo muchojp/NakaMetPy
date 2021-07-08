@@ -29,12 +29,13 @@ def _decode_runlength(code, hi_level):
             yield from repeat(level, length)
 
 def load_jmara_grib2(file):
-    r'''気象庁解析雨量やレーダー雨量を返す関数。
+    r'''
+    気象庁解析雨量やレーダー雨量を返す関数。
     欠損値は負の値として表現される。
 
     Parameters
     --------
-    file : str
+    file : `str`
         file path \\
         ファイルのPATH
 

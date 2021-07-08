@@ -18,6 +18,7 @@ def sunshine():
     オブジェクトは*sunshine_256lev*という名前でも受け取れる。
 
     .. image:: ../../img/sunshine.png
+       :width: 600
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
                     (0.8,  1.0, 1.0),
