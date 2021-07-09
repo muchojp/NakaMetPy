@@ -176,7 +176,7 @@ def jma_list():
     
     Notes
     -----
-    オブジェクトは ``jma_list_256lev`` という名前でも受け取れる。
+    オブジェクトは ``jma_list_9lev`` という名前でも受け取れる。
 
     |jma_list|
 
@@ -265,7 +265,7 @@ def grads_default_rainbow_list():
     
     Notes
     -----
-    オブジェクトは ``grads_default_rainbow_list_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_default_rainbow_list_13lev`` という名前でも受け取れる。
 
     |grads_default_rainbow_list|
 
