@@ -49,9 +49,10 @@ def BrWhGr():
     
     Notes
     -----    
-    オブジェクトは*BrWhGr_256lev*という名前でも受け取れる。
+    オブジェクトは ``BrWhGr_256lev`` という名前でも受け取れる。
 
     .. image:: ./img/BrWhGr.png
+        :width: 600
     '''
     cdict = {'red':   [(0.0,  0.4, 0.4),
                     (0.4,  1.0, 1.0),
@@ -778,13 +779,13 @@ def get_colormap(name):
 def get_colormap_list():
     return cmap_names
 
-def _plot_each_colorbar(cmap_name, output='../../img'):
+def _plot_each_colorbar(cmap_name, output='../../docs/img'):
     import matplotlib.pyplot as plt
     import matplotlib as mpl
     import os
 
     fig = plt.figure()
-    ax = fig.add_axes([0.05, 0.80, 0.9, 0.1])
+    ax = fig.add_axes([0.05, 0.80, 0.9, 0.05])
 
     cb = mpl.colorbar.ColorbarBase(ax, orientation='horizontal', 
                                 cmap=get_colormap(cmap_name))
