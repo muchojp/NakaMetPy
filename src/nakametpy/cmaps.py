@@ -19,7 +19,7 @@ def sunshine():
 
     |sunshine|
 
-    .. |sunshine| image:: ./img/sunshine.png
+    .. |sunshine| image:: ../img/sunshine.png
        :width: 600
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
