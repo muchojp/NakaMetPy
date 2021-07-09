@@ -50,6 +50,8 @@ def BrWhGr():
     Notes
     -----    
     オブジェクトは*BrWhGr_256lev*という名前でも受け取れる。
+
+    .. image:: ./img/BrWhGr.png
     '''
     cdict = {'red':   [(0.0,  0.4, 0.4),
                     (0.4,  1.0, 1.0),
