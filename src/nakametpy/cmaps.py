@@ -257,6 +257,21 @@ def grads_default_rainbow_linear():
 
 
 def grads_default_rainbow_list():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_default_rainbow_list_256lev`` という名前でも受け取れる。
+
+    |grads_default_rainbow_list|
+
+    .. |grads_default_rainbow_list| image:: ./img/grads_default_rainbow_list.png
+        :width: 600
+    '''
     clist = [[160/CMAX, 0, 200/CMAX],
         [130/CMAX, 0, 220/CMAX],
         [30/CMAX, 60/CMAX, 1],
@@ -273,7 +288,22 @@ def grads_default_rainbow_list():
     return ListedColormap(clist, 'grads_default_rainbow_list')
 
 
-def grads_paired():    
+def grads_paired():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_paired_256lev`` という名前でも受け取れる。
+
+    |grads_paired|
+
+    .. |grads_paired| image:: ./img/grads_paired.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.8824, 0.8824),
           (0.09, 0.698, 0.698),
           (0.18, 0.5333, 0.5333),
@@ -315,6 +345,21 @@ def grads_paired():
     return LinearSegmentedColormap('grads_paired', cdict)
 
 def grads_spectral():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_spectral_256lev`` という名前でも受け取れる。
+
+    |grads_spectral|
+
+    .. |grads_spectral| image:: ./img/grads_spectral.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0, 0.0),
           (0.12, 0.5569, 0.5569),
           (0.25, 0.7765, 0.7765),
@@ -347,6 +392,21 @@ def grads_spectral():
     return LinearSegmentedColormap('grads_spectral', cdict)
 
 def grads_rainbow():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_rainbow_256lev`` という名前でも受け取れる。
+
+    |grads_rainbow|
+
+    .. |grads_rainbow| image:: ./img/grads_rainbow.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0, 0.0),
           (0.17, 0.0, 0.0),
           (0.33, 0.0, 0.0),
@@ -393,6 +453,21 @@ def grads_b2r():
     return LinearSegmentedColormap('grads_b2r', cdict)
 
 def grads_brn2grn():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_brn2grn_256lev`` という名前でも受け取れる。
+
+    |grads_brn2grn|
+
+    .. |grads_brn2grn| image:: ./img/grads_brn2grn.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0196, 0.0196),
           (0.25, 0.5098, 0.5098),
           (0.5, 1.0, 1.0),
@@ -413,6 +488,21 @@ def grads_brn2grn():
     return LinearSegmentedColormap('grads_brn2grn', cdict)
 
 def grads_y2b():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_y2b_256lev`` という名前でも受け取れる。
+
+    |grads_y2b|
+
+    .. |grads_y2b| image:: ./img/grads_y2b.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0078, 0.0078),
           (0.25, 0.5137, 0.5137),
           (0.5, 1.0, 1.0),
@@ -433,6 +523,21 @@ def grads_y2b():
     return LinearSegmentedColormap('grads_y2b', cdict)
 
 def grads_oj2p():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_oj2p_256lev`` という名前でも受け取れる。
+
+    |grads_oj2p|
+
+    .. |grads_oj2p| image:: ./img/grads_oj2p.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0275, 0.0275),
           (0.25, 0.2039, 0.2039),
           (0.5, 1.0, 1.0),
@@ -453,6 +558,21 @@ def grads_oj2p():
     return LinearSegmentedColormap('grads_oj2p', cdict)
 
 def grads_terrain1():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_terrain1_256lev`` という名前でも受け取れる。
+
+    |grads_terrain1|
+
+    .. |grads_terrain1| image:: ./img/grads_terrain1.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.6196, 0.6196),
           (0.2, 0.9961, 0.9961),
           (0.4, 0.4039, 0.4039),
@@ -476,6 +596,21 @@ def grads_terrain1():
     return LinearSegmentedColormap('grads_terrain1', cdict)
 
 def grads_ocean():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_ocean_256lev`` という名前でも受け取れる。
+
+    |grads_ocean|
+
+    .. |grads_ocean| image:: ./img/grads_ocean.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0, 0.0),
           (0.33, 0.3098, 0.3098),
           (0.67, 0.7216, 0.7216),
@@ -493,30 +628,105 @@ def grads_ocean():
     return LinearSegmentedColormap('grads_ocean', cdict)
 
 def grads_grayscale():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_grayscale_256lev`` という名前でも受け取れる。
+
+    |grads_grayscale|
+
+    .. |grads_grayscale| image:: ./img/grads_grayscale.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0, 0.0), (1.0, 1.0, 1.0)],
     'green': [(0.0, 0.0, 0.0), (1.0, 1.0, 1.0)],
     'red': [(0.0, 0.0, 0.0), (1.0, 1.0, 1.0)]}
     return LinearSegmentedColormap('grads_grayscale', cdict)
 
 def grads_red():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_red_256lev`` という名前でも受け取れる。
+
+    |grads_red|
+
+    .. |grads_red| image:: ./img/grads_red.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 1.0, 1.0), (1.0, 0.0, 0.0)],
     'green': [(0.0, 1.0, 1.0), (1.0, 0.0, 0.0)],
     'red': [(0.0, 1.0, 1.0), (1.0, 1.0, 1.0)]}
     return LinearSegmentedColormap('grads_red', cdict)
 
 def grads_green():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_green_256lev`` という名前でも受け取れる。
+
+    |grads_green|
+
+    .. |grads_green| image:: ./img/grads_green.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 1.0, 1.0), (1.0, 0.0, 0.0)],
     'green': [(0.0, 1.0, 1.0), (1.0, 1.0, 1.0)],
     'red': [(0.0, 1.0, 1.0), (1.0, 0.0, 0.0)]}
     return LinearSegmentedColormap('grads_green', cdict)
 
 def grads_blue():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_blue_256lev`` という名前でも受け取れる。
+
+    |grads_blue|
+
+    .. |grads_blue| image:: ./img/grads_blue.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 1.0, 1.0), (1.0, 1.0, 1.0)],
     'green': [(0.0, 1.0, 1.0), (1.0, 0.0, 0.0)],
     'red': [(0.0, 1.0, 1.0), (1.0, 0.0, 0.0)]}
     return LinearSegmentedColormap('grads_blue', cdict)
 
 def grads_jet():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_jet_256lev`` という名前でも受け取れる。
+
+    |grads_jet|
+
+    .. |grads_jet| image:: ./img/grads_jet.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.5216, 0.5216),
           (0.12, 1.0, 1.0),
           (0.25, 1.0, 1.0),
@@ -549,6 +759,21 @@ def grads_jet():
     return LinearSegmentedColormap('grads_jet', cdict)
 
 def grads_terrain2():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_terrain2_256lev`` という名前でも受け取れる。
+
+    |grads_terrain2|
+
+    .. |grads_terrain2| image:: ./img/grads_terrain2.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0, 0.0),
             (0.17, 0.0235, 0.0235),
             (0.33, 0.1647, 0.1647),
@@ -575,6 +800,21 @@ def grads_terrain2():
     return LinearSegmentedColormap('grads_terrain2', cdict)
 
 def grads_dark():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_dark_256lev`` という名前でも受け取れる。
+
+    |grads_dark|
+
+    .. |grads_dark| image:: ./img/grads_dark.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.4588, 0.4588),
             (0.14, 0.0196, 0.0196),
             (0.29, 0.698, 0.698),
@@ -604,6 +844,21 @@ def grads_dark():
     return LinearSegmentedColormap('grads_dark', cdict)
 
 def grads_snow():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_snow_256lev`` という名前でも受け取れる。
+
+    |grads_snow|
+
+    .. |grads_snow| image:: ./img/grads_snow.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.3529, 0.3529),
             (0.25, 0.7608, 0.7608),
             (0.5, 1.0, 1.0),
@@ -624,6 +879,21 @@ def grads_snow():
     return LinearSegmentedColormap('grads_snow', cdict)
 
 def grads_satellite():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_satellite_256lev`` という名前でも受け取れる。
+
+    |grads_satellite|
+
+    .. |grads_satellite| image:: ./img/grads_satellite.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0, 0.0),
             (0.25, 0.0, 0.0),
             (0.5, 0.0, 0.0),
@@ -644,6 +914,21 @@ def grads_satellite():
     return LinearSegmentedColormap('grads_satellite', cdict)
 
 def grads_rain():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_rain_256lev`` という名前でも受け取れる。
+
+    |grads_rain|
+
+    .. |grads_rain| image:: ./img/grads_rain.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0, 0.0),
             (0.25, 0.0, 0.0),
             (0.5, 0.0, 0.0),
@@ -664,6 +949,21 @@ def grads_rain():
     return LinearSegmentedColormap('grads_rain', cdict)
 
 def grads_autumn():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_autumn_256lev`` という名前でも受け取れる。
+
+    |grads_autumn|
+
+    .. |grads_autumn| image:: ./img/grads_autumn.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.0, 0.0),
             (0.25, 0.0, 0.0),
             (0.5, 0.0, 0.0),
@@ -684,6 +984,21 @@ def grads_autumn():
     return LinearSegmentedColormap('grads_autumn', cdict)
 
 def grads_cool():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_cool_256lev`` という名前でも受け取れる。
+
+    |grads_cool|
+
+    .. |grads_cool| image:: ./img/grads_cool.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 1.0, 1.0), 
             (0.33, 1.0, 1.0), 
             (0.67, 1.0, 1.0), 
