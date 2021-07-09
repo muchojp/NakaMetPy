@@ -188,12 +188,40 @@ levelは256である。</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.cmaps.get_colormap">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">get_colormap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#get_colormap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.get_colormap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>カラーマップを得る関数。</p>
+<p>引数の名前は <code class="docutils literal notranslate"><span class="pre">get_colormap_list</span></code> で得ることが出来る。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<cite>str</cite>) – colormap name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>cmap</strong> (<cite>matplotlib.colors.LinearSegmentedColormap</cite>)</p></li>
+<li><p><em>seealso</em></p></li>
+<li><p><em>—–</em></p></li>
+<li><p><em>get_colormap_list</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.cmaps.get_colormap_list">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">get_colormap_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#get_colormap_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.get_colormap_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>カラーマップ名のリストを得る関数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>cmap_names</strong> (<cite>List</cite>)</p></li>
+<li><p><em>seealso</em></p></li>
+<li><p><em>—–</em></p></li>
+<li><p><em>get_colormap_list</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.cmaps.grads_autumn">
@@ -215,7 +243,19 @@ levelは256である。</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.cmaps.grads_b2r">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">grads_b2r</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#grads_b2r"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.grads_b2r" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>GrADSのデフォルトのカラーマップ。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>オブジェクトは <code class="docutils literal notranslate"><span class="pre">grads_b2r_256lev</span></code> という名前でも受け取れる。</p>
+<p><a class="reference internal" href="img/grads_b2r.png"><img alt="grads_b2r" src="img/grads_b2r.png" style="width: 600px;" /></a></p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.cmaps.grads_blue">

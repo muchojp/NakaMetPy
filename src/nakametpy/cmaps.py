@@ -433,6 +433,21 @@ def grads_rainbow():
     return LinearSegmentedColormap('grads_rainbow', cdict)
 
 def grads_b2r():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_b2r_256lev`` という名前でも受け取れる。
+
+    |grads_b2r|
+
+    .. |grads_b2r| image:: ./img/grads_b2r.png
+        :width: 600
+    '''
     cdict = {'blue': [(0.0, 0.3922, 0.3922),
           (0.25, 1.0, 1.0),
           (0.5, 1.0, 1.0),
@@ -1107,6 +1122,23 @@ cmap_names = ['sunshine',
 
 
 def get_colormap(name):
+    r'''カラーマップを得る関数。
+
+    引数の名前は ``get_colormap_list`` で得ることが出来る。
+
+    Parameters
+    ----------
+    name: `str`
+        colormap name
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    seealso
+    -----
+    get_colormap_list
+    '''
     if name in cmap_names:
         return cmap_list[cmap_names.index(name)]
     else:
@@ -1114,6 +1146,16 @@ def get_colormap(name):
         return sys.exit(1)
 
 def get_colormap_list():
+    r'''カラーマップ名のリストを得る関数。
+
+    Returns
+    -------
+    cmap_names: `List`
+    
+    seealso
+    -----
+    get_colormap_list
+    '''
     return cmap_names
 
 def _plot_each_colorbar(cmap_name, output='../../docs/img'):
