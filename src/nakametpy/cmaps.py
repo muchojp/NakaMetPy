@@ -51,7 +51,9 @@ def BrWhGr():
     -----    
     オブジェクトは ``BrWhGr_256lev`` という名前でも受け取れる。
 
-    .. image:: ./img/BrWhGr.png
+    |IMG|
+
+    .. |IMG| image:: ./img/BrWhGr.png
         :width: 600
     '''
     cdict = {'red':   [(0.0,  0.4, 0.4),
@@ -84,6 +86,11 @@ def precip3():
     Notes
     -----
     オブジェクトは ``precip3_256lev`` という名前でも受け取れる。
+
+    |IMG|
+
+    .. |IMG| image:: ./img/precip3.png
+        :width: 600
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
                     (0.2,  0.4, 0.4),
@@ -165,6 +172,11 @@ def jma_list():
     Notes
     -----
     オブジェクトは ``jma_list_256lev`` という名前でも受け取れる。
+
+    |IMG|
+
+    .. |IMG| image:: ./img/jma_list.png
+        :width: 600
     '''
     clist = [[180/CMAX, 0, 104/CMAX],
             [1., 40/CMAX, 0],
@@ -189,6 +201,11 @@ def grads_default_rainbow_linear():
     Notes
     -----
     オブジェクトは ``grads_default_rainbow_linear_256lev`` という名前でも受け取れる。
+
+    |IMG|
+
+    .. |IMG| image:: ./img/grads_default_rainbow_linear.png
+        :width: 600
     '''
     cdict = {'red':   [(0.0,  160/CMAX, 160/CMAX),
                     (1/12, 130/CMAX, 130/CMAX),
@@ -785,12 +802,18 @@ def _plot_each_colorbar(cmap_name, output='../../docs/img'):
     import os
 
     fig = plt.figure()
-    ax = fig.add_axes([0.05, 0.80, 0.9, 0.05])
+    ax = fig.add_axes([0.05, 0.80, 0.9, 0.06])
 
     cb = mpl.colorbar.ColorbarBase(ax, orientation='horizontal', 
                                 cmap=get_colormap(cmap_name))
 
-    ax.set_axis_off()
+    # ax.set_axis_off()
+    ax.tick_params(
+        axis='x',          # changes apply to the x-axis
+        which='both',      # both major and minor ticks are affected
+        bottom=False,      # ticks along the bottom edge are off
+        top=False,         # ticks along the top edge are off
+        labelbottom=False) # labels along the bottom edge are off
     # # Turn off *all* ticks & spines, not just the ones with colormaps.
     # for i_ax in ax:
     #     i_ax.set_axis_off()
