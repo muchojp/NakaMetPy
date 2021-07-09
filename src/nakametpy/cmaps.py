@@ -137,6 +137,10 @@ def jma_linear():
 
     .. |jma_linear| image:: ./img/jma_linear.png
         :width: 600
+
+    See Also
+    --------
+    jma_list
     '''
     cdict = {'red':   [(0.0,  180/CMAX, 180/CMAX),
                   (1/7, 1., 1.),
@@ -182,6 +186,10 @@ def jma_list():
 
     .. |jma_list| image:: ./img/jma_list.png
         :width: 600
+
+    See Also
+    --------
+    jma_linear
     '''
     clist = [[180/CMAX, 0, 104/CMAX],
             [1., 40/CMAX, 0],
@@ -211,6 +219,10 @@ def grads_default_rainbow_linear():
 
     .. |grads_default_rainbow_linear| image:: ./img/grads_default_rainbow_linear.png
         :width: 600
+
+    See Also
+    --------
+    grads_default_rainbow_list
     '''
     cdict = {'red':   [(0.0,  160/CMAX, 160/CMAX),
                     (1/12, 130/CMAX, 130/CMAX),
@@ -271,6 +283,10 @@ def grads_default_rainbow_list():
 
     .. |grads_default_rainbow_list| image:: ./img/grads_default_rainbow_list.png
         :width: 600
+
+    See Also
+    --------
+    grads_default_rainbow_linear
     '''
     clist = [[160/CMAX, 0, 200/CMAX],
         [130/CMAX, 0, 220/CMAX],
@@ -1135,7 +1151,7 @@ def get_colormap(name):
     -------
     cmap:  `matplotlib.colors.LinearSegmentedColormap`
     
-    seealso
+    See Also
     -----
     get_colormap_list
     '''
@@ -1152,9 +1168,6 @@ def get_colormap_list():
     -------
     cmap_names: `List`
     
-    seealso
-    -----
-    get_colormap_list
     '''
     return cmap_names
 
