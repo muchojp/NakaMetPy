@@ -15,9 +15,11 @@ def sunshine():
     
     Notes
     -----    
-    オブジェクトは*sunshine_256lev*という名前でも受け取れる。
+    オブジェクトは ``sunshine_256lev`` という名前でも受け取れる。
 
-    .. image:: img/sunshine.png
+    |sunshine|
+
+    .. |sumshine| image:: img/sunshine.png
        :width: 600
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
@@ -79,7 +81,7 @@ def precip3():
     
     Notes
     -----
-    オブジェクトは `precip3_256lev` という名前でも受け取れる。
+    オブジェクトは ``precip3_256lev`` という名前でも受け取れる。
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
                     (0.2,  0.4, 0.4),
