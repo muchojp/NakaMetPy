@@ -51,9 +51,9 @@ def BrWhGr():
     -----    
     オブジェクトは ``BrWhGr_256lev`` という名前でも受け取れる。
 
-    |IMG|
+    |BrWhGr|
 
-    .. |IMG| image:: ./img/BrWhGr.png
+    .. |BrWhGr| image:: ./img/BrWhGr.png
         :width: 600
     '''
     cdict = {'red':   [(0.0,  0.4, 0.4),
@@ -87,9 +87,9 @@ def precip3():
     -----
     オブジェクトは ``precip3_256lev`` という名前でも受け取れる。
 
-    |IMG|
+    |precip3|
 
-    .. |IMG| image:: ./img/precip3.png
+    .. |precip3| image:: ./img/precip3.png
         :width: 600
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
@@ -132,6 +132,11 @@ def jma_linear():
     Notes
     -----
     オブジェクトは ``jma_linear_256lev`` という名前でも受け取れる。
+
+    |jma_linear|
+
+    .. |jma_linear| image:: ./img/jma_linear.png
+        :width: 600
     '''
     cdict = {'red':   [(0.0,  180/CMAX, 180/CMAX),
                   (1/7, 1., 1.),
@@ -173,9 +178,9 @@ def jma_list():
     -----
     オブジェクトは ``jma_list_256lev`` という名前でも受け取れる。
 
-    |IMG|
+    |jma_list|
 
-    .. |IMG| image:: ./img/jma_list.png
+    .. |jma_list| image:: ./img/jma_list.png
         :width: 600
     '''
     clist = [[180/CMAX, 0, 104/CMAX],
@@ -202,9 +207,9 @@ def grads_default_rainbow_linear():
     -----
     オブジェクトは ``grads_default_rainbow_linear_256lev`` という名前でも受け取れる。
 
-    |IMG|
+    |grads_default_rainbow_linear|
 
-    .. |IMG| image:: ./img/grads_default_rainbow_linear.png
+    .. |grads_default_rainbow_linear| image:: ./img/grads_default_rainbow_linear.png
         :width: 600
     '''
     cdict = {'red':   [(0.0,  160/CMAX, 160/CMAX),
