@@ -29,25 +29,24 @@ def _decode_runlength(code, hi_level):
             yield from repeat(level, length)
 
 def load_jmara_grib2(file):
-    r'''
-    気象庁解析雨量やレーダー雨量を返す関数。
-    欠損値は負の値として表現される。
+    r'''気象庁解析雨量やレーダー雨量を返す関数
+
+    欠損値は負の値として表現される
 
     Parameters
     --------
-    file : `str`
+    file: `str`
         file path \\
         ファイルのPATH
 
     Returns
     -------
-    `numpy.ma.MaskedArray`
-        return rain (mm)
+    rain(mm): `numpy.ma.MaskedArray`
 
     Notes
     -----
     jma_rain_lat, jma_rain_lonはそれぞれ返り値に対応する
-    `np.ndarray` 型の緯度経度である。
+    ``np.ndarray`` 型の緯度経度である。
     '''
     with open(file, 'rb') as f:
         binary = f.read()
