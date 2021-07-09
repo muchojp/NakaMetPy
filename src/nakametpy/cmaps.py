@@ -19,7 +19,7 @@ def sunshine():
 
     |sunshine|
 
-    .. |sumshine| image:: img/sunshine.png
+    .. |sunshine| image:: ./img/sunshine.png
        :width: 600
     '''
     cdict = {'red':   [(0.0,  1.0, 1.0),
@@ -72,8 +72,7 @@ def BrWhGr():
 
 
 def precip3():
-    r'''
-    降水量をプロットする際に利用することを想定したカラーマップ。
+    r'''降水量をプロットする際に利用することを想定したカラーマップ。
 
     Returns
     -------
@@ -114,6 +113,16 @@ def precip3():
 
     
 def jma_linear():
+    r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``jma_linear_256lev`` という名前でも受け取れる。
+    '''
     cdict = {'red':   [(0.0,  180/CMAX, 180/CMAX),
                   (1/7, 1., 1.),
                   (2/7, 1., 1.),
@@ -143,7 +152,17 @@ def jma_linear():
     return LinearSegmentedColormap('jma_linear', cdict).reversed()
 
 
-def jma_list():    
+def jma_list():
+    r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``jma_list_256lev`` という名前でも受け取れる。
+    '''
     clist = [[180/CMAX, 0, 104/CMAX],
             [1., 40/CMAX, 0],
             [1., 153/CMAX, 0],
@@ -157,7 +176,17 @@ def jma_list():
     return ListedColormap(clist, 'jma_list').reversed()
 
 
-def grads_default_rainbow_linear():    
+def grads_default_rainbow_linear():
+    r'''GrADSのデフォルトのカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``grads_default_rainbow_linear_256lev`` という名前でも受け取れる。
+    '''
     cdict = {'red':   [(0.0,  160/CMAX, 160/CMAX),
                     (1/12, 130/CMAX, 130/CMAX),
                     (2/12, 30/CMAX, 30/CMAX),

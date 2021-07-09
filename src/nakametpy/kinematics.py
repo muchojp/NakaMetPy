@@ -338,10 +338,10 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
 
 
 def divergence(fx, fy, dx, dy, wrfon=0):
-    r'''
-    直交座標系において変数の発散を求める関数。
+    r'''直交座標系において変数の発散を求める関数。
+
     divergence_2dの拡張で3次元以上の配列に対応している。
-    distance_?dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_2d, 3d, 4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
     ----------
