@@ -1,5 +1,5 @@
 .. nakametpy documentation master file, created by
-   sphinx-quickstart on Fri Jul  9 23:30:48 2021.
+   sphinx-quickstart on Sat Jul 10 05:00:12 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
