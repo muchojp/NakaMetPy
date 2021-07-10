@@ -205,7 +205,7 @@ def jma_list():
 
 
 def grads_default_rainbow_linear():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSデフォルトのカラーマップ。
 
     Returns
     -------
@@ -269,7 +269,7 @@ def grads_default_rainbow_linear():
 
 
 def grads_default_rainbow_list():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSデフォルトのカラーマップ。
 
     Returns
     -------
@@ -305,7 +305,7 @@ def grads_default_rainbow_list():
 
 
 def grads_paired():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -361,7 +361,7 @@ def grads_paired():
     return LinearSegmentedColormap('grads_paired', cdict)
 
 def grads_spectral():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -408,7 +408,7 @@ def grads_spectral():
     return LinearSegmentedColormap('grads_spectral', cdict)
 
 def grads_rainbow():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -449,7 +449,7 @@ def grads_rainbow():
     return LinearSegmentedColormap('grads_rainbow', cdict)
 
 def grads_b2r():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -484,7 +484,7 @@ def grads_b2r():
     return LinearSegmentedColormap('grads_b2r', cdict)
 
 def grads_brn2grn():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -519,7 +519,7 @@ def grads_brn2grn():
     return LinearSegmentedColormap('grads_brn2grn', cdict)
 
 def grads_y2b():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -554,7 +554,7 @@ def grads_y2b():
     return LinearSegmentedColormap('grads_y2b', cdict)
 
 def grads_oj2p():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -589,7 +589,7 @@ def grads_oj2p():
     return LinearSegmentedColormap('grads_oj2p', cdict)
 
 def grads_terrain1():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -627,7 +627,7 @@ def grads_terrain1():
     return LinearSegmentedColormap('grads_terrain1', cdict)
 
 def grads_ocean():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -659,7 +659,7 @@ def grads_ocean():
     return LinearSegmentedColormap('grads_ocean', cdict)
 
 def grads_grayscale():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -680,7 +680,7 @@ def grads_grayscale():
     return LinearSegmentedColormap('grads_grayscale', cdict)
 
 def grads_red():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -701,7 +701,7 @@ def grads_red():
     return LinearSegmentedColormap('grads_red', cdict)
 
 def grads_green():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -722,7 +722,7 @@ def grads_green():
     return LinearSegmentedColormap('grads_green', cdict)
 
 def grads_blue():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -743,7 +743,7 @@ def grads_blue():
     return LinearSegmentedColormap('grads_blue', cdict)
 
 def grads_jet():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -790,7 +790,7 @@ def grads_jet():
     return LinearSegmentedColormap('grads_jet', cdict)
 
 def grads_terrain2():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -831,7 +831,7 @@ def grads_terrain2():
     return LinearSegmentedColormap('grads_terrain2', cdict)
 
 def grads_dark():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -875,7 +875,7 @@ def grads_dark():
     return LinearSegmentedColormap('grads_dark', cdict)
 
 def grads_snow():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -910,7 +910,7 @@ def grads_snow():
     return LinearSegmentedColormap('grads_snow', cdict)
 
 def grads_satellite():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -945,7 +945,7 @@ def grads_satellite():
     return LinearSegmentedColormap('grads_satellite', cdict)
 
 def grads_rain():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -980,7 +980,7 @@ def grads_rain():
     return LinearSegmentedColormap('grads_rain', cdict)
 
 def grads_autumn():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
@@ -1015,7 +1015,7 @@ def grads_autumn():
     return LinearSegmentedColormap('grads_autumn', cdict)
 
 def grads_cool():
-    r'''GrADSのデフォルトのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ。
 
     Returns
     -------
