@@ -36,17 +36,18 @@ def load_jmara_grib2(file):
     Parameters
     --------
     file: `str`
-        file path \\
+        file path 
         ファイルのPATH
 
     Returns
     -------
-    rain(mm): `numpy.ma.MaskedArray`
+    rain: `numpy.ma.MaskedArray`
+        単位 (mm)
 
     Notes
     -----
-    jma_rain_lat, jma_rain_lonはそれぞれ返り値に対応する
-    ``np.ndarray`` 型の緯度経度である。
+    ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する
+    `np.ndarray` 型の緯度経度である。
     '''
     with open(file, 'rb') as f:
         binary = f.read()
