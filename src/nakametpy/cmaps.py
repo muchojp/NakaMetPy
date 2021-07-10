@@ -1047,8 +1047,31 @@ def grads_cool():
     return LinearSegmentedColormap('grads_cool', cdict)
 
 
+def BlWhRe():
+    r'''blue -> white -> red のカラーマップ。
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``BlWhRe_256lev`` という名前でも受け取れる。
+
+    |BlWhRe|
+
+    .. |BlWhRe| image:: ./img/BlWhRe.png
+        :width: 600
+    '''
+    cdict = {'blue': [(1.0, 1.0, 1.0), (0.0, 1.0, 1.0), (1.0, 0.0, 0.0)],
+    'green': [(1.0, 0.0, 0.0), (0.0, 1.0, 1.0), (1.0, 0.0, 0.0)],
+    'red': [(1.0, 0.0, 0.0), (0.0, 1.0, 1.0), (1.0, 1.0, 1.0)]}
+    return LinearSegmentedColormap('grads_red', cdict)
+
+
 sunshine_256lev = sunshine()
 BrWhGr_256lev = BrWhGr()
+BlWhRe_256lev = BlWhRe()
 precip3_256lev = precip3()
 jma_linear_256lev = jma_linear()
 jma_list_9lev = jma_list()
@@ -1078,6 +1101,7 @@ grads_cool_256lev = grads_cool()
 
 cmap_list = [sunshine_256lev,
             BrWhGr_256lev,
+            BlWhRe_256lev,
             precip3_256lev,
             jma_linear_256lev, 
             jma_list_9lev,
@@ -1108,6 +1132,7 @@ cmap_list = [sunshine_256lev,
 
 cmap_names = ['sunshine',
             'BrWhGr',
+            'BlWhRe',
             'precip3',
             'jma_linear',
             'jma_list',
