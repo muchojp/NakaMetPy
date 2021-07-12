@@ -76,3 +76,23 @@ def load_jmara_grib2(file):
 
 jma_rain_lat = np.linspace(48, 20, 3360, endpoint=False)[::-1] - 1/80/1.5 / 2
 jma_rain_lon = np.linspace(118, 150, 2560, endpoint=False) + 1/80 / 2
+
+
+def get_jrara_lat():
+    r'''解析雨量の緯度を返す関数
+
+    Returns
+    -------
+    lat: `numpy.ndarray`
+    '''
+    return np.linspace(48, 20, 3360, endpoint=False)[::-1] - 1/80/1.5 / 2
+    
+
+def get_jrara_lat():
+    r'''解析雨量の経度を返す関数
+
+    Returns
+    -------
+    lon: `numpy.ndarray`
+    '''
+    return np.linspace(118, 150, 2560, endpoint=False) + 1/80 / 2
