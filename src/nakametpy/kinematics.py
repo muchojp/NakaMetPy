@@ -5,7 +5,7 @@
 # Original source lisence:
 # Copyright (c) 2009,2017,2018,2019 MetPy Developers.
 #
-
+# 
 #
 # そもそものプログラム自体はMetPyのsource codeにあるため、自分はあくまでも
 # metpy.unitsを用いないNumPyでの高速な計算を行うプログラムを作成することを目指す
@@ -13,6 +13,13 @@
 # 単位はPa, K, RHは[0, 1]とする。
 # 
 # 更新日：2021/01/25 地衡風と非地衡風、相対渦度、気温減率、偽断熱減率、静的安定パラメタを求める関数の実装
+#
+# To do:
+# lapse_rateの鉛直微分は高度ではなく気圧である必要があるかもしれないのでチェックする。
+# nclは気圧で計算してある。
+#
+# divergence同様、2, 3, 4次元の計算を1つの関数でまとめることが出来るかもしれないのでチェックする。
+#
 #
 import numpy as np
 from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
@@ -1248,6 +1255,11 @@ def pseudoadiabatic_lapse_rate(pressure, temperature):
     `numpy.ndarray`
         Psuedadiabatic Lapse Rate
     
+    Notes
+    -----
+
+    .. math:: \Gamma_s\equiv-\frac{dT}{dz}=\Gamma_d\frac{[1+L_cq_s/(RT)]}{\left[1+\varepsilon L_c^2q_s/(c_pRT^2)\right]}
+    
     """
     qs = saturation_mixing_ratio(pressure, temperature)
     numerator = 1 + LatHeatC*qs/(R*temperature)
@@ -1274,6 +1286,10 @@ def static_stability(pressure, temperature):
     `numpy.ndarray`
         Static Stability
     
+    Notes
+    -----
+
+    .. math:: -\frac{RT}{p}\left(\frac{\partial \log\theta}{\partial p}\right)
     """
     return -(R*temperature/pressure)*vert_grad_4d(np.log(potential_temperature(pressure, temperature)), pressure)
 

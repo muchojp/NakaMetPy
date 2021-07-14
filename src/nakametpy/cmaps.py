@@ -1,3 +1,10 @@
+# Copyright 2021 nakamura_yuki
+# 
+# This program comes from Qiita article
+# URL: https://qiita.com/vpcf/items/b680f504cfe8b6a64222
+#  
+# 他のカラーマップに関してはMatplotlibやgeocat-vizで対応可能
+#
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 import sys
 

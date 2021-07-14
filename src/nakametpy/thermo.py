@@ -5,11 +5,16 @@
 # Original source lisence:
 # Copyright (c) 2008,2015,2016,2017,2018,2019 MetPy Developers.
 #
-
+# 
 # そもそものプログラム自体はMetPyのsource codeにあるため、自分はあくまでも
 # metpy.unitsを用いないNumPyでの高速な計算を行うプログラムを作成することを目指す
 # 入力データの単位に気をつけなければならない
 # 単位はPa, K, RHは[0, 1]とする。
+#
+# To Do:
+# precipitable_waterなど、MetPyにはあってNakaMetPyにはない関数が複数ある。
+# 時間を見つけて実装する。
+#
 #
 import numpy as np
 from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re
