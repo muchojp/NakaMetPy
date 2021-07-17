@@ -40,9 +40,9 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d)
+        longitude(1d or 2d)
     lats: `numpy.ndarray`
-        latitude(1d)
+        latitude(1d or 2d)
     
     Returns
     -------
@@ -88,9 +88,9 @@ def distance_3d(lons, lats, t_len = 24):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d)
+        longitude(1d or 2d)
     lats: `numpy.ndarray`
-        latitude(1d)
+        latitude(1d or 2d)
     
     Returns
     -------
@@ -136,9 +136,9 @@ def distance_2d(lons, lats):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d)
+        longitude(1d or 2d)
     lats: `numpy.ndarray`
-        latitude(1d)
+        latitude(1d or 2d)
     
     Returns
     -------
