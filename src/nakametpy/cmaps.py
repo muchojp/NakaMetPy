@@ -5,6 +5,10 @@
 #  
 # 他のカラーマップに関してはMatplotlibやgeocat-vizで対応可能
 #
+# To Do
+# - get_colormapで存在しないカラーマップを指定した際に、
+# 　(自作の？)エラーを表示させるようにする
+#
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 import sys
 
@@ -1204,6 +1208,13 @@ def get_colormap_list():
     return cmap_names
 
 def _plot_each_colorbar(cmap_name, output='../../docs/img'):
+    r'''nakametpy.cmapにあるカラーマップのカラーバーをプロットする関数。
+
+    ドキュメンテーション掲載用。
+
+    nakametpy.cmapのmain()で実行される。
+    
+    '''
     import matplotlib.pyplot as plt
     import matplotlib as mpl
     import os
