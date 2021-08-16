@@ -167,6 +167,51 @@ def distance_2d(lons, lats):
     return dx, dy
 
 
+def gradient_h(var, dx, dy, wrfon=0):
+    r'''
+    変数の勾配を求める関数。
+    distance_ndを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる。
+    dx, dyにintまたはfloatを代入した場合、一定値として扱われる。
+
+    Parameters
+    ----------
+    var: `numpy.ndarray`
+        variable 
+        計算したい変数
+    dx: `numpy.ndarray`
+        dx 
+        var.shape[-1]-1 == dx.shape[-1] 
+        経度方向の次元はvar.shape[-1]-1でなければならない
+    dy: `numpy.ndarray`
+        dy 
+        var.shape[-2]-1 == dy.shape[-2] 
+        経度方向の次元はvar.shape[-2]-1でなければならない 
+    wrfon: `int`
+        wrfon 
+        Flag whether input data is wrfout or not  
+        入力データがwrfoutか否かのフラグ 
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        grad_x(nd), grad_y(nd)
+    
+    '''
+    grad_shape = list(var.shape)
+    grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
+    grad = np.ma.zeros(grad_shape)
+    grad_x_stag = np.diff(var, axis=-1)/dx
+    grad_y_stag = (-1)**(wrfon-1)*np.diff(var, axis=-2)/dy
+    # 境界条件を代入
+    grad[0, ..., 0] = grad_x_stag[..., 0]
+    grad[0, ..., -1] = grad_x_stag[..., -1]
+    grad[1, ..., 0, :] = grad_y_stag[..., 0, :]
+    grad[1, ..., -1, :] = grad_y_stag[..., -1, :]
+    grad[0, ..., 1:-1] = (grad_x_stag[..., 1:] + grad_x_stag[..., :-1])/2
+    grad[1, ..., 1:-1, :] = (grad_y_stag[..., 1:, :] + grad_y_stag[..., :-1, :])/2
+    return grad
+
+
 def gradient_h_4d(var, dx, dy, wrfon=0):
     r'''
     変数の勾配を求める関数。
