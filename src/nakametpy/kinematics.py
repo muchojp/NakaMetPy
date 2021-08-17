@@ -238,11 +238,11 @@ def gradient_h(var, dx, dy, wrfon=0):
     var: `numpy.ndarray`
         variable 
         計算したい変数
-    dx: `numpy.ndarray`
+    dx: `numpy.ndarray` or `int` or `float`
         dx 
         var.shape[-1]-1 == dx.shape[-1] 
         経度方向の次元はvar.shape[-1]-1でなければならない
-    dy: `numpy.ndarray`
+    dy: `numpy.ndarray` or `int` or `float`
         dy 
         var.shape[-2]-1 == dy.shape[-2] 
         経度方向の次元はvar.shape[-2]-1でなければならない 
@@ -286,11 +286,11 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
     var: `numpy.ndarray`
         variable 
         計算したい変数
-    dx: `numpy.ndarray`
+    dx: `numpy.ndarray` or `int` or `float`
         dx 
         var.shape[-1]-1 == dx.shape[-1] 
         経度方向の次元はvar.shape[-1]-1でなければならない
-    dy: `numpy.ndarray`
+    dy: `numpy.ndarray` or `int` or `float`
         dy 
         var.shape[-2]-1 == dy.shape[-2] 
         経度方向の次元はvar.shape[-2]-1でなければならない 
@@ -334,11 +334,11 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
     var: `numpy.ndarray`
         variable 
         計算したい変数 
-    dx: `numpy.ndarray`
+    dx: `numpy.ndarray` or `int` or `float`
         dx 
         var.shape[-1]-1 == dx.shape[-1] 
         経度方向の次元はvar.shape[-1]-1でなければならない
-    dy: `numpy.ndarray`
+    dy: `numpy.ndarray` or `int` or `float`
         dy 
         var.shape[-2]-1 == dy.shape[-2] 
         経度方向の次元はvar.shape[-2]-1でなければならない
@@ -382,11 +382,11 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
     var: `numpy.ndarray`
         variable
         計算したい変数
-    dx: `numpy.ndarray`
+    dx: `numpy.ndarray` or `int` or `float`
         dx
         var.shape[-1]-1 == dx.shape[-1]
         経度方向の次元はvar.shape[-1]-1でなければならない
-    dy: `numpy.ndarray`
+    dy: `numpy.ndarray` or `int` or `float`
         dy
         var.shape[-2]-1 == dy.shape[-2]
         経度方向の次元はvar.shape[-2]-1でなければならない
@@ -479,11 +479,11 @@ def divergence(fx, fy, dx, dy, wrfon=0):
     fy: `numpy.ndarray`
         y-flux
         y(南北)方向のフラックス
-    dx: `numpy.ndarray`
+    dx: `numpy.ndarray` or `int` or `float`
         dx
         var.shape[-1]-1 == dx.shape[-1]
         経度方向の次元はvar.shape[-1]-1でなければならない
-    dy: `numpy.ndarray`
+    dy: `numpy.ndarray` or `int` or `float`
         dy
         var.shape[-2]-1 == dy.shape[-2]
         経度方向の次元はvar.shape[-2]-1でなければならない
@@ -748,6 +748,10 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
         advection
     
     '''
+    if isinstance(dx, (int, float)):
+        pass
+    elif (var.shape[-2] == dx.shape[-2]+1)or(var.shape[-1] == dx.shape[-1]+1):
+        raise NotHaveValidDimsError('var', var, dx)
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
@@ -794,6 +798,10 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
         advection
     
     '''
+    if isinstance(dx, (int, float)):
+        pass
+    elif (var.shape[-2] == dx.shape[-2]+1)or(var.shape[-1] == dx.shape[-1]+1):
+        raise NotHaveValidDimsError('var', var, dx)
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
