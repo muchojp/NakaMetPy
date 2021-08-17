@@ -640,6 +640,46 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
     return vertical_grad
 
 
+def vert_grad(variables, pres_4d, z_dim=-3):
+    r'''
+    変数の鉛直圧力勾配を求める関数。
+
+    Parameters
+    ----------
+    variables: `numpy.ndarray`
+        variable
+        計算したい変数
+    pres_nd: `numpy.ndarray`
+        pressure(nd)
+        The same shape as var
+        Use pressure_nd from 1d pressure array
+        変数と同じ形で無ければならない。
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        vertical gradient
+
+    Notes
+    -----
+    .. math:: {VerticalGradient}_{n+1/2} &= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
+        &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}
+
+    '''
+    if pres_4d.ndim == 1:
+        pres_4d = np.tile(pres_4d, (variables.shape[0]*variables.shape[-2]*variables.shape[-1])).reshape([variables.shape[-2], \
+            variables.shape[-1], variables.shape[-3], variables.shape[0]]).transpose(2, 3, 0, 1)
+    vertical_grad = np.ma.zeros(variables.shape)
+    diff_pres = np.diff(pres_4d, axis=z_dim)
+    grad_var = np.diff(variables, axis=z_dim)/diff_pres
+    vertical_grad[..., 0, :, :] = grad_var[..., 0, :, :]
+    vertical_grad[..., -1, :, :] = grad_var[..., -1, :, :]
+    diff_pres_sum = diff_pres[..., :-1, :, :] + diff_pres[..., 1:, :, :]
+    vertical_grad[..., 1:-1, :, :] = grad_var[..., 1:, :, :]/diff_pres_sum*diff_pres[..., :-1, :, :] + \
+        grad_var[..., :-1, :, :]/diff_pres_sum*diff_pres[..., 1:, :, :]
+    return vertical_grad
+
+
 def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''
     変数の移流を求める関数。
@@ -1144,6 +1184,28 @@ def pressure_3d(pres, lat_dim=201, lon_dim=401):
     
     '''
     return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
+
+
+def pressure_nd(pres, time_dim=None, lat_dim=201, lon_dim=401):
+    r'''
+    1次元の気圧の配列からn次元の気圧の配列を返す関数。
+    気圧を計算に用いる際に使います。
+
+    Parameters
+    ----------
+    pres: `numpy.ndarray`
+        pressure(1d)
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        pressure(nd)
+    
+    '''
+    if time_dim==None:
+        return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
+    else:
+        return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
 
 
 
