@@ -24,5 +24,5 @@ class NotHaveEnoughDimsError(MyException):
 class NotHaveValidDimsError(MyException2):
     def __str__(self):
         return (
-            f"配列 dx の形が適切ではありません。{self.arg} の経度緯度は({self.array1.shape[-2]}, {self.array1.shape[-1]}), dx(, dy)の緯度経度は({self.array1.shape[-2]-1}, {self.array1.shape[-1]-1})である必要があります。しかし実際には({self.array2.shape[-2]}, {self.array2.shape[-1]})となっています。"
+            f"配列 dx の形が適切ではありません。{self.arg} の経度緯度方向は({self.array1.shape[-2]}, {self.array1.shape[-1]}), dx および dyの緯度経度方向は({self.array1.shape[-2]-1}, {self.array1.shape[-1]-1})またはintかfloatの一定値である必要があります。しかし実際には({self.array2.shape[-2]}, {self.array2.shape[-1]})となっています。"
         )
