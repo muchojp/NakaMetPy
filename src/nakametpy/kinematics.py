@@ -260,7 +260,7 @@ def gradient_h(var, dx, dy, wrfon=0):
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDyShapeError('var', var, dx)
+        raise NotValidDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotValidDyShapeError('var', var, dy)
     grad_shape = list(var.shape)
@@ -310,7 +310,7 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDyShapeError('var', var, dx)
+        raise NotValidDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotValidDyShapeError('var', var, dy)
     grad_shape = list(var.shape)
@@ -360,7 +360,7 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDyShapeError('var', var, dx)
+        raise NotValidDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotValidDyShapeError('var', var, dy)
     grad_shape = list(var.shape)
@@ -410,7 +410,7 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDyShapeError('var', var, dx)
+        raise NotValidDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotValidDyShapeError('var', var, dy)
     grad_shape = list(var.shape)
@@ -509,7 +509,7 @@ def divergence(fx, fy, dx, dy, wrfon=0):
     if isinstance(dx, (int, float)):
         pass
     elif not ((fx.shape[-2] == dx.shape[-2])and(fx.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDyShapeError('fx', fx, dx)
+        raise NotValidDxShapeError('fx', fx, dx)
     elif not ((fy.shape[-2] == dy.shape[-2]+1)and(fy.shape[-1] == dy.shape[-1])):
         raise NotValidDyShapeError('fy', fy, dy)
     div = np.ma.zeros(fx.shape)
@@ -576,7 +576,7 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     if isinstance(dx, (int, float)):
         pass
     elif not ((fx.shape[-2] == dx.shape[-2])and(fx.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDyShapeError('fx', fx, dx)
+        raise NotValidDxShapeError('fx', fx, dx)
     elif not ((fy.shape[-2] == dy.shape[-2]+1)and(fy.shape[-1] == dy.shape[-1])):
         raise NotValidDyShapeError('fy', fy, dy)
     div = np.ma.zeros(fx.shape)
@@ -761,7 +761,7 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDyShapeError('var', var, dx)
+        raise NotValidDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotValidDyShapeError('var', var, dy)
     advs_shape = list(wind_u.shape)
@@ -813,7 +813,7 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDyShapeError('var', var, dx)
+        raise NotValidDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotValidDyShapeError('var', var, dy)
     advs_shape = list(wind_u.shape)
@@ -866,7 +866,7 @@ def advection_h(var, wind_u, wind_v, dx, dy, wrfon=0):
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDyShapeError('var', var, dx)
+        raise NotValidDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotValidDyShapeError('var', var, dy)
     advs_shape = list(wind_u.shape)
