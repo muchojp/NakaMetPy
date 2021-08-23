@@ -29,6 +29,7 @@ from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g,
 from ._error import NotValidDxShapeError, NotValidDyShapeError
 import traceback
 import sys
+import warnings
 
 
 
@@ -110,6 +111,7 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
         dx(t_len, lev_len, lats, lons), dy(t_len, lev_len, lats, lons)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     # lons, latsが1次元の場合、2次元に変換する
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
@@ -158,6 +160,7 @@ def distance_3d(lons, lats, t_len = 24):
         dx(t_len, lats, lons), dy(t_len, lats, lons)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     # lons, latsが1次元の場合、2次元に変換する
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
@@ -206,6 +209,7 @@ def distance_2d(lons, lats):
         dx(lats, lons), dy(lats, lons)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
     radius = Re # m
@@ -307,6 +311,7 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
         grad_x(4d), grad_y(4d)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
@@ -357,6 +362,7 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
         grad_x(3d), grad_y(3d)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
@@ -407,6 +413,7 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
         grad_x(2d), grad_y(2d)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
@@ -460,6 +467,7 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
         divergence
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
     grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
@@ -758,6 +766,7 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
         advection
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
@@ -810,6 +819,7 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
         advection
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
@@ -1219,6 +1229,7 @@ def pressure_4d(pres, time_dim=24, lat_dim=201, lon_dim=401):
         pressure(4d)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}_nd'", DeprecationWarning, stacklevel=2)
     return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
 
 
@@ -1238,6 +1249,7 @@ def pressure_3d(pres, lat_dim=201, lon_dim=401):
         pressure(3d)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}_nd'", DeprecationWarning, stacklevel=2)
     return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
 
 
