@@ -1230,7 +1230,9 @@ def pressure_4d(pres, time_dim=24, lat_dim=201, lon_dim=401):
     
     '''
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}_nd'", DeprecationWarning, stacklevel=2)
-    return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
+    # return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
+    pres = pres.reshape(len(pres, 1, 1))
+    return np.tile(pres, (time_dim, 1, lat_dim, lon_dim))
 
 
 def pressure_3d(pres, lat_dim=201, lon_dim=401):
@@ -1250,7 +1252,9 @@ def pressure_3d(pres, lat_dim=201, lon_dim=401):
     
     '''
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}_nd'", DeprecationWarning, stacklevel=2)
-    return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
+    # return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
+    pres = pres.reshape(len(pres, 1, 1))
+    return np.tile(pres, (1, lat_dim, lon_dim))
 
 
 def pressure_nd(pres, time_dim=None, lat_dim=201, lon_dim=401):
@@ -1269,10 +1273,13 @@ def pressure_nd(pres, time_dim=None, lat_dim=201, lon_dim=401):
         pressure(nd)
     
     '''
+    pres = pres.reshape(len(pres, 1, 1))
     if time_dim==None:
-        return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
+        # return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
+        return np.tile(pres, (1, lat_dim, lon_dim))
     else:
-        return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
+        # return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
+        return np.tile(pres, (time_dim, 1, lat_dim, lon_dim))
 
 
 
