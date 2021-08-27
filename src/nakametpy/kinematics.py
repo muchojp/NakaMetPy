@@ -431,13 +431,19 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
         grad_x(2d), grad_y(2d)
     
     '''
-    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=1)
     if isinstance(dx, (int, float)):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
