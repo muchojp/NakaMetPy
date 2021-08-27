@@ -21,6 +21,7 @@
 そのため変数単位はMetPyとは異なり自分で気をつけて関数に与えなければなりません。
 また、関数の鉛直層数および時間のサイズは適当に与えています。利用される際にデータに合わせて引数を関数に渡してください。
 さらに、WRFの計算結果を入力する場合は`wrfon`のオプションを1にする必要があります。
+(`wrfon`オプションは使い勝手が悪いため、今後廃止される予定です。現在はそのための方策を考えているところです。)
 
 NakaMetPyは少なくとも2023年1月あたりまでは開発が継続される予定です。
 皆さんのContributionもお待ちしています。
@@ -49,23 +50,17 @@ pip install nakametpy
 ## Licence
 `BSD-3-Clause`
 
-## New Feature
-Latest: `2021.7.x` 
-
-気象庁が解析雨量をプロットする際に用いるカラーマップや
-GrADSのcolormaps.gsに搭載されているカラーマップを追加しました。
-
-added colormaps in GrADS (colormaps.gs)
-
 ## Update plans
 Next(`2021.x.0`): 
- - ~GPU(cupy)対応 \[GPU(cupy) compatible\]~
- 
- 軽い負荷の作業では GPU を利用するとかえって CPU only より遅くなることが多いため、ひとまず保留する。
+ - Error周りを追加
 
 To Do: 
+ - `wrfon`オプションの廃止
  - MetPyの関数の移植 \[Further addition of MetPy function\]
  - NCLに実装されている関数の移植 \[adding the NCL's function\]
  - 方位角平均を取る関数の作成 \[Add function of Azimuthal Mean\]
+ - ~GPU(cupy)対応 \[GPU(cupy) compatible\]~
+ 
+ 軽い負荷の作業では GPU を利用するとかえって CPU only より遅くなることが多いため、ひとまず保留する。
 
  
