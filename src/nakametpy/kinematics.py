@@ -26,7 +26,7 @@
 import numpy as np
 from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
 from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re, f0, GammaD
-from ._error import NotAllowedDxShapeError, NotAllowedDyShapeError
+from ._error import NotAllowedDxShapeError, NotAllowedDyShapeError, InvalidDxValueError, InvalidDyValueError
 import traceback
 import sys
 import warnings
@@ -267,6 +267,12 @@ def gradient_h(var, dx, dy, wrfon=0):
         raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotAllowedDyShapeError('var', var, dy)
+    
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -318,6 +324,12 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
         raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -369,6 +381,12 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
         raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -467,6 +485,12 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
         divergence
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
@@ -520,6 +544,12 @@ def divergence(fx, fy, dx, dy, wrfon=0):
         raise NotAllowedDxShapeError('fx', fx, dx)
     elif not ((fy.shape[-2] == dy.shape[-2]+1)and(fy.shape[-1] == dy.shape[-1])):
         raise NotAllowedDyShapeError('fy', fy, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
     grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
@@ -587,6 +617,12 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
         raise NotAllowedDxShapeError('fx', fx, dx)
     elif not ((fy.shape[-2] == dy.shape[-2]+1)and(fy.shape[-1] == dy.shape[-1])):
         raise NotAllowedDyShapeError('fy', fy, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
     grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
@@ -773,6 +809,12 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
         raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
@@ -826,6 +868,12 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
         raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
@@ -879,6 +927,12 @@ def advection_h(var, wind_u, wind_v, dx, dy, wrfon=0):
         raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
         raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
@@ -951,6 +1005,12 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
         Q1 or Q11, Q12, Q13
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
     terms = np.ma.zeros(terms_shape)
@@ -1039,6 +1099,12 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
         Q2 or Q21, Q22, Q23
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
     terms = np.ma.zeros(terms_shape)
@@ -1118,6 +1184,12 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
         Q2 or Q21, Q22, Q23
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
     terms = np.ma.zeros(terms_shape)
@@ -1197,6 +1269,12 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
         Q2 or Q21, Q22, Q23
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
     terms = np.ma.zeros(terms_shape)
