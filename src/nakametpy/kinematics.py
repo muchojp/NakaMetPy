@@ -18,10 +18,6 @@
 # lapse_rateの鉛直微分は高度ではなく気圧である必要があるかもしれないのでチェックする。
 # nclは気圧で計算してある。
 #
-# divergence同様、2, 3, 4次元の計算を1つの関数でまとめることが出来るかもしれないのでチェックする。
-# 
-# 自作のエラーの実装
-#
 #
 import numpy as np
 from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
