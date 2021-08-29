@@ -257,7 +257,7 @@ def gradient_h(var, dx, dy, wrfon=0):
         grad_x(nd), grad_y(nd)
     
     '''
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('var', var, dx)
@@ -314,7 +314,7 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
     
     '''
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('var', var, dx)
@@ -371,7 +371,7 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
     
     '''
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('var', var, dx)
@@ -428,7 +428,7 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
     
     '''
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=1)
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('var', var, dx)
@@ -540,7 +540,7 @@ def divergence(fx, fy, dx, dy, wrfon=0):
         divergence
     
     '''
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((fx.shape[-2] == dx.shape[-2])and(fx.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('fx', fx, dx)
@@ -613,7 +613,7 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
         # except ValueError as e:
             # print(e)
 
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((fx.shape[-2] == dx.shape[-2])and(fx.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('fx', fx, dx)
@@ -805,7 +805,7 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
     
     '''
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('var', var, dx)
@@ -864,7 +864,7 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
     
     '''
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('var', var, dx)
@@ -923,7 +923,7 @@ def advection_h(var, wind_u, wind_v, dx, dy, wrfon=0):
         advection
     
     '''
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
         raise NotAllowedDxShapeError('var', var, dx)
