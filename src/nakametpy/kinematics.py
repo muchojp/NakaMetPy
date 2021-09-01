@@ -56,15 +56,15 @@ def distance(lons, lats, lev_len = None, t_len = None):
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
     if t_len != None:
         if lev_len != None:
-            lons = np.tile(lons.flatten(), lev_len*t_len).reshape(t_len, lev_len, lons.shape[0], lons.shape[1])
-            lats = np.tile(lats.flatten(), lev_len*t_len).reshape(t_len, lev_len, lats.shape[0], lats.shape[1])
+            lons = np.tile(lons, (lev_len, t_len, lons.shape[0], lons.shape[1]))
+            lats = np.tile(lats, (lev_len, t_len, lats.shape[0], lats.shape[1]))
         else:
-            lons = np.tile(lons.flatten(), t_len).reshape(t_len, lons.shape[0], lons.shape[1])
-            lats = np.tile(lats.flatten(), t_len).reshape(t_len, lats.shape[0], lats.shape[1])
+            lons = np.tile(lons, (t_len, lons.shape[0], lons.shape[1]))
+            lats = np.tile(lats, (t_len, lats.shape[0], lats.shape[1]))
     else:
         if lev_len != None:
-            lons = np.tile(lons.flatten(), lev_len).reshape(lev_len, lons.shape[0], lons.shape[1])
-            lats = np.tile(lats.flatten(), lev_len).reshape(lev_len, lats.shape[0], lats.shape[1])
+            lons = np.tile(lons, (lev_len, lons.shape[0], lons.shape[1]))
+            lats = np.tile(lats, (lev_len, lats.shape[0], lats.shape[1]))
         else:
             pass
     radius = Re # m
@@ -112,8 +112,8 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
-    lons = np.tile(lons.flatten(), lev_len*t_len).reshape(t_len, lev_len, lons.shape[0], lons.shape[1])
-    lats = np.tile(lats.flatten(), lev_len*t_len).reshape(t_len, lev_len, lats.shape[0], lats.shape[1])
+    lons = np.tile(lons, (lev_len, t_len, lons.shape[0], lons.shape[1]))
+    lats = np.tile(lats, (lev_len, t_len, lats.shape[0], lats.shape[1]))
     radius = Re # m
     dlats_x = np.radians(np.diff(lats, axis=-1))
     dlats_y = np.radians(np.diff(lats, axis=-2))
@@ -134,7 +134,7 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
 
 
 
-def distance_3d(lons, lats, t_len = 24):
+def distance_3d(lons, lats, len3d = 24):
     r'''
     各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。  
     Single Levelの変数を計算する際に用いる。
@@ -162,8 +162,8 @@ def distance_3d(lons, lats, t_len = 24):
         lons, lats = np.meshgrid(lons, lats)
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を3次元にする
     # もし特定の時間に関する3次元データを扱う場合、t_lenをERAの場合37にする
-    lons = np.tile(lons.flatten(), t_len).reshape(t_len, lons.shape[0], lons.shape[1])
-    lats = np.tile(lats.flatten(), t_len).reshape(t_len, lats.shape[0], lats.shape[1])
+    lons = np.tile(lons, (len3d, lons.shape[0], lons.shape[1]))
+    lats = np.tile(lats, (len3d, lats.shape[0], lats.shape[1]))
     radius = Re # m
     dlats_x = np.radians(np.diff(lats, axis=-1))
     dlats_y = np.radians(np.diff(lats, axis=-2))
