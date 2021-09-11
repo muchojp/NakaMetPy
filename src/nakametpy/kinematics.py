@@ -18,17 +18,14 @@
 # lapse_rateの鉛直微分は高度ではなく気圧である必要があるかもしれないのでチェックする。
 # nclは気圧で計算してある。
 #
-# divergence同様、2, 3, 4次元の計算を1つの関数でまとめることが出来るかもしれないのでチェックする。
-# 
-# 自作のエラーの実装
-#
 #
 import numpy as np
 from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
 from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re, f0, GammaD
-from ._error import NotValidDxShapeError, NotValidDyShapeError
+from ._error import NotAllowedDxShapeError, NotAllowedDyShapeError, InvalidDxValueError, InvalidDyValueError
 import traceback
 import sys
+import warnings
 
 
 
@@ -59,15 +56,15 @@ def distance(lons, lats, lev_len = None, t_len = None):
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
     if t_len != None:
         if lev_len != None:
-            lons = np.tile(lons.flatten(), lev_len*t_len).reshape(t_len, lev_len, lons.shape[0], lons.shape[1])
-            lats = np.tile(lats.flatten(), lev_len*t_len).reshape(t_len, lev_len, lats.shape[0], lats.shape[1])
+            lons = np.tile(lons, (lev_len, t_len, lons.shape[0], lons.shape[1]))
+            lats = np.tile(lats, (lev_len, t_len, lats.shape[0], lats.shape[1]))
         else:
-            lons = np.tile(lons.flatten(), t_len).reshape(t_len, lons.shape[0], lons.shape[1])
-            lats = np.tile(lats.flatten(), t_len).reshape(t_len, lats.shape[0], lats.shape[1])
+            lons = np.tile(lons, (t_len, lons.shape[0], lons.shape[1]))
+            lats = np.tile(lats, (t_len, lats.shape[0], lats.shape[1]))
     else:
         if lev_len != None:
-            lons = np.tile(lons.flatten(), lev_len).reshape(lev_len, lons.shape[0], lons.shape[1])
-            lats = np.tile(lats.flatten(), lev_len).reshape(lev_len, lats.shape[0], lats.shape[1])
+            lons = np.tile(lons, (lev_len, lons.shape[0], lons.shape[1]))
+            lats = np.tile(lats, (lev_len, lats.shape[0], lats.shape[1]))
         else:
             pass
     radius = Re # m
@@ -110,12 +107,13 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
         dx(t_len, lev_len, lats, lons), dy(t_len, lev_len, lats, lons)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     # lons, latsが1次元の場合、2次元に変換する
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
-    lons = np.tile(lons.flatten(), lev_len*t_len).reshape(t_len, lev_len, lons.shape[0], lons.shape[1])
-    lats = np.tile(lats.flatten(), lev_len*t_len).reshape(t_len, lev_len, lats.shape[0], lats.shape[1])
+    lons = np.tile(lons, (lev_len, t_len, lons.shape[0], lons.shape[1]))
+    lats = np.tile(lats, (lev_len, t_len, lats.shape[0], lats.shape[1]))
     radius = Re # m
     dlats_x = np.radians(np.diff(lats, axis=-1))
     dlats_y = np.radians(np.diff(lats, axis=-2))
@@ -136,7 +134,7 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
 
 
 
-def distance_3d(lons, lats, t_len = 24):
+def distance_3d(lons, lats, len3d = 24):
     r'''
     各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。  
     Single Levelの変数を計算する際に用いる。
@@ -158,13 +156,14 @@ def distance_3d(lons, lats, t_len = 24):
         dx(t_len, lats, lons), dy(t_len, lats, lons)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     # lons, latsが1次元の場合、2次元に変換する
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を3次元にする
     # もし特定の時間に関する3次元データを扱う場合、t_lenをERAの場合37にする
-    lons = np.tile(lons.flatten(), t_len).reshape(t_len, lons.shape[0], lons.shape[1])
-    lats = np.tile(lats.flatten(), t_len).reshape(t_len, lats.shape[0], lats.shape[1])
+    lons = np.tile(lons, (len3d, lons.shape[0], lons.shape[1]))
+    lats = np.tile(lats, (len3d, lats.shape[0], lats.shape[1]))
     radius = Re # m
     dlats_x = np.radians(np.diff(lats, axis=-1))
     dlats_y = np.radians(np.diff(lats, axis=-2))
@@ -206,6 +205,7 @@ def distance_2d(lons, lats):
         dx(lats, lons), dy(lats, lons)
     
     '''
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
     radius = Re # m
@@ -257,12 +257,18 @@ def gradient_h(var, dx, dy, wrfon=0):
         grad_x(nd), grad_y(nd)
     
     '''
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDxShapeError('var', var, dx)
+        raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
-        raise NotValidDyShapeError('var', var, dy)
+        raise NotAllowedDyShapeError('var', var, dy)
+    
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -307,12 +313,19 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
         grad_x(4d), grad_y(4d)
     
     '''
-    if isinstance(dx, (int, float)):
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDxShapeError('var', var, dx)
+        raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
-        raise NotValidDyShapeError('var', var, dy)
+        raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -357,12 +370,19 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
         grad_x(3d), grad_y(3d)
     
     '''
-    if isinstance(dx, (int, float)):
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDxShapeError('var', var, dx)
+        raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
-        raise NotValidDyShapeError('var', var, dy)
+        raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -407,12 +427,19 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
         grad_x(2d), grad_y(2d)
     
     '''
-    if isinstance(dx, (int, float)):
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=1)
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDxShapeError('var', var, dx)
+        raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
-        raise NotValidDyShapeError('var', var, dy)
+        raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     grad_shape = list(var.shape)
     grad_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     grad = np.ma.zeros(grad_shape)
@@ -460,6 +487,13 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
         divergence
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
     grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
@@ -506,12 +540,18 @@ def divergence(fx, fy, dx, dy, wrfon=0):
         divergence
     
     '''
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((fx.shape[-2] == dx.shape[-2])and(fx.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDxShapeError('fx', fx, dx)
+        raise NotAllowedDxShapeError('fx', fx, dx)
     elif not ((fy.shape[-2] == dy.shape[-2]+1)and(fy.shape[-1] == dy.shape[-1])):
-        raise NotValidDyShapeError('fy', fy, dy)
+        raise NotAllowedDyShapeError('fy', fy, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
     grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
@@ -573,12 +613,18 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
         # except ValueError as e:
             # print(e)
 
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((fx.shape[-2] == dx.shape[-2])and(fx.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDxShapeError('fx', fx, dx)
+        raise NotAllowedDxShapeError('fx', fx, dx)
     elif not ((fy.shape[-2] == dy.shape[-2]+1)and(fy.shape[-1] == dy.shape[-1])):
-        raise NotValidDyShapeError('fy', fy, dy)
+        raise NotAllowedDyShapeError('fy', fy, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
     grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
@@ -625,8 +671,7 @@ def vert_grad_3d(variables, pres_3d, z_dim=0):
     
     '''
     if pres_3d.ndim == 1:
-        pres_3d = np.tile(pres_3d, (variables.shape[-2]*variables.shape[-1])).reshape([variables.shape[-2], \
-            variables.shape[-1], variables.shape[-3]]).transpose(2, 0, 1)
+        pres_3d = pressure_nd(pres_3d, lat_dim=variables.shape[-2], lon_dim=variables.shape[-1])
     vertical_grad = np.ma.zeros(variables.shape)
     diff_pres = np.diff(pres_3d, axis=z_dim)
     grad_var = np.diff(variables, axis=z_dim)/diff_pres
@@ -664,8 +709,7 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
 
     '''
     if pres_4d.ndim == 1:
-        pres_4d = np.tile(pres_4d, (variables.shape[0]*variables.shape[-2]*variables.shape[-1])).reshape([variables.shape[-2], \
-            variables.shape[-1], variables.shape[-3], variables.shape[0]]).transpose(2, 3, 0, 1)
+        pres_4d = pressure_nd(pres_4d, time_dim=variables.shape[0], lat_dim=variables.shape[-2], lon_dim=variables.shape[-1])
     vertical_grad = np.ma.zeros(variables.shape)
     diff_pres = np.diff(pres_4d, axis=z_dim)
     grad_var = np.diff(variables, axis=z_dim)/diff_pres
@@ -758,12 +802,19 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
         advection
     
     '''
-    if isinstance(dx, (int, float)):
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDxShapeError('var', var, dx)
+        raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
-        raise NotValidDyShapeError('var', var, dy)
+        raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
@@ -810,12 +861,19 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
         advection
     
     '''
-    if isinstance(dx, (int, float)):
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}'", FutureWarning, stacklevel=2)
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDxShapeError('var', var, dx)
+        raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
-        raise NotValidDyShapeError('var', var, dy)
+        raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
@@ -863,12 +921,18 @@ def advection_h(var, wind_u, wind_v, dx, dy, wrfon=0):
         advection
     
     '''
-    if isinstance(dx, (int, float)):
+    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
         pass
     elif not ((var.shape[-2] == dx.shape[-2])and(var.shape[-1] == dx.shape[-1]+1)):
-        raise NotValidDxShapeError('var', var, dx)
+        raise NotAllowedDxShapeError('var', var, dx)
     elif not ((var.shape[-2] == dy.shape[-2]+1)and(var.shape[-1] == dy.shape[-1])):
-        raise NotValidDyShapeError('var', var, dy)
+        raise NotAllowedDyShapeError('var', var, dy)
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     advs_shape = list(wind_u.shape)
     advs_shape.insert(0, 2) # grad_xとgrad_yの2つの次元を追加
     advs = np.ma.zeros(advs_shape)
@@ -941,6 +1005,12 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
         Q1 or Q11, Q12, Q13
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
     terms = np.ma.zeros(terms_shape)
@@ -1029,6 +1099,12 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
         Q2 or Q21, Q22, Q23
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
     terms = np.ma.zeros(terms_shape)
@@ -1108,6 +1184,12 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
         Q2 or Q21, Q22, Q23
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
     terms = np.ma.zeros(terms_shape)
@@ -1187,6 +1269,12 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
         Q2 or Q21, Q22, Q23
     
     '''
+
+    if np.any(dx<=0):
+        raise InvalidDxValueError()
+    if np.any(dy<=0):
+        raise InvalidDyValueError()
+    
     terms_shape = list(wind_u.shape)
     terms_shape.insert(0, 3) # grad_xとgrad_yの2つの次元を追加
     terms = np.ma.zeros(terms_shape)
@@ -1203,7 +1291,7 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
     return terms
 
 
-def pressure_4d(pres, time_dim=24, lat_dim=201, lon_dim=401):
+def pressure_4d(pres, *, time_dim=24, lat_dim=201, lon_dim=401):
     r'''
     1次元の気圧の配列から4次元の気圧の配列を返す関数。
     気圧を計算に用いる際に使います。
@@ -1219,10 +1307,13 @@ def pressure_4d(pres, time_dim=24, lat_dim=201, lon_dim=401):
         pressure(4d)
     
     '''
-    return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}_nd'", DeprecationWarning, stacklevel=2)
+    # return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
+    pres = pres.reshape(len(pres, 1, 1))
+    return np.tile(pres, (time_dim, 1, lat_dim, lon_dim))
 
 
-def pressure_3d(pres, lat_dim=201, lon_dim=401):
+def pressure_3d(pres, *, lat_dim=201, lon_dim=401):
     r'''
     1次元の気圧の配列から3次元の気圧の配列を返す関数。
     気圧を計算に用いる際に使います。
@@ -1238,10 +1329,13 @@ def pressure_3d(pres, lat_dim=201, lon_dim=401):
         pressure(3d)
     
     '''
-    return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}_nd'", DeprecationWarning, stacklevel=2)
+    # return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
+    pres = pres.reshape(len(pres, 1, 1))
+    return np.tile(pres, (1, lat_dim, lon_dim))
 
 
-def pressure_nd(pres, time_dim=None, lat_dim=201, lon_dim=401):
+def pressure_nd(pres, *, time_dim=None, lat_dim=201, lon_dim=401):
     r'''
     1次元の気圧の配列からn次元の気圧の配列を返す関数。
     気圧を計算に用いる際に使います。
@@ -1257,10 +1351,13 @@ def pressure_nd(pres, time_dim=None, lat_dim=201, lon_dim=401):
         pressure(nd)
     
     '''
+    pres = pres.reshape(len(pres, 1, 1))
     if time_dim==None:
-        return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
+        # return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
+        return np.tile(pres, (1, lat_dim, lon_dim))
     else:
-        return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
+        # return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
+        return np.tile(pres, (time_dim, 1, lat_dim, lon_dim))
 
 
 
