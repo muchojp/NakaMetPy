@@ -671,8 +671,7 @@ def vert_grad_3d(variables, pres_3d, z_dim=0):
     
     '''
     if pres_3d.ndim == 1:
-        pres_3d = np.tile(pres_3d, (variables.shape[-2]*variables.shape[-1])).reshape([variables.shape[-2], \
-            variables.shape[-1], variables.shape[-3]]).transpose(2, 0, 1)
+        pres_3d = pressure_nd(pres_3d, lat_dim=variables.shape[-2], lon_dim=variables.shape[-1])
     vertical_grad = np.ma.zeros(variables.shape)
     diff_pres = np.diff(pres_3d, axis=z_dim)
     grad_var = np.diff(variables, axis=z_dim)/diff_pres
@@ -710,8 +709,7 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
 
     '''
     if pres_4d.ndim == 1:
-        pres_4d = np.tile(pres_4d, (variables.shape[0]*variables.shape[-2]*variables.shape[-1])).reshape([variables.shape[-2], \
-            variables.shape[-1], variables.shape[-3], variables.shape[0]]).transpose(2, 3, 0, 1)
+        pres_4d = pressure_nd(pres_4d, time_dim=variables.shape[0], lat_dim=variables.shape[-2], lon_dim=variables.shape[-1])
     vertical_grad = np.ma.zeros(variables.shape)
     diff_pres = np.diff(pres_4d, axis=z_dim)
     grad_var = np.diff(variables, axis=z_dim)/diff_pres
@@ -1293,7 +1291,7 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
     return terms
 
 
-def pressure_4d(pres, time_dim=24, lat_dim=201, lon_dim=401):
+def pressure_4d(pres, *, time_dim=24, lat_dim=201, lon_dim=401):
     r'''
     1次元の気圧の配列から4次元の気圧の配列を返す関数。
     気圧を計算に用いる際に使います。
@@ -1315,7 +1313,7 @@ def pressure_4d(pres, time_dim=24, lat_dim=201, lon_dim=401):
     return np.tile(pres, (time_dim, 1, lat_dim, lon_dim))
 
 
-def pressure_3d(pres, lat_dim=201, lon_dim=401):
+def pressure_3d(pres, *, lat_dim=201, lon_dim=401):
     r'''
     1次元の気圧の配列から3次元の気圧の配列を返す関数。
     気圧を計算に用いる際に使います。
@@ -1337,7 +1335,7 @@ def pressure_3d(pres, lat_dim=201, lon_dim=401):
     return np.tile(pres, (1, lat_dim, lon_dim))
 
 
-def pressure_nd(pres, time_dim=None, lat_dim=201, lon_dim=401):
+def pressure_nd(pres, *, time_dim=None, lat_dim=201, lon_dim=401):
     r'''
     1次元の気圧の配列からn次元の気圧の配列を返す関数。
     気圧を計算に用いる際に使います。
