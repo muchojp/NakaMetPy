@@ -56,15 +56,15 @@ def distance(lons, lats, lev_len = None, t_len = None):
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
     if t_len != None:
         if lev_len != None:
-            lons = np.tile(lons, (lev_len, t_len, lons.shape[0], lons.shape[1]))
-            lats = np.tile(lats, (lev_len, t_len, lats.shape[0], lats.shape[1]))
+            lons = np.tile(lons, (lev_len, t_len, 1, 1))
+            lats = np.tile(lats, (lev_len, t_len, 1, 1))
         else:
-            lons = np.tile(lons, (t_len, lons.shape[0], lons.shape[1]))
-            lats = np.tile(lats, (t_len, lats.shape[0], lats.shape[1]))
+            lons = np.tile(lons, (t_len, 1, 1))
+            lats = np.tile(lats, (t_len, 1, 1))
     else:
         if lev_len != None:
-            lons = np.tile(lons, (lev_len, lons.shape[0], lons.shape[1]))
-            lats = np.tile(lats, (lev_len, lats.shape[0], lats.shape[1]))
+            lons = np.tile(lons, (lev_len, 1, 1))
+            lats = np.tile(lats, (lev_len, 1, 1))
         else:
             pass
     radius = Re # m
