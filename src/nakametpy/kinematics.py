@@ -641,7 +641,7 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
     grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
-    lat_factor = (fy / Re) * np.cos(lat)
+    lat_factor = (fy / Re) * np.cos(lats)
     div[..., 0] = grad_x_stag[..., 0]
     div[..., -1] = grad_x_stag[..., -1]
     div[..., 0, :] = grad_y_stag[..., 0, :]
