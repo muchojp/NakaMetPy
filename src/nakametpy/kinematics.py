@@ -17,6 +17,7 @@
 # To do:
 # lapse_rateの鉛直微分は高度ではなく気圧である必要があるかもしれないのでチェックする。
 # nclは気圧で計算してある。
+# advectionのチェック。移流は次元は1である。
 #
 #
 import numpy as np
@@ -624,6 +625,18 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
         raise InvalidDxValueError()
     if np.any(dy<=0):
         raise InvalidDyValueError()
+
+    if lat.ndim == 1:
+      lats = np.tile(lat.reshape(-1, 1), (1, fx.shape[-1]))
+    else:
+      lats = lat
+
+    # if fx.ndim is greater than 4, we must revise below.
+    if fx.ndim > 2:
+      if fx.ndim == 3:
+        lats = np.tile(lats, (fx.shape[0], 1, 1))
+      elif fx.ndim == 4:
+        lats = np.tile(lats, (fx.shape[0], fx.shape[1], 1, 1))
     
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
