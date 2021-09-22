@@ -1522,8 +1522,8 @@ def geostrophic_wind(geopotential, dx, dy, f0=f0):
     
     '''
     # terms = gradient_h_4d(geopotential, dx, dy)/f0
-    terms = gradient_h(geopotential, dx, dy)/f0
-    terms[0] = -terms[0]
+    terms = gradient_h(geopotential, dx, dy)[::-1]/f0
+    terms[0] *= -1
     return terms
 
 
