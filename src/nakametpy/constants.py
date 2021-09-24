@@ -24,5 +24,6 @@ f0 = 1E-4
 GammaD = g/Cp
 Kelvin = 273.15
 Tabs = Kelvin
+GasC = R
 
 
