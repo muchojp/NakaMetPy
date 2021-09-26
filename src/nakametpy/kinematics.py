@@ -22,7 +22,7 @@
 #
 import numpy as np
 from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
-from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re, f0, GammaD
+from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g0, Re, f0, GammaD, Omega
 from ._error import NotAllowedDxShapeError, NotAllowedDyShapeError, InvalidDxValueError, InvalidDyValueError
 import traceback
 import sys
@@ -134,7 +134,6 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
     return dx, dy
 
 
-
 def distance_3d(lons, lats, len3d = 24):
     r'''
     各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。  
@@ -182,7 +181,6 @@ def distance_3d(lons, lats, len3d = 24):
     dy = radius * y_rad
     
     return dx, dy
-
 
 
 def distance_2d(lons, lats):
@@ -505,7 +503,6 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
     div[:, 1:-1] += (grad_x_stag[:, :-1]+grad_x_stag[:, 1:])/2
     div[1:-1, :] += (grad_y_stag[:-1, :]+grad_y_stag[1:, :])/2
     return div
-    
 
 
 def divergence(fx, fy, dx, dy, wrfon=0):
@@ -649,7 +646,6 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     div[..., 1:-1] += (grad_x_stag[..., :-1]+grad_x_stag[..., 1:])/2
     div[..., 1:-1, :] += (grad_y_stag[..., :-1, :]+grad_y_stag[..., 1:, :])/2 - lat_factor[..., 1:-1, :]
     return div
-
 
 
 def vert_grad_3d(variables, pres_3d, z_dim=0):
@@ -1494,7 +1490,7 @@ def richardson_number(temp, rh, height, pres, u, v):
     
     '''
     v_pt = potential_temperature(pressure_4d(pres), virtual_temperature(temp, mixing_ratio_from_relative_humidity(rh, temp, pres)))
-    return g/v_pt(vert_grad_4d_height(v_pt, height))/(vert_grad_4d_height(u, height)**2+vert_grad_4d_height(v, height)**2)
+    return g0/v_pt(vert_grad_4d_height(v_pt, height))/(vert_grad_4d_height(u, height)**2+vert_grad_4d_height(v, height)**2)
 
 
 
@@ -1674,3 +1670,90 @@ def static_stability(pressure, temperature):
     """
     return -(R*temperature/pressure)*vert_grad_4d(np.log(potential_temperature(pressure, temperature)), pressure)
 
+
+def coriolis_parameter(lat):
+    r"""
+    コリオリパラメタを求める関数。
+
+    Parameters
+    ----------
+    lat: `numpy.ndarray`
+        Pressure
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Corioli's Parameter
+    
+    Notes
+    -----
+
+    .. math:: f=2\bg{\Omega}\sin\phi
+    """
+    return 2*Omega*np.sin(np.deg2rad(lat))
+
+
+def gravitational_constant(height):
+    r"""
+    重力定数を求める関数。
+
+    Parameters
+    ----------
+    height: `numpy.ndarray`
+        height
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Gravitational constant
+    
+    Notes
+    -----
+
+    .. math:: g(z) = g0\left(\frac{R_e}{R_e+z}\right)^2
+    """
+    return g0*(Re/(Re+height))**2
+
+
+def height_to_geopotential(height):
+    r"""
+    高度からジオポテンシャルを求める関数。
+
+    Parameters
+    ----------
+    height: `numpy.ndarray`
+        height
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Geopotential
+    
+    Notes
+    -----
+
+    .. math:: \Phi = \frac{g(z)R_ez}{R_e+z}
+    """
+    return (g0*Re*height)/(Re+height)
+    
+
+def geopotential_to_height(geopotential):
+    r"""
+    ジオポテンシャルから高度を求める関数。
+
+    Parameters
+    ----------
+    height: `numpy.ndarray`
+        Geopotential
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Height
+    
+    Notes
+    -----
+
+    .. math:: z = \frac{\Phi R_e}{gR_e-\Phi}
+    """
+    return (geopotential*Re)/(g0*Re-geopotential)
