@@ -13,7 +13,7 @@ g_acceralation = g0 # 重力加速度 m/s**2
 Re = 6371.229 * 1000 # m
 P0 = 100000 # Pa
 PI = 3.141592653589793
-Omega = 7.2921159 * 1E5
+Omega = 7.2921159 * 1E-5
 
 # thermodynamics
 sat_pressure_0c = 611.2 # units : Pa
