@@ -1757,3 +1757,86 @@ def geopotential_to_height(geopotential):
     .. math:: z = \frac{\Phi R_e}{gR_e-\Phi}
     """
     return (geopotential*Re)/(g0*Re-geopotential)
+
+
+def ps2ps_distance(lon1, lat1, lon2, lat2):
+  r"""
+  地点間の距離を求める関数。
+  単一の始点間の距離を求める場合はp2p_distanceの方が処理が早い。
+
+  Parameters
+  ----------
+  lon1: `numpy.ndarray`
+      Longitude of point(s)1
+      
+  lat1: `numpy.ndarray`
+      Latitude of point(s)1
+
+  lon2: `numpy.ndarray`
+      Longitude of point(s)2
+
+  lat2: `numpy.ndarray`
+      Latitude of point(s)2
+
+  Returns
+  -------
+  `numpy.ndarray`
+      distance between points1 and points2
+  """
+  if (isinstance(lon1, (list, tuple)))or(isinstance(lon2, (list, tuple)))\
+    or(isinstance(lat1, (list, tuple)))or(isinstance(lat2, (list, tuple))):
+    lon1 = np.array(lon1)
+    lon2 = np.array(lon2)
+    lat1 = np.array(lat1)
+    lat2 = np.array(lat2)
+    
+  if (isinstance(lon2, (int, float)))and(isinstance(lat2, (int, float)))\
+    and(isinstance(lat1, (int, float)))and(isinstance(lon1, (int, float))):
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' may be slow in calculate distance between a single point and another single point. Please use 'p2p_distance'", DeprecationWarning, stacklevel=2)
+
+  radius =  Re
+  
+  dlon = lon2 - lon1
+  dlat = lat2 - lat1
+  
+  a = np.sin(np.deg2rad(dlat) / 2)**2 + np.cos(np.deg2rad(lat1)) * np.cos(np.deg2rad(lat2)) * np.sin(np.deg2rad(dlon) / 2)**2
+  c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+  
+  distance = radius * c
+  return distance
+
+
+def p2p_distance(lon1, lat1, lon2, lat2):
+  r"""
+  単一の地点間の距離を求める関数。
+
+  Parameters
+  ----------
+  lon1: `numpy.ndarray`
+      Longitude of point1
+      
+  lat1: `numpy.ndarray`
+      Latitude of point1
+
+  lon2: `numpy.ndarray`
+      Longitude of point2
+
+  lat2: `numpy.ndarray`
+      Latitude of point2
+
+  Returns
+  -------
+  `numpy.ndarray`
+      distance between point1 and point2
+  """
+  from math import radians, cos, sin, atan2, sqrt
+  radius =  Re
+  
+  dlon = lon2 - lon1
+  dlat = lat2 - lat1
+  
+  a = sin(radians(dlat) / 2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(radians(dlon) / 2)**2
+  c = 2 * atan2(sqrt(a), sqrt(1 - a))
+  
+  distance = radius * c
+  return distance
