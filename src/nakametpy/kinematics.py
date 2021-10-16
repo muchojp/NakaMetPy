@@ -629,7 +629,7 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
       lats = lat
 
     # if fx.ndim is greater than 4, we must revise below.
-    if fx.ndim > 2:
+    if (fx.ndim > 2) and (lats.ndim==2):
       if fx.ndim == 3:
         lats = np.tile(lats, (fx.shape[0], 1, 1))
       elif fx.ndim == 4:
