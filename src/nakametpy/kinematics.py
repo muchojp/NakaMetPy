@@ -1792,7 +1792,7 @@ def ps2ps_distance(lon1, lat1, lon2, lat2):
     
   if (isinstance(lon2, (int, float)))and(isinstance(lat2, (int, float)))\
     and(isinstance(lat1, (int, float)))and(isinstance(lon1, (int, float))):
-    warnings.warn(f"'{sys._getframe().f_code.co_name}' may be slow in calculate distance between a single point and another single point. Please use 'p2p_distance'", DeprecationWarning, stacklevel=2)
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' may be slow in calculate distance between a single point and another single point. Please use 'p2p_distance', which may be faster.", DeprecationWarning, stacklevel=2)
 
   radius =  Re
   
