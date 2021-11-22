@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../src/nakametpy'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'nakametpy'
+project = 'NakaMetPy'
 copyright = '2021, muchojp'
 author = 'muchojp'
 
