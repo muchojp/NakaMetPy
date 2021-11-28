@@ -46,7 +46,7 @@ def load_jmara_grib2(file):
   rain: `numpy.ma.MaskedArray`
     単位 (mm)
 
-  Notes
+  Note
   -----
   ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する
   `np.ndarray` 型の緯度経度である。
