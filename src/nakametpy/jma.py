@@ -22,8 +22,8 @@ def load_jmara_grib2(file):
   -----
   The same as util.load_jmara_grib2.
   '''
-  from .util import load_jmara_grib2
-  return load_jmara_grib2(file)
+  from .util import load_jmara_grib2 as _func
+  return _func(file)
 
 jma_rain_lat = jma_rain_lat
 jma_rain_lon = jma_rain_lon
@@ -40,8 +40,8 @@ def get_jrara_lat():
   -----
   The same as util.load_jmara_grib2.
   '''
-  from .util import get_jrara_lat
-  return get_jrara_lat()
+  from .util import get_jrara_lat as _func
+  return _func()
 
 def get_jrara_lon():
   r'''解析雨量の経度を返す関数
@@ -54,5 +54,5 @@ def get_jrara_lon():
   -----
   The same as util.load_jmara_grib2.
   '''
-  from .util import get_jrara_lon
-  return get_jrara_lon()
+  from .util import get_jrara_lon as _func
+  return _func()
