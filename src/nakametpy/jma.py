@@ -18,7 +18,7 @@ def load_jmara_grib2(file):
   rain: `numpy.ma.MaskedArray`
       単位 (mm)
 
-  Notes
+  Note
   -----
   The same as util.load_jmara_grib2.
   '''
@@ -36,7 +36,7 @@ def get_jrara_lat():
   -------
   lat: `numpy.ndarray`
 
-  Notes
+  Note
   -----
   The same as util.load_jmara_grib2.
   '''
@@ -50,7 +50,7 @@ def get_jrara_lon():
   -------
   lon: `numpy.ndarray`
   
-  Notes
+  Note
   -----
   The same as util.load_jmara_grib2.
   '''
