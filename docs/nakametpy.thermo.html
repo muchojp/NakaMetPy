@@ -191,9 +191,11 @@ for air. Defaults to the ratio for water vapor to dry air.
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <div class="math notranslate nohighlight">
 \[\rho = \frac{p}{R_dT_v}\]</div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -215,12 +217,14 @@ for air. Defaults to the ratio for water vapor to dry air.
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#nakametpy.thermo.dewpoint_from_relative_humidity" title="nakametpy.thermo.dewpoint_from_relative_humidity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dewpoint_from_relative_humidity</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.saturation_vapor_pressure" title="nakametpy.thermo.saturation_vapor_pressure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saturation_vapor_pressure</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">vapor_pressure</span></code></p>
 </div>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>This function inverts the <span id="id2">[Bolton1980]</span> formula for saturation vapor
 pressure to instead calculate the temperature. This yield the following
 formula for dewpoint in degrees Celsius:</p>
 <div class="math notranslate nohighlight">
 \[T = \frac{243.5 \log(e / 6.112)}{17.67 - \log(e / 6.112)}\]</div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -307,10 +311,12 @@ The implementation uses the formula outlined in <span id="id3">[Bolton1980]</spa
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p><span id="id4">[Bolton1980]</span> formula for Theta-e is used, since according to
 <span id="id5">[DaviesJones2009]</span> it is the most accurate non-iterative formulation
 available.</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -363,7 +369,8 @@ metpy.constants.P0</p></li>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Formula based on that from [George1960]</p>
 <div class="math notranslate nohighlight">
 \[KI = T_{850} - T_{500} + Td_{850} - \left(T_{700} - Td_{700}\right)\]</div>
@@ -373,6 +380,7 @@ metpy.constants.P0</p></li>
 <li><p><span class="math notranslate nohighlight">\(Td\)</span> is dew-point temperature</p></li>
 </ul>
 <p>Subscript means its pressure level</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -394,7 +402,8 @@ metpy.constants.P0</p></li>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Formula based on that from [George1960]</p>
 <div class="math notranslate nohighlight">
 \[KI = T_{850} - T_{500} + Td_{850} - \left(T_{700} - Td_{700}\right)\]</div>
@@ -404,6 +413,7 @@ metpy.constants.P0</p></li>
 <li><p><span class="math notranslate nohighlight">\(Td\)</span> is dew-point temperature</p></li>
 </ul>
 <p>Subscript means its pressure level</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -431,11 +441,13 @@ for air. Defaults to the ratio for water vapor to dry air
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>This function is a straightforward implementation of the equation given in many places,
 such as <span id="id6">[Hobbs1977]</span> pg.73:</p>
 <div class="math notranslate nohighlight">
 \[r = \varepsilon \frac{e}{p - e}\]</div>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#nakametpy.thermo.saturation_mixing_ratio" title="nakametpy.thermo.saturation_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saturation_mixing_ratio</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">vapor_pressure</span></code></p>
@@ -465,7 +477,8 @@ such as <span id="id6">[Hobbs1977]</span> pg.73:</p>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Formula adapted from <span id="id7">[Hobbs1977]</span> pg. 74.</p>
 <div class="math notranslate nohighlight">
 \[w = (RH)(w_s)\]</div>
@@ -474,6 +487,7 @@ such as <span id="id6">[Hobbs1977]</span> pg.73:</p>
 <li><p><span class="math notranslate nohighlight">\(RH\)</span> is relative humidity as a unitless ratio</p></li>
 <li><p><span class="math notranslate nohighlight">\(w_s\)</span> is the saturation mixing ratio</p></li>
 </ul>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#nakametpy.thermo.relative_humidity_from_mixing_ratio" title="nakametpy.thermo.relative_humidity_from_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relative_humidity_from_mixing_ratio</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.saturation_mixing_ratio" title="nakametpy.thermo.saturation_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saturation_mixing_ratio</span></code></a></p>
@@ -495,7 +509,8 @@ such as <span id="id6">[Hobbs1977]</span> pg.73:</p>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Formula from <span id="id8">[Salby1996]</span> pg. 118.</p>
 <div class="math notranslate nohighlight">
 \[w = \frac{q}{1-q}\]</div>
@@ -503,6 +518,7 @@ such as <span id="id6">[Hobbs1977]</span> pg.73:</p>
 <li><p><span class="math notranslate nohighlight">\(w\)</span> is mixing ratio</p></li>
 <li><p><span class="math notranslate nohighlight">\(q\)</span> is the specific humidity</p></li>
 </ul>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#nakametpy.thermo.mixing_ratio" title="nakametpy.thermo.mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixing_ratio</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.specific_humidity_from_mixing_ratio" title="nakametpy.thermo.specific_humidity_from_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">specific_humidity_from_mixing_ratio</span></code></a></p>
@@ -534,10 +550,12 @@ pressure.</p>
 <p class="admonition-title">See also</p>
 <p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dry_lapse</span></code></p>
 </div>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Formula:</p>
 <div class="math notranslate nohighlight">
 \[\Theta = T (P_0 / P)^\kappa\]</div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -559,7 +577,8 @@ pressure.</p>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Formula based on that from <span id="id9">[Hobbs1977]</span> pg. 74.</p>
 <div class="math notranslate nohighlight">
 \[RH = \frac{w}{w_s}\]</div>
@@ -568,6 +587,7 @@ pressure.</p>
 <li><p><span class="math notranslate nohighlight">\(w\)</span> is mixing ratio</p></li>
 <li><p><span class="math notranslate nohighlight">\(w_s\)</span> is the saturation mixing ratio</p></li>
 </ul>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#nakametpy.thermo.mixing_ratio_from_relative_humidity" title="nakametpy.thermo.mixing_ratio_from_relative_humidity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixing_ratio_from_relative_humidity</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.saturation_mixing_ratio" title="nakametpy.thermo.saturation_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saturation_mixing_ratio</span></code></a></p>
@@ -593,7 +613,8 @@ pressure.</p>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Formula based on that from <span id="id10">[Hobbs1977]</span> pg. 74. and <span id="id11">[Salby1996]</span> pg. 118.</p>
 <div class="math notranslate nohighlight">
 \[RH = \frac{q}{(1-q)w_s}\]</div>
@@ -602,6 +623,7 @@ pressure.</p>
 <li><p><span class="math notranslate nohighlight">\(q\)</span> is specific humidity</p></li>
 <li><p><span class="math notranslate nohighlight">\(w_s\)</span> is the saturation mixing ratio</p></li>
 </ul>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#nakametpy.thermo.relative_humidity_from_mixing_ratio" title="nakametpy.thermo.relative_humidity_from_mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relative_humidity_from_mixing_ratio</span></code></a></p>
@@ -649,13 +671,15 @@ uses the formula outlined in <span id="id12">[Hobbs1977]</span> pg.73.</p>
 <p class="admonition-title">See also</p>
 <p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vapor_pressure</span></code>, <a class="reference internal" href="#nakametpy.thermo.dewpoint" title="nakametpy.thermo.dewpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dewpoint</span></code></a></p>
 </div>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Instead of temperature, dewpoint may be used in order to calculate
 the actual (ambient) water vapor (partial) pressure.</p>
 <p>The formula used is that from <span id="id13">[Bolton1980]</span> for T in degrees Celsius:</p>
 <div class="math notranslate nohighlight">
 \[6.112 e^\frac{17.67T}{T + 243.5}\]</div>
 <p>下記の式は既にケルビンに直してある</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -683,7 +707,8 @@ the actual (ambient) water vapor (partial) pressure.</p>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Formula from <span id="id14">[Salby1996]</span> pg. 118.</p>
 <div class="math notranslate nohighlight">
 \[q = \frac{w}{1+w}\]</div>
@@ -691,6 +716,7 @@ the actual (ambient) water vapor (partial) pressure.</p>
 <li><p><span class="math notranslate nohighlight">\(w\)</span> is mixing ratio</p></li>
 <li><p><span class="math notranslate nohighlight">\(q\)</span> is the specific humidity</p></li>
 </ul>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#nakametpy.thermo.mixing_ratio" title="nakametpy.thermo.mixing_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixing_ratio</span></code></a>, <a class="reference internal" href="#nakametpy.thermo.mixing_ratio_from_specific_humidity" title="nakametpy.thermo.mixing_ratio_from_specific_humidity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixing_ratio_from_specific_humidity</span></code></a></p>
@@ -720,9 +746,11 @@ for air. Defaults to the ratio for water vapor to dry air.
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <div class="math notranslate nohighlight">
 \[T_v = T \frac{\text{w} + \varepsilon}{\varepsilon\,(1 + \text{w})}\]</div>
+</div>
 </dd></dl>
 
 </section>
