@@ -598,7 +598,7 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     `numpy.ndarray`
         divergence with latitude parameter
 
-    Notes
+    Note
     -----
     URL: https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml
 
@@ -672,7 +672,7 @@ def vert_grad_3d(variables, pres_3d, z_dim=0):
     `numpy.ndarray`
         vertical gradient
 
-    Notes
+    Note
     -----
     .. math:: {VerticalGradient}_{n+1/2} &= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
         &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}
@@ -711,7 +711,7 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
     `numpy.ndarray`
         vertical gradient
 
-    Notes
+    Note
     -----
     .. math:: {VerticalGradient}_{n+1/2} &= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
         &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}
@@ -750,7 +750,7 @@ def vert_grad(variables, pres_4d, z_dim=-3):
     `numpy.ndarray`
         vertical gradient
 
-    Notes
+    Note
     -----
     .. math:: {VerticalGradient}_{n+1/2} &= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
         &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}
@@ -1632,7 +1632,7 @@ def pseudoadiabatic_lapse_rate(pressure, temperature):
     `numpy.ndarray`
         Psuedadiabatic Lapse Rate
     
-    Notes
+    Note
     -----
 
     .. math:: \Gamma_s\equiv-\frac{dT}{dz}=\Gamma_d\frac{[1+L_cq_s/(RT)]}{\left[1+\varepsilon L_c^2q_s/(c_pRT^2)\right]}
@@ -1663,7 +1663,7 @@ def static_stability(pressure, temperature):
     `numpy.ndarray`
         Static Stability
     
-    Notes
+    Note
     -----
 
     .. math:: -\frac{RT}{p}\left(\frac{\partial \log\theta}{\partial p}\right)
@@ -1685,7 +1685,7 @@ def coriolis_parameter(lat):
     `numpy.ndarray`
         Corioli's Parameter
     
-    Notes
+    Note
     -----
 
     .. math:: f=2\bg{\Omega}\sin\phi
@@ -1707,7 +1707,7 @@ def gravitational_constant(height):
     `numpy.ndarray`
         Gravitational constant
     
-    Notes
+    Note
     -----
 
     .. math:: g(z) = g0\left(\frac{R_e}{R_e+z}\right)^2
@@ -1729,7 +1729,7 @@ def height_to_geopotential(height):
     `numpy.ndarray`
         Geopotential
     
-    Notes
+    Note
     -----
 
     .. math:: \Phi = \frac{g(z)R_ez}{R_e+z}
@@ -1751,7 +1751,7 @@ def geopotential_to_height(geopotential):
     `numpy.ndarray`
         Height
     
-    Notes
+    Note
     -----
 
     .. math:: z = \frac{\Phi R_e}{gR_e-\Phi}

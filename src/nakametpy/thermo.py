@@ -41,7 +41,7 @@ def mixing_ratio_from_relative_humidity(relative_humidity, temperature, pressure
     `numpy.ndarray`
         Dimensionless mixing ratio
 
-    Notes
+    Note
     -----
     Formula adapted from [Hobbs1977]_ pg. 74.
 
@@ -107,7 +107,7 @@ def mixing_ratio(part_press, tot_press, molecular_weight_ratio=0.622):
     `numpy.ndarray`
         The (mass) mixing ratio, dimensionless (e.g. Kg/Kg or g/g)
 
-    Notes
+    Note
     -----
     This function is a straightforward implementation of the equation given in many places,
     such as [Hobbs1977]_ pg.73:
@@ -135,7 +135,7 @@ def mixing_ratio_from_specific_humidity(specific_humidity):
     `numpy.ndarray`
         Mixing ratio
 
-    Notes
+    Note
     -----
     Formula from [Salby1996]_ pg. 118.
 
@@ -171,7 +171,7 @@ def saturation_vapor_pressure(temperature):
     --------
     vapor_pressure, dewpoint
 
-    Notes
+    Note
     -----
     Instead of temperature, dewpoint may be used in order to calculate
     the actual (ambient) water vapor (partial) pressure.
@@ -232,7 +232,7 @@ def dewpoint(e):
     --------
     dewpoint_from_relative_humidity, saturation_vapor_pressure, vapor_pressure
 
-    Notes
+    Note
     -----
     This function inverts the [Bolton1980]_ formula for saturation vapor
     pressure to instead calculate the temperature. This yield the following
@@ -312,7 +312,7 @@ def equivalent_potential_temperature(pressure, temperature, dewpoint):
     `numpy.ndarray`
         The equivalent potential temperature of the parcel
 
-    Notes
+    Note
     -----
     [Bolton1980]_ formula for Theta-e is used, since according to
     [DaviesJones2009]_ it is the most accurate non-iterative formulation
@@ -355,7 +355,7 @@ def potential_temperature(pressure, temperature):
     --------
     dry_lapse
 
-    Notes
+    Note
     -----
     Formula:
 
@@ -410,7 +410,7 @@ def specific_humidity_from_mixing_ratio(mixing_ratio):
     `numpy.ndarray`
         Specific humidity
 
-    Notes
+    Note
     -----
     Formula from [Salby1996]_ pg. 118.
 
@@ -449,7 +449,7 @@ def virtual_temperature(temperature, mixing_ratio, molecular_weight_ratio=epsilo
     `numpy.ndarray`
         The corresponding virtual temperature of the parcel
 
-    Notes
+    Note
     -----
     .. math:: T_v = T \frac{\text{w} + \varepsilon}{\varepsilon\,(1 + \text{w})}
 
@@ -482,7 +482,7 @@ def density(pressure, temperature, mixing_ratio, molecular_weight_ratio=epsilone
     `numpy.ndarray`
         The corresponding density of the parcel
 
-    Notes
+    Note
     -----
     .. math:: \rho = \frac{p}{R_dT_v}
 
@@ -510,7 +510,7 @@ def relative_humidity_from_mixing_ratio(pressure, temperature, mixing_ratio):
     `numpy.ndarray`
         Relative humidity
 
-    Notes
+    Note
     -----
     Formula based on that from [Hobbs1977]_ pg. 74.
 
@@ -548,7 +548,7 @@ def relative_humidity_from_specific_humidity(pressure, temperature, specific_hum
     `numpy.ndarray`
         Relative humidity
 
-    Notes
+    Note
     -----
     Formula based on that from [Hobbs1977]_ pg. 74. and [Salby1996]_ pg. 118.
 
@@ -586,7 +586,7 @@ def k_index_3d(pressure, temperature, rh):
     `numpy.ndarray`
         K index
 
-    Notes
+    Note
     -----
     Formula based on that from [George1960]
 
@@ -625,7 +625,7 @@ def k_index_2d(t850, t700, t500, rh850, rh700):
     `numpy.ndarray`
         K Index in Kelvin
 
-    Notes
+    Note
     -----
     Formula based on that from [George1960]
 

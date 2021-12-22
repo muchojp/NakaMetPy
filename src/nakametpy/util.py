@@ -75,7 +75,7 @@ def load_jmara_grib2(file):
   # convert level to representative
   return np.ma.masked_less((level_table[decoded]/(10**power))[::-1, :], 0)
 
-def get_jrara_lat():
+def get_jmara_lat():
   r'''解析雨量の緯度を返す関数
 
   Returns
@@ -85,7 +85,7 @@ def get_jrara_lat():
   return np.linspace(48, 20, 3360, endpoint=False)[::-1] - 1/80/1.5 / 2
     
 
-def get_jrara_lon():
+def get_jmara_lon():
   r'''解析雨量の経度を返す関数
 
   Returns
