@@ -68,3 +68,4 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 todo_include_todos = True
+html_show_sourcelink = False # View page source を表示させない
