@@ -226,6 +226,59 @@ def distance_2d(lons, lats):
     return dx, dy
 
 
+def dis_azi_from_point(lats, lons, lat_idx, lon_idx, lev_len = None, t_len = None):
+    r'''
+    ある地点からの距離と方位角を求める関数。次元は[(時間、鉛直方向)、緯度、経度]である。  
+
+    地球半径の値は6371229mを使用。  
+
+    Calculate the distance and azimuth from latitude and longitude
+
+    Parameters
+    ----------
+    lats: `numpy.ndarray`
+        latitude(1d or 2d)
+    lons: `numpy.ndarray`
+        longitude(1d or 2d)
+    lat_idx: `int`
+    lon_idx: `int`
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        dr((t_len, lev_len), lats, lons), azimuth((t_len, lev_len), lats, lons)
+    
+    '''
+    # lons, latsが1次元の場合、2次元に変換する
+    if lats.ndim == 1:
+        lons, lats = np.meshgrid(lons, lats)
+    # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
+    if t_len != None:
+        if lev_len != None:
+            lons = np.tile(lons, (t_len, lev_len, 1, 1))
+            lats = np.tile(lats, (t_len, lev_len, 1, 1))
+        else:
+            lons = np.tile(lons, (t_len, 1, 1))
+            lats = np.tile(lats, (t_len, 1, 1))
+    else:
+        if lev_len != None:
+            lons = np.tile(lons, (lev_len, 1, 1))
+            lats = np.tile(lats, (lev_len, 1, 1))
+        else:
+            pass
+    radius = Re # m
+    dlats = np.radians(lats-lats[lat_idx, lon_idx])
+    dlons = np.radians(lons-lons[lat_idx, lon_idx])
+    deg = np.sin(dlats/2) * np.sin(dlats/2) + np.cos(np.radians(lats[lat_idx, lon_idx])) \
+        * np.cos(np.radians(lats)) * np.sin(dlons/2) * np.sin(dlons/2)
+    rad = 2 * np.arctan2(np.sqrt(deg), np.sqrt(1-deg))
+    azimuth = np.arctan2(np.sin(dlons), np.cos(np.radians(lats[lat_idx, lon_idx]))\
+        *np.tan(np.radians(lats))-np.sin(np.radians(lats[lat_idx, lon_idx]))*np.cos(dlons))
+    dr = radius * rad
+    
+    return dr, np.deg2rad(90)-azimuth
+
+
 def gradient_h(var, dx, dy, wrfon=0):
     r'''
     変数の勾配を求める関数。
@@ -1840,3 +1893,4 @@ def p2p_distance(lon1, lat1, lon2, lat2):
   
   distance = radius * c
   return distance
+
