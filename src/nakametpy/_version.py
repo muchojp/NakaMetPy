@@ -5,4 +5,4 @@
 
 
 def get_version():
-    return '2021.10.0'
+    return '2022.2.0'
