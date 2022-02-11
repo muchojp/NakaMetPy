@@ -253,19 +253,6 @@ def dis_azi_from_point(lats, lons, lat_idx, lon_idx, lev_len = None, t_len = Non
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
-    if t_len != None:
-        if lev_len != None:
-            lons = np.tile(lons, (t_len, lev_len, 1, 1))
-            lats = np.tile(lats, (t_len, lev_len, 1, 1))
-        else:
-            lons = np.tile(lons, (t_len, 1, 1))
-            lats = np.tile(lats, (t_len, 1, 1))
-    else:
-        if lev_len != None:
-            lons = np.tile(lons, (lev_len, 1, 1))
-            lats = np.tile(lats, (lev_len, 1, 1))
-        else:
-            pass
     radius = Re # m
     dlats = np.radians(lats-lats[lat_idx, lon_idx])
     dlons = np.radians(lons-lons[lat_idx, lon_idx])
@@ -275,8 +262,22 @@ def dis_azi_from_point(lats, lons, lat_idx, lon_idx, lev_len = None, t_len = Non
     azimuth = np.arctan2(np.sin(dlons), np.cos(np.radians(lats[lat_idx, lon_idx]))\
         *np.tan(np.radians(lats))-np.sin(np.radians(lats[lat_idx, lon_idx]))*np.cos(dlons))
     dr = radius * rad
+    azimuth = np.deg2rad(90)-azimuth
+    if t_len == None:
+        if lev_len == None:
+            pass
+        else:
+            dr = np.tile(dr, (lev_len, 1, 1))
+            azimuth = np.tile(azimuth, (lev_len, 1, 1))
+    else:
+        if lev_len == None:
+            dr = np.tile(dr, (t_len, 1, 1))
+            azimuth = np.tile(azimuth, (t_len, 1, 1))
+        else:
+            dr = np.tile(dr, (t_len, lev_len, 1, 1))
+            azimuth = np.tile(azimuth, (t_len, lev_len, 1, 1))
     
-    return dr, np.deg2rad(90)-azimuth
+    return dr, azimuth
 
 
 def gradient_h(var, dx, dy, wrfon=0):
