@@ -1816,7 +1816,7 @@ def geopotential_to_height(geopotential):
 def ps2ps_distance(lon1, lat1, lon2, lat2):
   r"""
   地点間の距離を求める関数。
-  単一の始点間の距離を求める場合はp2p_distanceの方が処理が早い。
+  単一の地点間の距離を求める場合はp2p_distanceの方が処理が早い。
 
   Parameters
   ----------
@@ -1826,10 +1826,10 @@ def ps2ps_distance(lon1, lat1, lon2, lat2):
   lat1: `numpy.ndarray`
       Latitude of point(s)1
 
-  lon2: `numpy.ndarray`
+  lon2: `numpy.ndarray` or `int` or `float`
       Longitude of point(s)2
 
-  lat2: `numpy.ndarray`
+  lat2: `numpy.ndarray` or `int` or `float`
       Latitude of point(s)2
 
   Returns
