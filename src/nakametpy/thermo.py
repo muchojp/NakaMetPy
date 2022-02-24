@@ -490,6 +490,33 @@ def density(pressure, temperature, mixing_ratio, molecular_weight_ratio=epsilone
     virttemp = virtual_temperature(temperature, mixing_ratio, molecular_weight_ratio)
     return (pressure / (R * virttemp)) # 単位はkg m**-3
 
+def relative_humidity_from_dewpoint(temperature, dewpt):
+    r"""Calculate the relative humidity.
+
+    Uses temperature and dewpoint in celsius to calculate relative
+    humidity using the ratio of vapor pressure to saturation vapor pressures.
+
+    Parameters
+    ----------
+    temperature : `numpy.ndarray`
+        air temperature
+    dewpoint : `numpy.ndarray`
+        dewpoint temperature
+
+    Returns
+    -------
+    `numpy.ndarray`
+        relative humidity
+
+    See Also
+    --------
+    saturation_vapor_pressure
+
+    """
+    e = saturation_vapor_pressure(dewpt)
+    e_s = saturation_vapor_pressure(temperature)
+    return (e / e_s)
+
 
 def relative_humidity_from_mixing_ratio(pressure, temperature, mixing_ratio):
     r"""Calculate the relative humidity from mixing ratio, temperature, and pressure.
