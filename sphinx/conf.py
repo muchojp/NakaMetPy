@@ -22,7 +22,7 @@ copyright = '2022, muchojp'
 author = 'muchojp'
 
 # The full version, including alpha/beta/rc tags
-release = '2022.2.1'
+release = '2022.3.0'
 
 
 # -- General configuration ---------------------------------------------------
