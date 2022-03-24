@@ -1095,7 +1095,7 @@ def jma_temp_anom_linear():
     
     Notes
     -----
-    The object name is ``jma_tmp_anom_linear_256lev``.
+    The object name is ``jma_temp_anom_linear_256lev``.
 
     |jma_temp_anom_linear|
 
