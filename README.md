@@ -51,9 +51,9 @@ pip install nakametpy
 ## Licence
 `BSD-3-Clause`
 
-<!-- ## Update plans
-Next(`2021.x.0`): 
- - Error周りを追加 -->
+## Update plans
+Next(`2022.4.0` or later): 
+ - Add reading GrADS binary function
 
 To Do: 
  - `wrfon`オプションの廃止
