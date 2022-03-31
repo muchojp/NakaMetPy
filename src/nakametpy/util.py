@@ -144,3 +144,35 @@ jma_rain_lon = np.linspace(118, 150, 2560, endpoint=False) + 1/80 / 2
 
 gsmap_lat = np.arange(-60, 60, 0.1)[::-1] + 0.05
 gsmap_lon = np.arange(0, 360, 0.1) + 0.05
+
+def unit_ms1_knots(ms):
+  r"""
+  Convert unit m/s into knots.
+  
+  Parameters
+  ----------
+  ms: `int`
+    Velocity in meter per second.
+  
+  Returns
+  -------
+  `kt`
+    Velocity in knots.
+  """
+  return ms*3600/1852
+
+def unit_knots_ms1(kt):
+  r"""
+  Convert unit knots into m/s.
+  
+  Parameters
+  ----------
+  kt: `int`
+    Velocity in knots.
+  
+  Returns
+  -------
+  `ms`
+    Velocity in meter per second.
+  """
+  return kt*1852/3600
