@@ -24,7 +24,7 @@ class GrADS:
   defined for this `Dataset` or `Group` to instances of the
   `Variable` class.
   """
-  def __init__(self, filename, s2n=True, endian=None, do_squeeze=True):
+  def __init__(self, filename, endian=None, do_squeeze=True):
     """
       **`__init__(self, filename, s2n=True, endian=None, do_squeese=True`**
       
@@ -74,22 +74,26 @@ class GrADS:
             self.endian = "little_endian"
           else:
             self.endian = "native_endian"
+          if "yrev" in line.lower():
+            s2n = False
+          if "zrev" in line.lower():
+            u2b = False
           continue
           
         if "xdef" in line.lower():
+          _xdef = _get_line_list(line)
+          self.nx = int(_xdef[1])
           if "linear" in line.lower():
-            _xdef = _get_line_list(line)
             self.dimensions["xdef"] = Dimension(np.arange(float(_xdef[3]), float(_xdef[3])+float(_xdef[1])*float(_xdef[4]), float(_xdef[4])), "xdef")
-            self.nx = int(_xdef[1])
           else:
             warnings.warn("Debug Warning: Currently, Only 'LINEAR' is supported in XDEF.")
           continue
           
         if "ydef" in line.lower():
+          _ydef = _get_line_list(line)
+          self.ny = int(_ydef[1])
           if "linear" in line.lower():
-            _ydef = _get_line_list(line)
             self.dimensions["ydef"] = Dimension(np.arange(float(_ydef[3]), float(_ydef[3])+float(_ydef[1])*float(_ydef[4]), float(_ydef[4]))[::(-1)**(int(s2n)+1)], "ydef") # if s2n is True -> +1, if False -> -1
-            self.ny = int(_ydef[1])
           else:
             warnings.warn("Debug Warning: Currently, Only 'LINEAR' is supported in YDEF.")
           continue
@@ -98,16 +102,16 @@ class GrADS:
           if "levels" in line.lower():
             _zdef = _get_line_list(line)
             _zdef = [float(_izdef) for _izdef in _zdef[3:int(_zdef[1])+3]]
-            self.dimensions["zdef"] = Dimension(np.array(_zdef), "zdef")
+            self.dimensions["zdef"] = Dimension(np.array(_zdef[::(-1)**(int(u2b)+1)]), "zdef")
           else:
             warnings.warn("Debug Warning: Currently, Only 'LEVELS' is supported in ZDEF.")
           continue
           
         if "tdef" in line.lower():
+          _tdef = _get_line_list(line)
+          self.nt = int(_tdef[1])
           if "linear" in line.lower():
-            _tdef = _get_line_list(line)
             _init_dt = datetime.datetime.strptime(_tdef[3].title(), "%HZ%d%b%Y")
-            self.nt = int(_tdef[1])
             if _tdef[4][-2:].lower() == "hr":
               self.dimensions["tdef"] = Dimension(np.array([_init_dt + i*datetime.timedelta(hours=int(_tdef[4][:-2])) for i in range(int(_tdef[1]))]), "tdef")
             elif _tdef[4][-2:].lower() == "dy":
