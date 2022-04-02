@@ -67,7 +67,7 @@ class GrADS:
           self.undef = float(_get_line_list(line)[1])
           continue
           
-        if "options" in line.lower():
+        if "options" in line.lower(): # So far, endian, yrev, zrev is available. byteswapped is not supported.
           if "big_endian" in line.lower():
             self.endian = "big_endian"
           elif "little_endian" in line.lower():
@@ -145,6 +145,9 @@ class GrADS:
     self.variables = _get_vars(self, lines, _var_idx, _nzdims, do_squeeze)
 
 def _get_vars(self, lines, idx_list, nz_list, do_squeese): # self : grads.GrADS object
+  """
+  Get the variables info
+  """
   variables = dict()
   for inidx, iline_idx in enumerate(idx_list):
     iline = lines[iline_idx]
@@ -176,16 +179,32 @@ def _get_vars(self, lines, idx_list, nz_list, do_squeese): # self : grads.GrADS 
   return variables      
 
 def _get_line_list(line):
+  """
+  Get a list of single line.
+  """
   return [i for i in re.split("[\s\t\n^,]+", \
           line.replace("\n", "", 1).strip()) if i != ""]
   
 def _replace_template(dset):
+  """
+  Convert specific simbol into ?, which means some ONE letter.
+  """
   for i in range(1, 5, 1):
     dset = re.sub(f"%[a-z]{i}", "?"*i, dset)
   return dset
             
 class Variable:
+  """
+  A GrADS `Variable` is used to read 4 bytes direct access binary data.  
+  They are analogous to numpy array objects. 
+  See `Variable.__init__` for more details.
+  """
   def __init__(self, binname, varname, varid, loop_block, nx, ny, nz, nt, endian, undef, desc, do_squeese):
+    """
+    **`__init__(self, binname, varname, varid, loop_block, nx, ny, nz, nt, endian, undef, desc, do_squeese)`**
+    
+    `Variable` constructor.
+    """
     self._name = varname
     self._undef = undef
     self._binname = binname
@@ -207,6 +226,9 @@ class Variable:
     return self.__str__()
 
   def __getitem__(self, elem):
+    """
+    Need for slicing.
+    """
     return _sel(self._binname, self._varid, self._loop_block, self._endian,\
       self._nx, self._ny, self._nz, self._nt, self._undef, self._do_squeese)[elem]
 
@@ -282,7 +304,14 @@ def _sel(binname, varid, loop_block, endian, nx, ny, nz, nt, undef, do_squeese, 
 
 
 class Dimension:
+  """
+  A GrADS `Dimension` is used to describe the coordinates of a `Variable`.
+  See `Dimension.__init__` for more details.
+  """
   def __init__(self, data, var):
+    """
+    **`__init__(self, data, var)`**
+    """
     self.values = data
     self.dim = var
 
@@ -293,6 +322,9 @@ class Dimension:
     return self.__str__()
 
   def __getitem__(self, elem):
+    """
+    Need for slicing.
+    """
     return self.values[elem]
 
   def __str__(self):
@@ -303,6 +335,9 @@ class Dimension:
     return "\n".join(ncdump)
 
 def _endian2simbole(endian):
+  """
+  Get NumPy's endian simbol from the words.
+  """
   if endian.lower() == "big_endian":
     return ">"
   elif endian.lower() == "little_endian":
