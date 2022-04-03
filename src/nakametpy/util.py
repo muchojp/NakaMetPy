@@ -192,9 +192,11 @@ def anom_levels(levs):
   .. highlight:: python
   .. code-block:: python
   
-  >>> levs = [0.5, 1., 2.]
-  >>> print(anom_levels(levs))
-  [-2.  -1.  -0.5  0.5  1.   2. ]
+  ```python
+    >>> levs = [0.5, 1., 2.]
+    >>> print(anom_levels(levs))
+    [-2.  -1.  -0.5  0.5  1.   2. ]
+  ```
   
   """
   levs = list(set(np.abs(levs)))
