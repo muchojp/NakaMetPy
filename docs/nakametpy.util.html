@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nakametpy.util module &mdash; NakaMetPy 2022.3.0 documentation</title>
+  <title>nakametpy.util module &mdash; NakaMetPy 2022.4.0a0 documentation</title>
   
 
   
@@ -166,6 +166,27 @@
   <section id="module-nakametpy.util">
 <span id="nakametpy-util-module"></span><h1>nakametpy.util module<a class="headerlink" href="#module-nakametpy.util" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.anom_levels">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">anom_levels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">levs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#anom_levels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.anom_levels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return minus ans plus levels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>levs</strong> (<cite>list`or`np.ndarray</cite>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>anom levels</strong> (<cite>np.ndarray</cite>)</p></li>
+<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python</p></li>
+<li><p><em>&gt;&gt;&gt; levs = [0.5, 1., 2.]</em></p></li>
+<li><p><em>&gt;&gt;&gt; print(anom_levels(levs))</em></p></li>
+<li><p><em>[-2.  -1.  -0.5  0.5  1.   2. ]</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.dt_ymdhm">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">dt_ymdhm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#dt_ymdhm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.dt_ymdhm" title="Permalink to this definition">¶</a></dt>
 <dd><p>datetime.datetime から year, month, day, hour, minute の set を返す関数。
@@ -265,6 +286,40 @@ opt = 1 : string, 0 : int</p>
 <p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code> , <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する
 <cite>np.ndarray</cite> 型の緯度経度である。</p>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.unit_knots_ms1">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">unit_knots_ms1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#unit_knots_ms1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.unit_knots_ms1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert unit knots into m/s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kt</strong> (<cite>int</cite>) – Velocity in knots.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Velocity in meter per second.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>ms</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.unit_ms1_knots">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">unit_ms1_knots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#unit_ms1_knots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.unit_ms1_knots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert unit m/s into knots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ms</strong> (<cite>int</cite>) – Velocity in meter per second.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Velocity in knots.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>kt</cite></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

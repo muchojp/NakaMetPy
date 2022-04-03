@@ -20,7 +20,7 @@ console_scripts = [
 setup(
     name='nakametpy',
     python_requires='>=3.7.0',
-    version='2022.3.0',
+    version='2022.4.0a0',
     description='Meteorological modules for calculation and colormap.',
     # packages=packages,
     packages=find_packages('src'),

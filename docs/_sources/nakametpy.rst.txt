@@ -9,6 +9,7 @@ Submodules
 
    nakametpy.cmaps
    nakametpy.constants
+   nakametpy.grads
    nakametpy.jma
    nakametpy.kinematics
    nakametpy.thermo
