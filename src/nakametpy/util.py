@@ -176,3 +176,24 @@ def unit_knots_ms1(kt):
     Velocity in meter per second.
   """
   return kt*1852/3600
+
+def anom_levels(levs):
+  """
+  Return minus ans plus levels.
+
+  Parameters
+  ----------
+  levs: `list`or`np.ndarray`
+
+  Returns
+  -------
+  anom levels: `np.ndarray`
+  
+  ```python
+  >>> levs = [0.5, 1., 2.]
+  >>> print(anom_levels(levs))
+  [-2.  -1.  -0.5  0.5  1.   2. ]
+  """
+  levs = list(set(np.abs(levs)))
+  levs.sort()
+  return np.array([-i for i in levs[::-1]]+levs)
