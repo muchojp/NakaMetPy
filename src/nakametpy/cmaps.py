@@ -1681,6 +1681,24 @@ def _plot_each_colorbar(cmap_name, output='../../docs/img'):
     plt.close(fig)
 
 
+MPL_DEFAULT_COLOR_LIST = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+
+def mpl_default_color_cyclic(idx):
+    """
+    Get matplotlib default color in cyclic
+
+    Parameters
+    ----------
+    idx: `int`
+
+    Returns
+    -------
+    color code: `str`
+        "#??????"
+    """
+    return MPL_DEFAULT_COLOR_LIST[idx%len(MPL_DEFAULT_COLOR_LIST)]
+
+
 if __name__=='__main__':
     for i_cmp_name in get_colormap_list():
         _plot_each_colorbar(i_cmp_name)
