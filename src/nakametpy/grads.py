@@ -4,6 +4,7 @@
 
 import numpy as np
 from numpy import ma
+from ._error import ExceedZidxError, ExceedTidxError
 import re
 import os
 import glob
@@ -42,6 +43,9 @@ class GrADS:
     self.do_squeese = do_squeeze
     self.dimensions = dict()
     
+    s2n = True
+    b2t = True
+    
     with open(self.filename) as f:
       lines = f.readlines()
       
@@ -77,7 +81,7 @@ class GrADS:
           if "yrev" in line.lower():
             s2n = False
           if "zrev" in line.lower():
-            u2b = False
+            b2t = False
           continue
           
         if "xdef" in line.lower():
@@ -99,12 +103,14 @@ class GrADS:
           continue
           
         if "zdef" in line.lower():
+          _zdef = _get_line_list(line)
           if "levels" in line.lower():
-            _zdef = _get_line_list(line)
             _zdef = [float(_izdef) for _izdef in _zdef[3:int(_zdef[1])+3]]
-            self.dimensions["zdef"] = Dimension(np.array(_zdef[::(-1)**(int(u2b)+1)]), "zdef")
+            self.dimensions["zdef"] = Dimension(np.array(_zdef[::(-1)**(int(b2t)+1)]), "zdef")
+          elif "linear" in line.lower():
+            self.dimensions["zdef"] = Dimension(np.arange(float(_zdef[3]), float(_zdef[3])+float(_zdef[1])*float(_zdef[4]), float(_zdef[4]))[::(-1)**(int(b2t)+1)], "zdef") # if b2c is True -> +1, if False -> -1
           else:
-            warnings.warn("Debug Warning: Currently, Only 'LEVELS' is supported in ZDEF.")
+            warnings.warn("Debug Warning: Currently, Only 'LEVELS' and 'LINEAR' are supported in ZDEF.")
           continue
           
         if "tdef" in line.lower():
@@ -229,7 +235,7 @@ class Variable:
     """
     Need for slicing.
     """
-    return _sel(self._binname, self._varid, self._loop_block, self._endian,\
+    return _sel(self._binname, self._name, self._varid, self._loop_block, self._endian,\
       self._nx, self._ny, self._nz, self._nt, self._undef, self._do_squeese)[elem]
 
   def __str__(self):
@@ -240,9 +246,24 @@ class Variable:
     return "\n".join(ncdump)
 
   def sel(self,  zidx=None, tidx=None):
-    return _sel(self._binname, self._varid, self._loop_block, self._endian, self._nx, self._ny, self._nz, self._nt, self._undef, self._do_squeese,  zidx, tidx)
+    return _sel(self._binname, self._name, self._varid, self._loop_block, self._endian, self._nx, self._ny, self._nz, self._nt, self._undef, self._do_squeese,  zidx, tidx)
 
-def _sel(binname, varid, loop_block, endian, nx, ny, nz, nt, undef, do_squeese,  zidx=None, tidx=None):
+def _sel(binname, name, varid, loop_block, endian, nx, ny, nz, nt, undef, do_squeese,  zidx=None, tidx=None):
+  # check for index
+  if isinstance(zidx, int):
+    if zidx >= nz:
+      raise ExceedZidxError(name, (nt, nz, ny, nx), zidx)
+  elif isinstance(zidx, (list, tuple, np.ndarray)):
+    for _izidx in zidx:
+      raise ExceedZidxError(name, (nt, nz, ny, nx), _izidx)
+    
+  if isinstance(tidx, int):
+    if tidx >= nz:
+      raise ExceedTidxError(name, (nt, nz, ny, nx), tidx)
+  elif isinstance(tidx, (list, tuple, np.ndarray)):
+    for _itidx in tidx:
+      raise ExceedTidxError(name, (nt, nz, ny, nx), _itidx)
+  
   with open(binname, "rb") as f:
     _data = []
     if (zidx==None)&(tidx==None): # get ALL
