@@ -249,20 +249,22 @@ class Variable:
     return _sel(self._binname, self._name, self._varid, self._loop_block, self._endian, self._nx, self._ny, self._nz, self._nt, self._undef, self._do_squeese,  zidx, tidx)
 
 def _sel(binname, name, varid, loop_block, endian, nx, ny, nz, nt, undef, do_squeese,  zidx=None, tidx=None):
-  # check for index
+  # check for index exceeding
   if isinstance(zidx, int):
     if zidx >= nz:
       raise ExceedZidxError(name, (nt, nz, ny, nx), zidx)
   elif isinstance(zidx, (list, tuple, np.ndarray)):
     for _izidx in zidx:
-      raise ExceedZidxError(name, (nt, nz, ny, nx), _izidx)
+      if _izidx >= nz:
+        raise ExceedZidxError(name, (nt, nz, ny, nx), _izidx)
     
   if isinstance(tidx, int):
-    if tidx >= nz:
+    if tidx >= nt:
       raise ExceedTidxError(name, (nt, nz, ny, nx), tidx)
   elif isinstance(tidx, (list, tuple, np.ndarray)):
     for _itidx in tidx:
-      raise ExceedTidxError(name, (nt, nz, ny, nx), _itidx)
+      if _itidx >= nt:
+        raise ExceedTidxError(name, (nt, nz, ny, nx), _itidx)
   
   with open(binname, "rb") as f:
     _data = []
