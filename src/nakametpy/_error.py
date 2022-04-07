@@ -79,3 +79,17 @@ class ExceedZidxError(MyException3):
               f"変数 {self.kargs[0]} の shape は {self.kargs[1]} です。 zidx は {self.kargs[2]} が指定されており {self.kargs[1][1]-1} 以下である必要があります。\n"+\
               f"The shape of variable {self.kargs[0]} is {self.kargs[1]}. You set zidx = {self.kargs[2]} but the zidx must be less than or equal {self.kargs[1][1]-1}."
           )
+
+class InvalidTidxError(MyException3):
+    def __str__(self):
+      return (
+          f"tidx は None, int, list, tuple, np.ndarray のいずれかである必要があります。しかし {self.kargs[0]} となっています。\n"+\
+          f"tidx is must be None, int, list, tuple or np.ndarray. However, type(tidx) is now {self.kargs[0]}."
+      )
+
+class InvalidZidxError(MyException3):
+    def __str__(self):
+      return (
+          f"zidx は None, int, list, tuple, np.ndarray のいずれかである必要があります。しかし {self.kargs[0]} となっています。\n"+\
+          f"zidx is must be None, int, list, tuple or np.ndarray. However, type(zidx) is now {self.kargs[0]}."
+      )
