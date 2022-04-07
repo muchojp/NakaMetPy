@@ -4,7 +4,7 @@
 
 import numpy as np
 from numpy import ma
-from ._error import ExceedZidxError, ExceedTidxError
+from ._error import ExceedZidxError, ExceedTidxError, InvalidTidxError, InvalidZidxError
 import re
 import os
 import glob
@@ -250,75 +250,48 @@ class Variable:
 
 def _sel(binname, name, varid, loop_block, endian, nx, ny, nz, nt, undef, do_squeese,  zidx=None, tidx=None):
   # check for index exceeding
-  if isinstance(zidx, int):
-    if zidx >= nz:
-      raise ExceedZidxError(name, (nt, nz, ny, nx), zidx)
-  elif isinstance(zidx, (list, tuple, np.ndarray)):
-    for _izidx in zidx:
-      if _izidx >= nz:
-        raise ExceedZidxError(name, (nt, nz, ny, nx), _izidx)
-    
-  if isinstance(tidx, int):
+  if tidx==None:
+    tloop = range(nt)
+  elif isinstance(tidx, int):
     if tidx >= nt:
       raise ExceedTidxError(name, (nt, nz, ny, nx), tidx)
+    tloop = [tidx]
   elif isinstance(tidx, (list, tuple, np.ndarray)):
     for _itidx in tidx:
       if _itidx >= nt:
         raise ExceedTidxError(name, (nt, nz, ny, nx), _itidx)
+    tloop = tidx
+  else:
+    raise InvalidTidxError(type(tidx))
+
+  if zidx==None:
+    zloop = range(nz)
+  elif isinstance(zidx, int):
+    if zidx >= nz:
+      raise ExceedZidxError(name, (nt, nz, ny, nx), zidx)
+    zloop = [zidx]
+  elif isinstance(zidx, (list, tuple, np.ndarray)):
+    for _izidx in zidx:
+      if _izidx >= nz:
+        raise ExceedZidxError(name, (nt, nz, ny, nx), _izidx)
+    zloop = zidx
+  else:
+    raise InvalidZidxError(type(zidx))
   
   with open(binname, "rb") as f:
     _data = []
-    if (zidx==None)&(tidx==None): # get ALL
-      for _i in range(nt):
-        f.seek((_i*loop_block+varid)*nx*ny*4, os.SEEK_SET)
+    for _it in tloop:
+      if zloop==range(nz):
+        f.seek((_it*loop_block+varid)*nx*ny*4, os.SEEK_SET)
         _data.append(ma.masked_equal(ma.masked_array(np.fromfile(f,\
           dtype=_endian2simbole(endian)+"f4", count=nx*ny*nz)), value=undef).reshape(nz, ny, nx))
-    else:
-      if tidx==None: # get specific z level (get ALL in t)
-        if isinstance(zidx, int):
-          for _i in range(nt):
-            f.seek((_i*loop_block+varid+zidx)*nx*ny*4, os.SEEK_SET)
-            _data.append([ma.masked_equal(ma.masked_array(np.fromfile(f,\
-              dtype=_endian2simbole(endian)+"f4", count=ny*nx)), value=undef).reshape(ny, nx)])
-        elif isinstance(zidx, (list, tuple, np.ndarray)):
-          for _i in range(nt):
-            _idata = []
-            for izidx in zidx:
-              f.seek((varid+_i*loop_block+izidx)*nx*ny*4, os.SEEK_SET)
-              _idata.append(ma.masked_equal(ma.masked_array(np.fromfile(f, dtype=_endian2simbole(endian)+"f4", count=ny*nx)), value=undef).reshape(ny, nx))
-            _data.append(ma.masked_array(_idata))
-      elif zidx==None: # get specific t time (get ALL in z)
-        if isinstance(tidx, int):
-          f.seek((tidx*loop_block+varid)*nx*ny*4, os.SEEK_SET)
-          _data.append(ma.masked_equal(ma.masked_array(np.fromfile(f, dtype=_endian2simbole(endian)+"f4", count=nx*ny*nz)), value=undef).reshape(nz, ny, nx))
-        elif isinstance(tidx, (list, tuple, np.ndarray)):
-          for _itidx in tidx:
-            f.seek((_itidx*loop_block+varid)*nx*ny*4, os.SEEK_SET)
-            _data.append(ma.masked_equal(ma.masked_array(np.fromfile(f, dtype=_endian2simbole(endian)+"f4", count=nx*ny*nz)), value=undef).reshape(nz, ny, nx))
       else:
-        if isinstance(tidx, int):
-          if isinstance(zidx, int):
-            f.seek((tidx*loop_block+varid)*nx*ny*4, os.SEEK_SET)
-            _data.append([ma.masked_equal(ma.masked_array(np.fromfile(f, dtype=_endian2simbole(endian)+"f4", count=nx*ny)), value=undef).reshape(ny, nx)])
-          elif isinstance(zidx, (list, tuple, np.ndarray)):
-            _idata = []
-            for _izidx in zidx:
-              f.seek((varid+tidx*loop_block+_izidx)*nx*ny*4, os.SEEK_SET)
-              _idata.append(ma.masked_equal(ma.masked_array(np.fromfile(f, dtype=_endian2simbole(endian)+"f4", count=nx*ny)), value=undef).reshape(ny, nx))
-            _data.append(_idata)
-        elif isinstance(tidx, (list, tuple, np.ndarray)):
-          if isinstance(zidx, int):
-            for _itidx in tidx:
-              f.seek((_itidx*loop_block+varid+zidx)*nx*ny*4, os.SEEK_SET)
-              _data.append([ma.masked_equal(ma.masked_array(np.fromfile(f, dtype=_endian2simbole(endian)+"f4", count=nx*ny)), value=undef).reshape(ny, nx)])
-          elif isinstance(zidx, (list, tuple, np.ndarray)):
-            for _itidx in tidx:
-              _idata = []
-              for _izidx in zidx:
-                f.seek((varid+_itidx*loop_block+_itidx)*nx*ny*4, os.SEEK_SET)
-                _idata.append(ma.masked_equal(ma.masked_array(np.fromfile(f, dtype=_endian2simbole(endian)+"f4", count=nx*ny)), value=undef).reshape(ny, nx))
-              _data.append(_idata)
-            
+        _idata = []
+        for _iz in zloop:
+          f.seek((varid+_it*loop_block+_iz)*nx*ny*4, os.SEEK_SET)
+          _idata.append(ma.masked_equal(ma.masked_array(np.fromfile(f, dtype=_endian2simbole(endian)+"f4", count=nx*ny)), value=undef).reshape(ny, nx))
+        _data.append(_idata)
+
   _data = ma.masked_array(_data)
   if do_squeese:
     return ma.squeeze(_data)
