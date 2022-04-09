@@ -5,6 +5,28 @@
 # Original source lisence: 
 # Copyright (c) 2008,2015,2016,2018 MetPy Developers.
 #
+r"""A collection of meteorologically significant constant and thermophysical property values.
+Earth
+-----
+======================== =============== ====================== ========================== ===================================
+Name                     Symbol          Short Name             Units                      Description
+------------------------ --------------- ---------------------- -------------------------- -----------------------------------
+earth_avg_radius         :math:`R_e`     Re                     :math:`\text{m}`           Avg. radius of the Earth
+earth_gravity            :math:`g`       g, g0, g_acceralation  :math:`\text{m s}^{-2}`    Avg. gravity acceleration on Earth
+earth_avg_angular_vel    :math:`\Omega`  Omega                  :math:`\text{rad s}^{-1}`  Avg. angular velocity of Earth
+======================== =============== ====================== ========================== ===================================
+General Meteorology Constants
+-----------------------------
+======================== ================= ============= ========================= =======================================================
+Name                     Symbol            Short Name    Units                    Description
+------------------------ ----------------- ------------- ------------------------- -------------------------------------------------------
+pot_temp_ref_press       :math:`P_0`       P0            :math:`\text{Pa}`         Reference pressure for potential temperature
+poisson_exponent         :math:`\kappa`    kappa         :math:`\text{None}`       Exponent in Poisson's equation (Rd/Cp_d)
+dry_adiabatic_lapse_rate :math:`\gamma_d`  GammaD       :math:`\text{K km}^{-1}`  The dry adiabatic lapse rate
+molecular_weight_ratio   :math:`\epsilon`  epsilon       :math:`\text{None}`       Ratio of molecular weight of water to that of dry air
+absolute_temperature     :math:`K`         kelvin, Tabs  :math:`\text{K}`          Kelvin
+======================== ================= ============= ========================= =======================================================
+"""
 
 # kinematics
 g0 = 9.81 # 重力加速度 m/s**2
