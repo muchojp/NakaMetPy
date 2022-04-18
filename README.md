@@ -51,9 +51,15 @@ pip install nakametpy
 ## Licence
 `BSD-3-Clause`
 
+## Citation
+```
+Nakamura, Y. (2021). NakaMety (Version xxxx.x.x) [Software]. Fukuoka, Japan. https://github.com/muchojp/NakaMetPy
+```
+Note: The version number xxxx.x.x should be set to the version of NakaMetPy that you are using.
+
 ## Update plans
-Next(`2022.4.0` or later): 
- - Add reading GrADS binary function
+Next(`2022.4.0b0` or `2022.5.0` later): 
+ - Refine reading GrADS binary function
 
 To Do: 
  - `wrfon`オプションの廃止
