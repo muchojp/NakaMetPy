@@ -2,7 +2,7 @@
 # 
 from .util import jma_rain_lat, jma_rain_lon
 
-def load_jmara_grib2(file):
+def load_jmara_grib2(file, tarflag=False, tarelem=1):
   r'''気象庁解析雨量やレーダー雨量を返す関数
 
   欠損値は負の値として表現される
@@ -10,20 +10,25 @@ def load_jmara_grib2(file):
   Parameters
   --------
   file: `str`
-      file path 
-      ファイルのPATH
+    file path 
+    ファイルのPATH
+  tarflag: `str`
+    file type whether file is tar or GRIB2 (not tar)
+  tarelem: `int`
+    0: echo tops intensity
+    1: echo intensity (precipitation)
 
   Returns
   -------
   rain: `numpy.ma.MaskedArray`
-      単位 (mm)
+      単位 (mm/h)
 
   Note
   -----
   The same as util.load_jmara_grib2.
   '''
   from .util import load_jmara_grib2 as _func
-  return _func(file)
+  return _func(file, tarflag, tarelem)
 
 jma_rain_lat = jma_rain_lat
 jma_rain_lon = jma_rain_lon

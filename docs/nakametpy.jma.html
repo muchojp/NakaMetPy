@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nakametpy.jma module &mdash; NakaMetPy 2022.4.0a0 documentation</title>
+  <title>nakametpy.jma module &mdash; NakaMetPy 2022.8.0 documentation</title>
   
 
   
@@ -39,7 +39,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="nakametpy.kinematics module" href="nakametpy.kinematics.html" />
-    <link rel="prev" title="nakametpy.constants module" href="nakametpy.constants.html" /> 
+    <link rel="prev" title="nakametpy.grads module" href="nakametpy.grads.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,6 +89,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="nakametpy.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.cmaps.html">nakametpy.cmaps module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.constants.html">nakametpy.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.grads.html">nakametpy.grads module</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">nakametpy.jma module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.kinematics.html">nakametpy.kinematics module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.thermo.html">nakametpy.thermo module</a></li>
@@ -204,16 +205,21 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.jma.load_jmara_grib2">
-<span class="sig-prename descclassname"><span class="pre">nakametpy.jma.</span></span><span class="sig-name descname"><span class="pre">load_jmara_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/jma.html#load_jmara_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.jma.load_jmara_grib2" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nakametpy.jma.</span></span><span class="sig-name descname"><span class="pre">load_jmara_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tarflag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tarelem</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/jma.html#load_jmara_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.jma.load_jmara_grib2" title="Permalink to this definition">¶</a></dt>
 <dd><p>気象庁解析雨量やレーダー雨量を返す関数</p>
 <p>欠損値は負の値として表現される</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<cite>str</cite>) – file path
-ファイルのPATH</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<cite>str</cite>) – file path
+ファイルのPATH</p></li>
+<li><p><strong>tarflag</strong> (<cite>str</cite>) – file type whether file is tar or GRIB2 (not tar)</p></li>
+<li><p><strong>tarelem</strong> (<cite>int</cite>) – 0: echo tops intensity
+1: echo intensity (precipitation)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>rain</strong> – 単位 (mm)</p>
+<dd class="field-even"><p><strong>rain</strong> – 単位 (mm/h)</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><cite>numpy.ma.MaskedArray</cite></p>
@@ -238,7 +244,7 @@
         <a href="nakametpy.kinematics.html" class="btn btn-neutral float-right" title="nakametpy.kinematics module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="nakametpy.constants.html" class="btn btn-neutral float-left" title="nakametpy.constants module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="nakametpy.grads.html" class="btn btn-neutral float-left" title="nakametpy.grads module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

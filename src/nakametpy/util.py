@@ -7,6 +7,7 @@
 #
 
 import struct
+import tarfile
 import numpy as np
 from itertools import repeat
 
@@ -30,7 +31,7 @@ def _decode_runlength(code, hi_level):
       pwr += 1
       yield from repeat(level, length)
 
-def load_jmara_grib2(file):
+def load_jmara_grib2(file, tarflag=False, tarelem=1):
   r'''気象庁解析雨量やレーダー雨量を返す関数
 
   欠損値は負の値として表現される
@@ -40,19 +41,29 @@ def load_jmara_grib2(file):
   file: `str`
     file path 
     ファイルのPATH
+  tarflag: `str`
+    file type whether file is tar or GRIB2 (not tar)
+  tarelem: `int`
+    0: echo tops intensity
+    1: echo intensity (precipitation)
 
   Returns
   -------
   rain: `numpy.ma.MaskedArray`
-    単位 (mm)
+    単位 (mm/h)
 
   Note
   -----
   ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する
   `np.ndarray` 型の緯度経度である。
   '''
-  with open(file, 'rb') as f:
-    binary = f.read()
+  if tarflag:
+    with tarfile.open(file, mode="r") as tar:
+      tarinfo = tar.getmembers()[tarelem]
+      binary = b''.join(tar.extractfile(tarinfo).readlines())
+  else:
+    with open(file, 'rb') as f:
+      binary = f.read()
   
   len_ = {'sec0':16, 'sec1':21, 'sec3':72, 'sec4':82, 'sec6':6}
   

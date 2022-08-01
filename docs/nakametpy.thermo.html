@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nakametpy.thermo module &mdash; NakaMetPy 2022.4.0a0 documentation</title>
+  <title>nakametpy.thermo module &mdash; NakaMetPy 2022.8.0 documentation</title>
   
 
   
@@ -90,6 +90,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="nakametpy.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.cmaps.html">nakametpy.cmaps module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.constants.html">nakametpy.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.grads.html">nakametpy.grads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.jma.html">nakametpy.jma module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.kinematics.html">nakametpy.kinematics module</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">nakametpy.thermo module</a></li>
@@ -176,8 +177,8 @@ The implementation uses the formula outlined in <span id="id1">[Hobbs2006]</span
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure [Pa]</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature [K]</p></li>
 <li><p><strong>mixing_ratio</strong> (<cite>numpy.ndarray</cite>) – dimensionless mass mixing ratio</p></li>
 <li><p><strong>molecular_weight_ratio</strong> (<cite>numpy.ndarray</cite> or float, optional) – The ratio of the molecular weight of the constituent gas to that assumed
 for air. Defaults to the ratio for water vapor to dry air.
@@ -204,7 +205,7 @@ for air. Defaults to the ratio for water vapor to dry air.
 <dd><p>Calculate the ambient dewpoint given the vapor pressure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>e</strong> (<cite>numpy.ndarray</cite>) – Water vapor partial pressure</p>
+<dd class="field-odd"><p><strong>e</strong> (<cite>numpy.ndarray</cite>) – Water vapor partial pressure [Pa]</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>dewpoint temperature</p>
@@ -234,7 +235,7 @@ formula for dewpoint in degrees Celsius:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature [K]</p></li>
 <li><p><strong>rh</strong> (<cite>numpy.ndarray</cite>) – relative humidity expressed as a ratio in the range 0 &lt; rh &lt;= 1</p></li>
 </ul>
 </dd>
@@ -258,8 +259,8 @@ formula for dewpoint in degrees Celsius:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure [Pa]</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature [K]</p></li>
 <li><p><strong>specific_humidity</strong> (<cite>numpy.ndarray</cite>) – Specific humidity of air</p></li>
 </ul>
 </dd>
@@ -299,9 +300,9 @@ The implementation uses the formula outlined in <span id="id3">[Bolton1980]</spa
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Temperature of parcel</p></li>
-<li><p><strong>dewpoint</strong> (<cite>numpy.ndarray</cite>) – Dewpoint of parcel</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure [Pa]</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Temperature of parcel [K]</p></li>
+<li><p><strong>dewpoint</strong> (<cite>numpy.ndarray</cite>) – Dewpoint of parcel [K]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -332,7 +333,7 @@ since</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – total atmospheric pressure</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – total atmospheric pressure [Pa]</p></li>
 <li><p><strong>reference_pressure</strong> (<cite>numpy.ndarray</cite>, optional) – The reference pressure against which to calculate the Exner function, defaults to
 metpy.constants.P0</p></li>
 </ul>
@@ -357,8 +358,8 @@ metpy.constants.P0</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Pressure level value</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Pressure level value [Pa]</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature [K]</p></li>
 <li><p><strong>rh</strong> (<cite>numpy.ndarray</cite>) – Dimensionless relative humidity</p></li>
 </ul>
 </dd>
@@ -390,9 +391,9 @@ metpy.constants.P0</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Pressure level value</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
-<li><p><strong>rh</strong> (<cite>numpy.ndarray</cite>) – Dimensionless relative humidity</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Pressure level value [Pa]</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature [K]</p></li>
+<li><p><strong>rh</strong> (<cite>numpy.ndarray</cite>) – Dimensionless relative humidity [0&lt;=rh&lt;=1]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -426,8 +427,8 @@ they have the same units.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>part_press</strong> (<cite>numpy.ndarray</cite>) – Partial pressure of the constituent gas</p></li>
-<li><p><strong>tot_press</strong> (<cite>numpy.ndarray</cite>) – Total air pressure</p></li>
+<li><p><strong>part_press</strong> (<cite>numpy.ndarray</cite>) – Partial pressure of the constituent gas [Pa]</p></li>
+<li><p><strong>tot_press</strong> (<cite>numpy.ndarray</cite>) – Total air pressure Pa</p></li>
 <li><p><strong>molecular_weight_ratio</strong> (<cite>numpy.ndarray</cite> or float, optional) – The ratio of the molecular weight of the constituent gas to that assumed
 for air. Defaults to the ratio for water vapor to dry air
 (<span class="math notranslate nohighlight">\(\varepsilon\approx0.622\)</span>).
@@ -461,12 +462,12 @@ such as <span id="id6">[Hobbs1977]</span> pg.73:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>relative_humidity</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
+<li><p><strong>relative_humidity</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity [0&lt;=rh&lt;=1]
 相対湿度
 値は(0, 1]である必要がある</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature [K]
 気温</p></li>
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure [Pa]
 全圧</p></li>
 </ul>
 </dd>
@@ -534,8 +535,8 @@ given <cite>pressure</cite> and <cite>temperature</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – total atmospheric pressure</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – total atmospheric pressure [Pa]</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature [K]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -567,8 +568,8 @@ humidity using the ratio of vapor pressure to saturation vapor pressures.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
-<li><p><strong>dewpoint</strong> (<cite>numpy.ndarray</cite>) – dewpoint temperature</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature [K]</p></li>
+<li><p><strong>dewpoint</strong> (<cite>numpy.ndarray</cite>) – dewpoint temperature [K]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -591,8 +592,8 @@ humidity using the ratio of vapor pressure to saturation vapor pressures.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure [Pa]</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature [K]</p></li>
 <li><p><strong>mixing_ratio</strong> (<cite>numpy.ndarray</cite>) – Dimensionless mass mixing ratio</p></li>
 </ul>
 </dd>
@@ -627,8 +628,8 @@ humidity using the ratio of vapor pressure to saturation vapor pressures.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure [Pa]</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature [K]</p></li>
 <li><p><strong>specific_humidity</strong> (<cite>numpy.ndarray</cite>) – Specific humidity of air</p></li>
 </ul>
 </dd>
@@ -665,8 +666,8 @@ uses the formula outlined in <span id="id12">[Hobbs1977]</span> pg.73.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>tot_press</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+<li><p><strong>tot_press</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure [Pa]</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature [K]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -684,7 +685,7 @@ uses the formula outlined in <span id="id12">[Hobbs1977]</span> pg.73.</p>
 <dd><p>Calculate the saturation water vapor (partial) pressure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p>
+<dd class="field-odd"><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature [K]</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The saturation water vapor (partial) pressure</p>
@@ -758,7 +759,7 @@ The implementation uses the formula outlined in <span id="id15">[Hobbs2006]</spa
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – air temperature [K]</p></li>
 <li><p><strong>mixing_ratio</strong> (<cite>numpy.ndarray</cite>) – dimensionless mass mixing ratio</p></li>
 <li><p><strong>molecular_weight_ratio</strong> (<cite>numpy.ndarray</cite> or float, optional) – The ratio of the molecular weight of the constituent gas to that assumed
 for air. Defaults to the ratio for water vapor to dry air.
