@@ -93,3 +93,17 @@ class InvalidZidxError(MyException3):
           f"zidx は None, int, list, tuple, np.ndarray のいずれかである必要があります。しかし {self.kargs[0]} となっています。\n"+\
           f"zidx is must be None, int, list, tuple or np.ndarray. However, type(zidx) is now {self.kargs[0]}."
       )
+
+class NotHaveSetArgError(MyException3):
+    def __str__(self):
+        return (
+            f"引数 {self.kargs[1]} に値が渡されていません。引数 {self.kargs[0]} を利用するには必要です。\n"+\
+            f"The argment {self.kargs[1]} is not set. Need for {self.kargs[0]} option."
+        )
+
+class NotMatchTarContentNameError(MyException3):
+    def __str__(self):
+        return (
+            f"tar ファイル {self.kargs[0]} に {self.kargs[0]} という名前のファイルはありません。名前は正しいですか?\n"+\
+            f"{self.kargs[1]} was not found in tar file {self.kargs[0]}. Is the name correct?"
+        )

@@ -23,7 +23,7 @@
 import numpy as np
 from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
 from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g0, Re, f0, GammaD, Omega
-from ._error import NotAllowedDxShapeError, NotAllowedDyShapeError, InvalidDxValueError, InvalidDyValueError
+from ._error import NotAllowedDxShapeError, NotAllowedDyShapeError, InvalidDxValueError, InvalidDyValueError, NotHaveSetArgError
 import traceback
 import sys
 import warnings
@@ -41,9 +41,9 @@ def distance(lons, lats, lev_len = None, t_len = None):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d or 2d)
+        longitude(1d or 2d) in degree
     lats: `numpy.ndarray`
-        latitude(1d or 2d)
+        latitude(1d or 2d) in degree
     
     Returns
     -------
@@ -98,9 +98,9 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d or 2d)
+        longitude(1d or 2d) in degree
     lats: `numpy.ndarray`
-        latitude(1d or 2d)
+        latitude(1d or 2d) in degree
     
     Returns
     -------
@@ -146,9 +146,9 @@ def distance_3d(lons, lats, len3d = 24):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d or 2d)
+        longitude(1d or 2d) in degree
     lats: `numpy.ndarray`
-        latitude(1d or 2d)
+        latitude(1d or 2d) in degree
     
     Returns
     -------
@@ -194,9 +194,9 @@ def distance_2d(lons, lats):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d or 2d)
+        longitude(1d or 2d) in degree
     lats: `numpy.ndarray`
-        latitude(1d or 2d)
+        latitude(1d or 2d) in degree
     
     Returns
     -------
@@ -226,7 +226,7 @@ def distance_2d(lons, lats):
     return dx, dy
 
 
-def dis_azi_from_point(lats, lons, lat_idx, lon_idx, lev_len = None, t_len = None):
+def dis_azi_from_point(lats, lons, *, idx_flag=False, clat=None, clon=None, clat_idx=None, clon_idx=None, lev_len=None, t_len=None):
     r'''
     ある地点からの距離と方位角を求める関数。次元は[(時間、鉛直方向)、緯度、経度]である。  
 
@@ -237,9 +237,9 @@ def dis_azi_from_point(lats, lons, lat_idx, lon_idx, lev_len = None, t_len = Non
     Parameters
     ----------
     lats: `numpy.ndarray`
-        latitude(1d or 2d)
+        latitude(1d or 2d) in degree
     lons: `numpy.ndarray`
-        longitude(1d or 2d)
+        longitude(1d or 2d) in degree
     lat_idx: `int`
     lon_idx: `int`
     
@@ -249,18 +249,34 @@ def dis_azi_from_point(lats, lons, lat_idx, lon_idx, lev_len = None, t_len = Non
         dr((t_len, lev_len), lats, lons), azimuth((t_len, lev_len), lats, lons)
     
     '''
+    if idx_flag:
+        if clat_idx==None:
+            raise NotHaveSetArgError("idx_flag=True", "clat_idx")
+        elif clon_idx==None:
+            raise NotHaveSetArgError("idx_flag=True", "clon_idx")
+        else:
+            center_lat = lats[clat_idx, clon_idx]
+            center_lon = lons[clat_idx, clon_idx]
+    else:
+        if clat==None:
+            raise NotHaveSetArgError("idx_flag=False", "clat")
+        elif clon==None:
+            raise NotHaveSetArgError("idx_flag=False", "clon")
+        else:
+            center_lat = clat
+            center_lon = clon
     # lons, latsが1次元の場合、2次元に変換する
     if lats.ndim == 1:
         lons, lats = np.meshgrid(lons, lats)
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
     radius = Re # m
-    dlats = np.radians(lats-lats[lat_idx, lon_idx])
-    dlons = np.radians(lons-lons[lat_idx, lon_idx])
-    deg = np.sin(dlats/2) * np.sin(dlats/2) + np.cos(np.radians(lats[lat_idx, lon_idx])) \
+    dlats = np.radians(lats-center_lat)
+    dlons = np.radians(lons-center_lon)
+    deg = np.sin(dlats/2) * np.sin(dlats/2) + np.cos(np.radians(center_lat)) \
         * np.cos(np.radians(lats)) * np.sin(dlons/2) * np.sin(dlons/2)
     rad = 2 * np.arctan2(np.sqrt(deg), np.sqrt(1-deg))
-    azimuth = np.arctan2(np.sin(dlons), np.cos(np.radians(lats[lat_idx, lon_idx]))\
-        *np.tan(np.radians(lats))-np.sin(np.radians(lats[lat_idx, lon_idx]))*np.cos(dlons))
+    azimuth = np.arctan2(np.sin(dlons), np.cos(np.radians(center_lat))\
+        *np.tan(np.radians(lats))-np.sin(np.radians(center_lat))*np.cos(dlons))
     dr = radius * rad
     azimuth = np.deg2rad(90)-azimuth
     if t_len == None:

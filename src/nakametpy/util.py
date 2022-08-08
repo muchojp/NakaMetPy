@@ -10,6 +10,7 @@ import struct
 import tarfile
 import numpy as np
 from itertools import repeat
+from ._error import NotHaveSetArgError, NotMatchTarContentNameError
 
 
 def _set_table(section5):
@@ -31,7 +32,7 @@ def _decode_runlength(code, hi_level):
       pwr += 1
       yield from repeat(level, length)
 
-def load_jmara_grib2(file, tarflag=False, tarelem=1):
+def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   r'''気象庁解析雨量やレーダー雨量を返す関数
 
   欠損値は負の値として表現される
@@ -41,26 +42,30 @@ def load_jmara_grib2(file, tarflag=False, tarelem=1):
   file: `str`
     file path 
     ファイルのPATH
-  tarflag: `str`
-    file type whether file is tar or GRIB2 (not tar)
-  tarelem: `int`
-    0: echo tops intensity
-    1: echo intensity (precipitation)
+  tar_flag: `bool`
+    file type whether file is tar or GRIB2 (not tar).
+  tar_contentname: `str`
+    content name in tar file.
 
   Returns
   -------
   rain: `numpy.ma.MaskedArray`
-    単位 (mm/h)
+    Units(単位) [mm/h]
 
   Note
   -----
   ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する
   `np.ndarray` 型の緯度経度である。
   '''
-  if tarflag:
+  if tar_flag:
+    if tar_contentname == None:
+      raise NotHaveSetArgError("tar_flag", "tar_contentname")
     with tarfile.open(file, mode="r") as tar:
-      tarinfo = tar.getmembers()[tarelem]
-      binary = b''.join(tar.extractfile(tarinfo).readlines())
+      for tarinfo in tar.getmembers():
+        if tarinfo.name == tar_contentname:
+          binary = b''.join(tar.extractfile(tarinfo).readlines())
+          break
+    raise NotMatchTarContentNameError(file, tar_contentname)
   else:
     with open(file, 'rb') as f:
       binary = f.read()

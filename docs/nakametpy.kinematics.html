@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nakametpy.kinematics module &mdash; NakaMetPy 2022.8.0 documentation</title>
+  <title>nakametpy.kinematics module &mdash; NakaMetPy 2022.8.2 documentation</title>
   
 
   
@@ -328,15 +328,15 @@ Flag whether input data is wrfout or not
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.dis_azi_from_point">
-<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">dis_azi_from_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lev_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#dis_azi_from_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.dis_azi_from_point" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">dis_azi_from_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clat_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clon_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lev_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#dis_azi_from_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.dis_azi_from_point" title="Permalink to this definition">¶</a></dt>
 <dd><p>ある地点からの距離と方位角を求める関数。次元は[(時間、鉛直方向)、緯度、経度]である。</p>
 <p>地球半径の値は6371229mを使用。</p>
 <p>Calculate the distance and azimuth from latitude and longitude</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d)</p></li>
-<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d)</p></li>
+<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d) in degree</p></li>
+<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d) in degree</p></li>
 <li><p><strong>lat_idx</strong> (<cite>int</cite>) – </p></li>
 <li><p><strong>lon_idx</strong> (<cite>int</cite>) – </p></li>
 </ul>
@@ -359,8 +359,8 @@ Flag whether input data is wrfout or not
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d)</p></li>
-<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d)</p></li>
+<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d) in degree</p></li>
+<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d) in degree</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -381,8 +381,8 @@ Flag whether input data is wrfout or not
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d)</p></li>
-<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d)</p></li>
+<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d) in degree</p></li>
+<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d) in degree</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -404,8 +404,8 @@ Single Levelの変数を計算する際に用いる。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d)</p></li>
-<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d)</p></li>
+<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d) in degree</p></li>
+<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d) in degree</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -426,8 +426,8 @@ Single Levelの変数を計算する際に用いる。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d)</p></li>
-<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d)</p></li>
+<li><p><strong>lons</strong> (<cite>numpy.ndarray</cite>) – longitude(1d or 2d) in degree</p></li>
+<li><p><strong>lats</strong> (<cite>numpy.ndarray</cite>) – latitude(1d or 2d) in degree</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
