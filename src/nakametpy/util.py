@@ -155,6 +155,33 @@ def dt_ymdhm(date, opt=1):
     return (f"{date.year}", f"{date.month:02}", f"{date.day:02}", f"{date.hour:02}", f"{date.minute:02}")
 
 
+def dt_yyyymmdd(date, fmt="yyyymmdd"):
+  r'''
+  datetime.datetime を yyyymmdd 形式の文字列で返す関数。
+
+  Return yyyymmdd format string from datetime.
+
+  Parameters
+  ----------
+  date: `datetime.datetime`
+    datetime
+  fmt: `str`
+    yyyymmdd format. Default is yyyymmdd
+  
+  Returns
+  -------
+  `str`
+    string in fmt.
+  '''
+  for iymd, ifmt in (("yyyy", "%Y"), ("mm", "%m"), ("dd", "%d"), ("HH", "%H"), ("MM", "%M"), ("SS", "%S"), ("yy", "%y")):
+    while True:
+      if iymd in fmt:
+        fmt = fmt.replace(iymd, ifmt)
+      else:
+        break
+  return date.strftime(fmt)
+
+
 jma_rain_lat = np.linspace(48, 20, 3360, endpoint=False)[::-1] - 1/80/1.5 / 2
 jma_rain_lon = np.linspace(118, 150, 2560, endpoint=False) + 1/80 / 2
 
