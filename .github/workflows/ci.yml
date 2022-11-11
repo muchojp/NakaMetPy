@@ -35,7 +35,9 @@ jobs:
         run: echo "$HOME/.poetry/bin" >> $GITHUB_PATH
       # インストールした Poetry を使って必要な Python パッケージをインストールする
       - name: Install Dependencies
-        run: poetry install --no-interaction
+        run: |
+        poetry config experimental.new-installer false
+        poetry install --no-interaction
       # pytest を実行する
       - name: Run Tests
         run: poetry run pytest tests/thermo-test.py
