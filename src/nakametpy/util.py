@@ -67,7 +67,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
           binary = b''.join(tar.extractfile(tarinfo).readlines())
           _found_flag = True
           break
-    if _found_flag == True:
+    if _found_flag == False:
       raise NotMatchTarContentNameError(file, tar_contentname)
   else:
     with open(file, 'rb') as f:
