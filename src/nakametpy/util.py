@@ -58,14 +58,17 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   `np.ndarray` 型の緯度経度である。
   '''
   if tar_flag:
+    _found_flag = False
     if tar_contentname == None:
       raise NotHaveSetArgError("tar_flag", "tar_contentname")
     with tarfile.open(file, mode="r") as tar:
       for tarinfo in tar.getmembers():
         if tarinfo.name == tar_contentname:
           binary = b''.join(tar.extractfile(tarinfo).readlines())
+          _found_flag = True
           break
-    raise NotMatchTarContentNameError(file, tar_contentname)
+    if _found_flag == True:
+      raise NotMatchTarContentNameError(file, tar_contentname)
   else:
     with open(file, 'rb') as f:
       binary = f.read()
@@ -221,7 +224,7 @@ def unit_knots_ms1(kt):
   return kt*1852/3600
 
 def anom_levels(levs):
-  """
+  r"""
   Return minus ans plus levels.
 
   Parameters
@@ -243,3 +246,18 @@ def anom_levels(levs):
   levs = list(set(np.abs(levs)))
   levs.sort()
   return np.array([-i for i in levs[::-1]]+levs)
+
+def check_tar_content(file):
+  r'''tar ファイルの中身のファイル名を表示する関数
+
+  Print the content name of the tar file.
+
+  Parameters
+  --------
+  file: `str`
+    file path 
+    ファイルのPATH
+  '''
+  with tarfile.open(file, mode="r") as tar:
+    for tarinfo in tar.getmembers():
+      print(tarinfo.name)

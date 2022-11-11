@@ -104,6 +104,6 @@ class NotHaveSetArgError(MyException3):
 class NotMatchTarContentNameError(MyException3):
     def __str__(self):
         return (
-            f"tar ファイル {self.kargs[0]} に {self.kargs[0]} という名前のファイルはありません。名前は正しいですか?\n"+\
-            f"{self.kargs[1]} was not found in tar file {self.kargs[0]}. Is the name correct?"
+            f"tar ファイル {self.kargs[0]} に {self.kargs[1]} という名前のファイルはありません。名前は正しいですか?\n"+\
+            f"{self.kargs[1]} was not found in tar file {self.kargs[0]} . Is the name correct?"
         )
