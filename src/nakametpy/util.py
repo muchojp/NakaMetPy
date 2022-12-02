@@ -12,6 +12,8 @@ import numpy as np
 from itertools import repeat
 from ._error import NotHaveSetArgError, NotMatchTarContentNameError
 
+def takahiro():
+  print(takahiro)
 
 def _set_table(section5):
   max_level = struct.unpack_from('>H', section5, 15)[0]
