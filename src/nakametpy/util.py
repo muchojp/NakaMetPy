@@ -207,7 +207,7 @@ def unit_ms1_knots(ms):
   """
   return ms*3600/1852
 
-def unit_knots_ms1(kt):
+def unit_knots_ms1(kt:float):
   r"""
   Convert unit knots into m/s.
   
