@@ -11,6 +11,7 @@ import tarfile
 import numpy as np
 from itertools import repeat
 from ._error import NotHaveSetArgError, NotMatchTarContentNameError
+import glob
 
 
 def _set_table(section5):
@@ -259,5 +260,42 @@ def check_tar_content(file):
     ファイルのPATH
   '''
   with tarfile.open(file, mode="r") as tar:
-    for tarinfo in tar.getmembers():
-      print(tarinfo.name)
+      for tarinfo in tar.getmembers():
+          print(tarinfo.name)
+
+def concat_array(*arr, sort=True):
+  r"""
+  Return concatenated array in numpy.ndarray.
+
+  Parameters
+  ----------
+  arr: some of `list`or`np.ndarray`
+
+  Returns
+  -------
+  concat_ndarray: `np.ndarray`
+  
+  Examples  
+  --------
+      >>> levs = concat_array(np.arange(0.5, 2., 0.5), np.arange(2., 5.1, 1.))
+      >>> print(levs)
+      [0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5  5. ]
+
+  """
+  _list = []
+  for _irr in arr:
+      _list.extend(list(np.array(_irr)))
+  if sort:
+      _list = sorted(list(set(_list)))
+  return np.array(_list)
+
+def myglob(path, reverse=False):
+    r"""
+    Return sorted glob results.
+    Parameters
+    ----------
+    path: `str`
+    
+    reverse: `bool`
+    """
+    return sorted(glob.glob(path), reverse=reverse)

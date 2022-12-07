@@ -632,7 +632,7 @@ def divergence(fx, fy, dx, dy, wrfon=0):
     return div
 
 
-def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
+def uv2dv_cfd(fx, fy, lat, lon, boundOpt=4):
     r'''
     Divergence caluculation function from NCL.
     
@@ -644,21 +644,12 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     fy: `numpy.ndarray`
         y-flux
         y(南北)方向のフラックス
-    dx: `numpy.ndarray`
-        dx
-        var.shape[-1]-1 == dx.shape[-1]
-        経度方向の次元はvar.shape[-1]-1でなければならない
-    dy: `numpy.ndarray`
-        dy
-        var.shape[-2]-1 == dy.shape[-2]
-        経度方向の次元はvar.shape[-2]-1でなければならない
     lat: `numpy.ndarray`
-        lat
-        緯度パラメータの計算
-    wrfon: `int`
-        wrfon
-        Flag whether input data is wrfout or not
-        入力データがwrfoutか否かのフラグ
+        latitude
+        緯度
+    lon: `numpy.ndarray`
+        longitude
+        経度
     boundOpt: `int`
         boundOpt
         今は4(境界は片方の成分の収束のみで計算)のみ対応
@@ -681,33 +672,32 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
         # except ValueError as e:
             # print(e)
 
-    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
-        pass
-    elif not ((fx.shape[-2] == dx.shape[-2])and(fx.shape[-1] == dx.shape[-1]+1)):
-        raise NotAllowedDxShapeError('fx', fx, dx)
-    elif not ((fy.shape[-2] == dy.shape[-2]+1)and(fy.shape[-1] == dy.shape[-1])):
-        raise NotAllowedDyShapeError('fy', fy, dy)
-
-    if np.any(dx<=0):
-        raise InvalidDxValueError()
-    if np.any(dy<=0):
-        raise InvalidDyValueError()
+    dx, dy = distance(lon, lat)
 
     if lat.ndim == 1:
-      lats = np.tile(lat.reshape(-1, 1), (1, fx.shape[-1]))
+        lats = np.tile(lat.reshape(-1, 1), (1, fx.shape[-1]))
     else:
-      lats = lat
+        lats = lat
+
+    if (lats[..., 1, 0]-lats[..., 0, 0])>0:
+        s2n = True
+    else:
+        s2n = False
 
     # if fx.ndim is greater than 4, we must revise below.
     if (fx.ndim > 2) and (lats.ndim==2):
-      if fx.ndim == 3:
-        lats = np.tile(lats, (fx.shape[0], 1, 1))
-      elif fx.ndim == 4:
-        lats = np.tile(lats, (fx.shape[0], fx.shape[1], 1, 1))
+        if fx.ndim == 3:
+            lats = np.tile(lats, (fx.shape[0], 1, 1))
+            dx = np.tile(dx, (fx.shape[0], 1, 1))
+            dy = np.tile(dy, (fx.shape[0], 1, 1))
+        elif fx.ndim == 4:
+            lats = np.tile(lats, (fx.shape[0], fx.shape[1], 1, 1))
+            dx = np.tile(dx, (fx.shape[0], fx.shape[1], 1, 1))
+            dy = np.tile(dy, (fx.shape[0], fx.shape[1], 1, 1))
     
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
-    grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
+    grad_y_stag = (-1)**(s2n-1)*np.diff(fy, axis=-2)/dy
     lat_factor = (fy / Re) * np.cos(np.deg2rad(lats))
     div[..., 0] = grad_x_stag[..., 0]
     div[..., -1] = grad_x_stag[..., -1]
@@ -715,7 +705,83 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     div[..., -1, :] = grad_y_stag[..., -1, :]
     div[..., 1:-1] += (grad_x_stag[..., :-1]+grad_x_stag[..., 1:])/2
     div[..., 1:-1, :] += (grad_y_stag[..., :-1, :]+grad_y_stag[..., 1:, :])/2 - lat_factor[..., 1:-1, :]
+    div = np.ma.where(np.ma.abs(div)>1E8, np.ma.masked, div)
     return div
+
+
+def uv2vr_cfd(fx, fy, lat, lon, boundOpt=4):
+    r'''
+    Relative vorticity caluculation function from NCL.
+    
+    Parameters
+    ----------
+    fx: `numpy.ndarray`
+        x-flux
+        x(東西)方向のフラックス
+    fy: `numpy.ndarray`
+        y-flux
+        y(南北)方向のフラックス
+    lat: `numpy.ndarray`
+        latitude
+        緯度
+    lon: `numpy.ndarray`
+        longitude
+        経度
+    boundOpt: `int`
+        boundOpt
+        今は4(境界は片方の成分の渦度のみで計算)のみ対応
+
+    Returns
+    -------
+    `numpy.ndarray`
+        divergence with latitude parameter
+
+    Note
+    -----
+    URL: https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2vr_cfd.shtml
+
+    '''
+    if boundOpt != 4:
+        try:
+            raise ValueError('Only boudOpt 4 is available now.')
+        except:
+            traceback.print_exc()
+
+    dx, dy = distance(lon, lat)
+
+    if lat.ndim == 1:
+        lats = np.tile(lat.reshape(-1, 1), (1, fx.shape[-1]))
+    else:
+        lats = lat
+
+    if (lats[..., 1, 0]-lats[..., 0, 0])>0:
+        s2n = True
+    else:
+        s2n = False
+    
+    # if fx.ndim is greater than 4, we must revise below.
+    if (fx.ndim > 2) and (lats.ndim==2):
+        if fx.ndim == 3:
+            lats = np.tile(lats, (fx.shape[0], 1, 1))
+            dx = np.tile(dx, (fx.shape[0], 1, 1))
+            dy = np.tile(dy, (fx.shape[0], 1, 1))
+        elif fx.ndim == 4:
+            lats = np.tile(lats, (fx.shape[0], fx.shape[1], 1, 1))
+            dx = np.tile(dx, (fx.shape[0], fx.shape[1], 1, 1))
+            dy = np.tile(dy, (fx.shape[0], fx.shape[1], 1, 1))
+    
+    vr = np.ma.zeros(fx.shape)
+    grad_x_stag = np.diff(fy, axis=-1)/dx
+    grad_y_stag = (-1)**(s2n-1)*np.diff(fx, axis=-2)/dy
+    lat_factor = (fx / Re) * np.cos(np.deg2rad(lats))
+    vr[..., 0] = grad_x_stag[..., 0]
+    vr[..., -1] = grad_x_stag[..., -1]
+    vr[..., 0, :] = grad_y_stag[..., 0, :]
+    vr[..., -1, :] = grad_y_stag[..., -1, :]
+    vr[..., 1:-1] += (grad_x_stag[..., :-1]+grad_x_stag[..., 1:])/2
+    vr[..., 1:-1, :] += -((grad_y_stag[..., :-1, :]+grad_y_stag[..., 1:, :])/2) + lat_factor[..., 1:-1, :]
+    vr = np.ma.where(np.ma.abs(vr)>100, np.ma.masked, vr)
+    return vr
 
 
 def vert_grad_3d(variables, pres_3d, z_dim=0):
