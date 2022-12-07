@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nakametpy.util module &mdash; NakaMetPy 2022.11.1 documentation</title>
+  <title>nakametpy.util module &mdash; NakaMetPy 2022.12.0 documentation</title>
   
 
   
@@ -203,6 +203,29 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.concat_array">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">concat_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#concat_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.concat_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return concatenated array in numpy.ndarray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arr</strong> (some of <cite>list`or`np.ndarray</cite>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>concat_ndarray</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>np.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">levs</span> <span class="o">=</span> <span class="n">concat_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">levs</span><span class="p">)</span>
+<span class="go">[0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5  5. ]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.dt_ymdhm">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">dt_ymdhm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#dt_ymdhm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.dt_ymdhm" title="Permalink to this definition">¶</a></dt>
 <dd><p>datetime.datetime から year, month, day, hour, minute の set を返す関数。
@@ -327,6 +350,16 @@ opt = 1 : string, 0 : int</p>
 <p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code> , <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する
 <cite>np.ndarray</cite> 型の緯度経度である。</p>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.myglob">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">myglob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#myglob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.myglob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sorted glob results.
+:param path:
+:type path: <cite>str</cite>
+:param reverse:
+:type reverse: <cite>bool</cite></p>
 </dd></dl>
 
 <dl class="py function">

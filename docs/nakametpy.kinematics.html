@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nakametpy.kinematics module &mdash; NakaMetPy 2022.11.1 documentation</title>
+  <title>nakametpy.kinematics module &mdash; NakaMetPy 2022.12.0 documentation</title>
   
 
   
@@ -1169,7 +1169,7 @@ Variables should be the same shape.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.uv2dv_cfd">
-<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">uv2dv_cfd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#uv2dv_cfd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.uv2dv_cfd" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">uv2dv_cfd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#uv2dv_cfd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.uv2dv_cfd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Divergence caluculation function from NCL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1178,17 +1178,10 @@ Variables should be the same shape.</p>
 x(東西)方向のフラックス</p></li>
 <li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – y-flux
 y(南北)方向のフラックス</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>lat</strong> (<cite>numpy.ndarray</cite>) – lat
-緯度パラメータの計算</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>lat</strong> (<cite>numpy.ndarray</cite>) – latitude
+緯度</p></li>
+<li><p><strong>lon</strong> (<cite>numpy.ndarray</cite>) – longitude
+経度</p></li>
 <li><p><strong>boundOpt</strong> (<cite>int</cite>) – boundOpt
 今は4(境界は片方の成分の収束のみで計算)のみ対応</p></li>
 </ul>
@@ -1203,6 +1196,38 @@ Flag whether input data is wrfout or not
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>URL: <a class="reference external" href="https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml">https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml</a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.kinematics.uv2vr_cfd">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">uv2vr_cfd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#uv2vr_cfd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.uv2vr_cfd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relative vorticity caluculation function from NCL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – x-flux
+x(東西)方向のフラックス</p></li>
+<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – y-flux
+y(南北)方向のフラックス</p></li>
+<li><p><strong>lat</strong> (<cite>numpy.ndarray</cite>) – latitude
+緯度</p></li>
+<li><p><strong>lon</strong> (<cite>numpy.ndarray</cite>) – longitude
+経度</p></li>
+<li><p><strong>boundOpt</strong> (<cite>int</cite>) – boundOpt
+今は4(境界は片方の成分の渦度のみで計算)のみ対応</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>divergence with latitude parameter</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>URL: <a class="reference external" href="https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2vr_cfd.shtml">https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2vr_cfd.shtml</a></p>
 </div>
 </dd></dl>
 
