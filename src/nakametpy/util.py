@@ -90,7 +90,11 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   level_table = _set_table(section5)
   decoded = np.fromiter(
     _decode_runlength(section7[6:], highest_level), dtype=np.int16
-  ).reshape((3360, 2560))
+  )
+  if "Gll2p5km_Phhlv_ANAL_grib2.bin" in tar_contentname:
+      decoded=decoded.reshape((1120, 1024))
+  else:
+      decoded=decoded.reshape((3360, 2560))
   
   # convert level to representative
   return np.ma.masked_less((level_table[decoded]/(10**power))[::-1, :], 0)
@@ -113,6 +117,25 @@ def get_jmara_lon():
   lon: `numpy.ndarray`
   '''
   return np.linspace(118, 150, 2560, endpoint=False) + 1/80 / 2
+
+def get_jmarlev_lat():
+  r'''レーダーエコー頂高度の緯度を返す関数
+
+  Returns
+  -------
+  lat: `numpy.ndarray`
+  '''
+  return np.linspace(48, 20, 1120, endpoint=False)[::-1] - 1/80/1.5 / 2
+    
+
+def get_jmarlev_lon():
+  r'''レーダーエコー頂高度の経度を返す関数
+
+  Returns
+  -------
+  lon: `numpy.ndarray`
+  '''
+  return np.linspace(118, 150, 1024, endpoint=False) + 1/80 / 2
 
 def get_gsmap_lat():
   r'''GSMaPの緯度を返す関数
