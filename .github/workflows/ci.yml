@@ -12,7 +12,8 @@ jobs:
     # 複数の Python のバージョンでテストするために `strategy.matrix` を設定する
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        # python-version: [3.7, 3.8, 3.9]
+        python-version: [3.10]
     steps:
       # リポジトリをチェックアウトする
       # See: https://github.com/actions/checkout
@@ -34,6 +35,7 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
+
       #----------------------------------------------
       #       load cached venv if cache exists
       #----------------------------------------------
