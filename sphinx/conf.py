@@ -17,12 +17,12 @@ sys.path.insert(0, os.path.abspath('../src/nakametpy'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'nakametpy'
-copyright = '2021, muchojp'
+project = 'NakaMetPy'
+copyright = '2022, muchojp'
 author = 'muchojp'
 
 # The full version, including alpha/beta/rc tags
-release = '2021.9.0'
+release = '2022.12.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -68,3 +68,4 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 todo_include_todos = True
+# html_show_sourcelink = False # View page source を表示させない

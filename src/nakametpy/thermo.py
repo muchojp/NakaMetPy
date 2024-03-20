@@ -26,14 +26,14 @@ def mixing_ratio_from_relative_humidity(relative_humidity, temperature, pressure
     Parameters
     ----------
     relative_humidity: `numpy.ndarray`
-        Relative Humidity
+        Relative Humidity [0<=rh<=1]
         相対湿度
         値は(0, 1]である必要がある
     temperature: `numpy.ndarray`
-        Air temperature
+        Air temperature [K]
         気温
     pressure: `numpy.ndarray`
-        Total atmospheric pressure
+        Total atmospheric pressure [Pa]
         全圧
 
     Returns
@@ -41,7 +41,7 @@ def mixing_ratio_from_relative_humidity(relative_humidity, temperature, pressure
     `numpy.ndarray`
         Dimensionless mixing ratio
 
-    Notes
+    Note
     -----
     Formula adapted from [Hobbs1977]_ pg. 74.
 
@@ -69,9 +69,9 @@ def saturation_mixing_ratio(tot_press, temperature):
     Parameters
     ----------
     tot_press: `numpy.ndarray`
-        Total atmospheric pressure
+        Total atmospheric pressure [Pa]
     temperature: `numpy.ndarray`
-        air temperature
+        air temperature [K]
 
     Returns
     -------
@@ -94,9 +94,9 @@ def mixing_ratio(part_press, tot_press, molecular_weight_ratio=0.622):
     Parameters
     ----------
     part_press : `numpy.ndarray`
-        Partial pressure of the constituent gas
+        Partial pressure of the constituent gas [Pa]
     tot_press : `numpy.ndarray`
-        Total air pressure
+        Total air pressure Pa
     molecular_weight_ratio : `numpy.ndarray` or float, optional
         The ratio of the molecular weight of the constituent gas to that assumed
         for air. Defaults to the ratio for water vapor to dry air
@@ -107,7 +107,7 @@ def mixing_ratio(part_press, tot_press, molecular_weight_ratio=0.622):
     `numpy.ndarray`
         The (mass) mixing ratio, dimensionless (e.g. Kg/Kg or g/g)
 
-    Notes
+    Note
     -----
     This function is a straightforward implementation of the equation given in many places,
     such as [Hobbs1977]_ pg.73:
@@ -135,7 +135,7 @@ def mixing_ratio_from_specific_humidity(specific_humidity):
     `numpy.ndarray`
         Mixing ratio
 
-    Notes
+    Note
     -----
     Formula from [Salby1996]_ pg. 118.
 
@@ -160,7 +160,7 @@ def saturation_vapor_pressure(temperature):
     Parameters
     ----------
     temperature : `numpy.ndarray`
-        air temperature
+        air temperature [K]
 
     Returns
     -------
@@ -171,7 +171,7 @@ def saturation_vapor_pressure(temperature):
     --------
     vapor_pressure, dewpoint
 
-    Notes
+    Note
     -----
     Instead of temperature, dewpoint may be used in order to calculate
     the actual (ambient) water vapor (partial) pressure.
@@ -197,7 +197,7 @@ def dewpoint_from_relative_humidity(temperature, rh):
     Parameters
     ----------
     temperature : `numpy.ndarray`
-        air temperature
+        air temperature [K]
     rh : `numpy.ndarray`
         relative humidity expressed as a ratio in the range 0 < rh <= 1
 
@@ -221,7 +221,7 @@ def dewpoint(e):
     Parameters
     ----------
     e : `numpy.ndarray`
-        Water vapor partial pressure
+        Water vapor partial pressure [Pa]
 
     Returns
     -------
@@ -232,7 +232,7 @@ def dewpoint(e):
     --------
     dewpoint_from_relative_humidity, saturation_vapor_pressure, vapor_pressure
 
-    Notes
+    Note
     -----
     This function inverts the [Bolton1980]_ formula for saturation vapor
     pressure to instead calculate the temperature. This yield the following
@@ -251,10 +251,10 @@ def dewpoint_from_specific_humidity(pressure, temperature, specific_humidity):
     Parameters
     ----------
     pressure: `numpy.ndarray`
-        Total atmospheric pressure
+        Total atmospheric pressure [Pa]
 
     temperature: `numpy.ndarray`
-        Air temperature
+        Air temperature [K]
 
     specific_humidity: `numpy.ndarray`
         Specific humidity of air
@@ -301,18 +301,18 @@ def equivalent_potential_temperature(pressure, temperature, dewpoint):
     Parameters
     ----------
     pressure: `numpy.ndarray`
-        Total atmospheric pressure
+        Total atmospheric pressure [Pa]
     temperature: `numpy.ndarray`
-        Temperature of parcel
+        Temperature of parcel [K]
     dewpoint: `numpy.ndarray`
-        Dewpoint of parcel
+        Dewpoint of parcel [K]
 
     Returns
     -------
     `numpy.ndarray`
         The equivalent potential temperature of the parcel
 
-    Notes
+    Note
     -----
     [Bolton1980]_ formula for Theta-e is used, since according to
     [DaviesJones2009]_ it is the most accurate non-iterative formulation
@@ -325,7 +325,7 @@ def equivalent_potential_temperature(pressure, temperature, dewpoint):
     e = saturation_vapor_pressure(dewpoint)
     r = saturation_mixing_ratio(pressure, dewpoint)
 
-    t_l = 56 + 1. / (1. / (td - 56) + np.log(t / td) / 800.) + 273.15
+    t_l = 56 + 1. / (1. / (td - 56) + np.log(t / td) / 800.)
     th_l = t * (100000. / (p - e)) ** kappa * (t / t_l) ** (0.28 * r)
     th_e = th_l * np.exp((3036. / t_l - 1.78) * r * (1 + 0.448 * r))
 
@@ -341,9 +341,9 @@ def potential_temperature(pressure, temperature):
     Parameters
     ----------
     pressure : `numpy.ndarray`
-        total atmospheric pressure
+        total atmospheric pressure [Pa]
     temperature : `numpy.ndarray`
-        air temperature
+        air temperature [K]
 
     Returns
     -------
@@ -355,7 +355,7 @@ def potential_temperature(pressure, temperature):
     --------
     dry_lapse
 
-    Notes
+    Note
     -----
     Formula:
 
@@ -378,7 +378,7 @@ def exner_function(pressure, reference_pressure=P0):
     Parameters
     ----------
     pressure : `numpy.ndarray`
-        total atmospheric pressure
+        total atmospheric pressure [Pa]
     reference_pressure : `numpy.ndarray`, optional
         The reference pressure against which to calculate the Exner function, defaults to
         metpy.constants.P0
@@ -410,7 +410,7 @@ def specific_humidity_from_mixing_ratio(mixing_ratio):
     `numpy.ndarray`
         Specific humidity
 
-    Notes
+    Note
     -----
     Formula from [Salby1996]_ pg. 118.
 
@@ -436,7 +436,7 @@ def virtual_temperature(temperature, mixing_ratio, molecular_weight_ratio=epsilo
     Parameters
     ----------
     temperature: `numpy.ndarray`
-        air temperature
+        air temperature [K]
     mixing_ratio : `numpy.ndarray`
         dimensionless mass mixing ratio
     molecular_weight_ratio : `numpy.ndarray` or float, optional
@@ -449,7 +449,7 @@ def virtual_temperature(temperature, mixing_ratio, molecular_weight_ratio=epsilo
     `numpy.ndarray`
         The corresponding virtual temperature of the parcel
 
-    Notes
+    Note
     -----
     .. math:: T_v = T \frac{\text{w} + \varepsilon}{\varepsilon\,(1 + \text{w})}
 
@@ -467,9 +467,9 @@ def density(pressure, temperature, mixing_ratio, molecular_weight_ratio=epsilone
     Parameters
     ----------
     pressure: `numpy.ndarray`
-        Total atmospheric pressure
+        Total atmospheric pressure [Pa]
     temperature: `numpy.ndarray`
-        air temperature
+        air temperature [K]
     mixing_ratio : `numpy.ndarray`
         dimensionless mass mixing ratio
     molecular_weight_ratio : `numpy.ndarray` or float, optional
@@ -482,13 +482,40 @@ def density(pressure, temperature, mixing_ratio, molecular_weight_ratio=epsilone
     `numpy.ndarray`
         The corresponding density of the parcel
 
-    Notes
+    Note
     -----
     .. math:: \rho = \frac{p}{R_dT_v}
 
     """
     virttemp = virtual_temperature(temperature, mixing_ratio, molecular_weight_ratio)
     return (pressure / (R * virttemp)) # 単位はkg m**-3
+
+def relative_humidity_from_dewpoint(temperature, dewpt):
+    r"""Calculate the relative humidity.
+
+    Uses temperature and dewpoint in celsius to calculate relative
+    humidity using the ratio of vapor pressure to saturation vapor pressures.
+
+    Parameters
+    ----------
+    temperature : `numpy.ndarray`
+        air temperature [K]
+    dewpoint : `numpy.ndarray`
+        dewpoint temperature [K]
+
+    Returns
+    -------
+    `numpy.ndarray`
+        relative humidity
+
+    See Also
+    --------
+    saturation_vapor_pressure
+
+    """
+    e = saturation_vapor_pressure(dewpt)
+    e_s = saturation_vapor_pressure(temperature)
+    return (e / e_s)
 
 
 def relative_humidity_from_mixing_ratio(pressure, temperature, mixing_ratio):
@@ -497,10 +524,10 @@ def relative_humidity_from_mixing_ratio(pressure, temperature, mixing_ratio):
     Parameters
     ----------
     pressure: `numpy.ndarray`
-        Total atmospheric pressure
+        Total atmospheric pressure [Pa]
 
     temperature: `numpy.ndarray`
-        Air temperature
+        Air temperature [K]
 
     mixing_ratio: `numpy.ndarray`
         Dimensionless mass mixing ratio
@@ -510,7 +537,7 @@ def relative_humidity_from_mixing_ratio(pressure, temperature, mixing_ratio):
     `numpy.ndarray`
         Relative humidity
 
-    Notes
+    Note
     -----
     Formula based on that from [Hobbs1977]_ pg. 74.
 
@@ -535,10 +562,10 @@ def relative_humidity_from_specific_humidity(pressure, temperature, specific_hum
     Parameters
     ----------
     pressure: `numpy.ndarray`
-        Total atmospheric pressure
+        Total atmospheric pressure [Pa]
 
     temperature: `numpy.ndarray`
-        Air temperature
+        Air temperature [K]
 
     specific_humidity: `numpy.ndarray`
         Specific humidity of air
@@ -548,7 +575,7 @@ def relative_humidity_from_specific_humidity(pressure, temperature, specific_hum
     `numpy.ndarray`
         Relative humidity
 
-    Notes
+    Note
     -----
     Formula based on that from [Hobbs1977]_ pg. 74. and [Salby1996]_ pg. 118.
 
@@ -573,20 +600,20 @@ def k_index_3d(pressure, temperature, rh):
     Parameters
     ----------
     pressure: `numpy.ndarray`
-        Pressure level value
+        Pressure level value [Pa]
 
     temperature: `numpy.ndarray`
-        Air temperature
+        Air temperature [K]
 
     rh: `numpy.ndarray`
-        Dimensionless relative humidity
+        Dimensionless relative humidity [0<=rh<=1]
 
     Returns
     -------
     `numpy.ndarray`
         K index
 
-    Notes
+    Note
     -----
     Formula based on that from [George1960]
 
@@ -612,10 +639,10 @@ def k_index_2d(t850, t700, t500, rh850, rh700):
     Parameters
     ----------
     pressure: `numpy.ndarray`
-        Pressure level value
+        Pressure level value [Pa]
 
     temperature: `numpy.ndarray`
-        Air temperature
+        Air temperature [K]
 
     rh: `numpy.ndarray`
         Dimensionless relative humidity
@@ -625,7 +652,7 @@ def k_index_2d(t850, t700, t500, rh850, rh700):
     `numpy.ndarray`
         K Index in Kelvin
 
-    Notes
+    Note
     -----
     Formula based on that from [George1960]
 

@@ -13,7 +13,7 @@ from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 import sys
 
 
-CMAX = 255
+_CMAX = 255
 
 def sunshine():
     r'''
@@ -153,25 +153,25 @@ def jma_linear():
     --------
     jma_list
     '''
-    cdict = {'red':   [(0.0,  180/CMAX, 180/CMAX),
+    cdict = {'red':   [(0.0,  180/_CMAX, 180/_CMAX),
                   (1/7, 1., 1.),
                   (2/7, 1., 1.),
-                   (3/7,  250/CMAX, 0.),
-                  (4/7, 33/CMAX, 33/CMAX),
-                   (5/7,  160/CMAX, 160/CMAX),
-                   (6/7,  242/CMAX, 242/CMAX),
+                   (3/7,  250/_CMAX, 0.),
+                  (4/7, 33/_CMAX, 33/_CMAX),
+                   (5/7,  160/_CMAX, 160/_CMAX),
+                   (6/7,  242/_CMAX, 242/_CMAX),
                    (1, 1, 1)],
 
          'green': [(0.0,  0, 0),
-                   (1/7, 40/CMAX, 40/CMAX),
-                  (2/7, 153/CMAX, 153/CMAX),
-                   (3/7, 245/CMAX, 65/CMAX),
-                   (4/7, 140/CMAX, 140/CMAX),
-                   (5/7, 210/CMAX, 210/CMAX),
-                   (6/7, 242/CMAX, 242/CMAX),
+                   (1/7, 40/_CMAX, 40/_CMAX),
+                  (2/7, 153/_CMAX, 153/_CMAX),
+                   (3/7, 245/_CMAX, 65/_CMAX),
+                   (4/7, 140/_CMAX, 140/_CMAX),
+                   (5/7, 210/_CMAX, 210/_CMAX),
+                   (6/7, 242/_CMAX, 242/_CMAX),
                    (1,1,1)],
 
-         'blue':  [(0.0,  104/CMAX, 104/CMAX),
+         'blue':  [(0.0,  104/_CMAX, 104/_CMAX),
                    (1/7, 0, 0),
                   (2/7, 0, 0),
                    (3/7,  0., 1.),
@@ -202,16 +202,16 @@ def jma_list():
     --------
     jma_linear
     '''
-    clist = [[180/CMAX, 0, 104/CMAX],
-            [1., 40/CMAX, 0],
-            [1., 153/CMAX, 0],
-            [250/CMAX, 245/CMAX, 0],
-            [0, 65/CMAX, 1],
-            [33/CMAX, 140/CMAX, 1],
-            [160/CMAX, 210/CMAX, 1],
-            [242/CMAX, 242/CMAX, 1],
+    clist = [[180/_CMAX, 0, 104/_CMAX],
+            [1., 40/_CMAX, 0],
+            [1., 153/_CMAX, 0],
+            [250/_CMAX, 245/_CMAX, 0],
+            [0, 65/_CMAX, 1],
+            [33/_CMAX, 140/_CMAX, 1],
+            [160/_CMAX, 210/_CMAX, 1],
+            [242/_CMAX, 242/_CMAX, 1],
             [1, 1, 1]]
-            # [242/CMAX, 242/CMAX, 1]]
+            # [242/_CMAX, 242/_CMAX, 1]]
     return ListedColormap(clist, 'jma_list').reversed()
 
 
@@ -235,47 +235,47 @@ def grads_default_rainbow_linear():
     --------
     grads_default_rainbow_list
     '''
-    cdict = {'red':   [(0.0,  160/CMAX, 160/CMAX),
-                    (1/12, 130/CMAX, 130/CMAX),
-                    (2/12, 30/CMAX, 30/CMAX),
-                    (3/12, 0/CMAX, 0/CMAX),
-                    (4/12, 0/CMAX, 0/CMAX),
-                    (5/12, 0/CMAX, 0/CMAX),
-                    (6/12, 0/CMAX, 0/CMAX),
-                    (7/12, 160/CMAX, 160/CMAX),
-                    (8/12, 230/CMAX, 230/CMAX),
-                    (9/12, 230/CMAX, 230/CMAX),
-                    (10/12, 240/CMAX, 240/CMAX),
-                    (11/12, 250/CMAX, 250/CMAX),
-                    (12/12, 240/CMAX, 240/CMAX)],
+    cdict = {'red':   [(0.0,  160/_CMAX, 160/_CMAX),
+                    (1/12, 130/_CMAX, 130/_CMAX),
+                    (2/12, 30/_CMAX, 30/_CMAX),
+                    (3/12, 0/_CMAX, 0/_CMAX),
+                    (4/12, 0/_CMAX, 0/_CMAX),
+                    (5/12, 0/_CMAX, 0/_CMAX),
+                    (6/12, 0/_CMAX, 0/_CMAX),
+                    (7/12, 160/_CMAX, 160/_CMAX),
+                    (8/12, 230/_CMAX, 230/_CMAX),
+                    (9/12, 230/_CMAX, 230/_CMAX),
+                    (10/12, 240/_CMAX, 240/_CMAX),
+                    (11/12, 250/_CMAX, 250/_CMAX),
+                    (12/12, 240/_CMAX, 240/_CMAX)],
 
             'green': [(0.0,  0, 0),
                     (1/12, 0, 0),
-                    (2/12, 60/CMAX, 60/CMAX),
-                    (3/12, 160/CMAX, 160/CMAX),
-                    (4/12, 200/CMAX, 200/CMAX),
-                    (5/12, 210/CMAX, 210/CMAX),
-                    (6/12, 220/CMAX, 220/CMAX),
-                    (7/12, 230/CMAX, 230/CMAX),
-                    (8/12, 220/CMAX, 220/CMAX),
-                    (9/12, 175/CMAX, 175/CMAX),
-                    (10/12, 130/CMAX, 130/CMAX),
-                    (11/12, 60/CMAX, 60/CMAX),
-                    (12/12, 0/CMAX, 0/CMAX)],
+                    (2/12, 60/_CMAX, 60/_CMAX),
+                    (3/12, 160/_CMAX, 160/_CMAX),
+                    (4/12, 200/_CMAX, 200/_CMAX),
+                    (5/12, 210/_CMAX, 210/_CMAX),
+                    (6/12, 220/_CMAX, 220/_CMAX),
+                    (7/12, 230/_CMAX, 230/_CMAX),
+                    (8/12, 220/_CMAX, 220/_CMAX),
+                    (9/12, 175/_CMAX, 175/_CMAX),
+                    (10/12, 130/_CMAX, 130/_CMAX),
+                    (11/12, 60/_CMAX, 60/_CMAX),
+                    (12/12, 0/_CMAX, 0/_CMAX)],
 
-            'blue':  [(0.0,  200/CMAX, 200/CMAX),
-                    (1/12, 220/CMAX, 220/CMAX),
-                    (2/12, 255/CMAX, 255/CMAX),
-                    (3/12, 255/CMAX, 255/CMAX),
-                    (4/12, 200/CMAX, 200/CMAX),
-                    (5/12, 210/CMAX, 210/CMAX),
-                    (6/12, 0/CMAX, 0/CMAX),
-                    (7/12, 50/CMAX, 50/CMAX),
-                    (8/12, 50/CMAX, 50/CMAX),
-                    (9/12, 45/CMAX, 45/CMAX),
-                    (10/12, 40/CMAX, 40/CMAX),
-                    (11/12, 60/CMAX, 60/CMAX),
-                    (12/12, 130/CMAX, 130/CMAX)]}
+            'blue':  [(0.0,  200/_CMAX, 200/_CMAX),
+                    (1/12, 220/_CMAX, 220/_CMAX),
+                    (2/12, 255/_CMAX, 255/_CMAX),
+                    (3/12, 255/_CMAX, 255/_CMAX),
+                    (4/12, 200/_CMAX, 200/_CMAX),
+                    (5/12, 210/_CMAX, 210/_CMAX),
+                    (6/12, 0/_CMAX, 0/_CMAX),
+                    (7/12, 50/_CMAX, 50/_CMAX),
+                    (8/12, 50/_CMAX, 50/_CMAX),
+                    (9/12, 45/_CMAX, 45/_CMAX),
+                    (10/12, 40/_CMAX, 40/_CMAX),
+                    (11/12, 60/_CMAX, 60/_CMAX),
+                    (12/12, 130/_CMAX, 130/_CMAX)]}
     return LinearSegmentedColormap('grads_default_rainbow_linear', cdict)
 
 
@@ -299,19 +299,19 @@ def grads_default_rainbow_list():
     --------
     grads_default_rainbow_linear
     '''
-    clist = [[160/CMAX, 0, 200/CMAX],
-        [130/CMAX, 0, 220/CMAX],
-        [30/CMAX, 60/CMAX, 1],
-        [0, 160/CMAX, 1],
-        [0, 200/CMAX, 200/CMAX],
-        [0, 210/CMAX, 210/CMAX],
-        [0, 220/CMAX, 0],
-        [160/CMAX, 230/CMAX, 50/CMAX],
-        [230/CMAX, 225/CMAX, 50/CMAX],
-        [230/CMAX, 170/CMAX, 45/CMAX],
-        [240/CMAX, 130/CMAX, 40/CMAX],
-        [250/CMAX, 60/CMAX, 60/CMAX],
-        [240/CMAX, 0, 130/CMAX]]
+    clist = [[160/_CMAX, 0, 200/_CMAX],
+        [130/_CMAX, 0, 220/_CMAX],
+        [30/_CMAX, 60/_CMAX, 1],
+        [0, 160/_CMAX, 1],
+        [0, 200/_CMAX, 200/_CMAX],
+        [0, 210/_CMAX, 210/_CMAX],
+        [0, 220/_CMAX, 0],
+        [160/_CMAX, 230/_CMAX, 50/_CMAX],
+        [230/_CMAX, 225/_CMAX, 50/_CMAX],
+        [230/_CMAX, 170/_CMAX, 45/_CMAX],
+        [240/_CMAX, 130/_CMAX, 40/_CMAX],
+        [250/_CMAX, 60/_CMAX, 60/_CMAX],
+        [240/_CMAX, 0, 130/_CMAX]]
     return ListedColormap(clist, 'grads_default_rainbow_list')
 
 
@@ -1074,10 +1074,768 @@ def BlWhRe():
     .. |BlWhRe| image:: ./img/BlWhRe.png
         :width: 600
     '''
-    cdict = {'blue': [(1.0, 1.0, 1.0), (0.0, 1.0, 1.0), (1.0, 0.0, 0.0)],
-    'green': [(1.0, 0.0, 0.0), (0.0, 1.0, 1.0), (1.0, 0.0, 0.0)],
-    'red': [(1.0, 0.0, 0.0), (0.0, 1.0, 1.0), (1.0, 1.0, 1.0)]}
-    return LinearSegmentedColormap('grads_red', cdict)
+    _ncolor = 2
+    cdict = {'blue':  [(0/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (2/_ncolor, 255/_CMAX, 255/_CMAX)],
+    'green': [(0/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (2/_ncolor, 0/_CMAX, 0/_CMAX)],
+    'red':   [(0/_ncolor,  255/_CMAX, 255/_CMAX),
+                  (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (2/_ncolor, 0/_CMAX, 0/_CMAX)]}
+    return LinearSegmentedColormap('grads_red', cdict).reversed()
+
+def jma_temp_anom_linear():
+    r'''dark blue -> blue -> light blue -> white -> yellow -> orange -> red
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_temp_anom_linear_256lev``.
+
+    |jma_temp_anom_linear|
+
+    .. |jma_temp_anom_linear| image:: ./img/jma_temp_anom_linear.png
+        :width: 600
+    '''
+    _ncolor = 10
+    cdict = {'blue':  [(0.0,  83/_CMAX, 83/_CMAX),
+                  (1/_ncolor, 26/_CMAX, 26/_CMAX),
+                  (2/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (3/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (4/_ncolor, 180/_CMAX, 180/_CMAX),
+                  (5/_ncolor, 240/_CMAX, 240/_CMAX),
+                  (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (7/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (8/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (9/_ncolor, 255/_CMAX, 255/_CMAX),
+                 (10/_ncolor, 112/_CMAX, 112/_CMAX)],
+
+              'green': [(0.0,  0, 0),
+                   (1/_ncolor, 26/_CMAX, 26/_CMAX),
+                   (2/_ncolor, 153/_CMAX, 153/_CMAX),
+                   (3/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (4/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (7/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (8/_ncolor, 126/_CMAX, 126/_CMAX),
+                   (9/_ncolor, 33/_CMAX, 33/_CMAX),
+                   (10/_ncolor, 0/_CMAX, 0/_CMAX)],
+
+              'red':   [(0.0,  145/_CMAX, 145/_CMAX),
+                  (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (2/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (3/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (4/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (6/_ncolor, 200/_CMAX, 200/_CMAX),
+                  (7/_ncolor, 70/_CMAX, 70/_CMAX),
+                  (8/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (9/_ncolor, 33/_CMAX, 33/_CMAX),
+                  (10/_ncolor, 0/_CMAX, 0/_CMAX)]}
+    return LinearSegmentedColormap('jma_temp_anom_linear', cdict).reversed()
+
+def jma_temp_anom_list():
+    r'''dark blue -> blue -> light blue -> white -> yellow -> orange -> red
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_temp_anom_11lev``.
+
+    |jma_temp_anom_list|
+
+    .. |jma_temp_anom_list| image:: ./img/jma_temp_anom_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_temp_anom_linear
+    '''
+    clist = [[0.0, 0.0, 0.4392156862745098],
+            [0.12941176470588237, 0.12941176470588237, 1.0],
+            [0.0, 0.49411764705882355, 1.0],
+            [0.27450980392156865, 1.0, 1.0],
+            [0.7843137254901961, 1.0, 1.0],
+            [1.0, 1.0, 0.9411764705882353],
+            [1.0, 0.9411764705882353, 0.7058823529411765],
+            [1.0, 0.9411764705882353, 0.0],
+            [1.0, 0.6, 0.0],
+            [1.0, 0.10196078431372549, 0.10196078431372549],
+            [0.5686274509803921, 0, 0.3254901960784314]]
+    return ListedColormap(clist, 'jma_temp_anom_list')
+
+def jma_temp_anom_white_linear():
+    r'''dark blue -> blue -> light blue -> white -> yellow -> orange -> red
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_temp_anom_256lev``.
+
+    |jma_temp_anom_white_linear|
+
+    .. |jma_temp_anom_white_linear| image:: ./img/jma_temp_anom_white_linear.png
+        :width: 600
+    '''
+    _ncolor = 10
+    cdict = {'blue':  [(0.0,  83/_CMAX, 83/_CMAX),
+                  (1/_ncolor, 26/_CMAX, 26/_CMAX),
+                  (2/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (3/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (4/_ncolor, 180/_CMAX, 180/_CMAX),
+                  (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (7/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (8/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (9/_ncolor, 255/_CMAX, 255/_CMAX),
+                 (10/_ncolor, 112/_CMAX, 112/_CMAX)],
+
+              'green': [(0.0,  0, 0),
+                   (1/_ncolor, 26/_CMAX, 26/_CMAX),
+                   (2/_ncolor, 153/_CMAX, 153/_CMAX),
+                   (3/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (4/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (7/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (8/_ncolor, 126/_CMAX, 126/_CMAX),
+                   (9/_ncolor, 33/_CMAX, 33/_CMAX),
+                   (10/_ncolor, 0/_CMAX, 0/_CMAX)],
+
+              'red':   [(0.0,  145/_CMAX, 145/_CMAX),
+                  (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (2/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (3/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (4/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (6/_ncolor, 200/_CMAX, 200/_CMAX),
+                  (7/_ncolor, 70/_CMAX, 70/_CMAX),
+                  (8/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (9/_ncolor, 33/_CMAX, 33/_CMAX),
+                  (10/_ncolor, 0/_CMAX, 0/_CMAX)]}
+    return LinearSegmentedColormap('jma_temp_anom_linear', cdict).reversed()
+
+def jma_temp_anom_white_list():
+    r'''dark blue -> blue -> light blue -> white -> yellow -> orange -> red
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_temp_anom_white_11lev``.
+
+    |jma_temp_anom_list|
+
+    .. |jma_temp_anom_list| image:: ./img/jma_temp_anom_white_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_temp_anom_linear
+    '''
+    clist = [[0.0, 0.0, 0.4392156862745098],
+            [0.12941176470588237, 0.12941176470588237, 1.0],
+            [0.0, 0.49411764705882355, 1.0],
+            [0.27450980392156865, 1.0, 1.0],
+            [0.7843137254901961, 1.0, 1.0],
+            [1.0, 1.0, 1.0],
+            [1.0, 0.9411764705882353, 0.7058823529411765],
+            [1.0, 0.9411764705882353, 0.0],
+            [1.0, 0.6, 0.0],
+            [1.0, 0.10196078431372549, 0.10196078431372549],
+            [0.5686274509803921, 0, 0.3254901960784314]]
+    return ListedColormap(clist, 'jma_temp_anom_list')
+
+def jma_precip_anom_linear():
+    r'''brown -> orange -> white -> limegreen -> green -> darkgreen
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_precip_anom_256lev``.
+
+    |jma_precip_anom_linear|
+
+    .. |jma_precip_anom_linear| image:: ./img/jma_precip_anom_linear.png
+        :width: 600
+    '''
+    _ncolor = 10
+    cdict = {'blue':  [(0/_ncolor, 38/_CMAX, 38/_CMAX),
+                   (1/_ncolor, 64/_CMAX, 64/_CMAX),
+                   (2/_ncolor, 128/_CMAX, 128/_CMAX),
+                   (3/_ncolor, 175/_CMAX, 175/_CMAX),
+                   (4/_ncolor, 214/_CMAX, 214/_CMAX),
+                   (5/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (6/_ncolor, 191/_CMAX, 191/_CMAX),
+                   (7/_ncolor, 70/_CMAX, 70/_CMAX),
+                   (8/_ncolor, 15/_CMAX, 15/_CMAX),
+                   (9/_ncolor, 5/_CMAX, 5/_CMAX),
+                   (10/_ncolor, 5/_CMAX, 5/_CMAX)],
+
+              'green': [(0/_ncolor, 38/_CMAX, 38/_CMAX),
+                   (1/_ncolor, 77/_CMAX, 77/_CMAX),
+                   (2/_ncolor, 153/_CMAX, 153/_CMAX),
+                   (3/_ncolor, 204/_CMAX, 204/_CMAX),
+                   (4/_ncolor, 243/_CMAX, 243/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 229/_CMAX, 229/_CMAX),
+                   (7/_ncolor, 200/_CMAX, 200/_CMAX),
+                   (8/_ncolor, 120/_CMAX, 120/_CMAX),
+                   (9/_ncolor, 55/_CMAX, 55/_CMAX),
+                   (10/_ncolor, 30/_CMAX, 30/_CMAX)],
+
+              'red':   [(0/_ncolor,  0/_CMAX, 0/_CMAX),
+                  (1/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (2/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (3/_ncolor, 31/_CMAX, 31/_CMAX),
+                  (4/_ncolor, 73/_CMAX, 73/_CMAX),
+                  (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (7/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (8/_ncolor, 245/_CMAX, 245/_CMAX),
+                  (9/_ncolor, 120/_CMAX, 120/_CMAX),
+                  (10/_ncolor, 60/_CMAX, 60/_CMAX)]}
+    return LinearSegmentedColormap('jma_precip_anom_linear', cdict).reversed()
+
+def jma_precip_anom_list():
+    r'''brown -> orange -> white -> limegreen -> green -> darkgreen
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_precip_anom_11lev``.
+
+    |jma_precip_anom_list|
+
+    .. |jma_precip_anom_list| image:: ./img/jma_precip_anom_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_precip_anom_linear
+    '''
+    clist = [[0.23529411764705882, 0.11764705882352941, 0.0196078431372549],
+            [0.47058823529411764, 0.21568627450980393, 0.0196078431372549],
+            [0.9607843137254902, 0.47058823529411764, 0.058823529411764705],
+            [1.0, 0.7843137254901961, 0.27450980392156865],
+            [1.0, 0.8980392156862745, 0.7490196078431373],
+            [1.0, 1.0, 0.9411764705882353],
+            [0.28627450980392155, 0.9529411764705882, 0.8392156862745098],
+            [0.12156862745098039, 0.8, 0.6862745098039216],
+            [0.0, 0.6, 0.5019607843137255],
+            [0.0, 0.30196078431372547, 0.25098039215686274],
+            [0.0, 0.14901960784313725, 0.14901960784313725]]
+    return ListedColormap(clist, 'jma_precip_anom_list')
+
+def jma_precip_anom_white_linear():
+    r'''brown -> orange -> white -> limegreen -> green -> darkgreen
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_precip_anom_white_256lev``.
+
+    |jma_precip_anom_white_linear|
+
+    .. |jma_precip_anom_white_linear| image:: ./img/jma_precip_anom_white_linear.png
+        :width: 600
+    '''
+    _ncolor = 10
+    cdict = {'blue':  [(0/_ncolor, 38/_CMAX, 38/_CMAX),
+                   (1/_ncolor, 64/_CMAX, 64/_CMAX),
+                   (2/_ncolor, 128/_CMAX, 128/_CMAX),
+                   (3/_ncolor, 175/_CMAX, 175/_CMAX),
+                   (4/_ncolor, 214/_CMAX, 214/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 191/_CMAX, 191/_CMAX),
+                   (7/_ncolor, 70/_CMAX, 70/_CMAX),
+                   (8/_ncolor, 15/_CMAX, 15/_CMAX),
+                   (9/_ncolor, 5/_CMAX, 5/_CMAX),
+                   (10/_ncolor, 5/_CMAX, 5/_CMAX)],
+
+              'green': [(0/_ncolor, 38/_CMAX, 38/_CMAX),
+                   (1/_ncolor, 77/_CMAX, 77/_CMAX),
+                   (2/_ncolor, 153/_CMAX, 153/_CMAX),
+                   (3/_ncolor, 204/_CMAX, 204/_CMAX),
+                   (4/_ncolor, 243/_CMAX, 243/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 229/_CMAX, 229/_CMAX),
+                   (7/_ncolor, 200/_CMAX, 200/_CMAX),
+                   (8/_ncolor, 120/_CMAX, 120/_CMAX),
+                   (9/_ncolor, 55/_CMAX, 55/_CMAX),
+                   (10/_ncolor, 30/_CMAX, 30/_CMAX)],
+
+              'red':   [(0/_ncolor,  0/_CMAX, 0/_CMAX),
+                  (1/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (2/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (3/_ncolor, 31/_CMAX, 31/_CMAX),
+                  (4/_ncolor, 73/_CMAX, 73/_CMAX),
+                  (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (7/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (8/_ncolor, 245/_CMAX, 245/_CMAX),
+                  (9/_ncolor, 120/_CMAX, 120/_CMAX),
+                  (10/_ncolor, 60/_CMAX, 60/_CMAX)]}
+    return LinearSegmentedColormap('jma_precip_anom_linear', cdict).reversed()
+
+def jma_precip_anom_white_list():
+    r'''brown -> orange -> white -> limegreen -> green -> darkgreen
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_precip_anom_white_11lev``.
+
+    |jma_precip_anom_white_list|
+
+    .. |jma_precip_anom_white_list| image:: ./img/jma_precip_anom_white_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_precip_anom_linear
+    '''
+    clist = [[0.23529411764705882, 0.11764705882352941, 0.0196078431372549],
+            [0.47058823529411764, 0.21568627450980393, 0.0196078431372549],
+            [0.9607843137254902, 0.47058823529411764, 0.058823529411764705],
+            [1.0, 0.7843137254901961, 0.27450980392156865],
+            [1.0, 0.8980392156862745, 0.7490196078431373],
+            [1.0, 1.0, 1.0],
+            [0.28627450980392155, 0.9529411764705882, 0.8392156862745098],
+            [0.12156862745098039, 0.8, 0.6862745098039216],
+            [0.0, 0.6, 0.5019607843137255],
+            [0.0, 0.30196078431372547, 0.25098039215686274],
+            [0.0, 0.14901960784313725, 0.14901960784313725]]
+    return ListedColormap(clist, 'jma_precip_anom_list')
+
+def jma_sunlight_anom_linear():
+    r'''indigo -> light purple -> white -> yellow -> orange -> red
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_sunlight_anom_256lev``.
+
+    |jma_sunlight_anom_linear|
+
+    .. |jma_sunlight_anom_linear| image:: ./img/jma_sunlight_anom_linear.png
+        :width: 600
+    '''
+    _ncolor = 10
+    cdict = {'blue':  [(0/_ncolor, 83/_CMAX, 83/_CMAX),
+                   (1/_ncolor, 26/_CMAX, 26/_CMAX),
+                   (2/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (3/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (4/_ncolor, 180/_CMAX, 180/_CMAX),
+                   (5/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (7/_ncolor, 243/_CMAX, 243/_CMAX),
+                   (8/_ncolor, 119/_CMAX, 119/_CMAX),
+                   (9/_ncolor, 80/_CMAX, 80/_CMAX),
+                   (10/_ncolor, 56/_CMAX, 56/_CMAX)],
+
+              'green': [(0/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (1/_ncolor, 26/_CMAX, 26/_CMAX),
+                   (2/_ncolor, 153/_CMAX, 153/_CMAX),
+                   (3/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (4/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 238/_CMAX, 238/_CMAX),
+                   (7/_ncolor, 210/_CMAX, 210/_CMAX),
+                   (8/_ncolor, 74/_CMAX, 74/_CMAX),
+                   (9/_ncolor, 36/_CMAX, 36/_CMAX),
+                   (10/_ncolor, 0/_CMAX, 0/_CMAX)],
+
+              'red':   [(0/_ncolor,  145/_CMAX, 145/_CMAX),
+                  (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (2/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (3/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (4/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (6/_ncolor, 238/_CMAX, 238/_CMAX),
+                  (7/_ncolor, 206/_CMAX, 206/_CMAX),
+                  (8/_ncolor, 69/_CMAX, 69/_CMAX),
+                  (9/_ncolor, 36/_CMAX, 36/_CMAX),
+                  (10/_ncolor, 0/_CMAX, 0/_CMAX)]}
+    return LinearSegmentedColormap('jma_sunlight_anom_linear', cdict).reversed()
+
+def jma_sunlight_anom_list():
+    r'''indigo -> light purple -> white -> yellow -> orange -> red
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_sunlight_anom_11lev``.
+
+    |jma_sunlight_anom_list|
+
+    .. |jma_sunlight_anom_list| image:: ./img/jma_sunlight_anom_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_sunlight_anom_linear
+    '''
+    clist = [[0.0, 0.0, 0.2196078431372549],
+            [0.1411764705882353, 0.1411764705882353, 0.3137254901960784],
+            [0.27058823529411763, 0.2901960784313726, 0.4666666666666667],
+            [0.807843137254902, 0.8235294117647058, 0.9529411764705882],
+            [0.9333333333333333, 0.9333333333333333, 1.0],
+            [1.0, 1.0, 0.9411764705882353],
+            [1.0, 0.9411764705882353, 0.7058823529411765],
+            [1.0, 0.9411764705882353, 0.0],
+            [1.0, 0.6, 0.0],
+            [1.0, 0.10196078431372549, 0.10196078431372549],
+            [0.5686274509803921, 0.0, 0.3254901960784314]]
+    return ListedColormap(clist, 'jma_sunlight_anom_list')
+
+def jma_sunlight_anom_white_linear():
+    r'''indigo -> light purple -> white -> yellow -> orange -> red
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_sunlight_anom_256lev``.
+
+    |jma_sunlight_anom_white_linear|
+
+    .. |jma_sunlight_anom_white_linear| image:: ./img/jma_sunlight_anom_white_linear.png
+        :width: 600
+    '''
+    _ncolor = 10
+    cdict = {'blue':  [(0/_ncolor, 83/_CMAX, 83/_CMAX),
+                   (1/_ncolor, 26/_CMAX, 26/_CMAX),
+                   (2/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (3/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (4/_ncolor, 180/_CMAX, 180/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (7/_ncolor, 243/_CMAX, 243/_CMAX),
+                   (8/_ncolor, 119/_CMAX, 119/_CMAX),
+                   (9/_ncolor, 80/_CMAX, 80/_CMAX),
+                   (10/_ncolor, 56/_CMAX, 56/_CMAX)],
+
+              'green': [(0/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (1/_ncolor, 26/_CMAX, 26/_CMAX),
+                   (2/_ncolor, 153/_CMAX, 153/_CMAX),
+                   (3/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (4/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 238/_CMAX, 238/_CMAX),
+                   (7/_ncolor, 210/_CMAX, 210/_CMAX),
+                   (8/_ncolor, 74/_CMAX, 74/_CMAX),
+                   (9/_ncolor, 36/_CMAX, 36/_CMAX),
+                   (10/_ncolor, 0/_CMAX, 0/_CMAX)],
+
+              'red':   [(0/_ncolor,  145/_CMAX, 145/_CMAX),
+                  (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (2/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (3/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (4/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (6/_ncolor, 238/_CMAX, 238/_CMAX),
+                  (7/_ncolor, 206/_CMAX, 206/_CMAX),
+                  (8/_ncolor, 69/_CMAX, 69/_CMAX),
+                  (9/_ncolor, 36/_CMAX, 36/_CMAX),
+                  (10/_ncolor, 0/_CMAX, 0/_CMAX)]}
+    return LinearSegmentedColormap('jma_sunlight_anom_linear', cdict).reversed()
+
+def jma_sunlight_anom_white_list():
+    r'''indigo -> light purple -> white -> yellow -> orange -> red
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_sunlight_anom_white_11lev``.
+
+    |jma_sunlight_anom_white_list|
+
+    .. |jma_sunlight_anom_white_list| image:: ./img/jma_sunlight_anom_white_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_sunlight_anom_linear
+    '''
+    clist = [[0.0, 0.0, 0.2196078431372549],
+            [0.1411764705882353, 0.1411764705882353, 0.3137254901960784],
+            [0.27058823529411763, 0.2901960784313726, 0.4666666666666667],
+            [0.807843137254902, 0.8235294117647058, 0.9529411764705882],
+            [0.9333333333333333, 0.9333333333333333, 1.0],
+            [1.0, 1.0, 1.0],
+            [1.0, 0.9411764705882353, 0.7058823529411765],
+            [1.0, 0.9411764705882353, 0.0],
+            [1.0, 0.6, 0.0],
+            [1.0, 0.10196078431372549, 0.10196078431372549],
+            [0.5686274509803921, 0.0, 0.3254901960784314]]
+    return ListedColormap(clist, 'jma_sunlight_anom_list')
+
+def jma_snow_anom_linear():
+    r'''brown -> orange -> white -> light blue -> blue -> slate blue
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_snow_anom_256lev``.
+
+    |jma_snow_anom_linear|
+
+    .. |jma_snow_anom_linear| image:: ./img/jma_snow_anom_linear.png
+        :width: 600
+    '''
+    _ncolor = 10
+    cdict = {'blue':  [(0/_ncolor, 112/_CMAX, 112/_CMAX),
+                   (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (2/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (3/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (4/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (5/_ncolor, 240/_CMAX, 240/_CMAX),
+                   (6/_ncolor, 220/_CMAX, 220/_CMAX),
+                   (7/_ncolor, 70/_CMAX, 70/_CMAX),
+                   (8/_ncolor, 15/_CMAX, 15/_CMAX),
+                   (9/_ncolor, 5/_CMAX, 5/_CMAX),
+                   (10/_ncolor, 5/_CMAX, 5/_CMAX)],
+
+              'green': [(0/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (1/_ncolor, 33/_CMAX, 33/_CMAX),
+                   (2/_ncolor, 126/_CMAX, 126/_CMAX),
+                   (3/_ncolor, 191/_CMAX, 191/_CMAX),
+                   (4/_ncolor, 238/_CMAX, 238/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 230/_CMAX, 230/_CMAX),
+                   (7/_ncolor, 200/_CMAX, 200/_CMAX),
+                   (8/_ncolor, 120/_CMAX, 120/_CMAX),
+                   (9/_ncolor, 55/_CMAX, 55/_CMAX),
+                   (10/_ncolor, 30/_CMAX, 30/_CMAX)],
+
+              'red':   [(0/_ncolor,  0/_CMAX, 0/_CMAX),
+                  (1/_ncolor, 33/_CMAX, 33/_CMAX),
+                  (2/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (3/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (4/_ncolor, 153/_CMAX, 153/_CMAX),
+                  (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (7/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (8/_ncolor, 245/_CMAX, 245/_CMAX),
+                  (9/_ncolor, 120/_CMAX, 120/_CMAX),
+                  (10/_ncolor, 60/_CMAX, 60/_CMAX)]}
+    return LinearSegmentedColormap('jma_snow_anom_linear', cdict).reversed()
+
+def jma_snow_anom_list():
+    r'''brown -> orange -> white -> light blue -> blue -> slate blue
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_snow_anom_11lev``.
+
+    |jma_snow_anom_list|
+
+    .. |jma_snow_anom_list| image:: ./img/jma_snow_anom_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_snow_anom_linear
+    '''
+    clist = [[0.23529411764705882, 0.11764705882352941, 0.0196078431372549],
+            [0.47058823529411764, 0.21568627450980393, 0.0196078431372549],
+            [0.9607843137254902, 0.47058823529411764, 0.058823529411764705],
+            [1.0, 0.7843137254901961, 0.27450980392156865],
+            [1.0, 0.9019607843137255, 0.8627450980392157],
+            [1.0, 1.0, 0.9411764705882353],
+            [0.6, 0.9333333333333333, 1.0],
+            [0.0, 0.7490196078431373, 1.0],
+            [0.0, 0.49411764705882355, 1.0],
+            [0.12941176470588237, 0.12941176470588237, 1.0],
+            [0.0, 0.0, 0.4392156862745098]]
+    return ListedColormap(clist, 'jma_snow_anom_list')
+
+def jma_snow_anom_white_linear():
+    r'''brown -> orange -> white -> light blue -> blue -> slate blue
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_snow_anom_256lev``.
+
+    |jma_snow_anom_white_linear|
+
+    .. |jma_snow_anom_white_linear| image:: ./img/jma_snow_anom_white_linear.png
+        :width: 600
+    '''
+    _ncolor = 10
+    cdict = {'blue':  [(0/_ncolor, 112/_CMAX, 112/_CMAX),
+                   (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (2/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (3/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (4/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 220/_CMAX, 220/_CMAX),
+                   (7/_ncolor, 70/_CMAX, 70/_CMAX),
+                   (8/_ncolor, 15/_CMAX, 15/_CMAX),
+                   (9/_ncolor, 5/_CMAX, 5/_CMAX),
+                   (10/_ncolor, 5/_CMAX, 5/_CMAX)],
+
+              'green': [(0/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (1/_ncolor, 33/_CMAX, 33/_CMAX),
+                   (2/_ncolor, 126/_CMAX, 126/_CMAX),
+                   (3/_ncolor, 191/_CMAX, 191/_CMAX),
+                   (4/_ncolor, 238/_CMAX, 238/_CMAX),
+                   (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (6/_ncolor, 230/_CMAX, 230/_CMAX),
+                   (7/_ncolor, 200/_CMAX, 200/_CMAX),
+                   (8/_ncolor, 120/_CMAX, 120/_CMAX),
+                   (9/_ncolor, 55/_CMAX, 55/_CMAX),
+                   (10/_ncolor, 30/_CMAX, 30/_CMAX)],
+
+              'red':   [(0/_ncolor,  0/_CMAX, 0/_CMAX),
+                  (1/_ncolor, 33/_CMAX, 33/_CMAX),
+                  (2/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (3/_ncolor, 0/_CMAX, 0/_CMAX),
+                  (4/_ncolor, 153/_CMAX, 153/_CMAX),
+                  (5/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (6/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (7/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (8/_ncolor, 245/_CMAX, 245/_CMAX),
+                  (9/_ncolor, 120/_CMAX, 120/_CMAX),
+                  (10/_ncolor, 60/_CMAX, 60/_CMAX)]}
+    return LinearSegmentedColormap('jma_snow_anom_linear', cdict).reversed()
+
+def jma_snow_anom_white_list():
+    r'''brown -> orange -> white -> light blue -> blue -> slate blue
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_snow_anom_11lev``.
+
+    |jma_snow_anom_white_list|
+
+    .. |jma_snow_anom_white_list| image:: ./img/jma_snow_anom_white_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_snow_anom_linear
+    '''
+    clist = [[0.23529411764705882, 0.11764705882352941, 0.0196078431372549],
+            [0.47058823529411764, 0.21568627450980393, 0.0196078431372549],
+            [0.9607843137254902, 0.47058823529411764, 0.058823529411764705],
+            [1.0, 0.7843137254901961, 0.27450980392156865],
+            [1.0, 0.9019607843137255, 0.8627450980392157],
+            [1.0, 1.0, 1.0],
+            [0.6, 0.9333333333333333, 1.0],
+            [0.0, 0.7490196078431373, 1.0],
+            [0.0, 0.49411764705882355, 1.0],
+            [0.12941176470588237, 0.12941176470588237, 1.0],
+            [0.0, 0.0, 0.4392156862745098]]
+    return ListedColormap(clist, 'jma_snow_anom_list')
+
+def jma_BlWhRe_linear():
+    r'''brown -> orange -> white -> light blue -> blue -> slate blue
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_BlWhRe_linear_256lev``.
+
+    |jma_BlWhRe_linear|
+
+    .. |jma_BlWhRe_linear| image:: ./img/jma_BlWhRe_linear.png
+        :width: 600
+    '''
+    _ncolor = 2
+    cdict = {'blue':  [(0/_ncolor, 0/_CMAX, 0/_CMAX),
+                   (1/_ncolor, 230/_CMAX, 230/_CMAX),
+                   (2/_ncolor, 255/_CMAX, 255/_CMAX)],
+
+              'green': [(0/_ncolor, 40/_CMAX, 40/_CMAX),
+                   (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                   (2/_ncolor, 65/_CMAX, 65/_CMAX)],
+
+              'red':   [(0/_ncolor,  255/_CMAX, 255/_CMAX),
+                  (1/_ncolor, 255/_CMAX, 255/_CMAX),
+                  (2/_ncolor, 0/_CMAX, 0/_CMAX)]}
+    return LinearSegmentedColormap('jma_BlWhRe_linear', cdict).reversed()
+
+def jma_BlWhRe_list():
+    r'''blue -> white -> red
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    The object name is ``jma_BlWhRe_list_11lev``.
+
+    |jma_BlWhRe_list|
+
+    .. |jma_BlWhRe_list| image:: ./img/jma_BlWhRe_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_BlWhRe_linear
+    '''
+    clist = [[0.0, 0.2549019607843137, 1.0],
+            [1.0, 1.0, 0.9019607843137255],
+            [1.0, 0.1568627450980392, 0.0]]
+    return ListedColormap(clist, 'jma_BlWhRe_list')
 
 
 sunshine_256lev = sunshine()
@@ -1109,6 +1867,24 @@ grads_satellite_256lev = grads_satellite()
 grads_rain_256lev = grads_rain()
 grads_autumn_256lev = grads_autumn()
 grads_cool_256lev = grads_cool()
+jma_temp_anom_256lev = jma_temp_anom_linear()
+jma_temp_anom_11lev = jma_temp_anom_list()
+jma_precip_anom_256lev = jma_precip_anom_linear()
+jma_precip_anom_11lev = jma_precip_anom_list()
+jma_sunlight_anom_256lev = jma_sunlight_anom_linear()
+jma_sunlight_anom_11lev = jma_sunlight_anom_list()
+jma_snow_anom_256lev = jma_snow_anom_linear()
+jma_snow_anom_11lev = jma_snow_anom_list()
+jma_temp_anom_white_256lev = jma_temp_anom_white_linear()
+jma_temp_anom_white_11lev = jma_temp_anom_white_list()
+jma_precip_anom_white_256lev = jma_precip_anom_white_linear()
+jma_precip_anom_white_11lev = jma_precip_anom_white_list()
+jma_sunlight_anom_white_256lev = jma_sunlight_anom_white_linear()
+jma_sunlight_anom_white_11lev = jma_sunlight_anom_white_list()
+jma_snow_anom_white_256lev = jma_snow_anom_white_linear()
+jma_snow_anom_white_11lev = jma_snow_anom_white_list()
+jma_BlWhRe_256lev = jma_BlWhRe_linear()
+jma_BlWhRe_11lev = jma_BlWhRe_list()
 
 cmap_list = [sunshine_256lev,
             BrWhGr_256lev,
@@ -1138,7 +1914,25 @@ cmap_list = [sunshine_256lev,
             grads_satellite_256lev,
             grads_rain_256lev,
             grads_autumn_256lev,
-            grads_cool_256lev]
+            grads_cool_256lev,
+            jma_temp_anom_256lev,
+            jma_temp_anom_11lev,
+            jma_precip_anom_256lev,
+            jma_precip_anom_11lev,
+            jma_sunlight_anom_256lev,
+            jma_sunlight_anom_11lev,
+            jma_snow_anom_256lev,
+            jma_snow_anom_11lev,
+            jma_temp_anom_white_256lev,
+            jma_temp_anom_white_11lev,
+            jma_precip_anom_white_256lev,
+            jma_precip_anom_white_11lev,
+            jma_sunlight_anom_white_256lev,
+            jma_sunlight_anom_white_11lev,
+            jma_snow_anom_white_256lev,
+            jma_snow_anom_white_11lev,
+            jma_BlWhRe_256lev,
+            jma_BlWhRe_11lev,]
 
 
 cmap_names = ['sunshine',
@@ -1169,7 +1963,25 @@ cmap_names = ['sunshine',
             'grads_satellite',
             'grads_rain',
             'grads_autumn',
-            'grads_cool'
+            'grads_cool',
+            'jma_temp_anom_linear',
+            'jma_temp_anom_list',
+            'jma_precip_anom_linear',
+            'jma_precip_anom_list',
+            'jma_sunlight_anom_linear',
+            'jma_sunlight_anom_list',
+            'jma_snow_anom_linear',
+            'jma_snow_anom_list',
+            'jma_temp_anom_white_linear',
+            'jma_temp_anom_white_list',
+            'jma_precip_anom_white_linear',
+            'jma_precip_anom_white_list',
+            'jma_sunlight_anom_white_linear',
+            'jma_sunlight_anom_white_list',
+            'jma_snow_anom_white_linear',
+            'jma_snow_anom_white_list',
+            'jma_BlWhRe_linear',
+            'jma_BlWhRe_list',
             ]
 
 
@@ -1238,6 +2050,24 @@ def _plot_each_colorbar(cmap_name, output='../../docs/img'):
 
     plt.savefig(os.path.join(output, f'{cmap_name}.png'), bbox_inches='tight', dpi=250)
     plt.close(fig)
+
+
+MPL_DEFAULT_COLOR_LIST = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+
+def mpl_default_color_cyclic(idx):
+    """
+    Get matplotlib default color in cyclic
+
+    Parameters
+    ----------
+    idx: `int`
+
+    Returns
+    -------
+    color code: `str`
+        "#??????"
+    """
+    return MPL_DEFAULT_COLOR_LIST[idx%len(MPL_DEFAULT_COLOR_LIST)]
 
 
 if __name__=='__main__':

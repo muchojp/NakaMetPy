@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nakametpy.cmaps module &mdash; nakametpy 2021.9.0 documentation</title>
+  <title>nakametpy.cmaps module &mdash; NakaMetPy 2022.12.0 documentation</title>
   
 
   
@@ -53,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> nakametpy
+            <a href="index.html" class="icon icon-home"> NakaMetPy
           
 
           
@@ -89,9 +89,11 @@
 <li class="toctree-l2 current"><a class="reference internal" href="nakametpy.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">nakametpy.cmaps module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.constants.html">nakametpy.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.grads.html">nakametpy.grads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.jma.html">nakametpy.jma module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.kinematics.html">nakametpy.kinematics module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.thermo.html">nakametpy.thermo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.util.html">nakametpy.util module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="nakametpy.html#module-nakametpy">Module contents</a></li>
@@ -111,7 +113,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">nakametpy</a>
+          <a href="index.html">NakaMetPy</a>
         
       </nav>
 
@@ -637,6 +639,44 @@ levelは256である。</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_BlWhRe_linear">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_BlWhRe_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_BlWhRe_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_BlWhRe_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>brown -&gt; orange -&gt; white -&gt; light blue -&gt; blue -&gt; slate blue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_BlWhRe_linear_256lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_BlWhRe_linear.png"><img alt="jma_BlWhRe_linear" src="img/jma_BlWhRe_linear.png" style="width: 600px;" /></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_BlWhRe_list">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_BlWhRe_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_BlWhRe_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_BlWhRe_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>blue -&gt; white -&gt; red</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_BlWhRe_list_11lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_BlWhRe_list.png"><img alt="jma_BlWhRe_list" src="img/jma_BlWhRe_list.png" style="width: 600px;" /></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.cmaps.jma_BlWhRe_linear" title="nakametpy.cmaps.jma_BlWhRe_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_BlWhRe_linear</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.cmaps.jma_linear">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_linear" title="Permalink to this definition">¶</a></dt>
 <dd><p>気象庁が降水量をプロットする際に利用しているカラーマップを模している。</p>
@@ -676,6 +716,327 @@ levelは256である。</p>
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#nakametpy.cmaps.jma_linear" title="nakametpy.cmaps.jma_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_linear</span></code></a></p>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_precip_anom_linear">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_precip_anom_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_precip_anom_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_precip_anom_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>brown -&gt; orange -&gt; white -&gt; limegreen -&gt; green -&gt; darkgreen</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_precip_anom_256lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_precip_anom_linear.png"><img alt="jma_precip_anom_linear" src="img/jma_precip_anom_linear.png" style="width: 600px;" /></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_precip_anom_list">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_precip_anom_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_precip_anom_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_precip_anom_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>brown -&gt; orange -&gt; white -&gt; limegreen -&gt; green -&gt; darkgreen</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_precip_anom_11lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_precip_anom_list.png"><img alt="jma_precip_anom_list" src="img/jma_precip_anom_list.png" style="width: 600px;" /></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.cmaps.jma_precip_anom_linear" title="nakametpy.cmaps.jma_precip_anom_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_precip_anom_linear</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_precip_anom_white_linear">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_precip_anom_white_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_precip_anom_white_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_precip_anom_white_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>brown -&gt; orange -&gt; white -&gt; limegreen -&gt; green -&gt; darkgreen</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_precip_anom_white_256lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_precip_anom_white_linear.png"><img alt="jma_precip_anom_white_linear" src="img/jma_precip_anom_white_linear.png" style="width: 600px;" /></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_precip_anom_white_list">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_precip_anom_white_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_precip_anom_white_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_precip_anom_white_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>brown -&gt; orange -&gt; white -&gt; limegreen -&gt; green -&gt; darkgreen</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_precip_anom_white_11lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_precip_anom_white_list.png"><img alt="jma_precip_anom_white_list" src="img/jma_precip_anom_white_list.png" style="width: 600px;" /></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.cmaps.jma_precip_anom_linear" title="nakametpy.cmaps.jma_precip_anom_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_precip_anom_linear</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_snow_anom_linear">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_snow_anom_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_snow_anom_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_snow_anom_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>brown -&gt; orange -&gt; white -&gt; light blue -&gt; blue -&gt; slate blue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_snow_anom_256lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_snow_anom_linear.png"><img alt="jma_snow_anom_linear" src="img/jma_snow_anom_linear.png" style="width: 600px;" /></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_snow_anom_list">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_snow_anom_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_snow_anom_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_snow_anom_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>brown -&gt; orange -&gt; white -&gt; light blue -&gt; blue -&gt; slate blue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_snow_anom_11lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_snow_anom_list.png"><img alt="jma_snow_anom_list" src="img/jma_snow_anom_list.png" style="width: 600px;" /></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.cmaps.jma_snow_anom_linear" title="nakametpy.cmaps.jma_snow_anom_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_snow_anom_linear</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_snow_anom_white_linear">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_snow_anom_white_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_snow_anom_white_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_snow_anom_white_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>brown -&gt; orange -&gt; white -&gt; light blue -&gt; blue -&gt; slate blue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_snow_anom_256lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_snow_anom_white_linear.png"><img alt="jma_snow_anom_white_linear" src="img/jma_snow_anom_white_linear.png" style="width: 600px;" /></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_snow_anom_white_list">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_snow_anom_white_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_snow_anom_white_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_snow_anom_white_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>brown -&gt; orange -&gt; white -&gt; light blue -&gt; blue -&gt; slate blue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_snow_anom_11lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_snow_anom_white_list.png"><img alt="jma_snow_anom_white_list" src="img/jma_snow_anom_white_list.png" style="width: 600px;" /></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.cmaps.jma_snow_anom_linear" title="nakametpy.cmaps.jma_snow_anom_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_snow_anom_linear</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_sunlight_anom_linear">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_sunlight_anom_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_sunlight_anom_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_sunlight_anom_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>indigo -&gt; light purple -&gt; white -&gt; yellow -&gt; orange -&gt; red</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_sunlight_anom_256lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_sunlight_anom_linear.png"><img alt="jma_sunlight_anom_linear" src="img/jma_sunlight_anom_linear.png" style="width: 600px;" /></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_sunlight_anom_list">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_sunlight_anom_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_sunlight_anom_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_sunlight_anom_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>indigo -&gt; light purple -&gt; white -&gt; yellow -&gt; orange -&gt; red</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_sunlight_anom_11lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_sunlight_anom_list.png"><img alt="jma_sunlight_anom_list" src="img/jma_sunlight_anom_list.png" style="width: 600px;" /></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.cmaps.jma_sunlight_anom_linear" title="nakametpy.cmaps.jma_sunlight_anom_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_sunlight_anom_linear</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_sunlight_anom_white_linear">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_sunlight_anom_white_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_sunlight_anom_white_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_sunlight_anom_white_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>indigo -&gt; light purple -&gt; white -&gt; yellow -&gt; orange -&gt; red</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_sunlight_anom_256lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_sunlight_anom_white_linear.png"><img alt="jma_sunlight_anom_white_linear" src="img/jma_sunlight_anom_white_linear.png" style="width: 600px;" /></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_sunlight_anom_white_list">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_sunlight_anom_white_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_sunlight_anom_white_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_sunlight_anom_white_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>indigo -&gt; light purple -&gt; white -&gt; yellow -&gt; orange -&gt; red</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_sunlight_anom_white_11lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_sunlight_anom_white_list.png"><img alt="jma_sunlight_anom_white_list" src="img/jma_sunlight_anom_white_list.png" style="width: 600px;" /></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.cmaps.jma_sunlight_anom_linear" title="nakametpy.cmaps.jma_sunlight_anom_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_sunlight_anom_linear</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_temp_anom_linear">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_temp_anom_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_temp_anom_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_temp_anom_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>dark blue -&gt; blue -&gt; light blue -&gt; white -&gt; yellow -&gt; orange -&gt; red</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_temp_anom_linear_256lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_temp_anom_linear.png"><img alt="jma_temp_anom_linear" src="img/jma_temp_anom_linear.png" style="width: 600px;" /></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_temp_anom_list">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_temp_anom_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_temp_anom_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_temp_anom_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>dark blue -&gt; blue -&gt; light blue -&gt; white -&gt; yellow -&gt; orange -&gt; red</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_temp_anom_11lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_temp_anom_white_list.png"><img alt="jma_temp_anom_list" src="img/jma_temp_anom_white_list.png" style="width: 600px;" /></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.cmaps.jma_temp_anom_linear" title="nakametpy.cmaps.jma_temp_anom_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_temp_anom_linear</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_temp_anom_white_linear">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_temp_anom_white_linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_temp_anom_white_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_temp_anom_white_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>dark blue -&gt; blue -&gt; light blue -&gt; white -&gt; yellow -&gt; orange -&gt; red</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_temp_anom_256lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_temp_anom_white_linear.png"><img alt="jma_temp_anom_white_linear" src="img/jma_temp_anom_white_linear.png" style="width: 600px;" /></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.jma_temp_anom_white_list">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">jma_temp_anom_white_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#jma_temp_anom_white_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.jma_temp_anom_white_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>dark blue -&gt; blue -&gt; light blue -&gt; white -&gt; yellow -&gt; orange -&gt; red</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>cmap</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>matplotlib.colors.LinearSegmentedColormap</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The object name is <code class="docutils literal notranslate"><span class="pre">jma_temp_anom_white_11lev</span></code>.</p>
+<p><a class="reference internal" href="img/jma_temp_anom_white_list.png"><img alt="jma_temp_anom_list" src="img/jma_temp_anom_white_list.png" style="width: 600px;" /></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nakametpy.cmaps.jma_temp_anom_linear" title="nakametpy.cmaps.jma_temp_anom_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jma_temp_anom_linear</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.cmaps.mpl_default_color_cyclic">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.cmaps.</span></span><span class="sig-name descname"><span class="pre">mpl_default_color_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/cmaps.html#mpl_default_color_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.cmaps.mpl_default_color_cyclic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get matplotlib default color in cyclic</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> (<cite>int</cite>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>color code</strong> – “#??????”</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -735,7 +1096,7 @@ levelは256である。</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, muchojp
+        &copy; Copyright 2022, muchojp
 
     </p>
   </div>

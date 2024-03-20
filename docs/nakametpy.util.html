@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nakametpy.util module &mdash; NakaMetPy 2022.12.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="nakametpy.thermo module" href="nakametpy.thermo.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NakaMetPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nakametpy.html">nakametpy package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="nakametpy.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.cmaps.html">nakametpy.cmaps module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.constants.html">nakametpy.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.grads.html">nakametpy.grads module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.jma.html">nakametpy.jma module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.kinematics.html">nakametpy.kinematics module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.thermo.html">nakametpy.thermo module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">nakametpy.util module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nakametpy.html#module-nakametpy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NakaMetPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="nakametpy.html">nakametpy package</a> &raquo;</li>
+        
+      <li>nakametpy.util module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/nakametpy.util.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="module-nakametpy.util">
+<span id="nakametpy-util-module"></span><h1>nakametpy.util module<a class="headerlink" href="#module-nakametpy.util" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.anom_levels">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">anom_levels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">levs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#anom_levels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.anom_levels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return minus ans plus levels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>levs</strong> (<cite>list`or`np.ndarray</cite>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>anom levels</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>np.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">levs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">anom_levels</span><span class="p">(</span><span class="n">levs</span><span class="p">))</span>
+<span class="go">[-2.  -1.  -0.5  0.5  1.   2. ]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.check_tar_content">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">check_tar_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#check_tar_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.check_tar_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>tar ファイルの中身のファイル名を表示する関数</p>
+<p>Print the content name of the tar file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<cite>str</cite>) – file path
+ファイルのPATH</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.concat_array">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">concat_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#concat_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.concat_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return concatenated array in numpy.ndarray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arr</strong> (some of <cite>list`or`np.ndarray</cite>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>concat_ndarray</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>np.ndarray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">levs</span> <span class="o">=</span> <span class="n">concat_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">levs</span><span class="p">)</span>
+<span class="go">[0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5  5. ]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.dt_ymdhm">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">dt_ymdhm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#dt_ymdhm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.dt_ymdhm" title="Permalink to this definition">¶</a></dt>
+<dd><p>datetime.datetime から year, month, day, hour, minute の set を返す関数。
+opt = 1 : string, 0 : int</p>
+<p>Return the set of year, month, day, hour, minute from datetime.datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<cite>datetime.datetime</cite>) – datetime</p></li>
+<li><p><strong>opt</strong> (<cite>int</cite>) – return string or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(year, month, day, hour, minute)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>set</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.dt_yyyymmdd">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">dt_yyyymmdd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yyyymmdd'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#dt_yyyymmdd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.dt_yyyymmdd" title="Permalink to this definition">¶</a></dt>
+<dd><p>datetime.datetime を yyyymmdd 形式の文字列で返す関数。</p>
+<p>Return yyyymmdd format string from datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<cite>datetime.datetime</cite>) – datetime</p></li>
+<li><p><strong>fmt</strong> (<cite>str</cite>) – yyyymmdd format. Default is yyyymmdd</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>string in fmt.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.get_gsmap_lat">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_gsmap_lat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_gsmap_lat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_gsmap_lat" title="Permalink to this definition">¶</a></dt>
+<dd><p>GSMaPの緯度を返す関数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>lat</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.get_gsmap_lon">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_gsmap_lon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_gsmap_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_gsmap_lon" title="Permalink to this definition">¶</a></dt>
+<dd><p>GSMaPの経度を返す関数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>lon</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.get_jmara_lat">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_jmara_lat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_jmara_lat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_jmara_lat" title="Permalink to this definition">¶</a></dt>
+<dd><p>解析雨量の緯度を返す関数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>lat</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.get_jmara_lon">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_jmara_lon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_jmara_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_jmara_lon" title="Permalink to this definition">¶</a></dt>
+<dd><p>解析雨量の経度を返す関数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>lon</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.load_jmara_grib2">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">load_jmara_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_contentname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#load_jmara_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.load_jmara_grib2" title="Permalink to this definition">¶</a></dt>
+<dd><p>気象庁解析雨量やレーダー雨量を返す関数</p>
+<p>欠損値は負の値として表現される</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<cite>str</cite>) – file path
+ファイルのPATH</p></li>
+<li><p><strong>tar_flag</strong> (<cite>bool</cite>) – file type whether file is tar or GRIB2 (not tar).</p></li>
+<li><p><strong>tar_contentname</strong> (<cite>str</cite>) – content name in tar file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rain</strong> – Units(単位) [mm/h]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ma.MaskedArray</cite></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code> , <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する
+<cite>np.ndarray</cite> 型の緯度経度である。</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.myglob">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">myglob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#myglob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.myglob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sorted glob results.
+:param path:
+:type path: <cite>str</cite>
+:param reverse:
+:type reverse: <cite>bool</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.unit_knots_ms1">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">unit_knots_ms1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#unit_knots_ms1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.unit_knots_ms1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert unit knots into m/s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kt</strong> (<cite>int</cite>) – Velocity in knots.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Velocity in meter per second.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>ms</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.unit_ms1_knots">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">unit_ms1_knots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#unit_ms1_knots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.unit_ms1_knots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert unit m/s into knots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ms</strong> (<cite>int</cite>) – Velocity in meter per second.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Velocity in knots.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>kt</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="nakametpy.thermo.html" class="btn btn-neutral float-left" title="nakametpy.thermo module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, muchojp
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

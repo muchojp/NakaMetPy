@@ -15,7 +15,8 @@
 [github-actions-link]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml
 
 ## 概要
-このモジュールはMetPyの関数をNumPyで動作するように書き換えたものです。
+このモジュールはMetPyの関数をNumPyで動作するように書き換えた関数のほか、
+観測データを扱う上で便利な関数が含まれています。
 気象データをNumPyでベクトル(配列)として扱うことを想定しています。
 
 そのため変数単位はMetPyとは異なり自分で気をつけて関数に与えなければなりません。
@@ -50,17 +51,23 @@ pip install nakametpy
 ## Licence
 `BSD-3-Clause`
 
+## Citation
+```
+Nakamura, Y. (2021). NakaMety (Version xxxx.x.x) [Software]. Fukuoka, Japan. https://github.com/muchojp/NakaMetPy
+```
+Note: The version number xxxx.x.x should be set to the version of NakaMetPy that you are using.
+
 ## Update plans
-Next(`2021.x.0`): 
- - Error周りを追加
+Next(`2022.4.0b0` or `2022.5.0` later): 
+ - Refine reading GrADS binary function
 
 To Do: 
  - `wrfon`オプションの廃止
  - MetPyの関数の移植 \[Further addition of MetPy function\]
  - NCLに実装されている関数の移植 \[adding the NCL's function\]
  - 方位角平均を取る関数の作成 \[Add function of Azimuthal Mean\]
+
  - ~GPU(cupy)対応 \[GPU(cupy) compatible\]~
- 
- 軽い負荷の作業では GPU を利用するとかえって CPU only より遅くなることが多いため、ひとまず保留する。
+ -> 軽い負荷の作業では GPU を利用するとかえって CPU only より遅くなることが多いため、ひとまず保留する。
 
  

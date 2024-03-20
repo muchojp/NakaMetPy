@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nakametpy.constants module &mdash; nakametpy 2021.9.0 documentation</title>
+  <title>nakametpy.constants module &mdash; NakaMetPy 2022.12.0 documentation</title>
   
 
   
@@ -26,6 +26,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -38,7 +39,7 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="nakametpy.jma module" href="nakametpy.jma.html" />
+    <link rel="next" title="nakametpy.grads module" href="nakametpy.grads.html" />
     <link rel="prev" title="nakametpy.cmaps module" href="nakametpy.cmaps.html" /> 
 </head>
 
@@ -53,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> nakametpy
+            <a href="index.html" class="icon icon-home"> NakaMetPy
           
 
           
@@ -89,9 +90,11 @@
 <li class="toctree-l2 current"><a class="reference internal" href="nakametpy.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.cmaps.html">nakametpy.cmaps module</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">nakametpy.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.grads.html">nakametpy.grads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.jma.html">nakametpy.jma module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.kinematics.html">nakametpy.kinematics module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.thermo.html">nakametpy.thermo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.util.html">nakametpy.util module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="nakametpy.html#module-nakametpy">Module contents</a></li>
@@ -111,7 +114,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">nakametpy</a>
+          <a href="index.html">NakaMetPy</a>
         
       </nav>
 
@@ -165,6 +168,27 @@
             
   <section id="module-nakametpy.constants">
 <span id="nakametpy-constants-module"></span><h1>nakametpy.constants module<a class="headerlink" href="#module-nakametpy.constants" title="Permalink to this headline">¶</a></h1>
+<p>A collection of meteorologically significant constant and thermophysical property values.
+Earth
+—–
+======================== =============== ====================== ========================== ===================================
+Name                     Symbol          Short Name             Units                      Description
+———————— ————— ———————- ————————– ———————————–
+earth_avg_radius         <span class="math notranslate nohighlight">\(R_e\)</span>     Re                     <span class="math notranslate nohighlight">\(\text{m}\)</span>           Avg. radius of the Earth
+earth_gravity            <span class="math notranslate nohighlight">\(g\)</span>       g, g0, g_acceralation  <span class="math notranslate nohighlight">\(\text{m s}^{-2}\)</span>    Avg. gravity acceleration on Earth
+earth_avg_angular_vel    <span class="math notranslate nohighlight">\(\Omega\)</span>  Omega                  <span class="math notranslate nohighlight">\(\text{rad s}^{-1}\)</span>  Avg. angular velocity of Earth
+======================== =============== ====================== ========================== ===================================
+General Meteorology Constants
+—————————–
+======================== ================= ============= ========================= =======================================================
+Name                     Symbol            Short Name    Units                    Description
+———————— —————– ————- ————————- ——————————————————-
+pot_temp_ref_press       <span class="math notranslate nohighlight">\(P_0\)</span>       P0            <span class="math notranslate nohighlight">\(\text{Pa}\)</span>         Reference pressure for potential temperature
+poisson_exponent         <span class="math notranslate nohighlight">\(\kappa\)</span>    kappa         <span class="math notranslate nohighlight">\(\text{None}\)</span>       Exponent in Poisson’s equation (Rd/Cp_d)
+dry_adiabatic_lapse_rate <span class="math notranslate nohighlight">\(\gamma_d\)</span>  GammaD       <span class="math notranslate nohighlight">\(\text{K km}^{-1}\)</span>  The dry adiabatic lapse rate
+molecular_weight_ratio   <span class="math notranslate nohighlight">\(\epsilon\)</span>  epsilon       <span class="math notranslate nohighlight">\(\text{None}\)</span>       Ratio of molecular weight of water to that of dry air
+absolute_temperature     <span class="math notranslate nohighlight">\(K\)</span>         kelvin, Tabs  <span class="math notranslate nohighlight">\(\text{K}\)</span>          Kelvin
+======================== ================= ============= ========================= =======================================================</p>
 </section>
 
 
@@ -175,7 +199,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="nakametpy.jma.html" class="btn btn-neutral float-right" title="nakametpy.jma module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="nakametpy.grads.html" class="btn btn-neutral float-right" title="nakametpy.grads module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="nakametpy.cmaps.html" class="btn btn-neutral float-left" title="nakametpy.cmaps module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -187,7 +211,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, muchojp
+        &copy; Copyright 2022, muchojp
 
     </p>
   </div>

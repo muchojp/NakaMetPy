@@ -17,12 +17,13 @@
 # To do:
 # lapse_rateの鉛直微分は高度ではなく気圧である必要があるかもしれないのでチェックする。
 # nclは気圧で計算してある。
+# advectionのチェック。移流は次元は1である。
 #
 #
 import numpy as np
 from .thermo import mixing_ratio_from_specific_humidity, potential_temperature, mixing_ratio_from_relative_humidity, virtual_temperature, saturation_mixing_ratio
-from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g, Re, f0, GammaD
-from ._error import NotAllowedDxShapeError, NotAllowedDyShapeError, InvalidDxValueError, InvalidDyValueError
+from .constants import sat_pressure_0c, R, Cp, kappa, P0, epsilone, LatHeatC, g0, Re, f0, GammaD, Omega
+from ._error import NotAllowedDxShapeError, NotAllowedDyShapeError, InvalidDxValueError, InvalidDyValueError, NotHaveSetArgError
 import traceback
 import sys
 import warnings
@@ -40,9 +41,9 @@ def distance(lons, lats, lev_len = None, t_len = None):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d or 2d)
+        longitude(1d or 2d) in degree
     lats: `numpy.ndarray`
-        latitude(1d or 2d)
+        latitude(1d or 2d) in degree
     
     Returns
     -------
@@ -56,15 +57,15 @@ def distance(lons, lats, lev_len = None, t_len = None):
     # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
     if t_len != None:
         if lev_len != None:
-            lons = np.tile(lons, (lev_len, t_len, lons.shape[0], lons.shape[1]))
-            lats = np.tile(lats, (lev_len, t_len, lats.shape[0], lats.shape[1]))
+            lons = np.tile(lons, (t_len, lev_len, 1, 1))
+            lats = np.tile(lats, (t_len, lev_len, 1, 1))
         else:
-            lons = np.tile(lons, (t_len, lons.shape[0], lons.shape[1]))
-            lats = np.tile(lats, (t_len, lats.shape[0], lats.shape[1]))
+            lons = np.tile(lons, (t_len, 1, 1))
+            lats = np.tile(lats, (t_len, 1, 1))
     else:
         if lev_len != None:
-            lons = np.tile(lons, (lev_len, lons.shape[0], lons.shape[1]))
-            lats = np.tile(lats, (lev_len, lats.shape[0], lats.shape[1]))
+            lons = np.tile(lons, (lev_len, 1, 1))
+            lats = np.tile(lats, (lev_len, 1, 1))
         else:
             pass
     radius = Re # m
@@ -97,9 +98,9 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d or 2d)
+        longitude(1d or 2d) in degree
     lats: `numpy.ndarray`
-        latitude(1d or 2d)
+        latitude(1d or 2d) in degree
     
     Returns
     -------
@@ -133,7 +134,6 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
     return dx, dy
 
 
-
 def distance_3d(lons, lats, len3d = 24):
     r'''
     各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。  
@@ -146,9 +146,9 @@ def distance_3d(lons, lats, len3d = 24):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d or 2d)
+        longitude(1d or 2d) in degree
     lats: `numpy.ndarray`
-        latitude(1d or 2d)
+        latitude(1d or 2d) in degree
     
     Returns
     -------
@@ -183,7 +183,6 @@ def distance_3d(lons, lats, len3d = 24):
     return dx, dy
 
 
-
 def distance_2d(lons, lats):
     r'''
     各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。  
@@ -195,9 +194,9 @@ def distance_2d(lons, lats):
     Parameters
     ----------
     lons: `numpy.ndarray`
-        longitude(1d or 2d)
+        longitude(1d or 2d) in degree
     lats: `numpy.ndarray`
-        latitude(1d or 2d)
+        latitude(1d or 2d) in degree
     
     Returns
     -------
@@ -225,6 +224,76 @@ def distance_2d(lons, lats):
     dy = radius * y_rad
     
     return dx, dy
+
+
+def dis_azi_from_point(lats, lons, *, idx_flag=False, clat=None, clon=None, clat_idx=None, clon_idx=None, lev_len=None, t_len=None):
+    r'''
+    ある地点からの距離と方位角を求める関数。次元は[(時間、鉛直方向)、緯度、経度]である。  
+
+    地球半径の値は6371229mを使用。  
+
+    Calculate the distance and azimuth from latitude and longitude
+
+    Parameters
+    ----------
+    lats: `numpy.ndarray`
+        latitude(1d or 2d) in degree
+    lons: `numpy.ndarray`
+        longitude(1d or 2d) in degree
+    lat_idx: `int`
+    lon_idx: `int`
+    
+    Returns
+    -------
+    `numpy.ndarray`
+        dr((t_len, lev_len), lats, lons), azimuth((t_len, lev_len), lats, lons)
+    
+    '''
+    if idx_flag:
+        if clat_idx==None:
+            raise NotHaveSetArgError("idx_flag=True", "clat_idx")
+        elif clon_idx==None:
+            raise NotHaveSetArgError("idx_flag=True", "clon_idx")
+        else:
+            center_lat = lats[clat_idx, clon_idx]
+            center_lon = lons[clat_idx, clon_idx]
+    else:
+        if clat==None:
+            raise NotHaveSetArgError("idx_flag=False", "clat")
+        elif clon==None:
+            raise NotHaveSetArgError("idx_flag=False", "clon")
+        else:
+            center_lat = clat
+            center_lon = clon
+    # lons, latsが1次元の場合、2次元に変換する
+    if lats.ndim == 1:
+        lons, lats = np.meshgrid(lons, lats)
+    # 時間、高度、緯度、経度の4次元のデータを計算するために、2次元の緯度経度を4次元にする
+    radius = Re # m
+    dlats = np.radians(lats-center_lat)
+    dlons = np.radians(lons-center_lon)
+    deg = np.sin(dlats/2) * np.sin(dlats/2) + np.cos(np.radians(center_lat)) \
+        * np.cos(np.radians(lats)) * np.sin(dlons/2) * np.sin(dlons/2)
+    rad = 2 * np.arctan2(np.sqrt(deg), np.sqrt(1-deg))
+    azimuth = np.arctan2(np.sin(dlons), np.cos(np.radians(center_lat))\
+        *np.tan(np.radians(lats))-np.sin(np.radians(center_lat))*np.cos(dlons))
+    dr = radius * rad
+    azimuth = np.deg2rad(90)-azimuth
+    if t_len == None:
+        if lev_len == None:
+            pass
+        else:
+            dr = np.tile(dr, (lev_len, 1, 1))
+            azimuth = np.tile(azimuth, (lev_len, 1, 1))
+    else:
+        if lev_len == None:
+            dr = np.tile(dr, (t_len, 1, 1))
+            azimuth = np.tile(azimuth, (t_len, 1, 1))
+        else:
+            dr = np.tile(dr, (t_len, lev_len, 1, 1))
+            azimuth = np.tile(azimuth, (t_len, lev_len, 1, 1))
+    
+    return dr, azimuth
 
 
 def gradient_h(var, dx, dy, wrfon=0):
@@ -504,7 +573,6 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
     div[:, 1:-1] += (grad_x_stag[:, :-1]+grad_x_stag[:, 1:])/2
     div[1:-1, :] += (grad_y_stag[:-1, :]+grad_y_stag[1:, :])/2
     return div
-    
 
 
 def divergence(fx, fy, dx, dy, wrfon=0):
@@ -564,7 +632,7 @@ def divergence(fx, fy, dx, dy, wrfon=0):
     return div
 
 
-def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
+def uv2dv_cfd(fx, fy, lat, lon, boundOpt=4):
     r'''
     Divergence caluculation function from NCL.
     
@@ -576,21 +644,12 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     fy: `numpy.ndarray`
         y-flux
         y(南北)方向のフラックス
-    dx: `numpy.ndarray`
-        dx
-        var.shape[-1]-1 == dx.shape[-1]
-        経度方向の次元はvar.shape[-1]-1でなければならない
-    dy: `numpy.ndarray`
-        dy
-        var.shape[-2]-1 == dy.shape[-2]
-        経度方向の次元はvar.shape[-2]-1でなければならない
     lat: `numpy.ndarray`
-        lat
-        緯度パラメータの計算
-    wrfon: `int`
-        wrfon
-        Flag whether input data is wrfout or not
-        入力データがwrfoutか否かのフラグ
+        latitude
+        緯度
+    lon: `numpy.ndarray`
+        longitude
+        経度
     boundOpt: `int`
         boundOpt
         今は4(境界は片方の成分の収束のみで計算)のみ対応
@@ -600,7 +659,7 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
     `numpy.ndarray`
         divergence with latitude parameter
 
-    Notes
+    Note
     -----
     URL: https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2dv_cfd.shtml
 
@@ -613,30 +672,116 @@ def uv2dv_cfd(fx, fy, dx, dy, lat, wrfon=0, boundOpt=4):
         # except ValueError as e:
             # print(e)
 
-    if (isinstance(dx, (int, float)))and(isinstance(dy, (int, float))):
-        pass
-    elif not ((fx.shape[-2] == dx.shape[-2])and(fx.shape[-1] == dx.shape[-1]+1)):
-        raise NotAllowedDxShapeError('fx', fx, dx)
-    elif not ((fy.shape[-2] == dy.shape[-2]+1)and(fy.shape[-1] == dy.shape[-1])):
-        raise NotAllowedDyShapeError('fy', fy, dy)
+    dx, dy = distance(lon, lat)
 
-    if np.any(dx<=0):
-        raise InvalidDxValueError()
-    if np.any(dy<=0):
-        raise InvalidDyValueError()
+    if lat.ndim == 1:
+        lats = np.tile(lat.reshape(-1, 1), (1, fx.shape[-1]))
+    else:
+        lats = lat
+
+    if (lats[..., 1, 0]-lats[..., 0, 0])>0:
+        s2n = True
+    else:
+        s2n = False
+
+    # if fx.ndim is greater than 4, we must revise below.
+    if (fx.ndim > 2) and (lats.ndim==2):
+        if fx.ndim == 3:
+            lats = np.tile(lats, (fx.shape[0], 1, 1))
+            dx = np.tile(dx, (fx.shape[0], 1, 1))
+            dy = np.tile(dy, (fx.shape[0], 1, 1))
+        elif fx.ndim == 4:
+            lats = np.tile(lats, (fx.shape[0], fx.shape[1], 1, 1))
+            dx = np.tile(dx, (fx.shape[0], fx.shape[1], 1, 1))
+            dy = np.tile(dy, (fx.shape[0], fx.shape[1], 1, 1))
     
     div = np.ma.zeros(fx.shape)
     grad_x_stag = np.diff(fx, axis=-1)/dx
-    grad_y_stag = (-1)**(wrfon-1)*np.diff(fy, axis=-2)/dy
-    lat_factor = (fy / Re) * np.cos(lat)
+    grad_y_stag = (-1)**(s2n-1)*np.diff(fy, axis=-2)/dy
+    lat_factor = (fy / Re) * np.cos(np.deg2rad(lats))
     div[..., 0] = grad_x_stag[..., 0]
     div[..., -1] = grad_x_stag[..., -1]
     div[..., 0, :] = grad_y_stag[..., 0, :]
     div[..., -1, :] = grad_y_stag[..., -1, :]
     div[..., 1:-1] += (grad_x_stag[..., :-1]+grad_x_stag[..., 1:])/2
     div[..., 1:-1, :] += (grad_y_stag[..., :-1, :]+grad_y_stag[..., 1:, :])/2 - lat_factor[..., 1:-1, :]
+    div = np.ma.where(np.ma.abs(div)>1E8, np.ma.masked, div)
     return div
 
+
+def uv2vr_cfd(fx, fy, lat, lon, boundOpt=4):
+    r'''
+    Relative vorticity caluculation function from NCL.
+    
+    Parameters
+    ----------
+    fx: `numpy.ndarray`
+        x-flux
+        x(東西)方向のフラックス
+    fy: `numpy.ndarray`
+        y-flux
+        y(南北)方向のフラックス
+    lat: `numpy.ndarray`
+        latitude
+        緯度
+    lon: `numpy.ndarray`
+        longitude
+        経度
+    boundOpt: `int`
+        boundOpt
+        今は4(境界は片方の成分の渦度のみで計算)のみ対応
+
+    Returns
+    -------
+    `numpy.ndarray`
+        divergence with latitude parameter
+
+    Note
+    -----
+    URL: https://www.ncl.ucar.edu/Document/Functions/Built-in/uv2vr_cfd.shtml
+
+    '''
+    if boundOpt != 4:
+        try:
+            raise ValueError('Only boudOpt 4 is available now.')
+        except:
+            traceback.print_exc()
+
+    dx, dy = distance(lon, lat)
+
+    if lat.ndim == 1:
+        lats = np.tile(lat.reshape(-1, 1), (1, fx.shape[-1]))
+    else:
+        lats = lat
+
+    if (lats[..., 1, 0]-lats[..., 0, 0])>0:
+        s2n = True
+    else:
+        s2n = False
+    
+    # if fx.ndim is greater than 4, we must revise below.
+    if (fx.ndim > 2) and (lats.ndim==2):
+        if fx.ndim == 3:
+            lats = np.tile(lats, (fx.shape[0], 1, 1))
+            dx = np.tile(dx, (fx.shape[0], 1, 1))
+            dy = np.tile(dy, (fx.shape[0], 1, 1))
+        elif fx.ndim == 4:
+            lats = np.tile(lats, (fx.shape[0], fx.shape[1], 1, 1))
+            dx = np.tile(dx, (fx.shape[0], fx.shape[1], 1, 1))
+            dy = np.tile(dy, (fx.shape[0], fx.shape[1], 1, 1))
+    
+    vr = np.ma.zeros(fx.shape)
+    grad_x_stag = np.diff(fy, axis=-1)/dx
+    grad_y_stag = (-1)**(s2n-1)*np.diff(fx, axis=-2)/dy
+    lat_factor = (fx / Re) * np.cos(np.deg2rad(lats))
+    vr[..., 0] = grad_x_stag[..., 0]
+    vr[..., -1] = grad_x_stag[..., -1]
+    vr[..., 0, :] = grad_y_stag[..., 0, :]
+    vr[..., -1, :] = grad_y_stag[..., -1, :]
+    vr[..., 1:-1] += (grad_x_stag[..., :-1]+grad_x_stag[..., 1:])/2
+    vr[..., 1:-1, :] += -((grad_y_stag[..., :-1, :]+grad_y_stag[..., 1:, :])/2) + lat_factor[..., 1:-1, :]
+    vr = np.ma.where(np.ma.abs(vr)>100, np.ma.masked, vr)
+    return vr
 
 
 def vert_grad_3d(variables, pres_3d, z_dim=0):
@@ -663,7 +808,7 @@ def vert_grad_3d(variables, pres_3d, z_dim=0):
     `numpy.ndarray`
         vertical gradient
 
-    Notes
+    Note
     -----
     .. math:: {VerticalGradient}_{n+1/2} &= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
         &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}
@@ -702,7 +847,7 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
     `numpy.ndarray`
         vertical gradient
 
-    Notes
+    Note
     -----
     .. math:: {VerticalGradient}_{n+1/2} &= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
         &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}
@@ -741,7 +886,7 @@ def vert_grad(variables, pres_4d, z_dim=-3):
     `numpy.ndarray`
         vertical gradient
 
-    Notes
+    Note
     -----
     .. math:: {VerticalGradient}_{n+1/2} &= \frac{-\left(f(p_{n}) - f(p_{n+1})\right)}{-\left(p_{n} - p_{n+1}\right)} \\
         &= \frac{\left(f(p_{n+1}) - f(p_{n})\right)}{\left(p_{n+1} - p_{n}\right)}
@@ -1309,7 +1454,7 @@ def pressure_4d(pres, *, time_dim=24, lat_dim=201, lon_dim=401):
     '''
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}_nd'", DeprecationWarning, stacklevel=2)
     # return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
-    pres = pres.reshape(len(pres, 1, 1))
+    pres = pres.reshape(len(pres), 1, 1)
     return np.tile(pres, (time_dim, 1, lat_dim, lon_dim))
 
 
@@ -1331,7 +1476,7 @@ def pressure_3d(pres, *, lat_dim=201, lon_dim=401):
     '''
     warnings.warn(f"'{sys._getframe().f_code.co_name}' is deprecated. Please use '{sys._getframe().f_code.co_name[:-3]}_nd'", DeprecationWarning, stacklevel=2)
     # return np.tile(pres, lat_dim*lon_dim).reshape(lat_dim, lon_dim, len(pres)).transpose(2, 0, 1)
-    pres = pres.reshape(len(pres, 1, 1))
+    pres = pres.reshape(len(pres), 1, 1)
     return np.tile(pres, (1, lat_dim, lon_dim))
 
 
@@ -1351,7 +1496,7 @@ def pressure_nd(pres, *, time_dim=None, lat_dim=201, lon_dim=401):
         pressure(nd)
     
     '''
-    pres = pres.reshape(len(pres, 1, 1))
+    pres = pres.reshape(len(pres), 1, 1)
     if time_dim==None:
         # return np.tile(pres, time_dim*lat_dim*lon_dim).reshape(lon_dim, lat_dim, time_dim, len(pres)).transpose(2, 3, 1, 0)
         return np.tile(pres, (1, lat_dim, lon_dim))
@@ -1481,7 +1626,7 @@ def richardson_number(temp, rh, height, pres, u, v):
     
     '''
     v_pt = potential_temperature(pressure_4d(pres), virtual_temperature(temp, mixing_ratio_from_relative_humidity(rh, temp, pres)))
-    return g/v_pt(vert_grad_4d_height(v_pt, height))/(vert_grad_4d_height(u, height)**2+vert_grad_4d_height(v, height)**2)
+    return g0/v_pt(vert_grad_4d_height(v_pt, height))/(vert_grad_4d_height(u, height)**2+vert_grad_4d_height(v, height)**2)
 
 
 
@@ -1509,8 +1654,8 @@ def geostrophic_wind(geopotential, dx, dy, f0=f0):
     
     '''
     # terms = gradient_h_4d(geopotential, dx, dy)/f0
-    terms = gradient_h(geopotential, dx, dy)/f0
-    terms[0] = -terms[0]
+    terms = gradient_h(geopotential, dx, dy)[::-1]/f0
+    terms[0] *= -1
     return terms
 
 
@@ -1623,7 +1768,7 @@ def pseudoadiabatic_lapse_rate(pressure, temperature):
     `numpy.ndarray`
         Psuedadiabatic Lapse Rate
     
-    Notes
+    Note
     -----
 
     .. math:: \Gamma_s\equiv-\frac{dT}{dz}=\Gamma_d\frac{[1+L_cq_s/(RT)]}{\left[1+\varepsilon L_c^2q_s/(c_pRT^2)\right]}
@@ -1654,10 +1799,181 @@ def static_stability(pressure, temperature):
     `numpy.ndarray`
         Static Stability
     
-    Notes
+    Note
     -----
 
     .. math:: -\frac{RT}{p}\left(\frac{\partial \log\theta}{\partial p}\right)
     """
     return -(R*temperature/pressure)*vert_grad_4d(np.log(potential_temperature(pressure, temperature)), pressure)
+
+
+def coriolis_parameter(lat):
+    r"""
+    コリオリパラメタを求める関数。
+
+    Parameters
+    ----------
+    lat: `numpy.ndarray`
+        Pressure
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Corioli's Parameter
+    
+    Note
+    -----
+
+    .. math:: f=2\bg{\Omega}\sin\phi
+    """
+    return 2*Omega*np.sin(np.deg2rad(lat))
+
+
+def gravitational_constant(height):
+    r"""
+    重力定数を求める関数。
+
+    Parameters
+    ----------
+    height: `numpy.ndarray`
+        height
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Gravitational constant
+    
+    Note
+    -----
+
+    .. math:: g(z) = g0\left(\frac{R_e}{R_e+z}\right)^2
+    """
+    return g0*(Re/(Re+height))**2
+
+
+def height_to_geopotential(height):
+    r"""
+    高度からジオポテンシャルを求める関数。
+
+    Parameters
+    ----------
+    height: `numpy.ndarray`
+        height
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Geopotential
+    
+    Note
+    -----
+
+    .. math:: \Phi = \frac{g(z)R_ez}{R_e+z}
+    """
+    return (g0*Re*height)/(Re+height)
+    
+
+def geopotential_to_height(geopotential):
+    r"""
+    ジオポテンシャルから高度を求める関数。
+
+    Parameters
+    ----------
+    height: `numpy.ndarray`
+        Geopotential
+
+    Returns
+    -------
+    `numpy.ndarray`
+        Height
+    
+    Note
+    -----
+
+    .. math:: z = \frac{\Phi R_e}{gR_e-\Phi}
+    """
+    return (geopotential*Re)/(g0*Re-geopotential)
+
+
+def ps2ps_distance(lon1, lat1, lon2, lat2):
+  r"""
+  地点間の距離を求める関数。
+  単一の地点間の距離を求める場合はp2p_distanceの方が処理が早い。
+
+  Parameters
+  ----------
+  lon1: `numpy.ndarray`
+      Longitude of point(s)1
+      
+  lat1: `numpy.ndarray`
+      Latitude of point(s)1
+
+  lon2: `numpy.ndarray` or `int` or `float`
+      Longitude of point(s)2
+
+  lat2: `numpy.ndarray` or `int` or `float`
+      Latitude of point(s)2
+
+  Returns
+  -------
+  `numpy.ndarray`
+      distance between points1 and points2
+  """
+  if (isinstance(lon1, (list, tuple)))or(isinstance(lon2, (list, tuple)))\
+    or(isinstance(lat1, (list, tuple)))or(isinstance(lat2, (list, tuple))):
+    lon1 = np.array(lon1)
+    lon2 = np.array(lon2)
+    lat1 = np.array(lat1)
+    lat2 = np.array(lat2)
+    
+  if (isinstance(lon2, (int, float)))and(isinstance(lat2, (int, float)))\
+    and(isinstance(lat1, (int, float)))and(isinstance(lon1, (int, float))):
+    warnings.warn(f"'{sys._getframe().f_code.co_name}' may be slow in calculate distance between a single point and another single point. Please use 'p2p_distance', which may be faster.", DeprecationWarning, stacklevel=2)
+
+  radius =  Re
+  
+  dlon = lon2 - lon1
+  dlat = lat2 - lat1
+  
+  a = np.sin(np.deg2rad(dlat) / 2)**2 + np.cos(np.deg2rad(lat1)) * np.cos(np.deg2rad(lat2)) * np.sin(np.deg2rad(dlon) / 2)**2
+  c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+  
+  distance = radius * c
+  return distance
+
+
+def p2p_distance(lon1, lat1, lon2, lat2):
+  r"""
+  単一の地点間の距離を求める関数。
+
+  Parameters
+  ----------
+  lon1: `numpy.ndarray`
+      Longitude of point1
+      
+  lat1: `numpy.ndarray`
+      Latitude of point1
+
+  lon2: `numpy.ndarray`
+      Longitude of point2
+
+  lat2: `numpy.ndarray`
+      Latitude of point2
+
+  Returns
+  -------
+  `numpy.ndarray`
+      distance between point1 and point2
+  """
+  from math import radians, cos, sin, atan2, sqrt
+  radius =  Re
+  
+  dlon = lon2 - lon1
+  dlat = lat2 - lat1
+  
+  a = sin(radians(dlat) / 2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(radians(dlon) / 2)**2
+  c = 2 * atan2(sqrt(a), sqrt(1 - a))
+  
+  distance = radius * c
+  return distance
 

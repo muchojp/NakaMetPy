@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "NakaMetPy"
-version = "2021.7.0"
+version = "2022.8.2"
 description = "Meteorological Tools for Calculation and Colormap."
 authors = ["muchojp <contact.muchiwo@mail.com>"]
 license = "BSD-3-Clause"
@@ -10,10 +10,10 @@ repository = "https://github.com/muchojp/NakaMetPy"
 documentation = "https://muchojp.github.io/NakaMetPy/"
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.7"
 numpy = "^1.17.0"
-matplotlib = "^3.0.0"
-nose = "^1.1.0"
+matplotlib = "^3.3.0"
+nose = "^1.3.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.4"
