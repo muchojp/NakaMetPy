@@ -59,7 +59,6 @@ jobs:
         run: poetry install --no-interaction
       # pytest を実行する
       - name: Run Tests
-        script:
-        - |
+        run: |
           poetry run pytest tests/test_thermo.py
           poetry run pytest tests/test_util.py
