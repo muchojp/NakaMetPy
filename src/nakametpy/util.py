@@ -283,8 +283,8 @@ def check_tar_content(file):
     ファイルのPATH
   '''
   with tarfile.open(file, mode="r") as tar:
-      for tarinfo in tar.getmembers():
-          print(tarinfo.name)
+    for tarinfo in tar.getmembers():
+      print(tarinfo.name)
 
 def concat_array(*arr, sort=True):
   r"""
@@ -307,9 +307,9 @@ def concat_array(*arr, sort=True):
   """
   _list = []
   for _irr in arr:
-      _list.extend(list(np.array(_irr)))
+    _list.extend(list(np.array(_irr)))
   if sort:
-      _list = sorted(list(set(_list)))
+    _list = sorted(list(set(_list)))
   return np.array(_list)
 
 def myglob(path, reverse=False):
@@ -320,5 +320,9 @@ def myglob(path, reverse=False):
     path: `str`
     
     reverse: `bool`
+
+    Returns
+    -------
+    result_list: `list`
     """
     return sorted(glob.glob(path), reverse=reverse)
