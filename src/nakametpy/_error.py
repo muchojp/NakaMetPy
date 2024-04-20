@@ -107,3 +107,10 @@ class NotMatchTarContentNameError(MyException3):
             f"tar ファイル {self.kargs[0]} に {self.kargs[1]} という名前のファイルはありません。名前は正しいですか?\n"+\
             f"{self.kargs[1]} was not found in tar file {self.kargs[0]} . Is the name correct?"
         )
+
+class NotSupportedExtentionError(MyException3):
+    def __str__(self):
+        return (
+            f"この関数は拡張子{self.kargs[0]}をサポートしていません。サポートしている拡張子は{self.kargs[1]}です。\n"+\
+            f"Extention {self.kargs[0]} is not supported. Extention {self.kargs[1]} is/are suppoerted."
+        )
