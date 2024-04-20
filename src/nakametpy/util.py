@@ -1,4 +1,4 @@
-# Copyright (c) 2021, NakaMetPy Develoers.
+# Copyright (c) 2021-2024, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 # 
@@ -8,11 +8,16 @@
 
 import struct
 import tarfile
+import gzip
 import numpy as np
 from itertools import repeat
-from ._error import NotHaveSetArgError, NotMatchTarContentNameError
+from ._error import NotHaveSetArgError, NotMatchTarContentNameError, NotSupportedExtentionError
 import glob
+import logging
 
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+# logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
+# logging.disable(logging.CRITICAL)
 
 def _set_table(section5):
   max_level = struct.unpack_from('>H', section5, 15)[0]
@@ -32,6 +37,33 @@ def _decode_runlength(code, hi_level):
       length = (0xFF - hi_level)**pwr * (raw - (hi_level + 1))
       pwr += 1
       yield from repeat(level, length)
+
+def _get_binary(file, tar_flag=False, tar_contentname=None):
+  _ext1 = file.split(sep=".")[-1]
+  logging.debug(f"_ext = {_ext1}")
+  if tar_flag:
+    _found_flag = False
+    if tar_contentname == None:
+      raise NotHaveSetArgError("tar_flag", "tar_contentname")
+    if _ext1.lower() == "tar":
+      with tarfile.open(file, mode="r") as tar:
+        for tarinfo in tar.getmembers():
+          logging.debug(f"tarinfo.name = {tarinfo.name}")
+          if tarinfo.name == tar_contentname:
+            binary = b''.join(tar.extractfile(tarinfo).readlines())
+            _found_flag = True
+            break
+    if _found_flag == False:
+      raise NotMatchTarContentNameError(file, tar_contentname)
+  elif (_ext1.lower() == "gz") or (_ext1.lower() == "gzip"):
+    with gzip.open(file, mode="rb") as gz:
+      binary = gz.read()
+  elif _ext1.lower() == "bin":
+    with open(file, 'rb') as f:
+      binary = f.read()
+  else:
+    raise NotSupportedExtentionError(_ext1, "bin, tar, gz, gzip")
+  return binary
 
 def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   r'''気象庁解析雨量やレーダー雨量を返す関数
@@ -58,31 +90,26 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する
   `np.ndarray` 型の緯度経度である。
   '''
-  if tar_flag:
-    _found_flag = False
-    if tar_contentname == None:
-      raise NotHaveSetArgError("tar_flag", "tar_contentname")
-    with tarfile.open(file, mode="r") as tar:
-      for tarinfo in tar.getmembers():
-        if tarinfo.name == tar_contentname:
-          binary = b''.join(tar.extractfile(tarinfo).readlines())
-          _found_flag = True
-          break
-    if _found_flag == False:
-      raise NotMatchTarContentNameError(file, tar_contentname)
-  else:
-    with open(file, 'rb') as f:
-      binary = f.read()
+  binary = _get_binary(file=file, tar_flag=tar_flag, tar_contentname=tar_contentname)
   
+  # The Sector 0, 1, 3, 4, 6 are fixed.
   len_ = {'sec0':16, 'sec1':21, 'sec3':72, 'sec4':82, 'sec6':6}
+  end1 = len_['sec0'] + len_['sec1'] - 1
+  # +31 is octet of grid numbers align latitude line.
+  nlon = struct.unpack_from('>I', binary, end1+31)[0]
+  nlat = struct.unpack_from('>I', binary, end1+35)[0]
+  logging.debug(f"nlon = {nlon}")
+  logging.debug(f"nlat = {nlat}")
   
   end4 = len_['sec0'] + len_['sec1'] + len_['sec3'] + len_['sec4'] - 1
+  # +1 is octet
   len_['sec5'] = struct.unpack_from('>I', binary, end4+1)[0]
   section5 = binary[end4:(end4+len_['sec5']+1)]
   power = section5[17]
-  # print(power)
+  logging.debug(f"power = {power}")
   
   end6 = end4 + len_['sec5'] + len_['sec6']
+  # +1 is octet
   len_['sec7'] = struct.unpack_from('>I', binary, end6+1)[0]
   section7 = binary[end6:(end6+len_['sec7']+1)]
   
@@ -91,10 +118,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   decoded = np.fromiter(
     _decode_runlength(section7[6:], highest_level), dtype=np.int16
   )
-  if "Gll2p5km_Phhlv_ANAL_grib2.bin" in tar_contentname:
-      decoded=decoded.reshape((1120, 1024))
-  else:
-      decoded=decoded.reshape((3360, 2560))
+  decoded=decoded.reshape((nlat, nlon))
   
   # convert level to representative
   return np.ma.masked_less((level_table[decoded]/(10**power))[::-1, :], 0)
@@ -136,6 +160,27 @@ def get_jmarlev_lon():
   lon: `numpy.ndarray`
   '''
   return np.linspace(118, 150, 1024, endpoint=False) + 1/80 / 2
+
+def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
+  binary = _get_binary(file=file, tar_flag=tar_flag, tar_contentname=tar_contentname)
+  
+  # The Sector 0, 1, 3, 4, 6 are fixed.
+  len_ = {'sec0':16, 'sec1':21, 'sec3':72, 'sec4':82, 'sec6':6}
+  end1 = len_['sec0'] + len_['sec1'] - 1
+  # +31 is octet of grid numbers align latitude line.
+  nlon = struct.unpack_from('>I', binary, end1+31)[0]
+  nlat = struct.unpack_from('>I', binary, end1+35)[0]
+  slat = struct.unpack_from('>I', binary, end1+47)[0]
+  slon = struct.unpack_from('>I', binary, end1+51)[0]
+  elat = struct.unpack_from('>I', binary, end1+56)[0]
+  elon = struct.unpack_from('>I', binary, end1+60)[0]
+  logging.debug(f"nlon = {nlon}")
+  logging.debug(f"nlat = {nlat}")
+  logging.debug(f"slat = {slat}")
+  logging.debug(f"slon = {slon}")
+  logging.debug(f"elat = {elat}")
+  logging.debug(f"elon = {elon}")
+  return (np.linspace(slat, elat, nlat)[::-1]/1E6, np.linspace(slon, elon, nlon)/1E6)
 
 def get_gsmap_lat():
   r'''GSMaPの緯度を返す関数
