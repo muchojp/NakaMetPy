@@ -2,15 +2,12 @@
 
 [![PyPI version][pypi-image]][pypi-link]
 [![Anaconda version][anaconda-v-image]][anaconda-v-link]
-[![pytest](https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml/badge.svg)](https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml)
-<!-- [![Travis][travis-image]][travis-link] -->
+[![pytest][github-actions-image]][github-actions-link]
 
 [pypi-image]: https://badge.fury.io/py/nakametpy.svg
 [pypi-link]: https://pypi.org/project/nakametpy
 [anaconda-v-image]: https://anaconda.org/muchiwo/nakametpy/badges/version.svg
 [anaconda-v-link]: https://anaconda.org/muchiwo/nakametpy
-<!-- [travis-image]: https://travis-ci.org/muchojp/NakaMetPy.svg?branch=main
-[travis-link]: https://travis-ci.org/github/muchojp/NakaMetPy -->
 [github-actions-image]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml/badge.svg
 [github-actions-link]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml
 
@@ -22,10 +19,9 @@
 そのため変数単位はMetPyとは異なり自分で気をつけて関数に与えなければなりません。
 また、関数の鉛直層数および時間のサイズは適当に与えています。利用される際にデータに合わせて引数を関数に渡してください。
 さらに、WRFの計算結果を入力する場合は`wrfon`のオプションを1にする必要があります。
-(`wrfon`オプションは使い勝手が悪いため、今後廃止される予定です。現在はそのための方策を考えているところです。)
+なお`wrfon`オプションは使い勝手が悪いため、今後廃止を検討中です。
 
-NakaMetPyは少なくとも2023年1月あたりまでは開発が継続される予定です。
-皆さんのContributionもお待ちしています。
+皆さまのContributionもお待ちしています。
 
 ## Abstract
 `nakametpy` is a rewrited package of `MetPy` based on `NumPy`.
@@ -39,13 +35,13 @@ Documentation is [HERE](https://muchojp.github.io/NakaMetPy/).
 ### via Anaconda
 
 ```
-conda install -c muchiwo nakametpy
+conda install muchiwo::nakametpy
 ```
 
 ### via PyPI
 
 ```
-pip install nakametpy
+pip3 install nakametpy
 ```
 
 ## Licence
@@ -53,13 +49,13 @@ pip install nakametpy
 
 ## Citation
 ```
-Nakamura, Y. (2021). NakaMety (Version xxxx.x.x) [Software]. Fukuoka, Japan. https://github.com/muchojp/NakaMetPy
+Nakamura, Y. (2024). NakaMety (Version xxxx.x.x) [Software]. Chiba, Japan. https://github.com/muchojp/NakaMetPy
 ```
 Note: The version number xxxx.x.x should be set to the version of NakaMetPy that you are using.
 
 ## Update plans
-Next(`2022.4.0b0` or `2022.5.0` later): 
- - Refine reading GrADS binary function
+Next(`2024.x.0` or later):
+ - テストケースの追加
 
 To Do: 
  - `wrfon`オプションの廃止
@@ -67,7 +63,3 @@ To Do:
  - NCLに実装されている関数の移植 \[adding the NCL's function\]
  - 方位角平均を取る関数の作成 \[Add function of Azimuthal Mean\]
 
- - ~GPU(cupy)対応 \[GPU(cupy) compatible\]~
- -> 軽い負荷の作業では GPU を利用するとかえって CPU only より遅くなることが多いため、ひとまず保留する。
-
- 
