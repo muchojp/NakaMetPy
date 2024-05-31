@@ -11,6 +11,7 @@ from src.nakametpy.util import dt_ymdhm, dt_yyyymmdd, unit_ms1_knots, unit_knots
                                get_grib2_latlon, get_gsmap_lat, get_gsmap_lon,\
                                jma_rain_lat, jma_rain_lon, gsmap_lat, gsmap_lon
 from src.nakametpy._error import NotHaveSetArgError, NotMatchTarContentNameError
+import os
 import numpy as np
 
 class UtilTest(unittest.TestCase):
@@ -317,10 +318,9 @@ class UtilTest(unittest.TestCase):
     """
     # print(self.test_myglob_001.__doc__)
     
-    import glob
     path = "./tests/data/util/myglob/*"
     actual = myglob(path)
-    expected = list(("./tests/data/util/myglob/test1.txt", "./tests/data/util/myglob/test2.txt"))
+    expected = list((os.path.join("./tests/data/util/myglob", "test1.txt"), os.path.join("./tests/data/util/myglob", "test2.txt")))
     self.assertEqual(actual, expected)
 
   def test_myglob_002(self):
@@ -334,10 +334,9 @@ class UtilTest(unittest.TestCase):
     """
     # print(self.test_myglob_002.__doc__)
     
-    import glob
     path = "./tests/data/util/myglob/*"
     actual = myglob(path, reverse=False)
-    expected = list(("./tests/data/util/myglob/test1.txt", "./tests/data/util/myglob/test2.txt"))
+    expected = list((os.path.join("./tests/data/util/myglob", "test1.txt"), os.path.join("./tests/data/util/myglob", "test2.txt")))
     self.assertEqual(actual, expected)
 
   def test_myglob_003(self):
@@ -351,10 +350,9 @@ class UtilTest(unittest.TestCase):
     """
     # print(self.test_myglob_003.__doc__)
     
-    import glob
     path = "./tests/data/util/myglob/*"
     actual = myglob(path, reverse=True)
-    expected = list(("./tests/data/util/myglob/test2.txt", "./tests/data/util/myglob/test1.txt"))
+    expected = list((os.path.join("./tests/data/util/myglob", "test2.txt"), os.path.join("./tests/data/util/myglob", "test1.txt")))
     self.assertEqual(actual, expected)
   
   def test_check_tar_content_001(self):
