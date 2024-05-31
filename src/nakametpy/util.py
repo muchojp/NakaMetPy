@@ -68,7 +68,8 @@ def _get_binary(file, tar_flag=False, tar_contentname=None):
 def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   r'''気象庁解析雨量やレーダー雨量を返す関数
 
-  欠損値は負の値として表現される
+  欠損値は負の値として表現される。
+  ファイルはgrib2, tar, gz(gzip)を受け付ける
 
   Parameters
   --------
@@ -76,7 +77,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
     file path 
     ファイルのPATH
   tar_flag: `bool`
-    file type whether file is tar or GRIB2 (not tar).
+    file type are GRIB2, tar and gz(gzip).
   tar_contentname: `str`
     content name in tar file.
 
@@ -162,6 +163,27 @@ def get_jmarlev_lon():
   return np.linspace(118, 150, 1024, endpoint=False) + 1/80 / 2
 
 def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
+  r'''気象庁解析雨量やレーダー雨量の緯度経度を返す関数
+
+  欠損値は負の値として表現される。
+  ファイルはgrib2, tar, gz(gzip)を受け付ける
+
+  Parameters
+  --------
+  file: `str`
+    file path 
+    ファイルのPATH
+  tar_flag: `bool`
+    file type are GRIB2, tar and gz(gzip).
+  tar_contentname: `str`
+    content name in tar file.
+
+  Returns
+  -------
+  latlon: set(`numpy.ma.MaskedArray`, `numpy.ma.MaskedArray`)
+    (Latitude, Longitude)
+  '''
+  
   binary = _get_binary(file=file, tar_flag=tar_flag, tar_contentname=tar_contentname)
   
   # The Sector 0, 1, 3, 4, 6 are fixed.
