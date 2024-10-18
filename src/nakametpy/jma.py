@@ -1,4 +1,4 @@
-# Copyright 2021 nakamura_yuki
+# Copyright 2021-2022 nakamura_yuki
 # 
 from .util import jma_rain_lat, jma_rain_lon
 
