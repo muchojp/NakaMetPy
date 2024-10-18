@@ -1,3 +1,9 @@
+# Copyright (c) 2021-2024, NakaMetPy Develoers.
+# Distributed under the terms of the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# Command Example: python -m unittest tests/test_thermo.py -v
+# 
 import unittest
 from src.nakametpy.thermo import potential_temperature
 # For Travis CI src.thermo is Right not ..src.thermo or .src.thermo
