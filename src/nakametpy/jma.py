@@ -1,5 +1,6 @@
-# Copyright 2021-2022 nakamura_yuki
-# 
+# Copyright (c) 2021-2022, NakaMetPy Develoers.
+# Distributed under the terms of the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
 from .util import jma_rain_lat, jma_rain_lon
 
 def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):

@@ -1,4 +1,6 @@
-# Copyright 2021-2022 nakamura_yuki
+# Copyright (c) 2021-2022, NakaMetPy Develoers.
+# Distributed under the terms of the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
 # 
 # This program comes from Qiita article
 # URL: https://qiita.com/vpcf/items/b680f504cfe8b6a64222
