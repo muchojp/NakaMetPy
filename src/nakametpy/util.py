@@ -69,20 +69,19 @@ def _get_binary(file, tar_flag=False, tar_contentname=None):
   return binary
 
 def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
-  r'''気象庁解析雨量やレーダー雨量を返す関数
-
-  欠損値は負の値として表現される。
-  ファイルはgrib2, tar, gz(gzip)を受け付ける
+  r'''気象庁解析雨量やレーダー雨量を返す関数<br>
+  欠損値は負の値として表現される。<br>
+  ファイルはbin, tar, gz(gzip)を受け付ける<br>
 
   Parameters
   --------
   file: `str`
-    file path 
-    ファイルのPATH
+    file path<br>
+    ファイルのPATH<br>
   tar_flag: `bool`
     file type are GRIB2, tar and gz(gzip).
-  tar_contentname: `str`
-    content name in tar file.
+  tar_contentname: `str`<br>
+    content name in tar file.<br>
 
   Returns
   -------
@@ -91,8 +90,8 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
 
   Note
   -----
-  ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する
-  `np.ndarray` 型の緯度経度である。
+  ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する<br>
+  `np.ndarray` 型の緯度経度である。<br>
   '''
   binary = _get_binary(file=file, tar_flag=tar_flag, tar_contentname=tar_contentname)
   
@@ -128,7 +127,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   return np.ma.masked_less((level_table[decoded]/(10**power))[::-1, :], 0)
 
 def get_jmara_lat(mesh : int=None):
-  r'''解析雨量の緯度を返す関数
+  r'''解析雨量の緯度を返す関数<br>
 
   Parameters
   --------
@@ -149,12 +148,12 @@ def get_jmara_lat(mesh : int=None):
     nlat = 13440
     coef = 12 # 3*4
   else:
-    raise NotSupportedExtentionError(mesh)
+    raise NotSupportedMeshError(mesh)
   return np.linspace(48, 20, nlat, endpoint=False)[::-1] - 2/80/coef / 2
     
 
 def get_jmara_lon(mesh : int=None):
-  r'''解析雨量の経度を返す関数
+  r'''解析雨量の経度を返す関数<br>
 
   Parameters
   --------
@@ -175,7 +174,7 @@ def get_jmara_lon(mesh : int=None):
     nlon = 10240
     coef = 10 # 2.5*4
   else:
-    raise NotSupportedExtentionError(mesh)
+    raise NotSupportedMeshError(mesh)
   return np.linspace(118, 150, nlon, endpoint=False) + 2.5/80/coef / 2
 
 def get_jmarlev_lat():
@@ -189,7 +188,7 @@ def get_jmarlev_lat():
     
 
 def get_jmarlev_lon():
-  r'''レーダーエコー頂高度の経度を返す関数
+  r'''レーダーエコー頂高度の経度を返す関数<br>
 
   Returns
   -------
@@ -198,24 +197,34 @@ def get_jmarlev_lon():
   return np.linspace(118, 150, 1024, endpoint=False) + 2.5/80 / 2
 
 def load_jmara250m_grib2(file : str, only250 : bool = False):
-  r'''5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数
-
-  欠損値は負の値として表現される。
-  ファイルはgrib2を受け付ける
+  r'''5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数<br>
+  欠損値は負の値として表現される。<br>
+  ファイルはbin, bin.gzを受け付ける<br>
 
   Parameters
   --------
   file: `str`
-    file path 
-    ファイルのPATH
+    file path<br>
+    ファイルのPATH<br>
   only250: `bool`
-    ignore 1000m mesh or not
-    1000mメッシュ領域を無視するかどうかのフラグ
+    ignore 1000m mesh or not<br>
+    1000mメッシュ領域を無視するかどうかのフラグ<br>
 
   Returns
   -------
   rain: `numpy.ma.MaskedArray`
     Units(単位) [mm/h]
+  
+  Examples
+  -------
+  >>> radar_0250, radar_1000 = load_jmara250m_grib2(path_to_file)
+  >>> lon_0250 = get_jmara_lon(250)  # get 250m mesh longitude array
+  >>> lat_0250 = get_jmara_lat(250)  # get 250m mesh latitude array
+  >>> lon_1000 = get_jmara_lon(1000) # get 1000m mesh longitude array
+  >>> lat_1000 = get_jmara_lat(1000) # get 1000m mesh latitude array
+  >>>
+  >>> plot_1000 = ax.contourf(lon_1000, lat_1000, radar_1000)
+  >>> plot_0250 = ax.contourf(lon_0250, lat_0250, radar_0250)
   '''
   # 緯度経度を取得
   lat1d_0250m = get_jmara_lat(250)
@@ -330,20 +339,19 @@ def load_jmara250m_grib2(file : str, only250 : bool = False):
   return np.ma.masked_less(value_0250m, 0), np.ma.masked_less(value_1000m, 0)
 
 def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
-  r'''気象庁解析雨量やレーダー雨量の緯度経度を返す関数
-
-  欠損値は負の値として表現される。
-  ファイルはgrib2, tar, gz(gzip)を受け付ける
+  r'''気象庁解析雨量やレーダー雨量の緯度経度を返す関数<br>
+  欠損値は負の値として表現される。<br>
+  ファイルはgrib2, tar, gz(gzip)を受け付ける<br>
 
   Parameters
   --------
   file: `str`
-    file path 
-    ファイルのPATH
+    file path<br>
+    ファイルのPATH<br>
   tar_flag: `bool`
-    file type are GRIB2, tar and gz(gzip).
+    file type are GRIB2, tar and gz(gzip).<br>
   tar_contentname: `str`
-    content name in tar file.
+    content name in tar file.<br>
 
   Returns
   -------
@@ -393,22 +401,22 @@ def get_gsmap_lon():
 
 def dt_ymdhm(date, opt=1):
   r'''
-  datetime.datetime から year, month, day, hour, minute の set を返す関数。
-  opt = 1 : string, 0 : int
+  datetime.datetime から year, month, day, hour, minute の set を返す関数。<br>
+  opt = 1 : `string`<br>
+  opt = 0 : `int`<br>
 
-  Return the set of year, month, day, hour, minute from datetime.datetime.
+  Return the set of year, month, day, hour, minute from `datetime.datetime`.<br>
 
   Parameters
   ----------
   date: `datetime.datetime`
-    datetime
+    datetime<br>
   opt: `int`
-    return string or not
+    return string or not<br>
   
   Returns
   -------
-  `set`
-    (year, month, day, hour, minute)
+  `set`: (year, month, day, hour, minute)
   '''
   if opt == 0:
     return (date.year, date.month, date.day, date.hour, date.minute)
@@ -418,21 +426,25 @@ def dt_ymdhm(date, opt=1):
 
 def dt_yyyymmdd(date, fmt="yyyymmdd"):
   r'''
-  datetime.datetime を yyyymmdd 形式の文字列で返す関数。
-
-  Return yyyymmdd format string from datetime.
+  datetime.datetime を yyyymmdd 形式の文字列で返す関数。<br>
+  Return yyyymmdd format string from datetime.<br>
 
   Parameters
   ----------
   date: `datetime.datetime`
-    datetime
+    datetime<br>
   fmt: `str`
-    yyyymmdd format. Default is yyyymmdd
+    yyyymmdd format. Default is yyyymmdd<br>
   
   Returns
   -------
-  `str`
-    string in fmt.
+  `str`: string in fmt.
+  
+  Examples
+  -------
+  >>> dt = datetime.datetime(2024, 10, 18, 19, 11, 21)
+  >>> dt_yyyymmdd(dt, "hoge-yyyymmdd_HHMMSS.png")
+  "hoge-20241018_191121.png"
   '''
   for iymd, ifmt in (("yyyy", "%Y"), ("mm", "%m"), ("dd", "%d"), ("HH", "%H"), ("MM", "%M"), ("SS", "%S"), ("yy", "%y")):
     while True:
@@ -451,39 +463,37 @@ gsmap_lon = np.arange(0, 360, 0.1) + 0.05
 
 def unit_ms1_knots(ms):
   r"""
-  Convert unit m/s into knots.
+  Convert unit m/s into knots.<br>
   
   Parameters
   ----------
   ms: `int`
-    Velocity in meter per second.
+    Velocity in meter per second.<br>
   
   Returns
   -------
-  `kt`
-    Velocity in knots.
+  `kt`: Velocity in knots.
   """
   return ms*3600/1852
 
 def unit_knots_ms1(kt):
   r"""
-  Convert unit knots into m/s.
+  Convert unit knots into m/s.<br>
   
   Parameters
   ----------
   kt: `int`
-    Velocity in knots.
+    Velocity in knots.<br>
   
   Returns
   -------
-  `ms`
-    Velocity in meter per second.
+  `ms`: Velocity in meter per second.
   """
   return kt*1852/3600
 
 def anom_levels(levs):
   r"""
-  Return minus ans plus levels.
+  Return minus ans plus levels.<br>
 
   Parameters
   ----------
@@ -506,15 +516,14 @@ def anom_levels(levs):
   return np.array([-i for i in levs[::-1]]+levs)
 
 def check_tar_content(file):
-  r'''tar ファイルの中身のファイル名を表示する関数
-
-  Print the content name of the tar file.
+  r'''tar ファイルの中身のファイル名を表示する関数<br>
+  Print the content name of the tar file.<br>
 
   Parameters
   --------
   file: `str`
-    file path 
-    ファイルのPATH
+    file path<br>
+    ファイルのPATH<br>
   '''
   with tarfile.open(file, mode="r") as tar:
     for tarinfo in tar.getmembers():
