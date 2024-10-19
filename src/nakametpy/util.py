@@ -197,7 +197,7 @@ def get_jmarlev_lon():
   '''
   return np.linspace(118, 150, 1024, endpoint=False) + 2.5/80 / 2
 
-def load_jmara250m_grib2(file : str):
+def load_jmara250m_grib2(file : str, only250 : bool = False):
   r'''5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数
 
   欠損値は負の値として表現される。
@@ -208,6 +208,9 @@ def load_jmara250m_grib2(file : str):
   file: `str`
     file path 
     ファイルのPATH
+  only250: `bool`
+    ignore 1000m mesh or not
+    1000mメッシュ領域を無視するかどうかのフラグ
 
   Returns
   -------
@@ -271,6 +274,13 @@ def load_jmara250m_grib2(file : str):
     end4 = end1 + len_['sec3'] + len_['sec4']
     # +1 is octet
     len_['sec5'] = struct.unpack_from('>I', binary, end4+end37+1)[0]
+    # 250mメッシュのみ処理する場合、3-7節のサイズのみ取得し以降の処理をスキップ
+    if only250 == True:
+      if dlat == 12500:
+        end6 = end4 + len_['sec5'] + len_['sec6']
+        len_['sec7'] = struct.unpack_from('>I', binary, end6+end37+1)[0]
+        end37 += len_['sec3'] + len_['sec4'] + len_['sec5'] + len_['sec6'] + len_['sec7']
+        continue
     section5 = binary[end4+end37:(end4+end37+len_['sec5']+1)]
     power = section5[17]
     logging.debug(f"power = {power}")
@@ -303,6 +313,16 @@ def load_jmara250m_grib2(file : str):
       logging.debug(f"latidx = {latidx}, lat1d_0250m[latidx] = {lat1d_0250m[latidx]}")
       logging.debug(f"lonidx = {lonidx}, lon1d_0250m[lonidx] = {lon1d_0250m[lonidx]}")
       value_0250m[latidx:latidx+nlat, lonidx:lonidx+nlon] = _value
+      if not only250:
+        # 1000mメッシュデータには、250mメッシュデータの平均値を格納する。
+        # これにより、250mメッシュと1000メッシュ領域の境界に隙間が発生することを回避する。
+        # 1km四方という十分狭い領域であるため、値を平均する際、緯度パラメータは考慮しない。
+        latidx1km = (np.abs(lat1d_1000m - (2*elat+3*dlat)/2/1E6)).argmin()
+        lonidx1km = (np.abs(lon1d_1000m - (2*slon+3*dlon)/2/1E6)).argmin()
+        _value1km = _value.reshape(nlat//4, 4, nlon//4, 4).mean(axis=(1, 3))
+        logging.debug(f"latidx1km = {latidx1km}, lat1d_1000m[latidx1km] = {lat1d_1000m[latidx1km]}")
+        logging.debug(f"lonidx1km = {lonidx1km}, lon1d_1000m[lonidx1km] = {lon1d_1000m[lonidx1km]}")
+        value_1000m[latidx1km:latidx1km+nlat//4, lonidx1km:lonidx1km+nlon//4] = _value1km
   
   logging.debug(f"np.min(value_0250m) = {np.min(value_0250m)}, np.max(value_0250m) = {np.max(value_0250m)}")
   logging.debug(f"np.min(value_1000m) = {np.min(value_1000m)}, np.max(value_1000m) = {np.max(value_1000m)}")

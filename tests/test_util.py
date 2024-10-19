@@ -656,6 +656,34 @@ class UtilTest(unittest.TestCase):
     self.assertEqual(actual_array_0250m.shape, expected_0250m)
     self.assertEqual(actual_array_1000m.shape, expected_1000m)
 
+  def test_load_jmara250m_grib2_003(self):
+    """
+    test case: test_load_jmara250m_grib2_003
+    method:
+      load_jmara250m_grib2
+    """
+    # print(self.test_load_jmara250m_grib2_003.__doc__)
+    path = "./tests/data/util/load_jmara250m_grib2/Z__C_RJTD_20210706233000_RDR_GPV_Ggis0p25km_Pri60lv_Aper5min_ANAL_grib2.bin"
+    index_list = (3360//2+200, 2560//2)
+    for only250, expectedType in ((False, np.float64), (True, np.ma.core.MaskedConstant)):
+      with self.subTest(only250=only250, expectedType=expectedType):
+        _, actual_array_1000m = load_jmara250m_grib2(path, only250=only250)
+        self.assertIsInstance(actual_array_1000m[index_list], expectedType)
+
+  def test_load_jmara250m_grib2_004(self):
+    """
+    test case: test_load_jmara250m_grib2_004
+    method:
+      load_jmara250m_grib2
+    """
+    # print(self.test_load_jmara250m_grib2_004.__doc__)
+    path = "./tests/data/util/load_jmara250m_grib2/Z__C_RJTD_20210706233000_RDR_GPV_Ggis0p25km_Pri60lv_Aper5min_ANAL_grib2.bin.gz"
+    index_list = (3360//2+200, 2560//2)
+    for only250, expectedType in ((False, np.float64), (True, np.ma.core.MaskedConstant)):
+      with self.subTest(only250=only250, expectedType=expectedType):
+        _, actual_array_1000m = load_jmara250m_grib2(path, only250=only250)
+        self.assertIsInstance(actual_array_1000m[index_list], expectedType)
+
   def test_get_grib2_latlon_001(self):
     """
     test case: test_get_grib2_latlon_001
