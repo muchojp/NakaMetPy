@@ -114,3 +114,10 @@ class NotSupportedExtentionError(MyException3):
             f"この関数は拡張子{self.kargs[0]}をサポートしていません。サポートしている拡張子は{self.kargs[1]}です。\n"+\
             f"Extention {self.kargs[0]} is not supported. Extention {self.kargs[1]} is/are suppoerted."
         )
+
+class NotSupportedMeshError(MyException3):
+    def __str__(self):
+        return (
+            f"この関数は{self.kargs[0]}mメッシュをサポートしていません。指定しているメッシュを確認してください。\n"+\
+            f"Mesh {self.kargs[0]}m is not supported. Check the mesh value.."
+        )
