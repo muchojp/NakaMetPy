@@ -11,10 +11,13 @@ import tarfile
 import gzip
 import numpy as np
 from itertools import repeat
-from ._error import NotHaveSetArgError, NotMatchTarContentNameError, NotSupportedExtentionError
+from ._error import NotHaveSetArgError, NotMatchTarContentNameError, NotSupportedExtentionError,\
+                    NotSupportedMeshError
 import glob
 import logging
 
+# Change HERE when developing from INFO into DEBUG
+# It will be help you.
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 # logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
 # logging.disable(logging.CRITICAL)
@@ -102,7 +105,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   logging.debug(f"nlon = {nlon}")
   logging.debug(f"nlat = {nlat}")
   
-  end4 = len_['sec0'] + len_['sec1'] + len_['sec3'] + len_['sec4'] - 1
+  end4 = end1 + len_['sec3'] + len_['sec4']
   # +1 is octet
   len_['sec5'] = struct.unpack_from('>I', binary, end4+1)[0]
   section5 = binary[end4:(end4+len_['sec5']+1)]
@@ -124,24 +127,56 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   # convert level to representative
   return np.ma.masked_less((level_table[decoded]/(10**power))[::-1, :], 0)
 
-def get_jmara_lat():
+def get_jmara_lat(mesh : int=None):
   r'''解析雨量の緯度を返す関数
+
+  Parameters
+  --------
+  mesh: `int`
+    resolution in meter.
 
   Returns
   -------
   lat: `numpy.ndarray`
   '''
-  return np.linspace(48, 20, 3360, endpoint=False)[::-1] - 1/80/1.5 / 2
+  if mesh in [1000, None]:
+    nlat = 3360
+    coef = 3
+  elif mesh == 2500:
+    nlat = 1120
+    coef = 1
+  elif mesh == 250:
+    nlat = 13440
+    coef = 12 # 3*4
+  else:
+    raise NotSupportedExtentionError(mesh)
+  return np.linspace(48, 20, nlat, endpoint=False)[::-1] - 2/80/coef / 2
     
 
-def get_jmara_lon():
+def get_jmara_lon(mesh : int=None):
   r'''解析雨量の経度を返す関数
+
+  Parameters
+  --------
+  mesh: `int`
+    resolution in meter.
 
   Returns
   -------
   lon: `numpy.ndarray`
   '''
-  return np.linspace(118, 150, 2560, endpoint=False) + 1/80 / 2
+  if mesh in [1000, None]:
+    nlon = 2560
+    coef = 2.5
+  elif mesh == 2500:
+    nlon = 1024
+    coef = 1
+  elif mesh == 250:
+    nlon = 10240
+    coef = 10 # 2.5*4
+  else:
+    raise NotSupportedExtentionError(mesh)
+  return np.linspace(118, 150, nlon, endpoint=False) + 2.5/80/coef / 2
 
 def get_jmarlev_lat():
   r'''レーダーエコー頂高度の緯度を返す関数
@@ -150,7 +185,7 @@ def get_jmarlev_lat():
   -------
   lat: `numpy.ndarray`
   '''
-  return np.linspace(48, 20, 1120, endpoint=False)[::-1] - 1/80/1.5 / 2
+  return np.linspace(48, 20, 1120, endpoint=False)[::-1] - 2/80 / 2
     
 
 def get_jmarlev_lon():
@@ -160,7 +195,119 @@ def get_jmarlev_lon():
   -------
   lon: `numpy.ndarray`
   '''
-  return np.linspace(118, 150, 1024, endpoint=False) + 1/80 / 2
+  return np.linspace(118, 150, 1024, endpoint=False) + 2.5/80 / 2
+
+def load_jmara250m_grib2(file : str):
+  r'''5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数
+
+  欠損値は負の値として表現される。
+  ファイルはgrib2を受け付ける
+
+  Parameters
+  --------
+  file: `str`
+    file path 
+    ファイルのPATH
+
+  Returns
+  -------
+  rain: `numpy.ma.MaskedArray`
+    Units(単位) [mm/h]
+  '''
+  # 緯度経度を取得
+  lat1d_0250m = get_jmara_lat(250)
+  lon1d_0250m = get_jmara_lon(250)
+  lat1d_1000m = get_jmara_lat(1000)
+  lon1d_1000m = get_jmara_lon(1000)
+  lon2d_1000m, lat2d_1000m = np.meshgrid(lon1d_1000m, lat1d_1000m)
+  logging.debug(f"lat2d_1000m.shape = {lat2d_1000m.shape}")
+  logging.debug(f"lon2d_1000m.shape = {lon2d_1000m.shape}")
+  logging.debug(f"lat2d_1000m[0] = {lat2d_1000m[0]}")
+  logging.debug(f"lon2d_1000m[0] = {lon2d_1000m[0]}")
+  lon2d_0250m, lat2d_0250m = np.meshgrid(lon1d_0250m, lat1d_0250m)
+  logging.debug(f"lat2d_0250m.shape = {lat2d_0250m.shape}")
+  logging.debug(f"lon2d_0250m.shape = {lon2d_0250m.shape}")
+  logging.debug(f"lat2d_0250m[0] = {lat2d_0250m[0]}")
+  logging.debug(f"lon2d_0250m[0] = {lon2d_0250m[0]}")
+  
+  # 雨量を格納するリストを初期化
+  value_1000m = np.ones_like(lat2d_1000m) * -99
+  value_0250m = np.ones_like(lat2d_0250m) * -99
+  
+  
+  binary = _get_binary(file=file, tar_flag=False, tar_contentname=None)
+  logging.debug(f"binary[-4:] = {binary[-4:]}")
+  logging.debug(f"binary[-4:].decode() = {binary[-4:].decode()}")
+  
+  # The Sector 0, 1, 3, 4, 6 are fixed.
+  len_ = {'sec0':16, 'sec1':21, 'sec3':72, 'sec4':82, 'sec6':6}
+  end1 = len_['sec0'] + len_['sec1'] - 1
+  
+  # init length from section3 to section7
+  end37 = 0
+  while True:
+    logging.debug(f"binary[end1+end37+1:end1+end37+1+4] = {binary[end1+end37+1:end1+end37+1+4]}")
+    if binary[end1+end37+1:end1+end37+4+1] == b"7777":
+      break
+    
+    # +31 is octet of grid numbers align latitude line.
+    nlat = struct.unpack_from('>I', binary, end1+end37+31)[0]
+    nlon = struct.unpack_from('>I', binary, end1+end37+35)[0]
+    slat = struct.unpack_from('>I', binary, end1+end37+47)[0]
+    slon = struct.unpack_from('>I', binary, end1+end37+51)[0]
+    elat = struct.unpack_from('>I', binary, end1+end37+56)[0]
+    elon = struct.unpack_from('>I', binary, end1+end37+60)[0]
+    dlat = struct.unpack_from('>I', binary, end1+end37+64)[0]
+    dlon = struct.unpack_from('>I', binary, end1+end37+68)[0]
+    logging.debug(f"nlat = {nlat}")
+    logging.debug(f"nlon = {nlon}")
+    logging.debug(f"slat = {slat}")
+    logging.debug(f"slon = {slon}")
+    logging.debug(f"elat = {elat}")
+    logging.debug(f"elon = {elon}")
+    logging.debug(f"dlat = {dlat}")
+    logging.debug(f"dlon = {dlon}")
+
+    end4 = end1 + len_['sec3'] + len_['sec4']
+    # +1 is octet
+    len_['sec5'] = struct.unpack_from('>I', binary, end4+end37+1)[0]
+    section5 = binary[end4+end37:(end4+end37+len_['sec5']+1)]
+    power = section5[17]
+    logging.debug(f"power = {power}")
+
+    end6 = end4 + len_['sec5'] + len_['sec6']
+    # +1 is octet
+    len_['sec7'] = struct.unpack_from('>I', binary, end6+end37+1)[0]
+    section7 = binary[end6+end37:(end6+end37+len_['sec7']+1)]
+
+    highest_level = struct.unpack_from('>H', section5, 13)[0]
+    level_table = _set_table(section5)
+    decoded = np.fromiter(
+      _decode_runlength(section7[6:], highest_level), dtype=np.int16
+    )
+    decoded=decoded.reshape((nlat, nlon))
+
+    end37 += len_['sec3'] + len_['sec4'] + len_['sec5'] + len_['sec6'] + len_['sec7']
+    _value = (level_table[decoded]/(10**power))[::-1, :]
+    logging.debug(f"_value.shape = {_value.shape}")
+    logging.debug(f"_value = {_value}")
+    if dlat == 12500: # 小領域が1000mメッシュの場合
+      latidx = (np.abs(lat1d_1000m - elat/1E6)).argmin()
+      lonidx = (np.abs(lon1d_1000m - slon/1E6)).argmin()
+      logging.debug(f"latidx = {latidx}, lat1d_1000m[latidx] = {lat1d_1000m[latidx]}")
+      logging.debug(f"lonidx = {lonidx}, lon1d_1000m[lonidx] = {lon1d_1000m[lonidx]}")
+      value_1000m[latidx:latidx+nlat, lonidx:lonidx+nlon] = _value
+    else: # 小領域が250mメッシュの場合
+      latidx = (np.abs(lat1d_0250m - elat/1E6)).argmin()
+      lonidx = (np.abs(lon1d_0250m - slon/1E6)).argmin()
+      logging.debug(f"latidx = {latidx}, lat1d_0250m[latidx] = {lat1d_0250m[latidx]}")
+      logging.debug(f"lonidx = {lonidx}, lon1d_0250m[lonidx] = {lon1d_0250m[lonidx]}")
+      value_0250m[latidx:latidx+nlat, lonidx:lonidx+nlon] = _value
+  
+  logging.debug(f"np.min(value_0250m) = {np.min(value_0250m)}, np.max(value_0250m) = {np.max(value_0250m)}")
+  logging.debug(f"np.min(value_1000m) = {np.min(value_1000m)}, np.max(value_1000m) = {np.max(value_1000m)}")
+  # convert level to representative
+  return np.ma.masked_less(value_0250m, 0), np.ma.masked_less(value_1000m, 0)
 
 def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
   r'''気象庁解析雨量やレーダー雨量の緯度経度を返す関数
