@@ -2,12 +2,15 @@
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 #
-# Command Example: python -m unittest tests/test_util.py -v
+# Command Example1: python -m unittest tests/test_util.py -v
+# Command Example2: python -m unittest tests.test_util -v
+# Command Example3: python -m unittest tests.test_util.UtilTest.test_load_jmara250m_grib2_001 -v
 # 
 import unittest
 from src.nakametpy.util import dt_ymdhm, dt_yyyymmdd, unit_ms1_knots, unit_knots_ms1,\
                                anom_levels, concat_array, myglob, check_tar_content,\
                                load_jmara_grib2, get_jmara_lat, get_jmara_lon,\
+                               load_jmara250m_grib2,\
                                get_grib2_latlon, get_gsmap_lat, get_gsmap_lon,\
                                jma_rain_lat, jma_rain_lon, gsmap_lat, gsmap_lon
 from src.nakametpy._error import NotHaveSetArgError, NotMatchTarContentNameError
@@ -555,6 +558,21 @@ class UtilTest(unittest.TestCase):
     actual = load_jmara_grib2(path).shape
     expected = (3360, 2560)
     self.assertEqual(actual, expected)
+  
+  def test_load_jmara_grib2_012(self):
+    """
+    test case: test_load_jmara_grib2_012
+    method:
+      load_jmara_grib2
+    args:
+      file: `str`
+    """
+    # print(self.test_load_jmara_grib2_012.__doc__)
+    
+    path = "./tests/data/util/load_jmara_grib2/Z__C_RJTD_20241018000500_RDR_JMAGPV_Ggis1km_Prr05lv_ANAL_grib2.bin"
+    actual = load_jmara_grib2(path).shape
+    expected = (3360, 2560)
+    self.assertEqual(actual, expected)
 
   def test_get_jmara_lat_001(self):
     """
@@ -567,16 +585,104 @@ class UtilTest(unittest.TestCase):
     self.assertEqual(actual_lat.size, 3360)
     self.assertEqual(jma_rain_lat.size, 3360)
 
+  def test_get_jmara_lat_002(self):
+    """
+    test case: test_get_jmara_lat_002
+    method:
+      get_jmara_lat
+    """
+    # print(self.test_get_jmara_lat_002.__doc__)
+    for mesh, nlat in ((None, 3360), (2500, 1120), (1000, 3360), (250, 13440)):
+      with self.subTest(mesh=mesh, nlat=nlat):
+        actual_lat = get_jmara_lat(mesh)
+        self.assertEqual(actual_lat.size, nlat)
+
   def test_get_jmara_lon_001(self):
     """
     test case: test_get_jmara_lon_001
     method:
       get_jmara_lon
+    args:
+      mesh: `int`
     """
     # print(self.test_get_jmara_lon_001.__doc__)
     actual_lon = get_jmara_lon()
     self.assertEqual(actual_lon.size, 2560)
     self.assertEqual(jma_rain_lon.size, 2560)
+
+  def test_get_jmara_lon_002(self):
+    """
+    test case: test_get_jmara_lon_002
+    method:
+      get_jmara_lon
+    """
+    # print(self.test_get_jmara_lon_002.__doc__)
+    for mesh, nlon in ((None, 2560), (2500, 1024), (1000, 2560), (250, 10240)):
+      with self.subTest(mesh=mesh, nlon=nlon):
+        actual_lon = get_jmara_lon(mesh)
+        self.assertEqual(actual_lon.size, nlon)
+
+  def test_load_jmara250m_grib2_001(self):
+    """
+    test case: test_load_jmara250m_grib2_001
+    method:
+      load_jmara250m_grib2
+    args:
+      file: `str`
+    """
+    # print(self.test_load_jmara250m_grib2_001.__doc__)
+    
+    path = "./tests/data/util/load_jmara250m_grib2/Z__C_RJTD_20210706233000_RDR_GPV_Ggis0p25km_Pri60lv_Aper5min_ANAL_grib2.bin"
+    actual_array_0250m, actual_array_1000m = load_jmara250m_grib2(path)
+    expected_0250m = (13440, 10240)
+    expected_1000m = (3360, 2560)
+    self.assertEqual(actual_array_0250m.shape, expected_0250m)
+    self.assertEqual(actual_array_1000m.shape, expected_1000m)
+
+  def test_load_jmara250m_grib2_002(self):
+    """
+    test case: test_load_jmara250m_grib2_002
+    method:
+      load_jmara250m_grib2
+    args:
+      file: `str`
+    """
+    # print(self.test_load_jmara250m_grib2_002.__doc__)
+    
+    path = "./tests/data/util/load_jmara250m_grib2/Z__C_RJTD_20210706233000_RDR_GPV_Ggis0p25km_Pri60lv_Aper5min_ANAL_grib2.bin.gz"
+    actual_array_0250m, actual_array_1000m = load_jmara250m_grib2(path)
+    expected_0250m = (13440, 10240)
+    expected_1000m = (3360, 2560)
+    self.assertEqual(actual_array_0250m.shape, expected_0250m)
+    self.assertEqual(actual_array_1000m.shape, expected_1000m)
+
+  def test_load_jmara250m_grib2_003(self):
+    """
+    test case: test_load_jmara250m_grib2_003
+    method:
+      load_jmara250m_grib2
+    """
+    # print(self.test_load_jmara250m_grib2_003.__doc__)
+    path = "./tests/data/util/load_jmara250m_grib2/Z__C_RJTD_20210706233000_RDR_GPV_Ggis0p25km_Pri60lv_Aper5min_ANAL_grib2.bin"
+    index_list = (3360//2+200, 2560//2)
+    for only250, expectedType in ((False, np.float64), (True, np.ma.core.MaskedConstant)):
+      with self.subTest(only250=only250, expectedType=expectedType):
+        _, actual_array_1000m = load_jmara250m_grib2(path, only250=only250)
+        self.assertIsInstance(actual_array_1000m[index_list], expectedType)
+
+  def test_load_jmara250m_grib2_004(self):
+    """
+    test case: test_load_jmara250m_grib2_004
+    method:
+      load_jmara250m_grib2
+    """
+    # print(self.test_load_jmara250m_grib2_004.__doc__)
+    path = "./tests/data/util/load_jmara250m_grib2/Z__C_RJTD_20210706233000_RDR_GPV_Ggis0p25km_Pri60lv_Aper5min_ANAL_grib2.bin.gz"
+    index_list = (3360//2+200, 2560//2)
+    for only250, expectedType in ((False, np.float64), (True, np.ma.core.MaskedConstant)):
+      with self.subTest(only250=only250, expectedType=expectedType):
+        _, actual_array_1000m = load_jmara250m_grib2(path, only250=only250)
+        self.assertIsInstance(actual_array_1000m[index_list], expectedType)
 
   def test_get_grib2_latlon_001(self):
     """

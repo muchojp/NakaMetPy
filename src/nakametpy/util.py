@@ -11,10 +11,13 @@ import tarfile
 import gzip
 import numpy as np
 from itertools import repeat
-from ._error import NotHaveSetArgError, NotMatchTarContentNameError, NotSupportedExtentionError
+from ._error import NotHaveSetArgError, NotMatchTarContentNameError, NotSupportedExtentionError,\
+                    NotSupportedMeshError
 import glob
 import logging
 
+# Change HERE when developing from INFO into DEBUG
+# It will be help you.
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 # logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
 # logging.disable(logging.CRITICAL)
@@ -66,20 +69,19 @@ def _get_binary(file, tar_flag=False, tar_contentname=None):
   return binary
 
 def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
-  r'''気象庁解析雨量やレーダー雨量を返す関数
-
-  欠損値は負の値として表現される。
-  ファイルはgrib2, tar, gz(gzip)を受け付ける
+  r'''気象庁解析雨量やレーダー雨量を返す関数<br>
+  欠損値は負の値として表現される。<br>
+  ファイルはbin, tar, gz(gzip)を受け付ける<br>
 
   Parameters
   --------
   file: `str`
-    file path 
-    ファイルのPATH
+    file path<br>
+    ファイルのPATH<br>
   tar_flag: `bool`
     file type are GRIB2, tar and gz(gzip).
-  tar_contentname: `str`
-    content name in tar file.
+  tar_contentname: `str`<br>
+    content name in tar file.<br>
 
   Returns
   -------
@@ -88,8 +90,8 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
 
   Note
   -----
-  ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する
-  `np.ndarray` 型の緯度経度である。
+  ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する<br>
+  `np.ndarray` 型の緯度経度である。<br>
   '''
   binary = _get_binary(file=file, tar_flag=tar_flag, tar_contentname=tar_contentname)
   
@@ -102,7 +104,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   logging.debug(f"nlon = {nlon}")
   logging.debug(f"nlat = {nlat}")
   
-  end4 = len_['sec0'] + len_['sec1'] + len_['sec3'] + len_['sec4'] - 1
+  end4 = end1 + len_['sec3'] + len_['sec4']
   # +1 is octet
   len_['sec5'] = struct.unpack_from('>I', binary, end4+1)[0]
   section5 = binary[end4:(end4+len_['sec5']+1)]
@@ -124,24 +126,56 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   # convert level to representative
   return np.ma.masked_less((level_table[decoded]/(10**power))[::-1, :], 0)
 
-def get_jmara_lat():
-  r'''解析雨量の緯度を返す関数
+def get_jmara_lat(mesh : int=None):
+  r'''解析雨量の緯度を返す関数<br>
+
+  Parameters
+  --------
+  mesh: `int`
+    resolution in meter.
 
   Returns
   -------
   lat: `numpy.ndarray`
   '''
-  return np.linspace(48, 20, 3360, endpoint=False)[::-1] - 1/80/1.5 / 2
+  if mesh in [1000, None]:
+    nlat = 3360
+    coef = 3
+  elif mesh == 2500:
+    nlat = 1120
+    coef = 1
+  elif mesh == 250:
+    nlat = 13440
+    coef = 12 # 3*4
+  else:
+    raise NotSupportedMeshError(mesh)
+  return np.linspace(48, 20, nlat, endpoint=False)[::-1] - 2/80/coef / 2
     
 
-def get_jmara_lon():
-  r'''解析雨量の経度を返す関数
+def get_jmara_lon(mesh : int=None):
+  r'''解析雨量の経度を返す関数<br>
+
+  Parameters
+  --------
+  mesh: `int`
+    resolution in meter.
 
   Returns
   -------
   lon: `numpy.ndarray`
   '''
-  return np.linspace(118, 150, 2560, endpoint=False) + 1/80 / 2
+  if mesh in [1000, None]:
+    nlon = 2560
+    coef = 2.5
+  elif mesh == 2500:
+    nlon = 1024
+    coef = 1
+  elif mesh == 250:
+    nlon = 10240
+    coef = 10 # 2.5*4
+  else:
+    raise NotSupportedMeshError(mesh)
+  return np.linspace(118, 150, nlon, endpoint=False) + 2.5/80/coef / 2
 
 def get_jmarlev_lat():
   r'''レーダーエコー頂高度の緯度を返す関数
@@ -150,33 +184,174 @@ def get_jmarlev_lat():
   -------
   lat: `numpy.ndarray`
   '''
-  return np.linspace(48, 20, 1120, endpoint=False)[::-1] - 1/80/1.5 / 2
+  return np.linspace(48, 20, 1120, endpoint=False)[::-1] - 2/80 / 2
     
 
 def get_jmarlev_lon():
-  r'''レーダーエコー頂高度の経度を返す関数
+  r'''レーダーエコー頂高度の経度を返す関数<br>
 
   Returns
   -------
   lon: `numpy.ndarray`
   '''
-  return np.linspace(118, 150, 1024, endpoint=False) + 1/80 / 2
+  return np.linspace(118, 150, 1024, endpoint=False) + 2.5/80 / 2
 
-def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
-  r'''気象庁解析雨量やレーダー雨量の緯度経度を返す関数
-
-  欠損値は負の値として表現される。
-  ファイルはgrib2, tar, gz(gzip)を受け付ける
+def load_jmara250m_grib2(file : str, only250 : bool = False):
+  r'''5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数<br>
+  欠損値は負の値として表現される。<br>
+  ファイルはbin, bin.gzを受け付ける<br>
 
   Parameters
   --------
   file: `str`
-    file path 
-    ファイルのPATH
+    file path<br>
+    ファイルのPATH<br>
+  only250: `bool`
+    ignore 1000m mesh or not<br>
+    1000mメッシュ領域を無視するかどうかのフラグ<br>
+
+  Returns
+  -------
+  rain: `numpy.ma.MaskedArray`
+    Units(単位) [mm/h]
+  
+  Examples
+  -------
+  >>> radar_0250, radar_1000 = load_jmara250m_grib2(path_to_file)
+  >>> lon_0250 = get_jmara_lon(250)  # get 250m mesh longitude array
+  >>> lat_0250 = get_jmara_lat(250)  # get 250m mesh latitude array
+  >>> lon_1000 = get_jmara_lon(1000) # get 1000m mesh longitude array
+  >>> lat_1000 = get_jmara_lat(1000) # get 1000m mesh latitude array
+  >>>
+  >>> plot_1000 = ax.contourf(lon_1000, lat_1000, radar_1000)
+  >>> plot_0250 = ax.contourf(lon_0250, lat_0250, radar_0250)
+  '''
+  # 緯度経度を取得
+  lat1d_0250m = get_jmara_lat(250)
+  lon1d_0250m = get_jmara_lon(250)
+  lat1d_1000m = get_jmara_lat(1000)
+  lon1d_1000m = get_jmara_lon(1000)
+  lon2d_1000m, lat2d_1000m = np.meshgrid(lon1d_1000m, lat1d_1000m)
+  logging.debug(f"lat2d_1000m.shape = {lat2d_1000m.shape}")
+  logging.debug(f"lon2d_1000m.shape = {lon2d_1000m.shape}")
+  logging.debug(f"lat2d_1000m[0] = {lat2d_1000m[0]}")
+  logging.debug(f"lon2d_1000m[0] = {lon2d_1000m[0]}")
+  lon2d_0250m, lat2d_0250m = np.meshgrid(lon1d_0250m, lat1d_0250m)
+  logging.debug(f"lat2d_0250m.shape = {lat2d_0250m.shape}")
+  logging.debug(f"lon2d_0250m.shape = {lon2d_0250m.shape}")
+  logging.debug(f"lat2d_0250m[0] = {lat2d_0250m[0]}")
+  logging.debug(f"lon2d_0250m[0] = {lon2d_0250m[0]}")
+  
+  # 雨量を格納するリストを初期化
+  value_1000m = np.ones_like(lat2d_1000m) * -99
+  value_0250m = np.ones_like(lat2d_0250m) * -99
+  
+  
+  binary = _get_binary(file=file, tar_flag=False, tar_contentname=None)
+  logging.debug(f"binary[-4:] = {binary[-4:]}")
+  logging.debug(f"binary[-4:].decode() = {binary[-4:].decode()}")
+  
+  # The Sector 0, 1, 3, 4, 6 are fixed.
+  len_ = {'sec0':16, 'sec1':21, 'sec3':72, 'sec4':82, 'sec6':6}
+  end1 = len_['sec0'] + len_['sec1'] - 1
+  
+  # init length from section3 to section7
+  end37 = 0
+  while True:
+    logging.debug(f"binary[end1+end37+1:end1+end37+1+4] = {binary[end1+end37+1:end1+end37+1+4]}")
+    if binary[end1+end37+1:end1+end37+4+1] == b"7777":
+      break
+    
+    # +31 is octet of grid numbers align latitude line.
+    nlat = struct.unpack_from('>I', binary, end1+end37+31)[0]
+    nlon = struct.unpack_from('>I', binary, end1+end37+35)[0]
+    slat = struct.unpack_from('>I', binary, end1+end37+47)[0]
+    slon = struct.unpack_from('>I', binary, end1+end37+51)[0]
+    elat = struct.unpack_from('>I', binary, end1+end37+56)[0]
+    elon = struct.unpack_from('>I', binary, end1+end37+60)[0]
+    dlat = struct.unpack_from('>I', binary, end1+end37+64)[0]
+    dlon = struct.unpack_from('>I', binary, end1+end37+68)[0]
+    logging.debug(f"nlat = {nlat}")
+    logging.debug(f"nlon = {nlon}")
+    logging.debug(f"slat = {slat}")
+    logging.debug(f"slon = {slon}")
+    logging.debug(f"elat = {elat}")
+    logging.debug(f"elon = {elon}")
+    logging.debug(f"dlat = {dlat}")
+    logging.debug(f"dlon = {dlon}")
+
+    end4 = end1 + len_['sec3'] + len_['sec4']
+    # +1 is octet
+    len_['sec5'] = struct.unpack_from('>I', binary, end4+end37+1)[0]
+    # 250mメッシュのみ処理する場合、3-7節のサイズのみ取得し以降の処理をスキップ
+    if only250 == True:
+      if dlat == 12500:
+        end6 = end4 + len_['sec5'] + len_['sec6']
+        len_['sec7'] = struct.unpack_from('>I', binary, end6+end37+1)[0]
+        end37 += len_['sec3'] + len_['sec4'] + len_['sec5'] + len_['sec6'] + len_['sec7']
+        continue
+    section5 = binary[end4+end37:(end4+end37+len_['sec5']+1)]
+    power = section5[17]
+    logging.debug(f"power = {power}")
+
+    end6 = end4 + len_['sec5'] + len_['sec6']
+    # +1 is octet
+    len_['sec7'] = struct.unpack_from('>I', binary, end6+end37+1)[0]
+    section7 = binary[end6+end37:(end6+end37+len_['sec7']+1)]
+
+    highest_level = struct.unpack_from('>H', section5, 13)[0]
+    level_table = _set_table(section5)
+    decoded = np.fromiter(
+      _decode_runlength(section7[6:], highest_level), dtype=np.int16
+    )
+    decoded=decoded.reshape((nlat, nlon))
+
+    end37 += len_['sec3'] + len_['sec4'] + len_['sec5'] + len_['sec6'] + len_['sec7']
+    _value = (level_table[decoded]/(10**power))[::-1, :]
+    logging.debug(f"_value.shape = {_value.shape}")
+    logging.debug(f"_value = {_value}")
+    if dlat == 12500: # 小領域が1000mメッシュの場合
+      latidx = (np.abs(lat1d_1000m - elat/1E6)).argmin()
+      lonidx = (np.abs(lon1d_1000m - slon/1E6)).argmin()
+      logging.debug(f"latidx = {latidx}, lat1d_1000m[latidx] = {lat1d_1000m[latidx]}")
+      logging.debug(f"lonidx = {lonidx}, lon1d_1000m[lonidx] = {lon1d_1000m[lonidx]}")
+      value_1000m[latidx:latidx+nlat, lonidx:lonidx+nlon] = _value
+    else: # 小領域が250mメッシュの場合
+      latidx = (np.abs(lat1d_0250m - elat/1E6)).argmin()
+      lonidx = (np.abs(lon1d_0250m - slon/1E6)).argmin()
+      logging.debug(f"latidx = {latidx}, lat1d_0250m[latidx] = {lat1d_0250m[latidx]}")
+      logging.debug(f"lonidx = {lonidx}, lon1d_0250m[lonidx] = {lon1d_0250m[lonidx]}")
+      value_0250m[latidx:latidx+nlat, lonidx:lonidx+nlon] = _value
+      if not only250:
+        # 1000mメッシュデータには、250mメッシュデータの平均値を格納する。
+        # これにより、250mメッシュと1000メッシュ領域の境界に隙間が発生することを回避する。
+        # 1km四方という十分狭い領域であるため、値を平均する際、緯度パラメータは考慮しない。
+        latidx1km = (np.abs(lat1d_1000m - (2*elat+3*dlat)/2/1E6)).argmin()
+        lonidx1km = (np.abs(lon1d_1000m - (2*slon+3*dlon)/2/1E6)).argmin()
+        _value1km = _value.reshape(nlat//4, 4, nlon//4, 4).mean(axis=(1, 3))
+        logging.debug(f"latidx1km = {latidx1km}, lat1d_1000m[latidx1km] = {lat1d_1000m[latidx1km]}")
+        logging.debug(f"lonidx1km = {lonidx1km}, lon1d_1000m[lonidx1km] = {lon1d_1000m[lonidx1km]}")
+        value_1000m[latidx1km:latidx1km+nlat//4, lonidx1km:lonidx1km+nlon//4] = _value1km
+  
+  logging.debug(f"np.min(value_0250m) = {np.min(value_0250m)}, np.max(value_0250m) = {np.max(value_0250m)}")
+  logging.debug(f"np.min(value_1000m) = {np.min(value_1000m)}, np.max(value_1000m) = {np.max(value_1000m)}")
+  # convert level to representative
+  return np.ma.masked_less(value_0250m, 0), np.ma.masked_less(value_1000m, 0)
+
+def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
+  r'''気象庁解析雨量やレーダー雨量の緯度経度を返す関数<br>
+  欠損値は負の値として表現される。<br>
+  ファイルはgrib2, tar, gz(gzip)を受け付ける<br>
+
+  Parameters
+  --------
+  file: `str`
+    file path<br>
+    ファイルのPATH<br>
   tar_flag: `bool`
-    file type are GRIB2, tar and gz(gzip).
+    file type are GRIB2, tar and gz(gzip).<br>
   tar_contentname: `str`
-    content name in tar file.
+    content name in tar file.<br>
 
   Returns
   -------
@@ -226,22 +401,22 @@ def get_gsmap_lon():
 
 def dt_ymdhm(date, opt=1):
   r'''
-  datetime.datetime から year, month, day, hour, minute の set を返す関数。
-  opt = 1 : string, 0 : int
+  datetime.datetime から year, month, day, hour, minute の set を返す関数。<br>
+  opt = 1 : `string`<br>
+  opt = 0 : `int`<br>
 
-  Return the set of year, month, day, hour, minute from datetime.datetime.
+  Return the set of year, month, day, hour, minute from `datetime.datetime`.<br>
 
   Parameters
   ----------
   date: `datetime.datetime`
-    datetime
+    datetime<br>
   opt: `int`
-    return string or not
+    return string or not<br>
   
   Returns
   -------
-  `set`
-    (year, month, day, hour, minute)
+  `set`: (year, month, day, hour, minute)
   '''
   if opt == 0:
     return (date.year, date.month, date.day, date.hour, date.minute)
@@ -251,21 +426,25 @@ def dt_ymdhm(date, opt=1):
 
 def dt_yyyymmdd(date, fmt="yyyymmdd"):
   r'''
-  datetime.datetime を yyyymmdd 形式の文字列で返す関数。
-
-  Return yyyymmdd format string from datetime.
+  datetime.datetime を yyyymmdd 形式の文字列で返す関数。<br>
+  Return yyyymmdd format string from datetime.<br>
 
   Parameters
   ----------
   date: `datetime.datetime`
-    datetime
+    datetime<br>
   fmt: `str`
-    yyyymmdd format. Default is yyyymmdd
+    yyyymmdd format. Default is yyyymmdd<br>
   
   Returns
   -------
-  `str`
-    string in fmt.
+  `str`: string in fmt.
+  
+  Examples
+  -------
+  >>> dt = datetime.datetime(2024, 10, 18, 19, 11, 21)
+  >>> dt_yyyymmdd(dt, "hoge-yyyymmdd_HHMMSS.png")
+  "hoge-20241018_191121.png"
   '''
   for iymd, ifmt in (("yyyy", "%Y"), ("mm", "%m"), ("dd", "%d"), ("HH", "%H"), ("MM", "%M"), ("SS", "%S"), ("yy", "%y")):
     while True:
@@ -284,39 +463,37 @@ gsmap_lon = np.arange(0, 360, 0.1) + 0.05
 
 def unit_ms1_knots(ms):
   r"""
-  Convert unit m/s into knots.
+  Convert unit m/s into knots.<br>
   
   Parameters
   ----------
   ms: `int`
-    Velocity in meter per second.
+    Velocity in meter per second.<br>
   
   Returns
   -------
-  `kt`
-    Velocity in knots.
+  `kt`: Velocity in knots.
   """
   return ms*3600/1852
 
 def unit_knots_ms1(kt):
   r"""
-  Convert unit knots into m/s.
+  Convert unit knots into m/s.<br>
   
   Parameters
   ----------
   kt: `int`
-    Velocity in knots.
+    Velocity in knots.<br>
   
   Returns
   -------
-  `ms`
-    Velocity in meter per second.
+  `ms`: Velocity in meter per second.
   """
   return kt*1852/3600
 
 def anom_levels(levs):
   r"""
-  Return minus ans plus levels.
+  Return minus ans plus levels.<br>
 
   Parameters
   ----------
@@ -339,15 +516,14 @@ def anom_levels(levs):
   return np.array([-i for i in levs[::-1]]+levs)
 
 def check_tar_content(file):
-  r'''tar ファイルの中身のファイル名を表示する関数
-
-  Print the content name of the tar file.
+  r'''tar ファイルの中身のファイル名を表示する関数<br>
+  Print the content name of the tar file.<br>
 
   Parameters
   --------
   file: `str`
-    file path 
-    ファイルのPATH
+    file path<br>
+    ファイルのPATH<br>
   '''
   with tarfile.open(file, mode="r") as tar:
     for tarinfo in tar.getmembers():
