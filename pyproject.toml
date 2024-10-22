@@ -11,11 +11,6 @@ documentation = "https://muchojp.github.io/NakaMetPy/"
 
 [tool.poetry.dependencies]
 python = ">=3.7"
-# numpy = ">=1.17.0"
-# numpy = [
-#   {version = ">=1.17.0,<=1.21.1", python = ">=3.6,<3.11"},
-#   {version = ">=1.21.1", python = ">=3.11"}
-# ]
 numpy = [
   {version =          "<=1.21.1", python = "3.6"},
   {version = ">=1.21.3,<1.22.0",  python = "3.7"},
@@ -23,7 +18,10 @@ numpy = [
   {version = ">=1.26.4",          python = ">=3.9"},
 ]
 matplotlib = ">=3.3.0"
-pandas = ">=2.0.0"
+pandas = [
+  {version =          "<=1.5.3", python = "<3.9"},
+  {version = ">=1.0.0",          python = ">=3.9"},
+]
 
 [tool.poetry.dev-dependencies]
 pytest = ">=6.2.5"
