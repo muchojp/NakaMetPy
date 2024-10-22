@@ -23,6 +23,7 @@ numpy = [
   {version = ">=1.26.4",          python = ">=3.9"},
 ]
 matplotlib = ">=3.3.0"
+pandas = ">=2.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = ">=6.2.5"
