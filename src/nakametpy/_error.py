@@ -1,7 +1,7 @@
 # Copyright (c) 2021-2024, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
-from .constants import LATEST_MASTER_TABLE_VERSION
+from .constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE_VERSION
 
 
 class MyException(Exception):
@@ -18,7 +18,7 @@ class MyException3(Exception):
     def __init__(self, *kargs):
         self.kargs = kargs
 
-class MyWarning(Warning):
+class MyWarning(UserWarning):
     def __init__(self, *kargs):
         self.kargs = kargs
 
@@ -129,8 +129,8 @@ class NotSupportedMeshError(MyException3):
 class NotSupportedOlderVersionMSWarning(MyWarning):
     def __str__(self):
         return (
-            f"この関数は古いマスターテーブルバージョン番号：{self.kargs[0]}をサポートしていません。13で読込ます。\n"+\
-            f"It is not supported older Master Table Version {self.kargs[0]}. Trying on Version 13."
+            f"この関数は古いマスターテーブルバージョン番号：{self.kargs[0]}をサポートしていません。{OLDEST_MASTER_TABLE_VERSION}で読込ます。\n"+\
+            f"It is not supported older Master Table Version {self.kargs[0]}. Trying on Version {OLDEST_MASTER_TABLE_VERSION}."
         )
 
 class NotSupportedNewerVersionMSWarning(MyWarning):
@@ -145,4 +145,10 @@ class NotSupportedBufrError(MyException3):
         return (
             f"この関数は{self.kargs[0]}を読むことは出来ません。その理由は{self.kargs[1]}のためです。\n"+\
             f"{self.kargs[0]} could not be read using this function :("
+        )
+
+class UnexpectedBufrError(MyException3):
+    def __str__(self):
+        return (
+            f"予期せぬエラーが発生しました。補足：{self.kargs[1]}"
         )

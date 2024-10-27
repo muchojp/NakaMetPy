@@ -3,12 +3,14 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 import pandas as pd
-from .constants import LATEST_MASTER_TABLE_VERSION
-from ._error import NotSupportedNewerVersionMSWarning, NotSupportedOlderVersionMSWarning,\
-                    NotSupportedBufrError
+from nakametpy.constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE_VERSION
+from nakametpy.tables import bufrtab_TableA
+from nakametpy._error import NotSupportedNewerVersionMSWarning, NotSupportedOlderVersionMSWarning,\
+                    NotSupportedBufrError, UnexpectedBufrError
 import os
 import re
 import logging
+import warnings
 
 # Change HERE when developing from INFO into DEBUG
 # It will be help you.
@@ -17,8 +19,8 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 # logging.disable(logging.CRITICAL)
 
 def parse_bufrtab(file_path: str) -> list:
-  with open(file_path, mode="r") as f:
-    raw_text = f.readlines()[1:-1]
+  with open(file_path, mode="r", encoding="utf-8") as f:
+    raw_text = f.readlines()
   # 特定の文字列から始まる行を除く
   _records = list(filter(lambda x: not x.startswith("Table"), raw_text))
   _records = list(filter(lambda x: not x.startswith("#"), _records))
@@ -126,9 +128,24 @@ def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:0
   # print(data["0-01-034"])
   return data
 
-def get_bufr_info(file_path) -> None:
-  with open(file_path, 'rb') as f:
+def _int_into_fxxyyy(num: int) -> str:
+  bits = format(num, "016b")
+  # print(str(int(format(num, "016b")[-16:-14], 2))
+  #         + "-" + str(int(format(num, "016b")[-14:-8], 2))
+  #         + "-" + str(int(format(num, "016b")[-8:], 2)))
+  return f"{int(bits[-16:-14], 2)}-{int(bits[-14:-8], 2):02}-{int(bits[-8:], 2):03}"
+
+def print_bufr_info(file_path) -> None:
+  with open(file_path, 'rb', encoding="utf-8") as f:
     binary = f.read()
+  
+  df_b = parse_tableB_into_dataframe()
+  loc_df_b_1 = parse_tableB_into_dataframe("LOC_0_7_1")
+  loc_df_b_2 = parse_tableB_into_dataframe("ADD_1_0")
+  table_c = parse_codeFlag_into_dict()
+  table_d = parse_tableD_into_dict()
+  loc_table_c_1 = parse_codeFlag_into_dict("LOC_0_7_1")
+  loc_table_c_2 = parse_codeFlag_into_dict("ADD_1_0")
   
   len_ = {'sec0':8, 'sec1':22, 'sec3':55, 'sec5':4}
   
@@ -149,24 +166,127 @@ def get_bufr_info(file_path) -> None:
       identify_code = "遅延報"
     sec0_start = len(header_list[0]) + 1 + len(header_list[1]) + 1 + 6 + 1 + 3
   logging.debug(f"identify_code : {identify_code}")
-  logging.info(f"電文ヘッダ = {header[:sec0_start]}")
+  logging.debug(f"電文ヘッダ = {header[:sec0_start]}")
+  print(f"電文ヘッダ = {header[:sec0_start]}")
   
-  # Section 0
+  # Section 0, Indicator section
   section_desc = "第0節(指示節)"
   sec0_binary = binary[sec0_start:sec0_start+len_['sec0']]
-  logging.info(f"{section_desc} 1~4 32 国際アルファベットNo5による記述でBUFR = {sec0_binary[:4].decode()}")
-  logging.info(f"{section_desc} 5~7 24 BUFR報全体の長さ = {int.from_bytes(sec0_binary[4:7], "big")}")
-  logging.info(f"{section_desc} 8   8  BUFR報の版番号 = {int.from_bytes(sec0_binary[7:], "big")}")
+  print(f"{section_desc} 1~4 32 国際アルファベットNo5による記述でBUFR = {sec0_binary[:4].decode()}")
+  print(f"{section_desc} 5~7 24 BUFR報全体の長さ = {int.from_bytes(sec0_binary[4:7], "big")}")
+  print(f"{section_desc} 8   8  BUFR報の版番号 = {int.from_bytes(sec0_binary[7:], "big")}")
   
-  # Section 1
+  # Section 1, Identification section
   section_desc = "第1節(識別節)"
   sec1_start = sec0_start + len_['sec0']
+  len_['sec1'] = int.from_bytes(binary[sec1_start:sec1_start+3], "big")
   sec1_binary = binary[sec1_start:sec1_start+len_['sec1']]
   if int.from_bytes(sec1_binary[0:0+3], "big") != len_["sec1"]:
     raise NotSupportedBufrError(file_path, f"第1節の長さが{len_['sec1']}でない")
   else:
-    logging.info(f"{section_desc} 1~3 24 第1節の長さ = {int.from_bytes(sec1_binary[0:0+3], "big")}")
+    print(f"{section_desc} 1~3 24 第1節の長さ = {int.from_bytes(sec1_binary[0:0+3], "big")}")
+  # sec1_format = [["4",   8 , "BUFRマスター表(標準は0)"],
+  #                ["5~8", 16, "作成中枢の識別"]]
+  logging.info(f"{section_desc} 4   8  BUFRマスター表 = {int.from_bytes(sec1_binary[3:3+1], "big")}")
+  logging.info(f"{section_desc} 5~6 16 作成中枢の識別 = {int.from_bytes(sec1_binary[4:4+2], "big")} {table_c["0-01-035"]["VALBITS"][f"{int.from_bytes(sec1_binary[4:4+2], "big")}"]}")
+  logging.info(f"{section_desc} 7~8 16 作成副中枢の識別 = {int.from_bytes(sec1_binary[6:6+2], "big")}")
+  logging.info(f"{section_desc} 9   8  更新一連番号 = {int.from_bytes(sec1_binary[8:8+1], "big")}")
+  logging.info(f"{section_desc} 10  8  任意節の有無 = {bool(int(format(int.from_bytes(sec1_binary[9:9+1], "big"), "08b")[0]))}")
+  logging.info(f"{section_desc} 11  8  資料の種類 = {int.from_bytes(sec1_binary[10:10+1], "big")} {bufrtab_TableA.data_types[int.from_bytes(sec1_binary[10:10+1], "big")]}")
+  logging.info(f"{section_desc} 12  8  国際的な資料サブカテゴリ = {int.from_bytes(sec1_binary[11:11+1], "big")} {bufrtab_TableA.standard_subtypes[int.from_bytes(sec1_binary[10:10+1], "big")][int.from_bytes(sec1_binary[11:11+1], "big")]}")
+  if int.from_bytes(sec1_binary[12:12+1], "big") in bufrtab_TableA.local_subtypes[int.from_bytes(sec1_binary[10:10+1], "big")].keys():
+    logging.info(f"{section_desc} 13  8  地域的な資料サブカテゴリ = {int.from_bytes(sec1_binary[12:12+1], "big")} {bufrtab_TableA.local_subtypes[int.from_bytes(sec1_binary[10:10+1], "big")][int.from_bytes(sec1_binary[12:12+1], "big")]}")
+  elif int.from_bytes(sec1_binary[12:12+1], "big") == 0:
+    logging.info(f"{section_desc} 13  8  地域的な資料サブカテゴリ = {int.from_bytes(sec1_binary[12:12+1], "big")} 中枢で定義=0")
+  else:
+    logging.info(f"{section_desc} 13  8  地域的な資料サブカテゴリ = {int.from_bytes(sec1_binary[12:12+1], "big")} 不明")
+  if (int.from_bytes(sec1_binary[13:13+1], "big") < OLDEST_MASTER_TABLE_VERSION):
+    warnings.warn(NotSupportedOlderVersionMSWarning(int.from_bytes(sec1_binary[13:13+1], "big")))
+  elif (LATEST_MASTER_TABLE_VERSION < int.from_bytes(sec1_binary[13:13+1], "big")):
+    warnings.warn(NotSupportedNewerVersionMSWarning(int.from_bytes(sec1_binary[13:13+1], "big")))
+  logging.info(f"{section_desc} 14  8  マスターテーブルのバージョン番号 = {int.from_bytes(sec1_binary[13:13+1], "big")}")
+  logging.info(f"{section_desc} 15  8  マスターテーブルに加えて使用したローカルテーブルのバージョン番号 = {int.from_bytes(sec1_binary[14:14+1], "big")}")
+  logging.info(f"{section_desc} 16~17  16 年(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[15:15+2], "big")}")
+  logging.info(f"{section_desc} 18  8  月(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[17:17+1], "big")}")
+  logging.info(f"{section_desc} 19  8  日(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[18:18+1], "big")}")
+  logging.info(f"{section_desc} 20  8  時(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[19:19+1], "big")}")
+  logging.info(f"{section_desc} 21  8  分(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[20:20+1], "big")}")
+  logging.info(f"{section_desc} 22  8  秒(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[21:21+1], "big")}")
   
+  # Section 2, Optional Section
+  if format(int.from_bytes(sec1_binary[9:9+1], "big"), "08b")[0] != "0":
+    raise NotSupportedBufrError(file_path, f"第2節の長さが0ではなく{int.from_bytes(sec1_binary[9:9+1], "big")}である")
+  
+  # Section 3, Data description section
+  section_desc = "第3節(資料記述節)"
+  sec3_start = sec1_start + len_["sec1"]
+  len_["sec3"] = int.from_bytes(binary[sec3_start:sec3_start+3], "big")
+  sec3_binary = binary[sec3_start:sec3_start+len_['sec3']]
+  # not handle when section 2 exists
+  if format(int.from_bytes(sec1_binary[9:9+1], "big"), "08b")[0] != "0":
+    raise NotSupportedBufrError(file_path, f"第2節の長さが0ではなく{len_["sec3"]}")
+  logging.info(f"{section_desc} 1 ~ 3  24 第3節の長さ(オクテット単位) = {len_["sec3"]}")
+  logging.info(f"{section_desc} 4      8  保留 = {int.from_bytes(sec3_binary[3:3+1], "big")}")
+  logging.info(f"{section_desc} 5 ~ 6  16 データサブセットの数 = {int.from_bytes(sec3_binary[4:4+2], "big")}")
+  _data_type = ""
+  _data_type_flag = format(int.from_bytes(sec3_binary[6:6+1], "big"), "08b")
+  _data_type += "観測でない&" if _data_type_flag[0] == "0" else "観測&"
+  _data_type += "圧縮でない" if _data_type_flag[1] == "0" else "圧縮"
+  logging.info(f"{section_desc} 7      8  {_data_type} = {_data_type_flag}")
+  
+  # 8オクテット目以降
+  std_flag = True
+  variables = []
+  for _i in range(8, len_["sec3"]+1, 2):
+    # 標準のBテーブルでマッチした場合
+    _fxxyyy = _int_into_fxxyyy(int.from_bytes(sec3_binary[_i-1:_i+1], "big"))
+    if std_flag:
+      if len(df_b[df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {df_b[df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+        variables.append(df_b[df_b["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+      elif (_fxxyyy[:1] == "1") & (_fxxyyy[-3:] == "000"):
+        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
+        variables.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Delayed replication of {int(_fxxyyy[2:4])} descriptor")
+      elif _fxxyyy.startswith("2-06-"):
+        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 Local discriptor = {_fxxyyy}")
+        std_flag = False
+        variables.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Local discriptor")
+      else:
+        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {df_b[df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+        variables.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE")
+    else:
+      if len(loc_df_b_1[loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {loc_df_b_1[loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+        variables.append(loc_df_b_1[loc_df_b_1["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+      elif len(loc_df_b_2[loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {loc_df_b_2[loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+        variables.append(loc_df_b_2[loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+      else:
+        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {df_b[df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+        variables.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE",)
+      std_flag = True
+  
+  # Section 4, Data section
+  section_desc = "第4節(資料節)"
+  sec4_start = sec3_start + len_["sec3"]
+  len_["sec4"] = int.from_bytes(binary[sec4_start:sec4_start+3], "big")
+  sec4_binary = binary[sec4_start:sec4_start+len_['sec4']]
+  logging.info(f"{section_desc} 1  ~ 3   24 第4節の長さ(オクテット単位) = {len_["sec4"]}")
+  
+  # Section 5, End section
+  section_desc = "第5節(終端節)"
+  sec5_start = sec4_start + len_["sec4"]
+  sec5_binary = binary[sec5_start:sec5_start+len_['sec5']]
+  if sec5_binary.decode() == "7777":
+    logging.info(f"{section_desc} 1  ~ 4   32 BUFR報の終わりを指す = {sec5_binary.decode()}")
+    logging.info(f"BUFRの終端に到達しました。正常に読込が終了しました。")
+  else:
+    raise UnexpectedBufrError(f"BUFRの終端に到達しませんでした。ファイルが正常であるか確認してください。")
+  
+  print()
+  print("Data descriptor infomation:")
+  for iv in variables:
+    print(iv)
 
 
 if __name__=='__main__':
@@ -179,4 +299,4 @@ if __name__=='__main__':
   # print(dict_codeFlag["0-01-034"])
   # dict_codeFlag = parse_codeFlag_into_dict("LOC_0_7_1")
   # print(dict_codeFlag)
-  get_bufr_info(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/print_bufr_info/IUPC41_RJTD_010000_202406010016132_001.send"))
+  print_bufr_info(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/print_bufr_info/IUPC41_RJTD_010000_202406010016132_001.send"))
