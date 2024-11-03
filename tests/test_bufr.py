@@ -175,7 +175,9 @@ class UtilTest(unittest.TestCase):
     
   def test_bufr_001(self):
     """
-    test case: test_bufr_001
+    Test for `Wind profiler`(BUFR)/`ウィンドプロファイラ`<br>
+    Specification: 13601<br>
+    Tech Info: 97,532<br>
     
     Class
     --------
@@ -187,18 +189,153 @@ class UtilTest(unittest.TestCase):
     # print(self.test_bufr_001.__doc__)
     for file_path in ("./data/bufr/bufr/IUPC41_RJTD_010000_202406010016132_001.send", # ウィンドプロファイラ
                       "./data/bufr/bufr/Z__C_RJTD_20200707000000_WPR_SEQ_RS-all_Pww_bufr4.bin", # ウィンドプロファイラ, ヘッダなし
-                      "./data/bufr/bufr/IUKC65_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報, 100hPaまで
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
+        bufr_class.read_data()
+    
+  def test_bufr_002(self):
+    """
+    Test for `TEMP`(BUFR)/`高分解能地上高層実況気象報`<br>
+    Specification: ----<br>
+    Tech Info: 334,478<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_002.__doc__)
+    for file_path in ("./data/bufr/bufr/IUKC65_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報, 100hPaまで
                       "./data/bufr/bufr/IUKC71_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報, 観測終了まで
                       "./data/bufr/bufr/IUSC65_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報, 100hPaまで
                       "./data/bufr/bufr/IUSC71_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報, 観測終了まで
-                      "./data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send", # 高分解能海上高層実況気象報, 100hPaまで, 凌風丸
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
+        bufr_class.read_data()
+    
+  def test_bufr_003(self):
+    """
+    Test for `TEMP SHIP`(BUFR)/`高分解能海上高層実況気象報`<br>
+    Specification: 30103<br>
+    Tech Info: 618<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_003.__doc__)
+    for file_path in ("./data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send", # 高分解能海上高層実況気象報, 100hPaまで, 凌風丸
                       "./data/bufr/bufr/IUKC81_RJTD_051200_202410051245312_001.send", # 高分解能海上高層実況気象報, 100hPaまで, 啓風丸
                       "./data/bufr/bufr/IUSC80_RJTD_011200_202410011345300_001.send", # 高分解能海上高層実況気象報, 観測終了まで, 凌風丸
                       "./data/bufr/bufr/IUSC81_RJTD_051200_202410051330311_001.send", # 高分解能海上高層実況気象報, 観測終了まで, 啓風丸
-                      "./data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send", # CLIMAT
-                      "./data/bufr/bufr/ISCC01_RJTD_200000_202410200000311_001.send", # CLIMAT
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
+        bufr_class.read_data()
+    
+  def test_bufr_004(self):
+    """
+    Test for `CLIMAT`(BUFR)/`地上月気候統計値`<br>
+    Specification: ----<br>
+    Tech Info: 334<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_004.__doc__)
+    for file_path in ("./data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send", # CLIMAT
+                      "./data/bufr/bufr/ISCC01_RJTD_200000_202410200000311_001.send", # 東京編集の地上月気候統計値(CLIMAT)
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
+        bufr_class.read_data()
+    
+  def test_bufr_005(self):
+    """
+    Test for `SAREP`(BUFR)/`気象衛星資料解析気象報`<br>
+    Specification: 11905<br>
+    Tech Info: 334<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_005.__doc__)
+    for file_path in ("./data/bufr/bufr/IUCC10_RJTD_300000_202410300004300_001_68680.send", # 東京編集の気象衛星資料解析気象報★
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
+        bufr_class.read_data()
+    
+  def test_bufr_006(self):
+    """
+    Test for `TEMP`(BUFR)/`地上高層実況気象報`<br>
+    Specification: ----<br>
+    Tech Info: 334<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_006.__doc__)
+    for file_path in ("./data/bufr/bufr/IUKL01_RJTD_300000_202410300123114_001.send", # 東京編集の地上高層実況気象報
+                      "./data/bufr/bufr/IUSC01_RJTD_300000_202410300123111_001.send", # 東京編集の地上高層実況気象報Ａ部
+                      "./data/bufr/bufr/IUSC02_RJTD_300000_202410300123112_001.send", # 東京編集の地上高層実況気象報Ａ部
+                      "./data/bufr/bufr/IUSC02_RJTD_300000_CCA_202410300157101_001.send", # 東京編集の地上高層実況気象報Ａ部 訂正報
+                      "./data/bufr/bufr/IUSC03_RJTD_300000_202410300123113_001.send", # 東京編集の地上高層実況気象報Ａ部★
+                      "./data/bufr/bufr/IUSC04_RJTD_300000_202410300125110_001.send", # 東京編集の地上高層実況気象報Ｂ部
+                      "./data/bufr/bufr/IUSC04_RJTD_300000_CCA_202410300324110_001.send", # 東京編集の地上高層実況気象報Ｂ部 訂正報
+                      "./data/bufr/bufr/IUSC05_RJTD_300000_202410300125120_001.send", # 東京編集の地上高層実況気象報Ｂ部
+                      "./data/bufr/bufr/IUSC05_RJTD_300000_CCA_202410300324111_001.send", # 東京編集の地上高層実況気象報Ｂ部 訂正報
+                      "./data/bufr/bufr/IUSC06_RJTD_300000_202410300125121_001.send", # 東京編集の地上高層実況気象報Ｂ部
+                      "./data/bufr/bufr/IUSC06_RJTD_300000_CCA_202410300324112_001.send", # 東京編集の地上高層実況気象報Ｂ部 訂正報
+                      "./data/bufr/bufr/IUSC07_RJTD_300000_202410300203111_001.send", # 東京編集の地上高層実況気象報Ｃ部
+                      "./data/bufr/bufr/IUSC08_RJTD_300000_202410300203112_001.send", # 東京編集の地上高層実況気象報Ｃ部
+                      "./data/bufr/bufr/IUSC09_RJTD_300000_202410300203113_001.send", # 東京編集の地上高層実況気象報Ｃ部
+                      "./data/bufr/bufr/IUSC10_RJTD_300000_202410300212111_001.send", # 東京編集の地上高層実況気象Ｄ部
+                      "./data/bufr/bufr/IUSC10_RJTD_300000_CCA_202410300405102_001.send", # 東京編集の地上高層実況気象Ｄ部 訂正報
+                      "./data/bufr/bufr/IUSC11_RJTD_300000_202410300212112_001.send", # 東京編集の地上高層実況気象Ｄ部
+                      "./data/bufr/bufr/IUSC12_RJTD_300000_202410300212113_001.send", # 東京編集の地上高層実況気象Ｄ部
                       # "./data/bufr/bufr/ISIC01_RJTD_300300_202410300319110_001.send", # 東京編集の地上気象実況報（03,09,15,21UTC）
                       ):
       with self.subTest(file_path=file_path):
         bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
-        data = bufr_class.read_data()
+        bufr_class.read_data()
+    
+  def test_bufr_007(self):
+    """
+    Test for `SYNOP`(BUFR)/`地上気象実況報`<br>
+    Specification: 13401<br>
+    Tech Info: 334,595<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_007.__doc__)
+    for file_path in ("./data/bufr/bufr/ISIC01_RJTD_300300_202410300319110_001.send", # 東京編集の地上気象実況報（03,09,15,21UTC）
+                      "./data/bufr/bufr/ISMC01_RJTD_300600_202410300619110_001.send", # 東京編集の地上気象実況報（00,06,12,18UTC）(SYNOP)
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
+        bufr_class.read_data()

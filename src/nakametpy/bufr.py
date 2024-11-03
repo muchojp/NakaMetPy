@@ -171,14 +171,22 @@ class bufr:
 class bufr_sec_head:
   def __init__(self, binary, sec_len) -> None:
     if binary[0:4].decode() == "BUFR":
+      print("This telegram has no header.")
       logging.info("This telegram has no header.")
       sec_len['sec_head'] = 0
     else:
-      head = binary[0:12+1+8+1+6+1+3+4+1]
+      head = binary[0:12+1+8+1+6+1+3+4+1].lstrip(b"\n")
       head_list = binary[0:12+1+8+1+6+1+3+4+1].split()
-      # 指示コードなし
-      if head_list[2][6:10].decode() == "BUFR":
-        sec_len['sec_head'] = len(head_list[0]) + 1 + len(head_list[1]) + 1 + 6
+      # TODO: ここのロジックは無駄があると思われる。
+      # 指示コードなし or 改行済 且つ 末尾が指示コードから始まらない()
+      if ((head_list[2][6:10].decode() == "BUFR") | (head_list[2][6:10].decode() == "")):
+        if len(head_list) == 3:
+          sec_len['sec_head'] = len(head_list[0]) + 1 + len(head_list[1]) + 1 + 6
+        else:
+          if not ((head_list[3].startswith(b"C") | head_list[3].startswith(b"R"))):
+            sec_len['sec_head'] = len(head_list[0]) + 1 + len(head_list[1]) + 1 + 6
+          else:
+            sec_len['sec_head'] = len(head_list[0]) + 1 + len(head_list[1]) + 1 + 6 + 1 + 3
       # 指示コードあり
       else:
         sec_len['sec_head'] = len(head_list[0]) + 1 + len(head_list[1]) + 1 + 6 + 1 + 3
@@ -189,9 +197,16 @@ class bufr_sec_head:
 class bufr_sec_0:
   def __init__(self, binary, sec_len) -> None:
     # Section 0, Indicator section
-    self.sec0_binary = binary[sec_len['sec_head']:sec_len['sec_head']+sec_len['sec0']]
+    # print(binary[sec_len['sec_head']:sec_len['sec_head']+1])
+    # ヘッダと本文の間に改行がある場合
+    if binary[sec_len['sec_head']:sec_len['sec_head']+1] in (b"\n", b"\r", b"\r\n"):
+      self.sec0_binary = binary[sec_len['sec_head']+1:sec_len['sec_head']+sec_len['sec0']+1]
+      sec_len["sec0"] += 1
+    else:
+      self.sec0_binary = binary[sec_len['sec_head']:sec_len['sec_head']+sec_len['sec0']]
     self.sec0_desc_en = "Section 0, Indicator section"
     self.sec0_desc_jp = "第0節(指示節)"
+    # print(self.sec0_binary)
     self.sec0_01_04_bufr_str = self.sec0_binary[:4].decode()
     self.sec0_05_07_bufr_len = int.from_bytes(self.sec0_binary[4:7], "big")
     self.sec0_08_bufr_version = int.from_bytes(self.sec0_binary[7:], "big")
@@ -210,7 +225,7 @@ class bufr_sec_1:
     sec_len['sec1'] = int.from_bytes(binary[self.sec1_start:self.sec1_start+3], "big")
     self.sec1_binary = binary[self.sec1_start:self.sec1_start+sec_len['sec1']]
     if sec_len['sec1'] != 22:
-      raise NotSupportedBufrError(super(self.file_path), f"第1節の長さが22でない")
+      raise UnexpectedBufrError(f"第1節の長さが22でない")
     self.sec1_04_master_table_version = int.from_bytes(self.sec1_binary[3:3+1], "big")
     self.sec1_05_06_create_station_code = int.from_bytes(self.sec1_binary[4:4+2], "big")
     self.sec1_05_06_create_station_name = self.latest_table_c["0-01-035"]["VALBITS"][f"{self.sec1_05_06_create_station_code}"]
@@ -349,7 +364,7 @@ class bufr_sec_3:
           data_desc_str_list.append(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
         elif _fxxyyy.startswith("3-"):
           if _fxxyyy in self.loc_table_d_1.keys():
-            logging.info(f"{self.loc_table_d_1[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]["NAME"]} = {_fxxyyy}")
+            logging.debug(f"{self.loc_table_d_1[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]["NAME"]} = {_fxxyyy}")
             data_desc_list.append([_fxxyyy, self.loc_table_d_1[_fxxyyy]])
             data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   {self.loc_table_d_1[_fxxyyy]["NAME"]}")
           else:
@@ -386,9 +401,10 @@ class bufr_sec_3:
       _nlen = len(target_list)
       for idx, idescriptor in enumerate(target_list[::-1]):
         if type(idescriptor[1]) == str:
+          logging.debug(f"{idescriptor} {idescriptor[1].startswith("Replicate")}", stack_info=False)
           if idescriptor[1].startswith("Delayed replication of"):
             if idescriptor[3] == False:
-              logging.info(idescriptor[1])
+              logging.debug(idescriptor[1])
               # 遅延反復記述子確認済
               # logging.info(target_list[_nlen+1-idx])
               target_list[_nlen-1-idx][3] = True
@@ -398,9 +414,9 @@ class bufr_sec_3:
               # = 配列の長さ +1 - index
               for i in range(_nvar):
                 target_list[_nlen+1-idx+i][2] += 1
-          elif idescriptor[1].startswith("Replicate "):
+          elif idescriptor[1].startswith("Replicate"):
             if idescriptor[3] == False:
-              logging.info(idescriptor[1])
+              logging.debug(idescriptor[1])
               # 遅延反復記述子確認済
               # logging.info(target_list[_nlen+1-idx])
               target_list[_nlen-1-idx][3] = True
@@ -430,6 +446,8 @@ class bufr_sec_3:
           tmp_list.append(ilist)
         # F=3の場合
         else:
+          # 集約記述子内の遅延反復記述子のネスト確認が必要なためTrueとする
+          _f3_flag = True
           for jlist in ilist[1]["SEQUENCE"]:
             logging.debug(jlist)
             _fxxyyy = jlist["FXXYYY"]
@@ -455,7 +473,7 @@ class bufr_sec_3:
                 logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Operate descriptor = {_fxxyyy}")
                 tmp_list.append([_fxxyyy, f"Operate descriptor", ilist[2], False])
               elif _fxxyyy.startswith("3-"):
-                _f3_flag = True
+                # _f3_flag = True
                 if _fxxyyy in self.std_table_d.keys():
                   logging.debug(f"{self.std_table_d[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.std_table_d[_fxxyyy]["NAME"]} = {_fxxyyy}")
                   tmp_list.append([_fxxyyy, self.std_table_d[_fxxyyy], ilist[2], False])
@@ -472,7 +490,7 @@ class bufr_sec_3:
                 logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
                 tmp_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].values[0], ilist[2], False])
               elif _fxxyyy.startswith("3-"):
-                _f3_flag = True
+                # _f3_flag = True
                 if _fxxyyy in self.loc_table_d_1.keys():
                   logging.debug(f"{self.loc_table_d_1[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]["NAME"]} = {_fxxyyy}")
                   tmp_list.append([_fxxyyy, self.loc_table_d_1[_fxxyyy], ilist[2], False])
@@ -485,8 +503,10 @@ class bufr_sec_3:
             if no_f3_info == True:
               tmp_list.append([_fxxyyy, f"NO F=3 INFOMATION AVAILABLE", ilist[2], False])
               no_f3_info = False
+      # Delete commentout in check descriptor
       # for i in tmp_list:
       #   print(i)
+      # print("------------")
       # print()
       # 集約記述子が含まれていない場合、展開を終了
       if not _f3_flag:
@@ -591,12 +611,13 @@ class data_constructor:
     self.nsubset = nsubset
     self.operators = []
     
-    # self._descriptor_converter()
     # logging.info(f"self.descriptors = {self.descriptors}")
-    logging.info(f"self.descriptors[53] = {self.descriptors[52:55]}")
+    # logging.info(f"self.descriptors[53] = {self.descriptors[52:55]}")
     self.data = []
     for _ in range(self.nsubset):
       self.data.append(self._read_data_from_str_bin())
+      # print(self.data[len(self.data)-1])
+      # print(f"---- {_}th subset end ----")
     
     # print(self.sec4_len, self.sec4_len*8)
     # print(self.irec)
@@ -605,9 +626,8 @@ class data_constructor:
     if (self.sec4_len*8-16 < self.irec) & (self.irec <= self.sec4_len*8):
       logging.info('正常にデータを読み込みました')
     else:
-      print(self.data[0])
-      print(self.data[1])
-      print(self.data[2])
+      for idata in self.data[:3]:
+        print(idata)
       raise UnexpectedBufrError('データ読込が途中で終了しました')
   
   def _read_data_from_str_bin(self, idx=0, nest=0):
@@ -616,17 +636,16 @@ class data_constructor:
     for jdx, (fxxyyy, descriptor, inest) in enumerate(self.descriptors[idx:]):
       # logging.debug(f"{descriptor}", stack_info=False)
       # logging.info(f"jdx = {jdx}, descriptor = {descriptor}, inest = {inest}", stack_info=False)
-      logging.debug(f"inest = {inest}", stack_info=False)
+      # logging.info(f"inest = {inest}", stack_info=False)
       if nest == inest:
         # 0: 要素記述子, 1: 反復記述子, 2: 操作記述子, 3: 集約記述子
         # 0: F-XX-YYY, 1: SCALE, 2: REFERENCE VALUE, 3: BIT WIDTH
         # 4: UNIT, 5: MNEMONIC, 6: DESC CODE, 7: ELEMENT NAME
         if type(descriptor) == str:
           if descriptor.startswith("Delayed replication of"):
-            logging.info(descriptor, stack_info=False)
             _data.append(None)
           elif descriptor.startswith("Replicate"): # F-XX-YYY = 1-XX-YYY, YYY != 000
-            logging.debug(descriptor, stack_info=False)
+            logging.debug(f"{jdx} {descriptor}", stack_info=False)
             _data.append(None)
             _loop_data = []
             _, _, nloop = fxxyyy.split("-")
@@ -665,12 +684,15 @@ class data_constructor:
           # CCITT IA5, Code table, Flag table, other(Numeric, m, Hz, etc) に分類して処理
           # 0-31-000, 0-31-001, 0-31-002については空リストを作成し、appendしていく形に
           if fxxyyy in ("0-31-000", "0-31-001", "0-31-002"):
-            logging.info(f'{self.raw_data[self.irec:self.irec+int(descriptor[3])]}', stack_info=False)
+            # logging.info(f'{self.raw_data[self.irec:self.irec+int(descriptor[3])]}', stack_info=False)
             nloop = int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)
+            # TODO: this can be bug
+            # nloop = 0 if nloop == 255 else nloop
             self.irec += int(descriptor[3])
+            # print(nloop)
             _data.append(nloop)
             _loop_data = []
-            logging.info(f'nloop = {nloop}', stack_info=False)
+            # logging.info(f'idx = {jdx}, nloop = {nloop}, {self.raw_data[self.irec-int(descriptor[3]):self.irec]}', stack_info=False)
             for iloop in range(nloop):
               if nest == 0:
                 logging.debug(f'idx = {idx}, nest = {nest}, irec = {self.irec}', stack_info=False)
@@ -678,6 +700,7 @@ class data_constructor:
               logging.debug(f"       nest = {nest}", stack_info=False)
               _loop_data.append(self._read_data_from_str_bin(idx=idx+jdx+1, nest=nest+1))
             _data.append(_loop_data)
+            # logging.info(f"add _data.append({_loop_data})")
           elif descriptor[4] == "CCITT IA5":
             text = ""
             # 8ビットずつに分割
@@ -742,7 +765,7 @@ class data_constructor:
               self.irec += int(descriptor[3])
         logging.debug(f"self.irec = {self.irec}")
       else:
-        logging.debug(f'idx = {idx}, nest = {nest}, irec = {self.irec}', stack_info=False)
+        # logging.info(f'idx = {idx}, jdx = {jdx}, fxxyyy = {fxxyyy}, nest = {nest}, inest = {inest}, irec = {self.irec}', stack_info=False)
         # 子ネストの場合、ループを抜ける
         if nest != 0:
           break
@@ -773,8 +796,17 @@ if __name__=='__main__':
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send")) # CLIMAT
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCC01_RJTD_200000_202410200000311_001.send")) # CLIMAT
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send")) # 高分解能海上高層実況気象報
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/Z__C_RJTD_20241030000000_OBS_AMDS_Rjp_N1_bufr4.bin")) # アメダス
-  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISIC01_RJTD_300300_202410300319110_001.send")) # 東京編集の地上気象実況報（03,09,15,21UTC）
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/Z__C_RJTD_20241030000000_OBS_AMDS_Rjp_N1_bufr4.bin")) # アメダス # error
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUCC10_RJTD_300000_202410300004300_001_68680.send")) # 東京編集の気象衛星資料解析気象報
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKL01_RJTD_300000_202410300123114_001.send")) # 東京編集の地上高層実況気象報
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC01_RJTD_300000_202410300123111_001.send")) # 東京編集の地上高層実況気象報Ａ部
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC02_RJTD_300000_202410300123112_001.send")) # 東京編集の地上高層実況気象報Ａ部
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC02_RJTD_300000_CCA_202410300157101_001.send")) # 東京編集の地上高層実況気象報Ａ部 訂正報
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC03_RJTD_300000_202410300123113_001.send")) # 東京編集の地上高層実況気象報Ａ部
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC04_RJTD_300000_202410300125110_001.send")) # 東京編集の地上高層実況気象報Ｂ部
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC04_RJTD_300000_CCA_202410300324110_001.send")) # 東京編集の地上高層実況気象報Ｂ部 訂正報
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISIC01_RJTD_300300_202410300319110_001.send")) # 東京編集の地上気象実況報（03,09,15,21UTC）(SYNOP)
+  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISMC01_RJTD_300600_202410300619110_001.send")) # 東京編集の地上気象実況報（00,06,12,18UTC）(SYNOP)
   # print()
   # print("Data description:")
   # for iv in bufr_class.get_data_description():
@@ -789,8 +821,9 @@ if __name__=='__main__':
     print(iv)
   print()
   print("Extracted Data description:")
-  for iv in bufr_class.get_extracted_data_description():
-    print(iv)
+  # for idx, iv in enumerate(bufr_class.get_extracted_data_description()):
+  for idx, iv in enumerate(bufr_class.get_extracted_data_descriptors()):
+    print(f"{idx} {iv}")
   print()
   # print("Data descriptor infomation:")
   # for iv in bufr_class.get_extracted_data_descriptors():
