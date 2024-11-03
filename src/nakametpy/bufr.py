@@ -221,7 +221,14 @@ class bufr_sec_1:
     self.sec1_11_type_of_data_code = int.from_bytes(self.sec1_binary[10:10+1], "big")
     self.sec1_11_type_of_data = bufrtab_TableA.data_types[self.sec1_11_type_of_data_code]
     self.sec1_12_global_data_subcategory_code = int.from_bytes(self.sec1_binary[11:11+1], "big")
-    self.sec1_12_global_data_subcategory = bufrtab_TableA.standard_subtypes[self.sec1_11_type_of_data_code][self.sec1_12_global_data_subcategory_code]
+    # self.sec1_12_global_data_subcategory = bufrtab_TableA.standard_subtypes[self.sec1_11_type_of_data_code][self.sec1_12_global_data_subcategory_code]
+    if self.sec1_12_global_data_subcategory_code in bufrtab_TableA.standard_subtypes[self.sec1_11_type_of_data_code].keys():
+      if len(bufrtab_TableA.standard_subtypes[self.sec1_11_type_of_data_code]) > 1:
+        self.sec1_12_global_data_subcategory = bufrtab_TableA.standard_subtypes[self.sec1_11_type_of_data_code][self.sec1_12_global_data_subcategory_code]
+      else:
+        self.sec1_12_global_data_subcategory = ""
+    else:
+      self.sec1_12_global_data_subcategory = ""
     self.sec1_13_local_data_subcategory_code = int.from_bytes(self.sec1_binary[12:12+1], "big")
     if self.sec1_13_local_data_subcategory_code in bufrtab_TableA.local_subtypes[self.sec1_11_type_of_data_code].keys():
       self.sec1_13_local_data_subcategory = bufrtab_TableA.local_subtypes[self.sec1_11_type_of_data_code][self.sec1_13_local_data_subcategory_code]
@@ -359,7 +366,7 @@ class bufr_sec_3:
 
     self.sec3_data_desc_list = data_desc_list
     self.sec3_data_desc_str_list = data_desc_str_list
-    logging.info(f"self.sec3_data_desc_str_list = {self.sec3_data_desc_list}")
+    # logging.info(f"self.sec3_data_desc_str_list = {self.sec3_data_desc_list}")
     
     # ネストの深さの特定およびF=3(集約記述子)を展開
     target_list = []
@@ -598,6 +605,9 @@ class data_constructor:
     if (self.sec4_len*8-16 < self.irec) & (self.irec <= self.sec4_len*8):
       logging.info('正常にデータを読み込みました')
     else:
+      print(self.data[0])
+      print(self.data[1])
+      print(self.data[2])
       raise UnexpectedBufrError('データ読込が途中で終了しました')
   
   def _read_data_from_str_bin(self, idx=0, nest=0):
@@ -613,7 +623,7 @@ class data_constructor:
         # 4: UNIT, 5: MNEMONIC, 6: DESC CODE, 7: ELEMENT NAME
         if type(descriptor) == str:
           if descriptor.startswith("Delayed replication of"):
-            logging.debug(descriptor, stack_info=False)
+            logging.info(descriptor, stack_info=False)
             _data.append(None)
           elif descriptor.startswith("Replicate"): # F-XX-YYY = 1-XX-YYY, YYY != 000
             logging.debug(descriptor, stack_info=False)
@@ -626,6 +636,7 @@ class data_constructor:
               logging.debug(f"iloop = {iloop}", stack_info=False)
               logging.debug(f"       nest = {nest}", stack_info=False)
               _loop_data.append(self._read_data_from_str_bin(idx=idx+jdx+1, nest=nest+1))
+            _data.append(_loop_data)
           elif descriptor.startswith("Local descriptor"):
             logging.debug(descriptor, stack_info=False)
             self.local_flag = True
@@ -654,6 +665,7 @@ class data_constructor:
           # CCITT IA5, Code table, Flag table, other(Numeric, m, Hz, etc) に分類して処理
           # 0-31-000, 0-31-001, 0-31-002については空リストを作成し、appendしていく形に
           if fxxyyy in ("0-31-000", "0-31-001", "0-31-002"):
+            logging.info(f'{self.raw_data[self.irec:self.irec+int(descriptor[3])]}', stack_info=False)
             nloop = int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)
             self.irec += int(descriptor[3])
             _data.append(nloop)
@@ -682,6 +694,8 @@ class data_constructor:
             _data.append(self.raw_data[self.irec:self.irec+int(descriptor[3])])
             self.irec += int(descriptor[3])
           elif descriptor[4] == "Code table":
+            # logging.info(descriptor)
+            # logging.info(self.raw_data[self.irec:self.irec+int(descriptor[3])])
             _data.append((int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)+int(descriptor[2]))/10**int(descriptor[1]))
             self.irec += int(descriptor[3])
           else:
@@ -729,8 +743,9 @@ class data_constructor:
         logging.debug(f"self.irec = {self.irec}")
       else:
         logging.debug(f'idx = {idx}, nest = {nest}, irec = {self.irec}', stack_info=False)
-        # ループを抜ける
-        break
+        # 子ネストの場合、ループを抜ける
+        if nest != 0:
+          break
     return _data
   
   def get_data(self):
@@ -755,9 +770,11 @@ if __name__=='__main__':
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC71_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC65_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC71_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send")) # error occur due to size
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCC01_RJTD_200000_202410200000311_001.send")) # error occur due to size
-  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send")) # error occur due to have operate descriptor -> OK
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send")) # CLIMAT
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCC01_RJTD_200000_202410200000311_001.send")) # CLIMAT
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send")) # 高分解能海上高層実況気象報
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/Z__C_RJTD_20241030000000_OBS_AMDS_Rjp_N1_bufr4.bin")) # アメダス
+  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISIC01_RJTD_300300_202410300319110_001.send")) # 東京編集の地上気象実況報（03,09,15,21UTC）
   # print()
   # print("Data description:")
   # for iv in bufr_class.get_data_description():
@@ -768,7 +785,10 @@ if __name__=='__main__':
   #   print(iv)
   # print()
   print("Data description:")
-  # for iv in bufr_class.get_data_description():
+  for iv in bufr_class.get_data_description():
+    print(iv)
+  print()
+  print("Extracted Data description:")
   for iv in bufr_class.get_extracted_data_description():
     print(iv)
   print()
@@ -776,8 +796,8 @@ if __name__=='__main__':
   # for iv in bufr_class.get_extracted_data_descriptors():
   #   print(iv)
   
-  # print()
   data = bufr_class.read_data()
+  # print()
   # print(data)
   # print(data[-1])
   # print(len(data[8]))
