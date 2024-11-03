@@ -582,6 +582,7 @@ class data_constructor:
     self.local_flag = False
     self.sec4_len = sec_len["sec4"]
     self.nsubset = nsubset
+    self.operators = []
     
     # self._descriptor_converter()
     # logging.info(f"self.descriptors = {self.descriptors}")
@@ -629,6 +630,22 @@ class data_constructor:
             logging.debug(descriptor, stack_info=False)
             self.local_flag = True
             _data.append(None)
+          elif descriptor.startswith("Operate descriptor"):
+            logging.debug(descriptor, stack_info=False)
+            _data.append(None)
+            pattern = r"^2-0[1-57]-\d{3}" # F-XX-YYY
+            pattern_000 = r"^2-0[1-57]-000" # F-XX-000
+            if re.match(pattern, fxxyyy):
+              if re.match(pattern_000, fxxyyy):
+                for ope in self.operators:
+                  if ope.startswith(fxxyyy[0:5]):
+                    self.operators.remove(ope)
+                    break
+              else:
+                self.operators.append(fxxyyy)
+            else:
+              logging.info(descriptor)
+              raise UnexpectedBufrError(f"Encountered a supported descriptor.")
           else:
             logging.info(descriptor)
             raise UnexpectedBufrError(f"Encountered a supported descriptor.")
@@ -672,8 +689,43 @@ class data_constructor:
             # if descriptor[0] == "0-11-001":
               # logging.info(f"self.raw_data[self.irec:self.irec+int(descriptor[3]) = {self.raw_data[self.irec:self.irec+int(descriptor[3])]}")
               # logging.info(f"self.irec = {self.irec}")
-            _data.append((int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)+int(descriptor[2]))/10**int(descriptor[1]))
-            self.irec += int(descriptor[3])
+            # 0: F-XX-YYY, 1: SCALE, 2: REFERENCE VALUE, 3: BIT WIDTH
+            # 4: UNIT, 5: MNEMONIC, 6: DESC CODE, 7: ELEMENT NAME
+            if len(self.operators) > 0:
+              for ope in self.operators:
+                if ope.startswith("2-01-"):
+                  _data.append((int(self.raw_data[self.irec:self.irec+int(descriptor[3])+(int(ope[5:8])-128)], 2)+int(descriptor[2]))/10**int(descriptor[1]))
+                  self.irec += int(descriptor[3])+int(ope[5:8])-128
+                elif ope.startswith("2-02-"):
+                  _data.append((int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)+int(descriptor[2]))/10**(int(descriptor[1])+int(ope[5:8])-128))
+                  self.irec += int(descriptor[3])
+                elif ope.startswith("2-03-"):
+                  # NOT SUPPORTED
+                  pass
+                elif ope.startswith("2-04-"):
+                  # NOT SUPPORTED
+                  pass
+                elif ope.startswith("2-05-"):
+                  text = ""
+                  # 8ビットずつに分割
+                  text_bin_list = [self.raw_data[self.irec+i:self.irec+i+8] for i in range(0,int(ope[5:8]),8)]
+                  for text_bin in text_bin_list:
+                    decimal = int(text_bin, 2)
+                    if decimal in convert_decimal_to_IA5character.keys():
+                      text += convert_decimal_to_IA5character[decimal]
+                    else:
+                      text += "?"
+                  _data.append(text)
+                  self.irec += int(ope[5:8])
+                elif ope.startswith("2-07-"):
+                  # logging.info(f"{ope}")
+                  add_width = (10*int(ope[5:8])+2)//3
+                  _data.append((int(self.raw_data[self.irec:self.irec+int(descriptor[3])+add_width], 2)+int(descriptor[2])*10**int(ope[5:8]))/10**(int(descriptor[1])+int(ope[5:8])))
+                  self.irec += int(descriptor[3])+add_width
+            else:
+              # logging.info(f"{ope} {descriptor}")
+              _data.append((int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)+int(descriptor[2]))/10**int(descriptor[1]))
+              self.irec += int(descriptor[3])
         logging.debug(f"self.irec = {self.irec}")
       else:
         logging.debug(f'idx = {idx}, nest = {nest}, irec = {self.irec}', stack_info=False)
@@ -703,9 +755,9 @@ if __name__=='__main__':
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC71_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC65_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC71_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
-  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send")) # error occur due to size
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send")) # error occur due to size
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCC01_RJTD_200000_202410200000311_001.send")) # error occur due to size
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send")) # error occur due to have operate descriptor
+  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send")) # error occur due to have operate descriptor -> OK
   # print()
   # print("Data description:")
   # for iv in bufr_class.get_data_description():

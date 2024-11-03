@@ -186,10 +186,14 @@ class UtilTest(unittest.TestCase):
     """
     # print(self.test_bufr_001.__doc__)
     for file_path in ("./data/bufr/bufr/IUPC41_RJTD_010000_202406010016132_001.send", # ウィンドプロファイラ
-                      "./data/bufr/bufr/IUKC65_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報
-                      "./data/bufr/bufr/IUKC71_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報
-                      "./data/bufr/bufr/IUSC65_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報
-                      "./data/bufr/bufr/IUSC71_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報
+                      "./data/bufr/bufr/IUKC65_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報, 100hPaまで
+                      "./data/bufr/bufr/IUKC71_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報, 観測終了まで
+                      "./data/bufr/bufr/IUSC65_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報, 100hPaまで
+                      "./data/bufr/bufr/IUSC71_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報, 観測終了まで
+                      "./data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send", # 高分解能海上高層実況気象報, 100hPaまで, 凌風丸
+                      "./data/bufr/bufr/IUKC81_RJTD_051200_202410051245312_001.send", # 高分解能海上高層実況気象報, 100hPaまで, 啓風丸
+                      "./data/bufr/bufr/IUSC80_RJTD_011200_202410011345300_001.send", # 高分解能海上高層実況気象報, 観測終了まで, 凌風丸
+                      "./data/bufr/bufr/IUSC81_RJTD_051200_202410051330311_001.send", # 高分解能海上高層実況気象報, 観測終了まで, 啓風丸
                       ):
       with self.subTest(file_path=file_path):
         bufr(os.path.join(os.path.dirname(__file__), file_path))
