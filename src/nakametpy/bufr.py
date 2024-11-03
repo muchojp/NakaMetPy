@@ -4,7 +4,8 @@
 
 import numpy as np
 import pandas as pd
-from nakametpy.constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE_VERSION
+from nakametpy.constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE_VERSION,\
+                                convert_decimal_to_IA5character
 from nakametpy.tables import bufrtab_TableA
 from nakametpy._error import NotSupportedNewerVersionMSWarning, NotSupportedOlderVersionMSWarning,\
                     NotSupportedBufrError, UnexpectedBufrError
@@ -146,32 +147,44 @@ class bufr:
     else:
       raise NotSupportedBufrError(file_path, f"第2節の長さが0ではない")
     self.sec_3 = bufr_sec_3(self.binary, self.sec_len, self.sec_1.sec1_use_master_table_version)
-    self.sec_4 = bufr_sec_4(self.binary, self.sec_len, self.sec_1.sec1_use_master_table_version)
+    logging.info(f"サブセット数：{self.sec_3.sec3_05_06_num_of_data_subset}")
+    logging.info(self.sec_3.sec3_07_data_format)
+    self.sec_4 = bufr_sec_4(self.binary, self.sec_len)
     self.sec_5 = bufr_sec_5(self.binary, self.sec_len)
+  
+  def get_data_descriptors(self) -> list:
+    return self.sec_3.sec3_data_desc_list
     
   def get_data_description(self) -> list:
     return self.sec_3.sec3_data_desc_str_list
-    
-  def get_data_descriptors(self) -> list:
-    return self.sec_3.sec3_data_desc_list
+  
+  def get_extracted_data_descriptors(self) -> list:
+    return self.sec_3.sec3_data_desc_extract_list
+  
+  def get_extracted_data_description(self) -> list:
+    return self.sec_3.sec3_data_desc_str_extract_list
   
   def read_data(self) -> list:
-    descriptors = self.get_data_descriptors()
-    return self.sec_4.read_data(descriptors, self.sec_len)
+    descriptors = self.get_extracted_data_descriptors()
+    return self.sec_4.read_data(descriptors, self.sec_len, self.sec_3.sec3_05_06_num_of_data_subset)
 
 class bufr_sec_head:
   def __init__(self, binary, sec_len) -> None:
-    header = binary[0:12+1+8+1+6+1+3+4+1].decode()
-    header_list = binary[0:12+1+8+1+6+1+3+4+1].decode().split(" ")
-    # 指示コードなし
-    if header_list[2][6:10] == "BUFR":
-      sec_len['sec_head'] = len(header_list[0]) + 1 + len(header_list[1]) + 1 + 6
-    # 指示コードあり
+    if binary[0:4].decode() == "BUFR":
+      logging.info("This telegram has no header.")
+      sec_len['sec_head'] = 0
     else:
-      sec_len['sec_head'] = len(header_list[0]) + 1 + len(header_list[1]) + 1 + 6 + 1 + 3
-    logging.debug(f"sec0_start = {sec_len['sec_head']}")
-    self.tlg_header = header[:sec_len['sec_head']]
-    logging.debug(f"電文ヘッダ = {self.tlg_header}")
+      head = binary[0:12+1+8+1+6+1+3+4+1]
+      head_list = binary[0:12+1+8+1+6+1+3+4+1].split()
+      # 指示コードなし
+      if head_list[2][6:10].decode() == "BUFR":
+        sec_len['sec_head'] = len(head_list[0]) + 1 + len(head_list[1]) + 1 + 6
+      # 指示コードあり
+      else:
+        sec_len['sec_head'] = len(head_list[0]) + 1 + len(head_list[1]) + 1 + 6 + 1 + 3
+      logging.debug(f"sec0_start = {sec_len['sec_head']}")
+      self.tlg_header = head[:sec_len['sec_head']].decode()
+      logging.debug(f"電文ヘッダ = {self.tlg_header}")
 
 class bufr_sec_0:
   def __init__(self, binary, sec_len) -> None:
@@ -184,7 +197,7 @@ class bufr_sec_0:
     self.sec0_08_bufr_version = int.from_bytes(self.sec0_binary[7:], "big")
     logging.debug(f"{self.sec0_desc_jp} 1~4 32 国際アルファベットNo5による記述でBUFR = {self.sec0_01_04_bufr_str}")
     logging.debug(f"{self.sec0_desc_jp} 5~7 24 BUFR報全体の長さ = {self.sec0_05_07_bufr_len}")
-    logging.debug(f"{self.sec0_desc_jp} 8   8  BUFR報の版番号 = {self.sec0_08_bufr_version}")
+    logging.info(f"{self.sec0_desc_jp} 8   8  BUFR報の版番号 = {self.sec0_08_bufr_version}")
 
 class bufr_sec_1:
   def __init__(self, binary, sec_len) -> None:
@@ -258,9 +271,10 @@ class bufr_sec_3:
     self.sec3_desc_jp = "第3節(資料記述節)"
     self.std_df_b = parse_tableB_into_dataframe(f"STD_0_{mst_tbl_version}")
     self.std_table_c = parse_codeFlag_into_dict(f"STD_0_{mst_tbl_version}")
-    # self.std_table_d = parse_tableD_into_dict(f"STD_0_{mst_tbl_version}")
+    self.std_table_d = parse_tableD_into_dict(f"STD_0_{mst_tbl_version}")
     self.loc_df_b_1 = parse_tableB_into_dataframe("LOC_0_7_1")
     self.loc_df_b_2 = parse_tableB_into_dataframe("ADD_1_0")
+    self.loc_table_d_1 = parse_tableD_into_dict("LOC_0_7_1")
     
     self.sec3_start = 0
     for ikey in ('sec_head', 'sec0', 'sec1', 'sec2'):
@@ -276,9 +290,10 @@ class bufr_sec_3:
     
     # 8オクテット目以降
     std_flag = True
+    no_f3_info = False
     data_desc_list = []
     data_desc_str_list = []
-    for _i in range(8, sec_len["sec3"]+1, 2):
+    for _i in range(8, sec_len["sec3"], 2):
       # 標準のBテーブルでマッチした場合
       _fxxyyy = _int_into_fxxyyy(int.from_bytes(self.sec3_binary[_i-1:_i+1], "big"))
       if std_flag:
@@ -286,15 +301,32 @@ class bufr_sec_3:
           logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
           data_desc_list.append([_fxxyyy, self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy].values[0]])
           data_desc_str_list.append(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
-        elif (_fxxyyy[:1] == "1") & (_fxxyyy[-3:] == "000"):
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
-          data_desc_list.append([_fxxyyy, f"Delayed replication of {int(_fxxyyy[2:4])} descriptor"])
-          data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Delayed replication of {int(_fxxyyy[2:4])} descriptor")
+        elif (_fxxyyy[:1] == "1"):
+          if (_fxxyyy[-3:] == "000"):
+            logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
+            data_desc_list.append([_fxxyyy, f"Delayed replication of {int(_fxxyyy[2:4])} descriptor"])
+            data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Delayed replication of {int(_fxxyyy[2:4])} descriptor")
+          else:
+            logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Replicate {int(_fxxyyy[2:4])} descriptors {int(_fxxyyy[5:8])} times = {_fxxyyy}")
+            data_desc_list.append([_fxxyyy, f"Replicate {int(_fxxyyy[2:4])} descriptors {int(_fxxyyy[5:8])} times"])
+            data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Replicate {int(_fxxyyy[2:4])} descriptors {int(_fxxyyy[5:8])} times")
         elif _fxxyyy.startswith("2-06-"):
           logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Local descriptor = {_fxxyyy}")
           std_flag = False
           data_desc_list.append([_fxxyyy, f"Local descriptor"])
           data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Local descriptor")
+        elif _fxxyyy.startswith("2-"):
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Operate descriptor = {_fxxyyy}")
+          data_desc_list.append([_fxxyyy, f"Operate descriptor"])
+          data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Operate descriptor")
+        elif _fxxyyy.startswith("3-"):
+          # print(_fxxyyy)
+          if _fxxyyy in self.std_table_d.keys():
+            logging.debug(f"{self.std_table_d[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.std_table_d[_fxxyyy]["NAME"]} = {_fxxyyy}")
+            data_desc_list.append([_fxxyyy, self.std_table_d[_fxxyyy]])
+            data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   {self.std_table_d[_fxxyyy]["NAME"]}")
+          else:
+            no_f3_info = True
         else:
           logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
           data_desc_list.append([_fxxyyy, f"NO INFOMATION VARIABLE"])
@@ -308,18 +340,203 @@ class bufr_sec_3:
           logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
           data_desc_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].values[0]])
           data_desc_str_list.append(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        elif _fxxyyy.startswith("3-"):
+          if _fxxyyy in self.loc_table_d_1.keys():
+            logging.info(f"{self.loc_table_d_1[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]["NAME"]} = {_fxxyyy}")
+            data_desc_list.append([_fxxyyy, self.loc_table_d_1[_fxxyyy]])
+            data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   {self.loc_table_d_1[_fxxyyy]["NAME"]}")
+          else:
+            no_f3_info = True
         else:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+          logging.info(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
           data_desc_list.append([_fxxyyy, f"NO INFOMATION VARIABLE"])
           data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE",)
         std_flag = True
+      if no_f3_info == True:
+        data_desc_list.append([_fxxyyy, f"NO F=3 INFOMATION AVAILABLE"])
+        data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO F=3 INFOMATION AVAILABLE",)
+        no_f3_info = False
 
     self.sec3_data_desc_list = data_desc_list
     self.sec3_data_desc_str_list = data_desc_str_list
+    logging.info(f"self.sec3_data_desc_str_list = {self.sec3_data_desc_list}")
+    
+    # ネストの深さの特定およびF=3(集約記述子)を展開
+    target_list = []
+    while True:
+      # loop関係のフラグ
+      _f3_flag = False
+      # df, table検索のフラグ
+      std_flag = True
+      no_f3_info = False
+      if len(target_list) == 0:
+        for ilist in self.sec3_data_desc_list:
+          # F-XX-YYY, str or df_b, nnest, 遅延反復記述子確認フラグ
+          target_list.append(ilist + [0, False])
+      else:
+        target_list = tmp_list
+      # ネストの深さを特定
+      _nlen = len(target_list)
+      for idx, idescriptor in enumerate(target_list[::-1]):
+        if type(idescriptor[1]) == str:
+          if idescriptor[1].startswith("Delayed replication of"):
+            if idescriptor[3] == False:
+              logging.info(idescriptor[1])
+              # 遅延反復記述子確認済
+              # logging.info(target_list[_nlen+1-idx])
+              target_list[_nlen-1-idx][3] = True
+              # get "N" descriptor
+              _nvar = int(idescriptor[1].split(" ")[3])
+              # 配列の長さ -1 - index + 2 から 後ろN個までについて可算
+              # = 配列の長さ +1 - index
+              for i in range(_nvar):
+                target_list[_nlen+1-idx+i][2] += 1
+          elif idescriptor[1].startswith("Replicate "):
+            if idescriptor[3] == False:
+              logging.info(idescriptor[1])
+              # 遅延反復記述子確認済
+              # logging.info(target_list[_nlen+1-idx])
+              target_list[_nlen-1-idx][3] = True
+              # F-XX-YYY
+              _, _nvar, _ = idescriptor[0].split("-")
+              # 配列の長さ -1 - index + 2 から 後ろN個までについて可算
+              # = 配列の長さ +1 - index
+              for i in range(int(_nvar)):
+                target_list[_nlen-idx+i][2] += 1
+          elif idescriptor[1].startswith("Local descriptor"):
+            logging.debug(idescriptor[1])
+            pass
+          elif idescriptor[1].startswith("Operate descriptor"):
+            logging.debug(idescriptor[1])
+            pass
+          else:
+            for itarget in target_list:
+              logging.info(itarget)
+            logging.info(f"Error descriptor: {idescriptor}")
+            raise UnexpectedBufrError(f"Encountered an unsupported descriptor.")
+      
+      # F=3(集約記述子)を展開
+      tmp_list = []
+      for ilist in target_list:
+        # F=0,1,2の場合
+        if not ilist[0].startswith("3-"):
+          tmp_list.append(ilist)
+        # F=3の場合
+        else:
+          for jlist in ilist[1]["SEQUENCE"]:
+            logging.debug(jlist)
+            _fxxyyy = jlist["FXXYYY"]
+            if std_flag:
+              if len(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy].values[0], ilist[2], False])
+              # elif (_fxxyyy[:1] == "1") & (_fxxyyy[-3:] == "000"):
+              #   logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
+              #   tmp_list.append([_fxxyyy, f"Delayed replication of {int(_fxxyyy[2:4])} descriptor", ilist[2], False])
+              elif (_fxxyyy[:1] == "1"):
+                if (_fxxyyy[-3:] == "000"):
+                  logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
+                  tmp_list.append([_fxxyyy, f"Delayed replication of {int(_fxxyyy[2:4])} descriptor", ilist[2], False])
+                else:
+                  logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Replicate {int(_fxxyyy[2:4])} descriptors {int(_fxxyyy[5:8])} times = {_fxxyyy}")
+                  tmp_list.append([_fxxyyy, f"Replicate {int(_fxxyyy[2:4])} descriptors {int(_fxxyyy[5:8])} times", ilist[2], False])
+              elif _fxxyyy.startswith("2-06-"):
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Local descriptor = {_fxxyyy}")
+                std_flag = False
+                tmp_list.append([_fxxyyy, f"Local descriptor", ilist[2], False])
+              elif _fxxyyy.startswith("2-"):
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Operate descriptor = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, f"Operate descriptor", ilist[2], False])
+              elif _fxxyyy.startswith("3-"):
+                _f3_flag = True
+                if _fxxyyy in self.std_table_d.keys():
+                  logging.debug(f"{self.std_table_d[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.std_table_d[_fxxyyy]["NAME"]} = {_fxxyyy}")
+                  tmp_list.append([_fxxyyy, self.std_table_d[_fxxyyy], ilist[2], False])
+                else:
+                  no_f3_info = True
+              else:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, f"NO INFOMATION VARIABLE", ilist[2], False])
+            else:
+              if len(self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy].values[0], ilist[2], False])
+              elif len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].values[0], ilist[2], False])
+              elif _fxxyyy.startswith("3-"):
+                _f3_flag = True
+                if _fxxyyy in self.loc_table_d_1.keys():
+                  logging.debug(f"{self.loc_table_d_1[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]["NAME"]} = {_fxxyyy}")
+                  tmp_list.append([_fxxyyy, self.loc_table_d_1[_fxxyyy], ilist[2], False])
+                else:
+                  no_f3_info = True
+              else:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, f"NO INFOMATION VARIABLE", ilist[2], False])
+              std_flag = True
+            if no_f3_info == True:
+              tmp_list.append([_fxxyyy, f"NO F=3 INFOMATION AVAILABLE", ilist[2], False])
+              no_f3_info = False
+      # for i in tmp_list:
+      #   print(i)
+      # print()
+      # 集約記述子が含まれていない場合、展開を終了
+      if not _f3_flag:
+        break
+    # self.sec3_data_desc_extract_list = tmp_list
+    # 遅延反復記述子確認フラグは以降使わないため削除
+    self.sec3_data_desc_extract_list = [tmp[:3] for tmp in tmp_list]
+    nest_idx = []
+    for i in self.sec3_data_desc_extract_list:
+      nest_idx.append(i[2])
+      # print(*i)
+    logging.info(f"nest_idx = {nest_idx}")
+    
+    
+    # 8オクテット目以降
+    std_flag = True
+    data_desc_str_extract_list = []
+    for ilist in self.sec3_data_desc_extract_list:
+      _fxxyyy = ilist[0]
+      if std_flag:
+        if len(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+          data_desc_str_extract_list.append(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        elif (_fxxyyy[:1] == "1"):
+          if (_fxxyyy[-3:] == "000"):
+            logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
+            data_desc_str_extract_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Delayed replication of {int(_fxxyyy[2:4])} descriptor")
+          else:
+            logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Replicate {int(_fxxyyy[2:4])} descriptors {int(_fxxyyy[5:8])} times = {_fxxyyy}")
+            data_desc_str_extract_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Replicate {int(_fxxyyy[2:4])} descriptors {int(_fxxyyy[5:8])} times")
+        elif _fxxyyy.startswith("2-06-"):
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Local descriptor = {_fxxyyy}")
+          std_flag = False
+          data_desc_str_extract_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Local descriptor")
+        elif _fxxyyy.startswith("2-"):
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Operate descriptor = {_fxxyyy}")
+          data_desc_str_extract_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Operate descriptor")
+        else:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+          data_desc_str_extract_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE")
+      else:
+        if len(self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+          data_desc_str_extract_list.append(self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        elif len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+          data_desc_str_extract_list.append(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        else:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+          data_desc_list.append([_fxxyyy, f"NO INFOMATION VARIABLE"])
+          data_desc_str_extract_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE",)
+        std_flag = True
+    self.sec3_data_desc_str_extract_list = data_desc_str_extract_list
 
 
 class bufr_sec_4:
-  def __init__(self, binary, sec_len, mst_tbl_version) -> None:
+  def __init__(self, binary, sec_len) -> None:
     # Section 4, Data section
     self.sec4_desc_en = "Section 4, Data section"
     self.sec4_desc_jp = "第4節(資料節)"
@@ -332,15 +549,11 @@ class bufr_sec_4:
     self.sec4_04_unused = int.from_bytes(self.sec4_binary[3:3+1], "big")
     logging.debug(f"{self.sec4_desc_jp} 1  ~ 3   24 第4節の長さ(オクテット単位) = {sec_len['sec4']}")
     
-  def read_data(self, descriptors, sec_len):
-    nrep = 0
-    for idescriptor in descriptors:
-      if type(idescriptor[1]) == str:
-        if idescriptor[1].startswith("Delayed replication of"):
-          nrep += 1
+  def read_data(self, descriptors, sec_len, nsubset):
     raw_data = format(int.from_bytes(self.sec4_binary, "big"), f"0{sec_len['sec4']*8}b")
-    start_rec = 32
-    self.data_class = data_constructor(descriptors, raw_data, start_rec)
+    raw_data = format(int.from_bytes(self.sec4_binary, "big"), f"{sec_len['sec4']*8}b")
+    # print(raw_data[-70:])
+    self.data_class = data_constructor(descriptors, raw_data, sec_len, nsubset)
     return self.data_class.get_data()
 
 
@@ -362,53 +575,58 @@ class bufr_sec_5:
 
 
 class data_constructor:
-  def __init__(self, descriptors, raw_data, start_rec) -> None:
+  def __init__(self, descriptors, raw_data, sec_len, nsubset) -> None:
     self.descriptors = descriptors
     self.raw_data = raw_data
-    self.irec = start_rec
-    self.desc_idx = 0
+    self.irec = 32
     self.local_flag = False
+    self.sec4_len = sec_len["sec4"]
+    self.nsubset = nsubset
     
-    self._descriptor_converter()
-    self.data = self._read_data_from_str_bin()
+    # self._descriptor_converter()
+    # logging.info(f"self.descriptors = {self.descriptors}")
+    logging.info(f"self.descriptors[53] = {self.descriptors[52:55]}")
+    self.data = []
+    for _ in range(self.nsubset):
+      self.data.append(self._read_data_from_str_bin())
     
-  def _descriptor_converter(self):
-    _nlen = len(self.descriptors)
-    _nests = np.zeros(len(self.descriptors), dtype=np.int8)
-    for idx, idescriptor in enumerate(self.descriptors[::-1]):
-      if type(idescriptor[1]) == str:
-        if idescriptor[1].startswith("Delayed replication of"):
-          logging.info(idescriptor[1])
-          # get "N" descriptor
-          _nvar = int(idescriptor[1].split(" ")[3])
-          # 配列の長さ -1 - index + 2 から 後ろN個までについて可算
-          # = 配列の長さ +1 - index
-          _nests[_nlen+1-idx:_nlen+1-idx+_nvar] += 1
-        elif idescriptor[1].startswith("Local descriptor"):
-          logging.debug(idescriptor[1])
-          pass
-        else:
-          raise UnexpectedBufrError(f"Encountered a supported descriptor.")
-    self.nest_idx = _nests
-    logging.info(f"self.nest_idx = {self.nest_idx}")
-    for idx, _inest in enumerate(self.nest_idx):
-      self.descriptors[idx].append(_inest)
+    # print(self.sec4_len, self.sec4_len*8)
+    # print(self.irec)
+    logging.info(f"self.sec4_len = {self.sec4_len}, self.sec4_len*8 = {self.sec4_len*8}, self.irec = {self.irec}")
+    # BUFR3の名残で、偶数オクテットに揃えているデータがある可能性を考慮し、正常読込完了にはゆとりを持たせる
+    if (self.sec4_len*8-16 < self.irec) & (self.irec <= self.sec4_len*8):
+      logging.info('正常にデータを読み込みました')
+    else:
+      raise UnexpectedBufrError('データ読込が途中で終了しました')
   
   def _read_data_from_str_bin(self, idx=0, nest=0):
-    logging.info(" ")
     _data = []
-    for jdx, (fxxyy, descriptor, inest) in enumerate(self.descriptors[idx:]):
-      logging.debug(descriptor, stack_info=False)
+    logging.debug(f'idx = {idx}, nest = {nest}', stack_info=False)
+    for jdx, (fxxyyy, descriptor, inest) in enumerate(self.descriptors[idx:]):
+      # logging.debug(f"{descriptor}", stack_info=False)
+      # logging.info(f"jdx = {jdx}, descriptor = {descriptor}, inest = {inest}", stack_info=False)
+      logging.debug(f"inest = {inest}", stack_info=False)
       if nest == inest:
         # 0: 要素記述子, 1: 反復記述子, 2: 操作記述子, 3: 集約記述子
         # 0: F-XX-YYY, 1: SCALE, 2: REFERENCE VALUE, 3: BIT WIDTH
         # 4: UNIT, 5: MNEMONIC, 6: DESC CODE, 7: ELEMENT NAME
         if type(descriptor) == str:
           if descriptor.startswith("Delayed replication of"):
-            logging.info(descriptor, stack_info=False)
+            logging.debug(descriptor, stack_info=False)
             _data.append(None)
+          elif descriptor.startswith("Replicate"): # F-XX-YYY = 1-XX-YYY, YYY != 000
+            logging.debug(descriptor, stack_info=False)
+            _data.append(None)
+            _loop_data = []
+            _, _, nloop = fxxyyy.split("-")
+            for iloop in range(int(nloop)):
+              if nest == 0:
+                logging.debug(f'idx = {idx}, nest = {nest}, irec = {self.irec}', stack_info=False)
+              logging.debug(f"iloop = {iloop}", stack_info=False)
+              logging.debug(f"       nest = {nest}", stack_info=False)
+              _loop_data.append(self._read_data_from_str_bin(idx=idx+jdx+1, nest=nest+1))
           elif descriptor.startswith("Local descriptor"):
-            logging.info(descriptor, stack_info=False)
+            logging.debug(descriptor, stack_info=False)
             self.local_flag = True
             _data.append(None)
           else:
@@ -418,22 +636,47 @@ class data_constructor:
           # TODO:データ読み込み処理
           # CCITT IA5, Code table, Flag table, other(Numeric, m, Hz, etc) に分類して処理
           # 0-31-000, 0-31-001, 0-31-002については空リストを作成し、appendしていく形に
-          if fxxyy in ("0-31-000", "0-31-001", "0-31-002"):
+          if fxxyyy in ("0-31-000", "0-31-001", "0-31-002"):
             nloop = int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)
             self.irec += int(descriptor[3])
             _data.append(nloop)
             _loop_data = []
-            logging.info(nloop)
-            for _ in range(nloop):
+            logging.info(f'nloop = {nloop}', stack_info=False)
+            for iloop in range(nloop):
+              if nest == 0:
+                logging.debug(f'idx = {idx}, nest = {nest}, irec = {self.irec}', stack_info=False)
+              logging.debug(f"iloop = {iloop}", stack_info=False)
+              logging.debug(f"       nest = {nest}", stack_info=False)
               _loop_data.append(self._read_data_from_str_bin(idx=idx+jdx+1, nest=nest+1))
             _data.append(_loop_data)
-          elif descriptor[4] in ("Flag table"):
+          elif descriptor[4] == "CCITT IA5":
+            text = ""
+            # 8ビットずつに分割
+            text_bin_list = [self.raw_data[self.irec+i:self.irec+i+8] for i in range(0,int(descriptor[3]),8)]
+            for text_bin in text_bin_list:
+              decimal = int(text_bin, 2)
+              if decimal in convert_decimal_to_IA5character.keys():
+                text += convert_decimal_to_IA5character[decimal]
+              else:
+                text += "?"
+            _data.append(text)
+            self.irec += int(descriptor[3])
+          elif descriptor[4] == "Flag table":
             _data.append(self.raw_data[self.irec:self.irec+int(descriptor[3])])
             self.irec += int(descriptor[3])
-          else:
-            _data.append((int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)+int(descriptor[2]))*10**int(descriptor[1]))
+          elif descriptor[4] == "Code table":
+            _data.append((int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)+int(descriptor[2]))/10**int(descriptor[1]))
             self.irec += int(descriptor[3])
+          else:
+            # logging.info(f"fxxyyy, descriptor, inest = {fxxyyy}, {descriptor}, {inest}")
+            # if descriptor[0] == "0-11-001":
+              # logging.info(f"self.raw_data[self.irec:self.irec+int(descriptor[3]) = {self.raw_data[self.irec:self.irec+int(descriptor[3])]}")
+              # logging.info(f"self.irec = {self.irec}")
+            _data.append((int(self.raw_data[self.irec:self.irec+int(descriptor[3])], 2)+int(descriptor[2]))/10**int(descriptor[1]))
+            self.irec += int(descriptor[3])
+        logging.debug(f"self.irec = {self.irec}")
       else:
+        logging.debug(f'idx = {idx}, nest = {nest}, irec = {self.irec}', stack_info=False)
         # ループを抜ける
         break
     return _data
@@ -441,170 +684,9 @@ class data_constructor:
   def get_data(self):
     return self.data
 
-  def _decode_data(self):
-    return
-
-
 def _int_into_fxxyyy(num: int) -> str:
   bits = format(num, "016b")
-  # print(str(int(format(num, "016b")[-16:-14], 2))
-  #         + "-" + str(int(format(num, "016b")[-14:-8], 2))
-  #         + "-" + str(int(format(num, "016b")[-8:], 2)))
   return f"{int(bits[-16:-14], 2)}-{int(bits[-14:-8], 2):02}-{int(bits[-8:], 2):03}"
-
-def old_print_bufr_info(file_path) -> None:
-  with open(file_path, 'rb') as f:
-    binary = f.read()
-  
-  df_b = parse_tableB_into_dataframe()
-  loc_df_b_1 = parse_tableB_into_dataframe("LOC_0_7_1")
-  loc_df_b_2 = parse_tableB_into_dataframe("ADD_1_0")
-  table_c = parse_codeFlag_into_dict()
-  table_d = parse_tableD_into_dict()
-  loc_table_c_1 = parse_codeFlag_into_dict("LOC_0_7_1")
-  loc_table_c_2 = parse_codeFlag_into_dict("ADD_1_0")
-  
-  len_ = {'sec0':8, 'sec1':22, 'sec3':55, 'sec5':4}
-  
-  header = binary[0:12+1+8+1+6+1+3+4+1].decode()
-  header_list = binary[0:12+1+8+1+6+1+3+4+1].decode().split(" ")
-  # 指示コードなし
-  if header_list[2][6:10] == "BUFR":
-    identify_code = "定時報"
-    sec0_start = len(header_list[0]) + 1 + len(header_list[1]) + 1 + 6
-    logging.debug(f"sec0_start = {sec0_start}")
-  # 指示コードあり
-  else:
-    if header_list[3][6:].startswith("A"):
-      identify_code = "修正報"
-    elif header_list[3][6:].startswith("C"):
-      identify_code = "訂正報"
-    elif header_list[3][6:].startswith("R"):
-      identify_code = "遅延報"
-    sec0_start = len(header_list[0]) + 1 + len(header_list[1]) + 1 + 6 + 1 + 3
-  logging.debug(f"identify_code : {identify_code}")
-  logging.debug(f"電文ヘッダ = {header[:sec0_start]}")
-  print(f"電文ヘッダ = {header[:sec0_start]}")
-  
-  # Section 0, Indicator section
-  section_desc = "第0節(指示節)"
-  sec0_binary = binary[sec0_start:sec0_start+len_['sec0']]
-  print(f"{section_desc} 1~4 32 国際アルファベットNo5による記述でBUFR = {sec0_binary[:4].decode()}")
-  print(f"{section_desc} 5~7 24 BUFR報全体の長さ = {int.from_bytes(sec0_binary[4:7], "big")}")
-  print(f"{section_desc} 8   8  BUFR報の版番号 = {int.from_bytes(sec0_binary[7:], "big")}")
-  
-  # Section 1, Identification section
-  section_desc = "第1節(識別節)"
-  sec1_start = sec0_start + len_['sec0']
-  len_['sec1'] = int.from_bytes(binary[sec1_start:sec1_start+3], "big")
-  sec1_binary = binary[sec1_start:sec1_start+len_['sec1']]
-  if int.from_bytes(sec1_binary[0:0+3], "big") != len_["sec1"]:
-    raise NotSupportedBufrError(file_path, f"第1節の長さが{len_['sec1']}でない")
-  else:
-    print(f"{section_desc} 1~3 24 第1節の長さ = {int.from_bytes(sec1_binary[0:0+3], "big")}")
-  # sec1_format = [["4",   8 , "BUFRマスター表(標準は0)"],
-  #                ["5~8", 16, "作成中枢の識別"]]
-  logging.info(f"{section_desc} 4   8  BUFRマスター表 = {int.from_bytes(sec1_binary[3:3+1], "big")}")
-  logging.info(f"{section_desc} 5~6 16 作成中枢の識別 = {int.from_bytes(sec1_binary[4:4+2], "big")} {table_c["0-01-035"]["VALBITS"][f"{int.from_bytes(sec1_binary[4:4+2], "big")}"]}")
-  logging.info(f"{section_desc} 7~8 16 作成副中枢の識別 = {int.from_bytes(sec1_binary[6:6+2], "big")}")
-  logging.info(f"{section_desc} 9   8  更新一連番号 = {int.from_bytes(sec1_binary[8:8+1], "big")}")
-  logging.info(f"{section_desc} 10  8  任意節の有無 = {bool(int(format(int.from_bytes(sec1_binary[9:9+1], "big"), "08b")[0]))}")
-  logging.info(f"{section_desc} 11  8  資料の種類 = {int.from_bytes(sec1_binary[10:10+1], "big")} {bufrtab_TableA.data_types[int.from_bytes(sec1_binary[10:10+1], "big")]}")
-  logging.info(f"{section_desc} 12  8  国際的な資料サブカテゴリ = {int.from_bytes(sec1_binary[11:11+1], "big")} {bufrtab_TableA.standard_subtypes[int.from_bytes(sec1_binary[10:10+1], "big")][int.from_bytes(sec1_binary[11:11+1], "big")]}")
-  if int.from_bytes(sec1_binary[12:12+1], "big") in bufrtab_TableA.local_subtypes[int.from_bytes(sec1_binary[10:10+1], "big")].keys():
-    logging.info(f"{section_desc} 13  8  地域的な資料サブカテゴリ = {int.from_bytes(sec1_binary[12:12+1], "big")} {bufrtab_TableA.local_subtypes[int.from_bytes(sec1_binary[10:10+1], "big")][int.from_bytes(sec1_binary[12:12+1], "big")]}")
-  elif int.from_bytes(sec1_binary[12:12+1], "big") == 0:
-    logging.info(f"{section_desc} 13  8  地域的な資料サブカテゴリ = {int.from_bytes(sec1_binary[12:12+1], "big")} 中枢で定義=0")
-  else:
-    logging.info(f"{section_desc} 13  8  地域的な資料サブカテゴリ = {int.from_bytes(sec1_binary[12:12+1], "big")} 不明")
-  if (int.from_bytes(sec1_binary[13:13+1], "big") < OLDEST_MASTER_TABLE_VERSION):
-    warnings.warn(NotSupportedOlderVersionMSWarning(int.from_bytes(sec1_binary[13:13+1], "big")))
-  elif (LATEST_MASTER_TABLE_VERSION < int.from_bytes(sec1_binary[13:13+1], "big")):
-    warnings.warn(NotSupportedNewerVersionMSWarning(int.from_bytes(sec1_binary[13:13+1], "big")))
-  logging.info(f"{section_desc} 14  8  マスターテーブルのバージョン番号 = {int.from_bytes(sec1_binary[13:13+1], "big")}")
-  logging.info(f"{section_desc} 15  8  マスターテーブルに加えて使用したローカルテーブルのバージョン番号 = {int.from_bytes(sec1_binary[14:14+1], "big")}")
-  logging.info(f"{section_desc} 16~17  16 年(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[15:15+2], "big")}")
-  logging.info(f"{section_desc} 18  8  月(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[17:17+1], "big")}")
-  logging.info(f"{section_desc} 19  8  日(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[18:18+1], "big")}")
-  logging.info(f"{section_desc} 20  8  時(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[19:19+1], "big")}")
-  logging.info(f"{section_desc} 21  8  分(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[20:20+1], "big")}")
-  logging.info(f"{section_desc} 22  8  秒(電文作成年月日時分秒) = {int.from_bytes(sec1_binary[21:21+1], "big")}")
-  
-  # Section 2, Optional Section
-  if format(int.from_bytes(sec1_binary[9:9+1], "big"), "08b")[0] != "0":
-    raise NotSupportedBufrError(file_path, f"第2節の長さが0ではなく{int.from_bytes(sec1_binary[9:9+1], "big")}である")
-  
-  # Section 3, Data description section
-  section_desc = "第3節(資料記述節)"
-  sec3_start = sec1_start + len_["sec1"]
-  len_["sec3"] = int.from_bytes(binary[sec3_start:sec3_start+3], "big")
-  sec3_binary = binary[sec3_start:sec3_start+len_['sec3']]
-  # not handle when section 2 exists
-  if format(int.from_bytes(sec1_binary[9:9+1], "big"), "08b")[0] != "0":
-    raise NotSupportedBufrError(file_path, f"第2節の長さが0ではなく{len_["sec3"]}")
-  logging.info(f"{section_desc} 1 ~ 3  24 第3節の長さ(オクテット単位) = {len_["sec3"]}")
-  logging.info(f"{section_desc} 4      8  保留 = {int.from_bytes(sec3_binary[3:3+1], "big")}")
-  logging.info(f"{section_desc} 5 ~ 6  16 データサブセットの数 = {int.from_bytes(sec3_binary[4:4+2], "big")}")
-  _data_type = ""
-  _data_type_flag = format(int.from_bytes(sec3_binary[6:6+1], "big"), "08b")
-  _data_type += "観測でない&" if _data_type_flag[0] == "0" else "観測&"
-  _data_type += "圧縮でない" if _data_type_flag[1] == "0" else "圧縮"
-  logging.info(f"{section_desc} 7      8  {_data_type} = {_data_type_flag}")
-  
-  # 8オクテット目以降
-  std_flag = True
-  variables = []
-  for _i in range(8, len_["sec3"]+1, 2):
-    # 標準のBテーブルでマッチした場合
-    _fxxyyy = _int_into_fxxyyy(int.from_bytes(sec3_binary[_i-1:_i+1], "big"))
-    if std_flag:
-      if len(df_b[df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {df_b[df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-        variables.append(df_b[df_b["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
-      elif (_fxxyyy[:1] == "1") & (_fxxyyy[-3:] == "000"):
-        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
-        variables.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Delayed replication of {int(_fxxyyy[2:4])} descriptor")
-      elif _fxxyyy.startswith("2-06-"):
-        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 Local descriptor = {_fxxyyy}")
-        std_flag = False
-        variables.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Local descriptor")
-      else:
-        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {df_b[df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
-        variables.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE")
-    else:
-      if len(loc_df_b_1[loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {loc_df_b_1[loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-        variables.append(loc_df_b_1[loc_df_b_1["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
-      elif len(loc_df_b_2[loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {loc_df_b_2[loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-        variables.append(loc_df_b_2[loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
-      else:
-        logging.info(f"{section_desc} {_i} ~ {_i+1}  16 {df_b[df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
-        variables.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE",)
-      std_flag = True
-  
-  # Section 4, Data section
-  section_desc = "第4節(資料節)"
-  sec4_start = sec3_start + len_["sec3"]
-  len_["sec4"] = int.from_bytes(binary[sec4_start:sec4_start+3], "big")
-  sec4_binary = binary[sec4_start:sec4_start+len_['sec4']]
-  logging.info(f"{section_desc} 1  ~ 3   24 第4節の長さ(オクテット単位) = {len_["sec4"]}")
-  
-  # Section 5, End section
-  section_desc = "第5節(終端節)"
-  sec5_start = sec4_start + len_["sec4"]
-  sec5_binary = binary[sec5_start:sec5_start+len_['sec5']]
-  if sec5_binary.decode() == "7777":
-    logging.info(f"{section_desc} 1  ~ 4   32 BUFR報の終わりを指す = {sec5_binary.decode()}")
-    logging.info(f"BUFRの終端に到達しました。正常に読込が終了しました。")
-  else:
-    raise UnexpectedBufrError(f"BUFRの終端に到達しませんでした。ファイルが正常であるか確認してください。")
-  
-  print()
-  print("Data descriptor infomation:")
-  for iv in variables:
-    print(iv)
-
 
 if __name__=='__main__':
   # df_b = parse_tableB_into_dataframe()
@@ -616,20 +698,40 @@ if __name__=='__main__':
   # print(dict_codeFlag["0-01-034"])
   # dict_codeFlag = parse_codeFlag_into_dict("LOC_0_7_1")
   # print(dict_codeFlag)
-  old_print_bufr_info(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/print_bufr_info/IUPC41_RJTD_010000_202406010016132_001.send"))
-  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/print_bufr_info/IUPC41_RJTD_010000_202406010016132_001.send"))
-  print()
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUPC41_RJTD_010000_202406010016132_001.send")) # ウィンドプロファイラ
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC65_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC71_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC65_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC71_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
+  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send")) # error occur due to size
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCC01_RJTD_200000_202410200000311_001.send")) # error occur due to size
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send")) # error occur due to have operate descriptor
+  # print()
+  # print("Data description:")
+  # for iv in bufr_class.get_data_description():
+  #   print(iv)
+  # print()
+  # print("Data descriptor infomation:")
+  # for iv in bufr_class.get_data_descriptors():
+  #   print(iv)
+  # print()
   print("Data description:")
-  for iv in bufr_class.get_data_description():
+  # for iv in bufr_class.get_data_description():
+  for iv in bufr_class.get_extracted_data_description():
     print(iv)
   print()
-  print("Data descriptor infomation:")
-  for iv in bufr_class.get_data_descriptors():
-    print(iv)
-  print()
+  # print("Data descriptor infomation:")
+  # for iv in bufr_class.get_extracted_data_descriptors():
+  #   print(iv)
   
-  # data = bufr_class.read_data()
-  # print(data[8])
-  # print(data[8][0])
-  # print(data[8][0][9])
+  # print()
+  data = bufr_class.read_data()
+  # print(data)
+  # print(data[-1])
   # print(len(data[8]))
+  # for i in range(len(data[0][8])):
+  #   print(data[0][8][i])
+  # for j in range(len(data[0][8][0][9])):
+  #   print(data[0][8][1][9][j])
+  # print(data[0][8][0][9])
+  # print(len(data[0][8]))

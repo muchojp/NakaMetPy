@@ -8,7 +8,7 @@
 # 
 import unittest
 from src.nakametpy.bufr import parse_tableB_into_dataframe, parse_tableD_into_dict,\
-                        parse_codeFlag_into_dict
+                        parse_codeFlag_into_dict, bufr
 import os
 import pandas as pd
 import numpy as np
@@ -172,3 +172,24 @@ class UtilTest(unittest.TestCase):
     self.assertEqual(len(actual["0-07-246"]["VALBITS"]["0-07-247"]["1"].keys()), 9)
     self.assertEqual(actual["0-07-246"]["VALBITS"]["0-07-247"]["1"]["15"], "Observation is flagged for non-use by analysis")
     self.assertEqual(actual["0-07-246"]["VALBITS"]["0-07-247"]["14"]["1"], "Good")
+    
+  def test_bufr_001(self):
+    """
+    test case: test_bufr_001
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_001.__doc__)
+    for file_path in ("./data/bufr/bufr/IUPC41_RJTD_010000_202406010016132_001.send", # ウィンドプロファイラ
+                      "./data/bufr/bufr/IUKC65_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報
+                      "./data/bufr/bufr/IUKC71_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報
+                      "./data/bufr/bufr/IUSC65_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報
+                      "./data/bufr/bufr/IUSC71_2018053109_bufr4_noheader.bin", # 高分解能地上高層実況気象報
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr(os.path.join(os.path.dirname(__file__), file_path))
