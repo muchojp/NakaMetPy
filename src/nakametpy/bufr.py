@@ -2,7 +2,6 @@
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 
-import numpy as np
 import pandas as pd
 from nakametpy.constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE_VERSION,\
                                 convert_decimal_to_IA5character
@@ -22,6 +21,18 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 # logging.disable(logging.CRITICAL)
 
 def parse_bufrtab(file_path: str) -> list:
+  """Common method for parsing bufrtab file.
+
+  Parameters
+  ----------
+  file_path : str
+      path to bufrtab file
+
+  Returns
+  -------
+  list
+      striped readlines
+  """
   with open(file_path, mode="r", encoding="utf-8") as f:
     raw_text = f.readlines()
   # 特定の文字列から始まる行を除く
@@ -36,6 +47,19 @@ def parse_bufrtab(file_path: str) -> list:
   return valid_records
 
 def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> pd.DataFrame:
+  """read master table B and get pandas DataFrame
+
+  Parameters
+  ----------
+  version : str, optional
+      Version of master table B, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"<br>
+      Format is "STD_0_\d{2}" / "LOC_0_7_1" / "ADD_1_0"<br>
+
+  Returns
+  -------
+  pd.DataFrame
+      master table B
+  """
   columns = ["F-XX-YYY", "SCALE", "REFERENCE_VALUE", "BIT_WIDTH", "UNIT", "MNEMONIC", "DESC_CODE", "ELEMENT_NAME"]
   
   bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableB_{version:02}")
@@ -54,7 +78,20 @@ def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSIO
   df.columns = columns
   return df
 
-def parse_tableD_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> list:
+def parse_tableD_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> dict:
+  """read master table D and get dict
+
+  Parameters
+  ----------
+  version : str, optional
+      Version of master table D, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"<br>
+      Format is "STD_0_\d{2}" / "LOC_0_7_1" / "ADD_1_0"<br>
+
+  Returns
+  -------
+  dict
+      master table D
+  """
   bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableD_{version:02}")
   valid_records = parse_bufrtab(bufrtab)
   data = dict()
@@ -78,7 +115,20 @@ def parse_tableD_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}
         data[iseq_list[0]] = dict(MNEMONIC=iseq_list[1], DCOD=iseq_list[2], NAME=iseq_list[3], SEQUENCE=ielm_list)
   return data
 
-def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> list:
+def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> dict:
+  """read master table CODE/FLAG and get dict
+
+  Parameters
+  ----------
+  version : str, optional
+      Version of master table CODE/FLAG, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"<br>
+      Format is "STD_0_\d{2}" / "LOC_0_7_1" / "ADD_1_0"<br>
+
+  Returns
+  -------
+  dict
+      master table CODE/FLAG
+  """
   bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.CodeFlag_{version:02}")
   valid_records = parse_bufrtab(bufrtab)
   data = dict()
@@ -132,7 +182,28 @@ def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:0
   return data
 
 class bufr:
-  def __init__(self, file_path, highest_priority_add_tbl=False) -> None:
+  def __init__(self, file_path: str, highest_priority_add_tbl: bool=False) -> None:
+    """Read BUFR<br>
+    BUFRを読むクラス<br>
+
+    Parameters
+    ----------
+    file_path : str
+        path to BUFR file.<br>
+        BUFRファイルのパス
+    highest_priority_add_tbl : bool, optional
+        Set highest priority on additional table, by default False<br>
+        追加テーブルを最優先で用いる際に設定するフラグ
+    
+    Notes
+    -----
+    This function does not support section 2
+
+    Raises
+    ------
+    NotSupportedBufrError
+        Raise when section 2 exist
+    """
     self.file_path = file_path
     self.highest_priority_add_tbl = highest_priority_add_tbl
     
@@ -149,31 +220,85 @@ class bufr:
     else:
       raise NotSupportedBufrError(file_path, f"第2節の長さが0ではない")
     self.sec_3 = bufr_sec_3(self.binary, self.sec_len, self.sec_1.sec1_use_master_table_version, self.highest_priority_add_tbl)
-    logging.info(f"サブセット数：{self.sec_3.sec3_05_06_num_of_data_subset}")
-    logging.info(self.sec_3.sec3_07_data_format)
+    logging.debug(f"サブセット数：{self.sec_3.sec3_05_06_num_of_data_subset}")
+    logging.debug(self.sec_3.sec3_07_data_format)
     self.sec_4 = bufr_sec_4(self.binary, self.sec_len)
     self.sec_5 = bufr_sec_5(self.binary, self.sec_len)
   
   def get_data_descriptors(self) -> list:
+    """get data descriptor in section 3
+
+    Returns
+    -------
+    list
+        data descriptor<br>
+        f-xx-yyy, data descriptor<br>
+        str, pd.DataFrame or str
+    """
     return self.sec_3.sec3_data_desc_list
     
   def get_data_description(self) -> list:
+    """get data description in section 3
+
+    Returns
+    -------
+    list
+        data description<br>
+        str
+    """
     return self.sec_3.sec3_data_desc_str_list
   
   def get_extracted_data_descriptors(self) -> list:
+    """get data descriptor extracted F=3 descriptor
+
+    Returns
+    -------
+    list
+        data descriptor<br>
+        f-xx-yyy, data descriptor, nest<br>
+        str, pd.DataFrame or str, int
+    """
     return self.sec_3.sec3_data_desc_extract_list
   
   def get_extracted_data_description(self) -> list:
+    """get data description extracted F=3 descriptor
+
+    Returns
+    -------
+    list
+        data description<br>
+        str
+    """
     return self.sec_3.sec3_data_desc_str_extract_list
   
   def read_data(self) -> list:
+    """get BUFR data in data section (section 4)<br>
+    データ節 (セクション4) のデータを読み込む<br>
+
+    Returns
+    -------
+    list
+        data
+    """
     descriptors = self.get_extracted_data_descriptors()
     return self.sec_4.read_data(descriptors, self.sec_len, self.sec_3.sec3_05_06_num_of_data_subset)
 
 class bufr_sec_head:
-  def __init__(self, binary, sec_len) -> None:
+  def __init__(self, binary: bytes, sec_len: dict) -> None:
+    """read bufr header<br>
+    BUFRのヘッダを読み込むクラス
+
+    Parameters
+    ----------
+    binary : bytes
+        binary data of BUFR<br>
+        BUFRのバイナリデータ
+    sec_len : dict
+        length of sections<br>
+        セクションの長さ
+    """
     if binary[0:4].decode() == "BUFR":
-      print("This telegram has no header.")
+      # print("This telegram has no header.")
       logging.info("This telegram has no header.")
       sec_len['sec_head'] = 0
     else:
@@ -197,7 +322,19 @@ class bufr_sec_head:
       logging.debug(f"電文ヘッダ = {self.tlg_header}")
 
 class bufr_sec_0:
-  def __init__(self, binary, sec_len) -> None:
+  def __init__(self, binary: bytes, sec_len: dict) -> None:
+    """read bufr Indicator section (section 0)<br>
+    BUFRの指示節(第0節)を読み込むクラス
+
+    Parameters
+    ----------
+    binary : bytes
+        binary data of BUFR<br>
+        BUFRのバイナリデータ
+    sec_len : dict
+        length of sections<br>
+        セクションの長さ
+    """
     # Section 0, Indicator section
     # print(binary[sec_len['sec_head']:sec_len['sec_head']+1])
     # ヘッダと本文の間に改行がある場合
@@ -212,12 +349,24 @@ class bufr_sec_0:
     self.sec0_01_04_bufr_str = self.sec0_binary[:4].decode()
     self.sec0_05_07_bufr_len = int.from_bytes(self.sec0_binary[4:7], "big")
     self.sec0_08_bufr_version = int.from_bytes(self.sec0_binary[7:], "big")
-    logging.info(f"{self.sec0_desc_jp} 1~4 32 国際アルファベットNo5による記述でBUFR = {self.sec0_01_04_bufr_str}")
-    logging.info(f"{self.sec0_desc_jp} 5~7 24 BUFR報全体の長さ = {self.sec0_05_07_bufr_len}")
-    logging.info(f"{self.sec0_desc_jp} 8   8  BUFR報の版番号 = {self.sec0_08_bufr_version}")
+    logging.debug(f"{self.sec0_desc_jp} 1~4 32 国際アルファベットNo5による記述でBUFR = {self.sec0_01_04_bufr_str}")
+    logging.debug(f"{self.sec0_desc_jp} 5~7 24 BUFR報全体の長さ = {self.sec0_05_07_bufr_len}")
+    logging.debug(f"{self.sec0_desc_jp} 8   8  BUFR報の版番号 = {self.sec0_08_bufr_version}")
 
 class bufr_sec_1:
-  def __init__(self, binary, sec_len) -> None:
+  def __init__(self, binary: bytes, sec_len: dict) -> None:
+    """read bufr Identification section (section 1)<br>
+    BUFRの識別節(第1節)を読み込むクラス
+
+    Parameters
+    ----------
+    binary : bytes
+        binary data of BUFR<br>
+        BUFRのバイナリデータ
+    sec_len : dict
+        length of sections<br>
+        セクションの長さ
+    """
     # Section 1, Identification section
     self.sec1_desc_en = "Section 1, Identification section"
     self.sec1_desc_jp = "第1節(識別節)"
@@ -226,7 +375,7 @@ class bufr_sec_1:
     self.sec1_start = sec_len['sec_head'] + sec_len['sec0']
     sec_len['sec1'] = int.from_bytes(binary[self.sec1_start:self.sec1_start+3], "big")
     self.sec1_binary = binary[self.sec1_start:self.sec1_start+sec_len['sec1']]
-    print(sec_len['sec1'], self.sec1_binary)
+    logging.debug(f"{sec_len['sec1']}, {self.sec1_binary}")
     if sec_len['sec1'] != 22:
       warnings.warn(MayNotBeAbleToReadBufrWarning(f"第1節の長さが22ではなく、{sec_len['sec1']}"))
     self.sec1_04_master_table_version = int.from_bytes(self.sec1_binary[3:3+1], "big")
@@ -290,7 +439,31 @@ class bufr_sec_1:
     logging.debug(f"{self.sec1_desc_jp} 22    8  秒(電文作成年月日時分秒) = {self.sec1_22_data_created_second}")
 
 class bufr_sec_3:
-  def __init__(self, binary, sec_len, mst_tbl_version, highest_priority_add_tbl) -> None:
+  def __init__(self, binary: bytes, sec_len: dict, mst_tbl_version: str, highest_priority_add_tbl: bool) -> None:
+    """read bufr Data description section (section 3)<br>
+    BUFRの資料記述節(第3節)を読み込むクラス
+
+    Parameters
+    ----------
+    binary : bytes
+        binary data of BUFR<br>
+        BUFRのバイナリデータ
+    sec_len : dict
+        length of sections<br>
+        セクションの長さ
+    mst_tbl_version : str
+        master table version<br>
+        マスターテーブルのバージョン
+    highest_priority_add_tbl : bool
+        Set highest priority on additional table<br>
+        追加テーブルを最優先で用いる際に設定するフラグ
+
+    Raises
+    ------
+    UnexpectedBufrError
+        raise when encountered unknown data descriptor<br>
+        予期せぬ資料記述子があった場合に発生
+    """
     # Section 1, Identification section
     self.sec3_desc_en = "Section 3, Data description section"
     self.sec3_desc_jp = "第3節(資料記述節)"
@@ -532,7 +705,8 @@ class bufr_sec_3:
     for i in self.sec3_data_desc_extract_list:
       nest_idx.append(i[2])
       # print(*i)
-    logging.info(f"nest_idx = {nest_idx}")
+    # ネストの深さを表示
+    logging.debug(f"nest_idx = {nest_idx}")
     
     
     # 8オクテット目以降
@@ -582,7 +756,19 @@ class bufr_sec_3:
 
 
 class bufr_sec_4:
-  def __init__(self, binary, sec_len) -> None:
+  def __init__(self, binary: bytes, sec_len: str) -> None:
+    """read bufr Data section (section 4)<br>
+    BUFRの資料節(第4節)を読み込むクラス
+
+    Parameters
+    ----------
+    binary : bytes
+        binary data of BUFR<br>
+        BUFRのバイナリデータ
+    sec_len : dict
+        length of sections<br>
+        セクションの長さ
+    """
     # Section 4, Data section
     self.sec4_desc_en = "Section 4, Data section"
     self.sec4_desc_jp = "第4節(資料節)"
@@ -595,7 +781,27 @@ class bufr_sec_4:
     self.sec4_04_unused = int.from_bytes(self.sec4_binary[3:3+1], "big")
     logging.debug(f"{self.sec4_desc_jp} 1  ~ 3   24 第4節の長さ(オクテット単位) = {sec_len['sec4']}")
     
-  def read_data(self, descriptors, sec_len, nsubset):
+  def read_data(self, descriptors: list, sec_len: dict, nsubset: list) -> list:
+    """read bufr data<br>
+    BUFRのデータを読み込む
+
+    Parameters
+    ----------
+    descriptors : list
+        data descriptor<br>
+        資料記述子
+    sec_len : dict
+        length of sections<br>
+        セクションの長さ
+    nsubset : list
+        number of data subset<br>
+        データサブセットの数
+
+    Returns
+    -------
+    data
+        data
+    """
     raw_data = format(int.from_bytes(self.sec4_binary, "big"), f"0{sec_len['sec4']*8}b")
     raw_data = format(int.from_bytes(self.sec4_binary, "big"), f"{sec_len['sec4']*8}b")
     # print(raw_data[-70:])
@@ -604,9 +810,27 @@ class bufr_sec_4:
 
 
 class bufr_sec_5:
-  def __init__(self, binary, sec_len) -> None:
+  def __init__(self, binary: bytes, sec_len: dict) -> None:
+    """read bufr End section (section 5)<br>
+    BUFRの終端節(第5節)を読み込むクラス
+
+    Parameters
+    ----------
+    binary : bytes
+        binary data of BUFR<br>
+        BUFRのバイナリデータ
+    sec_len : dict
+        length of sections<br>
+        セクションの長さ
+
+    Raises
+    ------
+    UnexpectedBufrError
+        raise when end of file is not "7777".<br>
+        ファイルの終端が"7777"でない場合に発生
+    """
     # Section 5, End section
-    self.sec5_desc_en = "Section 5, Data section"
+    self.sec5_desc_en = "Section 5, End section"
     self.sec5_desc_jp = "第5節(終端節)"
     
     self.sec5_start = 0
@@ -621,7 +845,31 @@ class bufr_sec_5:
 
 
 class data_constructor:
-  def __init__(self, descriptors, raw_data, sec_len, nsubset) -> None:
+  def __init__(self, descriptors: list, raw_data: str, sec_len: dict, nsubset: int) -> None:
+    """read data section (section 4)<br>
+    資料節(第4節)を読むクラス
+
+    Parameters
+    ----------
+    descriptors : list
+        data descriptor<br>
+        資料記述子
+    raw_data : str
+        0/1 string data<br>
+        0/1の文字列のデータ
+    sec_len : dict
+        length of sections<br>
+        セクションの長さ
+    nsubset : int
+        number of subset<br>
+        サブセットの数
+
+    Raises
+    ------
+    UnexpectedBufrError
+        raise when did not reach end of data section (section 4)<br>
+        データを最後まで読み込めなかった場合に発生
+    """
     self.descriptors = descriptors
     self.raw_data = raw_data
     self.irec = 32
@@ -630,8 +878,6 @@ class data_constructor:
     self.nsubset = nsubset
     self.operators = []
     
-    # logging.info(f"self.descriptors = {self.descriptors}")
-    # logging.info(f"self.descriptors[53] = {self.descriptors[52:55]}")
     self.data = []
     for _ in range(self.nsubset):
       self.data.append(self._read_data_from_str_bin())
@@ -641,16 +887,41 @@ class data_constructor:
     
     # print(self.sec4_len, self.sec4_len*8)
     # print(self.irec)
-    logging.info(f"self.sec4_len = {self.sec4_len}, self.sec4_len*8 = {self.sec4_len*8}, self.irec = {self.irec}")
+    logging.debug(f"self.sec4_len = {self.sec4_len}, self.sec4_len*8 = {self.sec4_len*8}, self.irec = {self.irec}")
     # BUFR3の名残で、偶数オクテットに揃えているデータがある可能性を考慮し、正常読込完了にはゆとりを持たせる
     if (self.sec4_len*8-16 < self.irec) & (self.irec <= self.sec4_len*8):
-      logging.info('正常にデータを読み込みました')
+      logging.debug('正常にデータを読み込みました')
     else:
+      logging.error('データ読込が途中で終了しました。self.data[:3]までprintします。')
       for idata in self.data[:3]:
         print(idata)
       raise UnexpectedBufrError('データ読込が途中で終了しました')
   
-  def _read_data_from_str_bin(self, idx=0, nest=0):
+  def _read_data_from_str_bin(self, idx: int=0, nest: int=0) -> list:
+    """read data from 0/1 string<br>
+    0/1の文字列からデータを読み込む
+
+    Parameters
+    ----------
+    idx : int, optional
+        descriptor of index, by default 0<br>
+        資料記述子のインデックス
+    nest : int, optional
+        nest level, by default 0<br>
+        ネストの階層
+
+    Returns
+    -------
+    list
+        data of a nest level depth<br>
+        あるネストの階層に属するデータ
+
+    Raises
+    ------
+    UnexpectedBufrError
+        raise when encountered unknown data descriptor<br>
+        予期せぬ資料記述子があった場合に発生
+    """
     _data = []
     logging.debug(f'idx = {idx}, nest = {nest}', stack_info=False)
     for jdx, (fxxyyy, descriptor, inest) in enumerate(self.descriptors[idx:]):
@@ -799,47 +1070,19 @@ def _int_into_fxxyyy(num: int) -> str:
   return f"{int(bits[-16:-14], 2)}-{int(bits[-14:-8], 2):02}-{int(bits[-8:], 2):03}"
 
 if __name__=='__main__':
-  # df_b = parse_tableB_into_dataframe()
-  # print(df_b.head(50))
-  # dict_d = parse_tableD_into_dict()
-  # print(dict_d["3-40-026"])
-  # dict_codeFlag = parse_codeFlag_into_dict()
-  # print(dict_codeFlag["0-01-033"])
-  # print(dict_codeFlag["0-01-034"])
-  # dict_codeFlag = parse_codeFlag_into_dict("LOC_0_7_1")
-  # print(dict_codeFlag)
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUPC41_RJTD_010000_202406010016132_001.send")) # ウィンドプロファイラ
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC65_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC71_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC65_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC71_2018053109_bufr4_noheader.bin")) # 高分解能地上高層実況気象報
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send")) # CLIMAT
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCC01_RJTD_200000_202410200000311_001.send")) # CLIMAT
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send")) # 高分解能海上高層実況気象報
   bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/Z__C_RJTD_20241030000000_OBS_AMDS_Rjp_N1_bufr4.bin"), highest_priority_add_tbl=True)
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUCC10_RJTD_300000_202410300004300_001_68680.send")) # 東京編集の気象衛星資料解析気象報
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKL01_RJTD_300000_202410300123114_001.send")) # 東京編集の地上高層実況気象報
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC01_RJTD_300000_202410300123111_001.send")) # 東京編集の地上高層実況気象報Ａ部
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC02_RJTD_300000_202410300123112_001.send")) # 東京編集の地上高層実況気象報Ａ部
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC02_RJTD_300000_CCA_202410300157101_001.send")) # 東京編集の地上高層実況気象報Ａ部 訂正報
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC03_RJTD_300000_202410300123113_001.send")) # 東京編集の地上高層実況気象報Ａ部
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC04_RJTD_300000_202410300125110_001.send")) # 東京編集の地上高層実況気象報Ｂ部
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC04_RJTD_300000_CCA_202410300324110_001.send")) # 東京編集の地上高層実況気象報Ｂ部 訂正報
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISIC01_RJTD_300300_202410300319110_001.send")) # 東京編集の地上気象実況報（03,09,15,21UTC）(SYNOP)
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISMC01_RJTD_300600_202410300619110_001.send")) # 東京編集の地上気象実況報（00,06,12,18UTC）(SYNOP)
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUWG01_WIIX_300600_202410300617189_001.send")) # メルボルン編集の地上高層風実況気象報 (PILOT)
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKN01_BABJ_300000_202410300231070_001.send")) # 北京編集の地上高層風実況気象報Ａ部 (PILOT) erro 
-  # print()
-  # print("Data description:")
-  # for iv in bufr_class.get_data_description():
-  #   print(iv)
-  # print()
-  # print("Data descriptor infomation:")
-  # for iv in bufr_class.get_data_descriptors():
-  #   print(iv)
-  # print()
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKN01_BABJ_300000_202410300231070_001.send")) # 北京編集の地上高層風実況気象報Ａ部 (PILOT)
   print("Data description:")
   for iv in bufr_class.get_data_description():
+  # for iv in bufr_class.get_data_descriptors():
     print(iv)
   print()
   print("Extracted Data description:")
@@ -847,20 +1090,6 @@ if __name__=='__main__':
   # for idx, iv in enumerate(bufr_class.get_extracted_data_descriptors()):
     print(f"{idx} {iv}")
   print()
-  # print("Data descriptor infomation:")
-  # for iv in bufr_class.get_extracted_data_descriptors():
-  #   print(iv)
   
   data = bufr_class.read_data()
-  # print()
   # print(data)
-  # print(data[-1])
-  # print(len(data[8]))
-  # for i in range(len(data[0][8])):
-  #   print(data[0][8][i])
-  # for j in range(len(data[0][8][0][9])):
-  #   print(data[0][8][1][9][j])
-  # for i in data:
-  #   print(i)
-  # print(data[0][8][0][9])
-  # print(len(data[0][8]))

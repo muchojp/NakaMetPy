@@ -129,14 +129,14 @@ class NotSupportedMeshError(MyException3):
 class NotSupportedOlderVersionMSWarning(MyWarning):
     def __str__(self):
         return (
-            f"この関数は古いマスターテーブルバージョン番号：{self.kargs[0]}をサポートしていません。{OLDEST_MASTER_TABLE_VERSION}で読込ます。\n"+\
+            f"この関数は古いマスターテーブルバージョン番号：{self.kargs[0]}をサポートしていません。{OLDEST_MASTER_TABLE_VERSION}で読込みます。\n"+\
             f"It is not supported older Master Table Version {self.kargs[0]}. Trying on Version {OLDEST_MASTER_TABLE_VERSION}."
         )
 
 class NotSupportedNewerVersionMSWarning(MyWarning):
     def __str__(self):
         return (
-            f"この関数は新しいマスターテーブルバージョン番号：{self.kargs[0]}をサポートしていません。{LATEST_MASTER_TABLE_VERSION:02}で読込ます。\n"+\
+            f"この関数は新しいマスターテーブルバージョン番号：{self.kargs[0]}をサポートしていません。{LATEST_MASTER_TABLE_VERSION:02}で読込みます。\n"+\
             f"It is not supported newer Master Table Version {self.kargs[0]}. Trying on Version {LATEST_MASTER_TABLE_VERSION:02}."
         )
 
