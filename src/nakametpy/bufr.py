@@ -60,7 +60,7 @@ def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSIO
   pd.DataFrame
       master table B
   """
-  columns = ['F-XX-YYY', "SCALE", "REFERENCE_VALUE", "BIT_WIDTH", "UNIT", "MNEMONIC", "DESC_CODE", 'ELEMENT_NAME']
+  columns = ['F-XX-YYY', "SCALE", "REFERENCE_VALUE", "BIT_WIDTH", "UNIT", 'MNEMONIC', "DESC_CODE", 'ELEMENT_NAME']
   
   bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableB_{version:02}")
   valid_records = parse_bufrtab(bufrtab)
@@ -526,9 +526,9 @@ class bufr_sec_3:
         elif _fxxyyy.startswith("3-"):
           # print(_fxxyyy)
           if _fxxyyy in self.std_table_d.keys():
-            logging.debug(f"{self.std_table_d[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.std_table_d[_fxxyyy]["NAME"]} = {_fxxyyy}")
+            logging.debug(f"{self.std_table_d[_fxxyyy]['MNEMONIC']} {_i} ~ {_i+1}  16 {self.std_table_d[_fxxyyy]['NAME']} = {_fxxyyy}")
             data_desc_list.append([_fxxyyy, self.std_table_d[_fxxyyy]])
-            data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   {self.std_table_d[_fxxyyy]["NAME"]}")
+            data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   {self.std_table_d[_fxxyyy]['NAME']}")
           else:
             no_f3_info = True
         else:
@@ -546,9 +546,9 @@ class bufr_sec_3:
           data_desc_str_list.append(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy].to_string(header=None, index=None))
         elif _fxxyyy.startswith("3-"):
           if _fxxyyy in self.loc_table_d_1.keys():
-            logging.debug(f"{self.loc_table_d_1[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]["NAME"]} = {_fxxyyy}")
+            logging.debug(f"{self.loc_table_d_1[_fxxyyy]['MNEMONIC']} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]['NAME']} = {_fxxyyy}")
             data_desc_list.append([_fxxyyy, self.loc_table_d_1[_fxxyyy]])
-            data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   {self.loc_table_d_1[_fxxyyy]["NAME"]}")
+            data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   {self.loc_table_d_1[_fxxyyy]['NAME']}")
           else:
             no_f3_info = True
         else:
@@ -662,7 +662,7 @@ class bufr_sec_3:
               elif _fxxyyy.startswith("3-"):
                 # _f3_flag = True
                 if _fxxyyy in self.std_table_d.keys():
-                  logging.debug(f"{self.std_table_d[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.std_table_d[_fxxyyy]["NAME"]} = {_fxxyyy}")
+                  logging.debug(f"{self.std_table_d[_fxxyyy]['MNEMONIC']} {_i} ~ {_i+1}  16 {self.std_table_d[_fxxyyy]['NAME']} = {_fxxyyy}")
                   tmp_list.append([_fxxyyy, self.std_table_d[_fxxyyy], ilist[2], False])
                 else:
                   no_f3_info = True
@@ -679,7 +679,7 @@ class bufr_sec_3:
               elif _fxxyyy.startswith("3-"):
                 # _f3_flag = True
                 if _fxxyyy in self.loc_table_d_1.keys():
-                  logging.debug(f"{self.loc_table_d_1[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]["NAME"]} = {_fxxyyy}")
+                  logging.debug(f"{self.loc_table_d_1[_fxxyyy]['MNEMONIC']} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]['NAME']} = {_fxxyyy}")
                   tmp_list.append([_fxxyyy, self.loc_table_d_1[_fxxyyy], ilist[2], False])
                 else:
                   no_f3_info = True
