@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nakametpy.util module &mdash; NakaMetPy 2022.12.0 documentation</title>
+  <title>nakametpy.util module &mdash; nakametpy 2024.11.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -31,7 +31,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            NakaMetPy
+            nakametpy
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -45,6 +45,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="nakametpy.html">nakametpy package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="nakametpy.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.bufr.html">nakametpy.bufr module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.cmaps.html">nakametpy.cmaps module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.constants.html">nakametpy.constants module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.grads.html">nakametpy.grads module</a></li>
@@ -65,7 +66,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">NakaMetPy</a>
+          <a href="index.html">nakametpy</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -89,7 +90,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.anom_levels">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">anom_levels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">levs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#anom_levels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.anom_levels" title="Permalink to this definition"></a></dt>
-<dd><p>Return minus ans plus levels.</p>
+<dd><p>Return minus ans plus levels.&lt;br&gt;</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>levs</strong> (<cite>list`or`np.ndarray</cite>) – </p>
@@ -112,12 +113,12 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.check_tar_content">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">check_tar_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#check_tar_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.check_tar_content" title="Permalink to this definition"></a></dt>
-<dd><p>tar ファイルの中身のファイル名を表示する関数</p>
-<p>Print the content name of the tar file.</p>
+<dd><p>tar ファイルの中身のファイル名を表示する関数&lt;br&gt;
+Print the content name of the tar file.&lt;br&gt;</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>file</strong> (<cite>str</cite>) – file path
-ファイルのPATH</p>
+<dd class="field-odd"><p><strong>file</strong> (<cite>str</cite>) – file path&lt;br&gt;
+ファイルのPATH&lt;br&gt;</p>
 </dd>
 </dl>
 </dd></dl>
@@ -148,21 +149,22 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.dt_ymdhm">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">dt_ymdhm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#dt_ymdhm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.dt_ymdhm" title="Permalink to this definition"></a></dt>
-<dd><p>datetime.datetime から year, month, day, hour, minute の set を返す関数。
-opt = 1 : string, 0 : int</p>
-<p>Return the set of year, month, day, hour, minute from datetime.datetime.</p>
+<dd><p>datetime.datetime から year, month, day, hour, minute の set を返す関数。&lt;br&gt;
+opt = 1 : <a href="#id1"><span class="problematic" id="id2">`</span></a>string`&lt;br&gt;
+opt = 0 : <a href="#id3"><span class="problematic" id="id4">`</span></a>int`&lt;br&gt;</p>
+<p>Return the set of year, month, day, hour, minute from <cite>datetime.datetime</cite>.&lt;br&gt;</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>date</strong> (<cite>datetime.datetime</cite>) – datetime</p></li>
-<li><p><strong>opt</strong> (<cite>int</cite>) – return string or not</p></li>
+<li><p><strong>date</strong> (<cite>datetime.datetime</cite>) – datetime&lt;br&gt;</p></li>
+<li><p><strong>opt</strong> (<cite>int</cite>) – return string or not&lt;br&gt;</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>(year, month, day, hour, minute)</p>
+<dd class="field-even"><p><strong>`set`</strong></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><cite>set</cite></p>
+<dd class="field-odd"><p>(year, month, day, hour, minute)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -170,37 +172,43 @@ opt = 1 : string, 0 : int</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.dt_yyyymmdd">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">dt_yyyymmdd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yyyymmdd'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#dt_yyyymmdd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.dt_yyyymmdd" title="Permalink to this definition"></a></dt>
-<dd><p>datetime.datetime を yyyymmdd 形式の文字列で返す関数。</p>
-<p>Return yyyymmdd format string from datetime.</p>
+<dd><p>datetime.datetime を yyyymmdd 形式の文字列で返す関数。&lt;br&gt;
+Return yyyymmdd format string from datetime.&lt;br&gt;</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>date</strong> (<cite>datetime.datetime</cite>) – datetime</p></li>
-<li><p><strong>fmt</strong> (<cite>str</cite>) – yyyymmdd format. Default is yyyymmdd</p></li>
+<li><p><strong>date</strong> (<cite>datetime.datetime</cite>) – datetime&lt;br&gt;</p></li>
+<li><p><strong>fmt</strong> (<cite>str</cite>) – yyyymmdd format. Default is yyyymmdd&lt;br&gt;</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>string in fmt.</p>
+<dd class="field-even"><p><strong>`str`</strong></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><cite>str</cite></p>
+<dd class="field-odd"><p>string in fmt.</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt_yyyymmdd</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="s2">&quot;hoge-yyyymmdd_HHMMSS.png&quot;</span><span class="p">)</span>
+<span class="go">&quot;hoge-20241018_191121.png&quot;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.get_grib2_latlon">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_grib2_latlon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_contentname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_grib2_latlon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_grib2_latlon" title="Permalink to this definition"></a></dt>
-<dd><p>気象庁解析雨量やレーダー雨量の緯度経度を返す関数</p>
-<p>欠損値は負の値として表現される。
-ファイルはgrib2, tar, gz(gzip)を受け付ける</p>
+<dd><p>気象庁解析雨量やレーダー雨量の緯度経度を返す関数&lt;br&gt;
+欠損値は負の値として表現される。&lt;br&gt;
+ファイルはgrib2, tar, gz(gzip)を受け付ける&lt;br&gt;</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<cite>str</cite>) – file path
-ファイルのPATH</p></li>
-<li><p><strong>tar_flag</strong> (<cite>bool</cite>) – file type are GRIB2, tar and gz(gzip).</p></li>
-<li><p><strong>tar_contentname</strong> (<cite>str</cite>) – content name in tar file.</p></li>
+<li><p><strong>file</strong> (<cite>str</cite>) – file path&lt;br&gt;
+ファイルのPATH&lt;br&gt;</p></li>
+<li><p><strong>tar_flag</strong> (<cite>bool</cite>) – file type are GRIB2, tar and gz(gzip).&lt;br&gt;</p></li>
+<li><p><strong>tar_contentname</strong> (<cite>str</cite>) – content name in tar file.&lt;br&gt;</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -242,28 +250,34 @@ opt = 1 : string, 0 : int</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.get_jmara_lat">
-<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_jmara_lat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_jmara_lat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_jmara_lat" title="Permalink to this definition"></a></dt>
-<dd><p>解析雨量の緯度を返す関数</p>
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_jmara_lat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_jmara_lat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_jmara_lat" title="Permalink to this definition"></a></dt>
+<dd><p>解析雨量の緯度を返す関数&lt;br&gt;</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lat</strong></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mesh</strong> (<cite>int</cite>) – resolution in meter.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><cite>numpy.ndarray</cite></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>lat</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.get_jmara_lon">
-<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_jmara_lon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_jmara_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_jmara_lon" title="Permalink to this definition"></a></dt>
-<dd><p>解析雨量の経度を返す関数</p>
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_jmara_lon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_jmara_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_jmara_lon" title="Permalink to this definition"></a></dt>
+<dd><p>解析雨量の経度を返す関数&lt;br&gt;</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lon</strong></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mesh</strong> (<cite>int</cite>) – resolution in meter.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><cite>numpy.ndarray</cite></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>lon</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
 </dd></dl>
@@ -285,7 +299,7 @@ opt = 1 : string, 0 : int</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.get_jmarlev_lon">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_jmarlev_lon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_jmarlev_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_jmarlev_lon" title="Permalink to this definition"></a></dt>
-<dd><p>レーダーエコー頂高度の経度を返す関数</p>
+<dd><p>レーダーエコー頂高度の経度を返す関数&lt;br&gt;</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>lon</strong></p>
@@ -297,18 +311,53 @@ opt = 1 : string, 0 : int</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="nakametpy.util.load_jmara_grib2">
-<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">load_jmara_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_contentname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#load_jmara_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.load_jmara_grib2" title="Permalink to this definition"></a></dt>
-<dd><p>気象庁解析雨量やレーダー雨量を返す関数</p>
-<p>欠損値は負の値として表現される。
-ファイルはgrib2, tar, gz(gzip)を受け付ける</p>
+<dt class="sig sig-object py" id="nakametpy.util.load_jmara250m_grib2">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">load_jmara250m_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only250</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#load_jmara250m_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.load_jmara250m_grib2" title="Permalink to this definition"></a></dt>
+<dd><p>5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数&lt;br&gt;
+欠損値は負の値として表現される。&lt;br&gt;
+ファイルはbin, bin.gzを受け付ける&lt;br&gt;</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<cite>str</cite>) – file path
-ファイルのPATH</p></li>
+<li><p><strong>file</strong> (<cite>str</cite>) – file path&lt;br&gt;
+ファイルのPATH&lt;br&gt;</p></li>
+<li><p><strong>only250</strong> (<cite>bool</cite>) – ignore 1000m mesh or not&lt;br&gt;
+1000mメッシュ領域を無視するかどうかのフラグ&lt;br&gt;</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>rain</strong> – Units(単位) [mm/h]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>numpy.ma.MaskedArray</cite></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">radar_0250</span><span class="p">,</span> <span class="n">radar_1000</span> <span class="o">=</span> <span class="n">load_jmara250m_grib2</span><span class="p">(</span><span class="n">path_to_file</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lon_0250</span> <span class="o">=</span> <span class="n">get_jmara_lon</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>  <span class="c1"># get 250m mesh longitude array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat_0250</span> <span class="o">=</span> <span class="n">get_jmara_lat</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>  <span class="c1"># get 250m mesh latitude array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lon_1000</span> <span class="o">=</span> <span class="n">get_jmara_lon</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="c1"># get 1000m mesh longitude array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat_1000</span> <span class="o">=</span> <span class="n">get_jmara_lat</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="c1"># get 1000m mesh latitude array</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_1000</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lon_1000</span><span class="p">,</span> <span class="n">lat_1000</span><span class="p">,</span> <span class="n">radar_1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_0250</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lon_0250</span><span class="p">,</span> <span class="n">lat_0250</span><span class="p">,</span> <span class="n">radar_0250</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.util.load_jmara_grib2">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">load_jmara_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_contentname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#load_jmara_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.load_jmara_grib2" title="Permalink to this definition"></a></dt>
+<dd><p>気象庁解析雨量やレーダー雨量を返す関数&lt;br&gt;
+欠損値は負の値として表現される。&lt;br&gt;
+ファイルはbin, tar, gz(gzip)を受け付ける&lt;br&gt;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<cite>str</cite>) – file path&lt;br&gt;
+ファイルのPATH&lt;br&gt;</p></li>
 <li><p><strong>tar_flag</strong> (<cite>bool</cite>) – file type are GRIB2, tar and gz(gzip).</p></li>
-<li><p><strong>tar_contentname</strong> (<cite>str</cite>) – content name in tar file.</p></li>
+<li><p><strong>tar_contentname</strong> (<a href="#id5"><span class="problematic" id="id6">`</span></a>str`&lt;br&gt;) – content name in tar file.&lt;br&gt;</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -320,8 +369,8 @@ opt = 1 : string, 0 : int</p>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code> , <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する
-<cite>np.ndarray</cite> 型の緯度経度である。</p>
+<p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code> , <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する&lt;br&gt;
+<cite>np.ndarray</cite> 型の緯度経度である。&lt;br&gt;</p>
 </div>
 </dd></dl>
 
@@ -346,16 +395,16 @@ opt = 1 : string, 0 : int</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.unit_knots_ms1">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">unit_knots_ms1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#unit_knots_ms1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.unit_knots_ms1" title="Permalink to this definition"></a></dt>
-<dd><p>Convert unit knots into m/s.</p>
+<dd><p>Convert unit knots into m/s.&lt;br&gt;</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kt</strong> (<cite>int</cite>) – Velocity in knots.</p>
+<dd class="field-odd"><p><strong>kt</strong> (<cite>int</cite>) – Velocity in knots.&lt;br&gt;</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Velocity in meter per second.</p>
+<dd class="field-even"><p><strong>`ms`</strong></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><cite>ms</cite></p>
+<dd class="field-odd"><p>Velocity in meter per second.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -363,16 +412,16 @@ opt = 1 : string, 0 : int</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.unit_ms1_knots">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">unit_ms1_knots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#unit_ms1_knots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.unit_ms1_knots" title="Permalink to this definition"></a></dt>
-<dd><p>Convert unit m/s into knots.</p>
+<dd><p>Convert unit m/s into knots.&lt;br&gt;</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ms</strong> (<cite>int</cite>) – Velocity in meter per second.</p>
+<dd class="field-odd"><p><strong>ms</strong> (<cite>int</cite>) – Velocity in meter per second.&lt;br&gt;</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Velocity in knots.</p>
+<dd class="field-even"><p><strong>`kt`</strong></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><cite>kt</cite></p>
+<dd class="field-odd"><p>Velocity in knots.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -389,7 +438,7 @@ opt = 1 : string, 0 : int</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, muchojp.</p>
+    <p>&#169; Copyright 2024, muchojp.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

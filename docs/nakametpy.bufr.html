@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nakametpy.bufr module &mdash; nakametpy 2024.11.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nakametpy.cmaps module" href="nakametpy.cmaps.html" />
+    <link rel="prev" title="nakametpy package" href="nakametpy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            nakametpy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nakametpy.html">nakametpy package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="nakametpy.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">nakametpy.bufr module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.cmaps.html">nakametpy.cmaps module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.constants.html">nakametpy.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.grads.html">nakametpy.grads module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.jma.html">nakametpy.jma module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.kinematics.html">nakametpy.kinematics module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.thermo.html">nakametpy.thermo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.util.html">nakametpy.util module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nakametpy.html#module-nakametpy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">nakametpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="nakametpy.html">nakametpy package</a></li>
+      <li class="breadcrumb-item active">nakametpy.bufr module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/nakametpy.bufr.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-nakametpy.bufr">
+<span id="nakametpy-bufr-module"></span><h1>nakametpy.bufr module<a class="headerlink" href="#module-nakametpy.bufr" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">bufr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highest_priority_add_tbl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr.get_data_description">
+<span class="sig-name descname"><span class="pre">get_data_description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr.get_data_description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr.get_data_description" title="Permalink to this definition"></a></dt>
+<dd><p>get data description in section 3</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data description&lt;br&gt;
+str</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr.get_data_descriptors">
+<span class="sig-name descname"><span class="pre">get_data_descriptors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr.get_data_descriptors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr.get_data_descriptors" title="Permalink to this definition"></a></dt>
+<dd><p>get data descriptor in section 3</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data descriptor&lt;br&gt;
+f-xx-yyy, data descriptor&lt;br&gt;
+str, pd.DataFrame or str</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr.get_extracted_data_description">
+<span class="sig-name descname"><span class="pre">get_extracted_data_description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr.get_extracted_data_description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr.get_extracted_data_description" title="Permalink to this definition"></a></dt>
+<dd><p>get data description extracted F=3 descriptor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data description&lt;br&gt;
+str</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr.get_extracted_data_descriptors">
+<span class="sig-name descname"><span class="pre">get_extracted_data_descriptors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr.get_extracted_data_descriptors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr.get_extracted_data_descriptors" title="Permalink to this definition"></a></dt>
+<dd><p>get data descriptor extracted F=3 descriptor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data descriptor&lt;br&gt;
+f-xx-yyy, data descriptor, nest&lt;br&gt;
+str, pd.DataFrame or str, int</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr.read_data">
+<span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr.read_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr.read_data" title="Permalink to this definition"></a></dt>
+<dd><p>get BUFR data in data section (section 4)&lt;br&gt;
+データ節 (セクション4) のデータを読み込む&lt;br&gt;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr_sec_0">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">bufr_sec_0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr_sec_0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr_sec_0" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr_sec_1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">bufr_sec_1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr_sec_1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr_sec_1" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr_sec_3">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">bufr_sec_3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mst_tbl_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highest_priority_add_tbl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr_sec_3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr_sec_3" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr_sec_4">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">bufr_sec_4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr_sec_4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr_sec_4" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr_sec_4.read_data">
+<span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">descriptors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsubset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr_sec_4.read_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr_sec_4.read_data" title="Permalink to this definition"></a></dt>
+<dd><p>read bufr data&lt;br&gt;
+BUFRのデータを読み込む</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>descriptors</strong> (<em>list</em>) – data descriptor&lt;br&gt;
+資料記述子</p></li>
+<li><p><strong>sec_len</strong> (<em>dict</em>) – length of sections&lt;br&gt;
+セクションの長さ</p></li>
+<li><p><strong>nsubset</strong> (<em>list</em>) – number of data subset&lt;br&gt;
+データサブセットの数</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr_sec_5">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">bufr_sec_5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr_sec_5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr_sec_5" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nakametpy.bufr.bufr_sec_head">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">bufr_sec_head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr_sec_head"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr_sec_head" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nakametpy.bufr.data_constructor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">data_constructor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">descriptors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsubset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/bufr.html#data_constructor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.data_constructor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nakametpy.bufr.data_constructor.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/bufr.html#data_constructor.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.data_constructor.get_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.bufr.parse_bufrtab">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">parse_bufrtab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#parse_bufrtab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.parse_bufrtab" title="Permalink to this definition"></a></dt>
+<dd><p>Common method for parsing bufrtab file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – path to bufrtab file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>striped readlines</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.bufr.parse_codeFlag_into_dict">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">parse_codeFlag_into_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'STD_0_42'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#parse_codeFlag_into_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.parse_codeFlag_into_dict" title="Permalink to this definition"></a></dt>
+<dd><p>read master table CODE/FLAG and get dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of master table CODE/FLAG, by default f”STD_0_{LATEST_MASTER_TABLE_VERSION:02}”&lt;br&gt;
+Format is “<a href="#id1"><span class="problematic" id="id2">STD_0_</span></a>??” / “LOC_0_7_1” / “ADD_1_0”&lt;br&gt;</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>master table CODE/FLAG</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.bufr.parse_tableB_into_dataframe">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">parse_tableB_into_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'STD_0_42'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#parse_tableB_into_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.parse_tableB_into_dataframe" title="Permalink to this definition"></a></dt>
+<dd><p>read master table B and get pandas DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of master table B, by default f”STD_0_{LATEST_MASTER_TABLE_VERSION:02}”&lt;br&gt;
+Format is “<a href="#id3"><span class="problematic" id="id4">STD_0_</span></a>??” / “LOC_0_7_1” / “ADD_1_0”&lt;br&gt;</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>master table B</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nakametpy.bufr.parse_tableD_into_dict">
+<span class="sig-prename descclassname"><span class="pre">nakametpy.bufr.</span></span><span class="sig-name descname"><span class="pre">parse_tableD_into_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'STD_0_42'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#parse_tableD_into_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.parse_tableD_into_dict" title="Permalink to this definition"></a></dt>
+<dd><p>read master table D and get dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of master table D, by default f”STD_0_{LATEST_MASTER_TABLE_VERSION:02}”&lt;br&gt;
+Format is “<a href="#id5"><span class="problematic" id="id6">STD_0_</span></a>??” / “LOC_0_7_1” / “ADD_1_0”&lt;br&gt;</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>master table D</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nakametpy.html" class="btn btn-neutral float-left" title="nakametpy package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nakametpy.cmaps.html" class="btn btn-neutral float-right" title="nakametpy.cmaps module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, muchojp.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
