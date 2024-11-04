@@ -53,14 +53,14 @@ def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSIO
   ----------
   version : str, optional
       Version of master table B, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"<br>
-      Format is "STD_0_\d{2}" / "LOC_0_7_1" / "ADD_1_0"<br>
+      Format is "STD_0_??" / "LOC_0_7_1" / "ADD_1_0"<br>
 
   Returns
   -------
   pd.DataFrame
       master table B
   """
-  columns = ["F-XX-YYY", "SCALE", "REFERENCE_VALUE", "BIT_WIDTH", "UNIT", "MNEMONIC", "DESC_CODE", "ELEMENT_NAME"]
+  columns = ['F-XX-YYY', "SCALE", "REFERENCE_VALUE", "BIT_WIDTH", "UNIT", "MNEMONIC", "DESC_CODE", 'ELEMENT_NAME']
   
   bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableB_{version:02}")
   valid_records = parse_bufrtab(bufrtab)
@@ -68,7 +68,7 @@ def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSIO
   df = pd.DataFrame([re.split("[|;]", irecord.strip()) for irecord in valid_records])
   # 不要な文字を削除を削除
   df = df.apply(lambda x: x.str.strip())
-  # ELEMENT_NAMEに;が含まれるカラムNoneのみの列を削除
+  #'ELEMENT_NAME';が含まれるカラムNoneのみの列を削除
   if (len(columns) + 1) == len(df.columns.values):
     # 最後の列のインデックスを取得
     last_col = df.columns[-1]
@@ -85,7 +85,7 @@ def parse_tableD_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}
   ----------
   version : str, optional
       Version of master table D, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"<br>
-      Format is "STD_0_\d{2}" / "LOC_0_7_1" / "ADD_1_0"<br>
+      Format is "STD_0_??" / "LOC_0_7_1" / "ADD_1_0"<br>
 
   Returns
   -------
@@ -122,7 +122,7 @@ def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:0
   ----------
   version : str, optional
       Version of master table CODE/FLAG, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"<br>
-      Format is "STD_0_\d{2}" / "LOC_0_7_1" / "ADD_1_0"<br>
+      Format is "STD_0_??" / "LOC_0_7_1" / "ADD_1_0"<br>
 
   Returns
   -------
@@ -495,16 +495,16 @@ class bufr_sec_3:
       # 標準のBテーブルでマッチした場合
       _fxxyyy = _int_into_fxxyyy(int.from_bytes(self.sec3_binary[_i-1:_i+1], "big"))
       if highest_priority_add_tbl:
-        if len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-          data_desc_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].values[0]])
-          data_desc_str_list.append(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        if len(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+          data_desc_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy].values[0]])
+          data_desc_str_list.append(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy].to_string(header=None, index=None))
           continue
       if std_flag:
-        if len(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-          data_desc_list.append([_fxxyyy, self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy].values[0]])
-          data_desc_str_list.append(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        if len(self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+          data_desc_list.append([_fxxyyy, self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy].values[0]])
+          data_desc_str_list.append(self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy].to_string(header=None, index=None))
         elif (_fxxyyy[:1] == "1"):
           if (_fxxyyy[-3:] == "000"):
             logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
@@ -532,18 +532,18 @@ class bufr_sec_3:
           else:
             no_f3_info = True
         else:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values} = {_fxxyyy}")
           data_desc_list.append([_fxxyyy, f"NO INFOMATION VARIABLE"])
           data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE")
       else:
-        if len(self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-          data_desc_list.append([_fxxyyy, self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy].values[0]])
-          data_desc_str_list.append(self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
-        elif len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-          data_desc_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].values[0]])
-          data_desc_str_list.append(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        if len(self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+          data_desc_list.append([_fxxyyy, self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy].values[0]])
+          data_desc_str_list.append(self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy].to_string(header=None, index=None))
+        elif len(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+          data_desc_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy].values[0]])
+          data_desc_str_list.append(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy].to_string(header=None, index=None))
         elif _fxxyyy.startswith("3-"):
           if _fxxyyy in self.loc_table_d_1.keys():
             logging.debug(f"{self.loc_table_d_1[_fxxyyy]["MNEMONIC"]} {_i} ~ {_i+1}  16 {self.loc_table_d_1[_fxxyyy]["NAME"]} = {_fxxyyy}")
@@ -552,7 +552,7 @@ class bufr_sec_3:
           else:
             no_f3_info = True
         else:
-          logging.info(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+          logging.info(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values} = {_fxxyyy}")
           data_desc_list.append([_fxxyyy, f"NO INFOMATION VARIABLE"])
           data_desc_str_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE",)
         std_flag = True
@@ -634,14 +634,14 @@ class bufr_sec_3:
             logging.debug(jlist)
             _fxxyyy = jlist["FXXYYY"]
             if highest_priority_add_tbl:
-              if len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-                tmp_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].values[0], ilist[2], False])
+              if len(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy].values[0], ilist[2], False])
                 continue
             if std_flag:
-              if len(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-                tmp_list.append([_fxxyyy, self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy].values[0], ilist[2], False])
+              if len(self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy].values[0], ilist[2], False])
               # elif (_fxxyyy[:1] == "1") & (_fxxyyy[-3:] == "000"):
               #   logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
               #   tmp_list.append([_fxxyyy, f"Delayed replication of {int(_fxxyyy[2:4])} descriptor", ilist[2], False])
@@ -667,15 +667,15 @@ class bufr_sec_3:
                 else:
                   no_f3_info = True
               else:
-                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values} = {_fxxyyy}")
                 tmp_list.append([_fxxyyy, f"NO INFOMATION VARIABLE", ilist[2], False])
             else:
-              if len(self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-                tmp_list.append([_fxxyyy, self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy].values[0], ilist[2], False])
-              elif len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-                tmp_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].values[0], ilist[2], False])
+              if len(self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy].values[0], ilist[2], False])
+              elif len(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy].values[0], ilist[2], False])
               elif _fxxyyy.startswith("3-"):
                 # _f3_flag = True
                 if _fxxyyy in self.loc_table_d_1.keys():
@@ -684,7 +684,7 @@ class bufr_sec_3:
                 else:
                   no_f3_info = True
               else:
-                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values} = {_fxxyyy}")
                 tmp_list.append([_fxxyyy, f"NO INFOMATION VARIABLE", ilist[2], False])
               std_flag = True
             if no_f3_info == True:
@@ -715,14 +715,14 @@ class bufr_sec_3:
     for ilist in self.sec3_data_desc_extract_list:
       _fxxyyy = ilist[0]
       if highest_priority_add_tbl:
-        if len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-          data_desc_str_extract_list.append(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        if len(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+          data_desc_str_extract_list.append(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy].to_string(header=None, index=None))
           continue
       if std_flag:
-        if len(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-          data_desc_str_extract_list.append(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        if len(self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+          data_desc_str_extract_list.append(self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy].to_string(header=None, index=None))
         elif (_fxxyyy[:1] == "1"):
           if (_fxxyyy[-3:] == "000"):
             logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Delayed replication of {int(_fxxyyy[2:4])} descriptor = {_fxxyyy}")
@@ -738,17 +738,17 @@ class bufr_sec_3:
           logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 Operate descriptor = {_fxxyyy}")
           data_desc_str_extract_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   Operate descriptor")
         else:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values} = {_fxxyyy}")
           data_desc_str_extract_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE")
       else:
-        if len(self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-          data_desc_str_extract_list.append(self.loc_df_b_1[self.loc_df_b_1["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
-        elif len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
-          data_desc_str_extract_list.append(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+        if len(self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+          data_desc_str_extract_list.append(self.loc_df_b_1[self.loc_df_b_1['F-XX-YYY'] == _fxxyyy].to_string(header=None, index=None))
+        elif len(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values[0]} = {_fxxyyy}")
+          data_desc_str_extract_list.append(self.loc_df_b_2[self.loc_df_b_2['F-XX-YYY'] == _fxxyyy].to_string(header=None, index=None))
         else:
-          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values} = {_fxxyyy}")
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b['F-XX-YYY'] == _fxxyyy]['ELEMENT_NAME'].values} = {_fxxyyy}")
           data_desc_list.append([_fxxyyy, f"NO INFOMATION VARIABLE"])
           data_desc_str_extract_list.append(f" {_fxxyyy}  0  0  0  NONE  NONE   NO INFOMATION VARIABLE",)
         std_flag = True
