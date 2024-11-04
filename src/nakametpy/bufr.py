@@ -46,7 +46,7 @@ def parse_bufrtab(file_path: str) -> list:
   valid_records = list(filter(lambda x: x != "", _records))
   return valid_records
 
-def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> pd.DataFrame:
+def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION}") -> pd.DataFrame:
   """read master table B and get pandas DataFrame
 
   Parameters
@@ -92,7 +92,7 @@ def parse_tableD_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}
   dict
       master table D
   """
-  bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableD_{version:02}")
+  bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableD_{version}")
   valid_records = parse_bufrtab(bufrtab)
   data = dict()
   fxxyyy = r"^\d-\d{2}-\d{3}" # F-XX-YYY
@@ -129,7 +129,7 @@ def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:0
   dict
       master table CODE/FLAG
   """
-  bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.CodeFlag_{version:02}")
+  bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.CodeFlag_{version}")
   valid_records = parse_bufrtab(bufrtab)
   data = dict()
   fxxyyy = r"^\d-\d{2}-\d{3}" # F-XX-YYY
