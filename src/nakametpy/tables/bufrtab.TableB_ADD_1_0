@@ -1,0 +1,21 @@
+# Copyright (c) 2024, NakaMetPy Develoers.
+# Distributed under the terms of the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+# 
+# 新規で追加したローカルテーブル
+# フォーマットは他のBufr Table Bと同じ
+#========================================
+
+# wind profiler
+  0-25-192 |   0 |           0 |   8 | Flag table        | QLINFO    ;    ; Quality information of wind profiler
+# amedas
+  0-01-197 |   0 |           0 |   3 | Code table        | DTYPE    ;    ; Data Create Type
+  0-01-200 |   0 |           0 |   7 | Numeric           | FUKENN ;    ; Fuken Number
+  0-01-201 |   0 |           0 |  10 | Numeric           | CHITENN ;    ; Chiten Number
+  0-01-202 |   0 |           0 |   5 | Code table        | AGCYN    ;    ; Agency Number
+  0-11-202 |   0 |           0 |   9 | Degree true       | WINDDIR    ;    ; Maximum wind speed direction (10 minutes average)
+  0-20-212 |   0 |           0 |   5 | Code table        | WTHRCLS    ;    ; Weather classification by automatic observation
+  0-25-219 |   0 |           0 |   3 | Code table        | AQCFLG    ;    ; AQC flag of observation value
+  0-26-193 |   0 |           0 |   5 | Numeric           | HOUR    ;    ; Hour
+  0-26-194 |   0 |           0 |   6 | Numeric           | MINUTE    ;    ; Minute
+END
