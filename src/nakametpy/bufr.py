@@ -583,7 +583,7 @@ class bufr_sec_3:
       _nlen = len(target_list)
       for idx, idescriptor in enumerate(target_list[::-1]):
         if type(idescriptor[1]) == str:
-          logging.debug(f"{idescriptor} {idescriptor[1].startswith("Replicate")}", stack_info=False)
+          logging.debug(f"{idescriptor} {idescriptor[1].startswith('Replicate')}", stack_info=False)
           if idescriptor[1].startswith("Delayed replication of"):
             if idescriptor[3] == False:
               logging.debug(idescriptor[1])
