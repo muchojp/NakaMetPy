@@ -7,6 +7,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   nakametpy.bufr
    nakametpy.cmaps
    nakametpy.constants
    nakametpy.grads

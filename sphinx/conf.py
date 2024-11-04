@@ -17,12 +17,12 @@ sys.path.insert(0, os.path.abspath('../src/nakametpy'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'NakaMetPy'
-copyright = '2022, muchojp'
+project = 'nakametpy'
+copyright = '2024, muchojp'
 author = 'muchojp'
 
 # The full version, including alpha/beta/rc tags
-release = '2022.12.0'
+release = '2024.11.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -35,7 +35,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
     'sphinx.ext.napoleon',
-    'sphinx.ext.githubpages'
+    'sphinx.ext.githubpages',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -67,5 +67,10 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+
+# -- Extension configuration -------------------------------------------------
+
+# -- Options for todo extension ----------------------------------------------
+
+# If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
-# html_show_sourcelink = False # View page source を表示させない
