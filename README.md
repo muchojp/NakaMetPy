@@ -11,25 +11,45 @@
 [github-actions-image]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml/badge.svg
 [github-actions-link]: https://github.com/muchojp/NakaMetPy/actions/workflows/ci.yml
 
-## 概要
-このモジュールはMetPyの関数をNumPyで動作するように書き換えた関数のほか、
-観測データを扱う上で便利な関数が含まれています。
-気象データをNumPyでベクトル(配列)として扱うことを想定しています。
+## Documentation
+ドキュメンテーションは[こちら](https://muchojp.github.io/NakaMetPy/ "Docs")のページにあります。Documentation is [HERE](https://muchojp.github.io/NakaMetPy/).
 
-そのため変数単位はMetPyとは異なり自分で気をつけて関数に与えなければなりません。
-また、関数の鉛直層数および時間のサイズは適当に与えています。利用される際にデータに合わせて引数を関数に渡してください。
-さらに、WRFの計算結果を入力する場合は`wrfon`のオプションを1にする必要があります。
+## 概要
+**POINT1**：気象庁のレーダーエコー強度・エコー頂高度・解析雨量を読む関数があります(`util`)。
+- 2.5kmメッシュエコー強度/5kmエコー頂高度
+- 1kmメッシュエコー強度/2.5kmエコー頂高度
+- 1kmエコー頂高度
+- 250mメッシュエコー強度
+
+また簡単な単位変換や配列の結合、文字列<>日付の変換を行う関数などがあります(`util`)。
+
+**POINT2**：BUFRファイルを読む関数があります(`bufr`)。
+
+**POINT3**：GrADSや気象庁が利用しているカラーマップがあります(`cmap`)。
+
+**POINT4**：GrADSバイナリを読む関数があります(`grads`)。
+
+**POINT5**：MetPyの関数がNumPyで動作するように書き換えた関数があります
+
+まだMetPyのバージョンが0.xだったときに作成したものです。
+気象データをNumPyでベクトル(配列)として扱うことを想定しています。
+そのためMetPyとは異なり単位に気をつけてる必要があります。
+また関数の鉛直層数および時間のサイズは適当に与えています。利用時にデータに合わせて引数で指定する必要があります。
+さらにWRFの計算結果を入力する場合は`wrfon`のオプションを1にする必要があります。
 なお`wrfon`オプションは使い勝手が悪いため、今後廃止を検討中です。
 
 皆さまのContributionもお待ちしています。
 
 ## Abstract
-`nakametpy` is a rewrited package of `MetPy` based on `NumPy`.
-I appreciate your contribution.
+NakaMetPy provide function
+- to read JMA (Japan Meteorological Agency) Radar Echo Intensity/ Echo Top-height/ Radar/Raingauge-analyzed precipitation data (`util`)
+- to convert unit, concat array and convert string into datetime, ... etc (`util`)
+- to read BUFR data (`bufr`)
+- Colormap of **GrADS** and **JMA** (`cmap`)
+- to read GrADS binary (`grads`)
+- rewrited function of `MetPy` using `NumPy`(`kinematics` and `thermo`)
 
-## Documentation
-ドキュメンテーションは[こちら](https://muchojp.github.io/NakaMetPy/ "Docs")のページにあります。
-Documentation is [HERE](https://muchojp.github.io/NakaMetPy/).
+I appreciate your contribution.
 
 ## How to Install
 ### via Anaconda
@@ -51,11 +71,11 @@ pip3 install nakametpy
 ```
 Nakamura, Y. (2024). NakaMety (Version xxxx.x.x) [Software]. Chiba, Japan. https://github.com/muchojp/NakaMetPy
 ```
-Note: The version number xxxx.x.x should be set to the version of NakaMetPy that you are using.
+**Note**: The version number xxxx.x.x should be set to the version of NakaMetPy that you are using.
 
 ## Update plans
 Next(`2024.x.0` or later):
- - テストケースの追加
+ - No planned
 
 To Do: 
  - `wrfon`オプションの廃止
