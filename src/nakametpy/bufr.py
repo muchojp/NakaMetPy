@@ -8,7 +8,8 @@ from nakametpy.constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE
                                 convert_decimal_to_IA5character
 from nakametpy.tables import bufrtab_TableA
 from nakametpy._error import NotSupportedNewerVersionMSWarning, NotSupportedOlderVersionMSWarning,\
-                    NotSupportedBufrError, UnexpectedBufrError
+                    NotSupportedBufrError, UnexpectedBufrError,\
+                    MayNotBeAbleToReadBufrWarning
 import os
 import re
 import logging
@@ -131,8 +132,9 @@ def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:0
   return data
 
 class bufr:
-  def __init__(self, file_path) -> None:
+  def __init__(self, file_path, highest_priority_add_tbl=False) -> None:
     self.file_path = file_path
+    self.highest_priority_add_tbl = highest_priority_add_tbl
     
     with open(self.file_path, 'rb') as f:
       self.binary = f.read()
@@ -146,7 +148,7 @@ class bufr:
       self.sec_len['sec2'] = 0
     else:
       raise NotSupportedBufrError(file_path, f"第2節の長さが0ではない")
-    self.sec_3 = bufr_sec_3(self.binary, self.sec_len, self.sec_1.sec1_use_master_table_version)
+    self.sec_3 = bufr_sec_3(self.binary, self.sec_len, self.sec_1.sec1_use_master_table_version, self.highest_priority_add_tbl)
     logging.info(f"サブセット数：{self.sec_3.sec3_05_06_num_of_data_subset}")
     logging.info(self.sec_3.sec3_07_data_format)
     self.sec_4 = bufr_sec_4(self.binary, self.sec_len)
@@ -210,8 +212,8 @@ class bufr_sec_0:
     self.sec0_01_04_bufr_str = self.sec0_binary[:4].decode()
     self.sec0_05_07_bufr_len = int.from_bytes(self.sec0_binary[4:7], "big")
     self.sec0_08_bufr_version = int.from_bytes(self.sec0_binary[7:], "big")
-    logging.debug(f"{self.sec0_desc_jp} 1~4 32 国際アルファベットNo5による記述でBUFR = {self.sec0_01_04_bufr_str}")
-    logging.debug(f"{self.sec0_desc_jp} 5~7 24 BUFR報全体の長さ = {self.sec0_05_07_bufr_len}")
+    logging.info(f"{self.sec0_desc_jp} 1~4 32 国際アルファベットNo5による記述でBUFR = {self.sec0_01_04_bufr_str}")
+    logging.info(f"{self.sec0_desc_jp} 5~7 24 BUFR報全体の長さ = {self.sec0_05_07_bufr_len}")
     logging.info(f"{self.sec0_desc_jp} 8   8  BUFR報の版番号 = {self.sec0_08_bufr_version}")
 
 class bufr_sec_1:
@@ -224,8 +226,9 @@ class bufr_sec_1:
     self.sec1_start = sec_len['sec_head'] + sec_len['sec0']
     sec_len['sec1'] = int.from_bytes(binary[self.sec1_start:self.sec1_start+3], "big")
     self.sec1_binary = binary[self.sec1_start:self.sec1_start+sec_len['sec1']]
+    print(sec_len['sec1'], self.sec1_binary)
     if sec_len['sec1'] != 22:
-      raise UnexpectedBufrError(f"第1節の長さが22でない")
+      warnings.warn(MayNotBeAbleToReadBufrWarning(f"第1節の長さが22ではなく、{sec_len['sec1']}"))
     self.sec1_04_master_table_version = int.from_bytes(self.sec1_binary[3:3+1], "big")
     self.sec1_05_06_create_station_code = int.from_bytes(self.sec1_binary[4:4+2], "big")
     self.sec1_05_06_create_station_name = self.latest_table_c["0-01-035"]["VALBITS"][f"{self.sec1_05_06_create_station_code}"]
@@ -287,7 +290,7 @@ class bufr_sec_1:
     logging.debug(f"{self.sec1_desc_jp} 22    8  秒(電文作成年月日時分秒) = {self.sec1_22_data_created_second}")
 
 class bufr_sec_3:
-  def __init__(self, binary, sec_len, mst_tbl_version) -> None:
+  def __init__(self, binary, sec_len, mst_tbl_version, highest_priority_add_tbl) -> None:
     # Section 1, Identification section
     self.sec3_desc_en = "Section 3, Data description section"
     self.sec3_desc_jp = "第3節(資料記述節)"
@@ -318,6 +321,12 @@ class bufr_sec_3:
     for _i in range(8, sec_len["sec3"], 2):
       # 標準のBテーブルでマッチした場合
       _fxxyyy = _int_into_fxxyyy(int.from_bytes(self.sec3_binary[_i-1:_i+1], "big"))
+      if highest_priority_add_tbl:
+        if len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+          data_desc_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].values[0]])
+          data_desc_str_list.append(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+          continue
       if std_flag:
         if len(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
           logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
@@ -451,6 +460,11 @@ class bufr_sec_3:
           for jlist in ilist[1]["SEQUENCE"]:
             logging.debug(jlist)
             _fxxyyy = jlist["FXXYYY"]
+            if highest_priority_add_tbl:
+              if len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+                logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+                tmp_list.append([_fxxyyy, self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].values[0], ilist[2], False])
+                continue
             if std_flag:
               if len(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
                 logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
@@ -526,6 +540,11 @@ class bufr_sec_3:
     data_desc_str_extract_list = []
     for ilist in self.sec3_data_desc_extract_list:
       _fxxyyy = ilist[0]
+      if highest_priority_add_tbl:
+        if len(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
+          logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
+          data_desc_str_extract_list.append(self.loc_df_b_2[self.loc_df_b_2["F-XX-YYY"] == _fxxyyy].to_string(header=None, index=None))
+          continue
       if std_flag:
         if len(self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values) == 1:
           logging.debug(f"{self.sec3_desc_jp} {_i} ~ {_i+1}  16 {self.std_df_b[self.std_df_b["F-XX-YYY"] == _fxxyyy]["ELEMENT_NAME"].values[0]} = {_fxxyyy}")
@@ -616,8 +635,9 @@ class data_constructor:
     self.data = []
     for _ in range(self.nsubset):
       self.data.append(self._read_data_from_str_bin())
-      # print(self.data[len(self.data)-1])
-      # print(f"---- {_}th subset end ----")
+      # if _ < 2:
+      #   print(self.data[len(self.data)-1])
+      #   print(f"---- {_}th subset end ----")
     
     # print(self.sec4_len, self.sec4_len*8)
     # print(self.irec)
@@ -796,7 +816,7 @@ if __name__=='__main__':
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCA01_LEMM_050000_202410051001020_001.send")) # CLIMAT
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISCC01_RJTD_200000_202410200000311_001.send")) # CLIMAT
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKC80_RJTD_011200_202410011245310_001.send")) # 高分解能海上高層実況気象報
-  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/Z__C_RJTD_20241030000000_OBS_AMDS_Rjp_N1_bufr4.bin")) # アメダス # error
+  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/Z__C_RJTD_20241030000000_OBS_AMDS_Rjp_N1_bufr4.bin"), highest_priority_add_tbl=True)
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUCC10_RJTD_300000_202410300004300_001_68680.send")) # 東京編集の気象衛星資料解析気象報
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKL01_RJTD_300000_202410300123114_001.send")) # 東京編集の地上高層実況気象報
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC01_RJTD_300000_202410300123111_001.send")) # 東京編集の地上高層実況気象報Ａ部
@@ -806,7 +826,9 @@ if __name__=='__main__':
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC04_RJTD_300000_202410300125110_001.send")) # 東京編集の地上高層実況気象報Ｂ部
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUSC04_RJTD_300000_CCA_202410300324110_001.send")) # 東京編集の地上高層実況気象報Ｂ部 訂正報
   # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISIC01_RJTD_300300_202410300319110_001.send")) # 東京編集の地上気象実況報（03,09,15,21UTC）(SYNOP)
-  bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISMC01_RJTD_300600_202410300619110_001.send")) # 東京編集の地上気象実況報（00,06,12,18UTC）(SYNOP)
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/ISMC01_RJTD_300600_202410300619110_001.send")) # 東京編集の地上気象実況報（00,06,12,18UTC）(SYNOP)
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUWG01_WIIX_300600_202410300617189_001.send")) # メルボルン編集の地上高層風実況気象報 (PILOT)
+  # bufr_class = bufr(os.path.join(os.path.dirname(__file__), f"../../tests/data/bufr/bufr/IUKN01_BABJ_300000_202410300231070_001.send")) # 北京編集の地上高層風実況気象報Ａ部 (PILOT) erro 
   # print()
   # print("Data description:")
   # for iv in bufr_class.get_data_description():
@@ -821,8 +843,8 @@ if __name__=='__main__':
     print(iv)
   print()
   print("Extracted Data description:")
-  # for idx, iv in enumerate(bufr_class.get_extracted_data_description()):
-  for idx, iv in enumerate(bufr_class.get_extracted_data_descriptors()):
+  for idx, iv in enumerate(bufr_class.get_extracted_data_description()):
+  # for idx, iv in enumerate(bufr_class.get_extracted_data_descriptors()):
     print(f"{idx} {iv}")
   print()
   # print("Data descriptor infomation:")
@@ -838,5 +860,7 @@ if __name__=='__main__':
   #   print(data[0][8][i])
   # for j in range(len(data[0][8][0][9])):
   #   print(data[0][8][1][9][j])
+  # for i in data:
+  #   print(i)
   # print(data[0][8][0][9])
   # print(len(data[0][8]))

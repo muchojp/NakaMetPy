@@ -152,3 +152,10 @@ class UnexpectedBufrError(MyException3):
         return (
             f"予期せぬエラーが発生しました。補足：{self.kargs[1]}"
         )
+
+class MayNotBeAbleToReadBufrWarning(MyWarning):
+    def __str__(self):
+        return (
+            f"この関数ではこのファイルを正しく読むことが出来ないかもしれません。理由：{self.kargs[0]}\n"+\
+            f"It may be able to read this bufr file using nakametpy.bufr. Reason (in Japanese): {self.kargs[0]}"
+        )

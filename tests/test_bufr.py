@@ -339,3 +339,46 @@ class UtilTest(unittest.TestCase):
       with self.subTest(file_path=file_path):
         bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
         bufr_class.read_data()
+    
+  def test_bufr_008(self):
+    """
+    Test for `PILOT`(BUFR)/`地上高層風実況気象報`<br>
+    Specification: ----<br>
+    Tech Info: 334<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_008.__doc__)
+    for file_path in ("./data/bufr/bufr/IUWG01_WIIX_300600_202410300617189_001.send", # メルボルン編集の地上高層風実況気象報 (PILOT)
+                      "./data/bufr/bufr/IUKN01_BABJ_300000_202410300231070_001.send", # 北京編集の地上高層風実況気象報Ａ部 (PILOT) 
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
+        bufr_class.read_data()
+    
+  def test_bufr_009(self):
+    """
+    Test for `AMEDAS`(BUFR)/`地域気象観測(アメダス)`<br>
+    Specification: 13301,13401<br>
+    Tech Info: 273,595,623<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_009.__doc__)
+    for file_path in ("./data/bufr/bufr/Z__C_RJTD_20241030000000_OBS_AMDS_Rjp_N1_bufr4.bin", # アメダス N1
+                      "./data/bufr/bufr/Z__C_RJTD_20241030000000_OBS_AMDS_Rjp_N2_bufr4.bin", # アメダス N2
+                      "./data/bufr/bufr/Z__C_RJTD_20241030010000_OBS_AMDSRR_Rjp_N1_bufr4.bin", # アメダス N1 遅延
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path), True)
+        bufr_class.read_data()
