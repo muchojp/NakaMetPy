@@ -46,7 +46,7 @@ def parse_bufrtab(file_path: str) -> list:
   valid_records = list(filter(lambda x: x != "", _records))
   return valid_records
 
-def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION}") -> pd.DataFrame:
+def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> pd.DataFrame:
   """read master table B and get pandas DataFrame
 
   Parameters
@@ -62,7 +62,7 @@ def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSIO
   """
   columns = ['F-XX-YYY', "SCALE", "REFERENCE_VALUE", "BIT_WIDTH", "UNIT", 'MNEMONIC', "DESC_CODE", 'ELEMENT_NAME']
   
-  bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableB_{version:02}")
+  bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableB_{version}")
   valid_records = parse_bufrtab(bufrtab)
   # print(valid_records[-1])
   df = pd.DataFrame([re.split("[|;]", irecord.strip()) for irecord in valid_records])
