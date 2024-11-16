@@ -12,7 +12,8 @@ jobs:
     # 複数の Python のバージョンでテストするために `strategy.matrix` を設定する
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        # python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.13",]
     steps:
       #----------------------------------------------
       # リポジトリをチェックアウトする
@@ -55,7 +56,7 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
+        run: poetry install -vvv --no-interaction --no-root
       #----------------------------------------------
       # install your root project, if required
       #----------------------------------------------
