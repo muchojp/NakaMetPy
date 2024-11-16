@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022, NakaMetPy Develoers.
+# Copyright (c) 2021-2024, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 # 
@@ -12,6 +12,7 @@
 # 　(自作の？)エラーを表示させるようにする
 #
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
+import os
 import sys
 
 
@@ -19,8 +20,8 @@ _CMAX = 255
 
 def sunshine():
     r'''
-    NCLのcolor table中の `sunshine_9lev` に対応する。
-    levelは256である。
+    NCLのcolor table中の `sunshine_9lev` に対応する.
+    levelは256である.
 
     Returns
     -------
@@ -28,7 +29,7 @@ def sunshine():
     
     Notes
     -----    
-    オブジェクトは ``sunshine_256lev`` という名前でも受け取れる。
+    オブジェクトは ``sunshine_256lev`` という名前でも受け取れる.
 
     |sunshine|
 
@@ -52,9 +53,9 @@ def sunshine():
 
 def BrWhGr():
     r'''
-    緑白ブラウンのカラーマップ。
-    水蒸気の発散収束を表す際に便利。
-    levelは256である。
+    緑白ブラウンのカラーマップ.
+    水蒸気の発散収束を表す際に便利.
+    levelは256である.
 
     Returns
     -------
@@ -62,7 +63,7 @@ def BrWhGr():
     
     Notes
     -----    
-    オブジェクトは ``BrWhGr_256lev`` という名前でも受け取れる。
+    オブジェクトは ``BrWhGr_256lev`` という名前でも受け取れる.
 
     |BrWhGr|
 
@@ -90,7 +91,7 @@ def BrWhGr():
 
 
 def precip3():
-    r'''降水量をプロットする際に利用することを想定したカラーマップ。
+    r'''降水量をプロットする際に利用することを想定したカラーマップ.
 
     Returns
     -------
@@ -98,7 +99,7 @@ def precip3():
     
     Notes
     -----
-    オブジェクトは ``precip3_256lev`` という名前でも受け取れる。
+    オブジェクトは ``precip3_256lev`` という名前でも受け取れる.
 
     |precip3|
 
@@ -136,7 +137,7 @@ def precip3():
 
     
 def jma_linear():
-    r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している。
+    r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している.
 
     Returns
     -------
@@ -144,7 +145,7 @@ def jma_linear():
     
     Notes
     -----
-    オブジェクトは ``jma_linear_256lev`` という名前でも受け取れる。
+    オブジェクトは ``jma_linear_256lev`` という名前でも受け取れる.
 
     |jma_linear|
 
@@ -185,7 +186,7 @@ def jma_linear():
 
 
 def jma_list():
-    r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している。
+    r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している.
 
     Returns
     -------
@@ -193,7 +194,7 @@ def jma_list():
     
     Notes
     -----
-    オブジェクトは ``jma_list_9lev`` という名前でも受け取れる。
+    オブジェクトは ``jma_list_9lev`` という名前でも受け取れる.
 
     |jma_list|
 
@@ -218,7 +219,7 @@ def jma_list():
 
 
 def grads_default_rainbow_linear():
-    r'''GrADSデフォルトのカラーマップ。
+    r'''GrADSデフォルトのカラーマップ.
 
     Returns
     -------
@@ -226,7 +227,7 @@ def grads_default_rainbow_linear():
     
     Notes
     -----
-    オブジェクトは ``grads_default_rainbow_linear_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_default_rainbow_linear_256lev`` という名前でも受け取れる.
 
     |grads_default_rainbow_linear|
 
@@ -282,7 +283,7 @@ def grads_default_rainbow_linear():
 
 
 def grads_default_rainbow_list():
-    r'''GrADSデフォルトのカラーマップ。
+    r'''GrADSデフォルトのカラーマップ.
 
     Returns
     -------
@@ -290,7 +291,7 @@ def grads_default_rainbow_list():
     
     Notes
     -----
-    オブジェクトは ``grads_default_rainbow_list_13lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_default_rainbow_list_13lev`` という名前でも受け取れる.
 
     |grads_default_rainbow_list|
 
@@ -318,7 +319,7 @@ def grads_default_rainbow_list():
 
 
 def grads_paired():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -326,7 +327,7 @@ def grads_paired():
     
     Notes
     -----
-    オブジェクトは ``grads_paired_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_paired_256lev`` という名前でも受け取れる.
 
     |grads_paired|
 
@@ -374,7 +375,7 @@ def grads_paired():
     return LinearSegmentedColormap('grads_paired', cdict)
 
 def grads_spectral():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -382,7 +383,7 @@ def grads_spectral():
     
     Notes
     -----
-    オブジェクトは ``grads_spectral_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_spectral_256lev`` という名前でも受け取れる.
 
     |grads_spectral|
 
@@ -421,7 +422,7 @@ def grads_spectral():
     return LinearSegmentedColormap('grads_spectral', cdict)
 
 def grads_rainbow():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -429,7 +430,7 @@ def grads_rainbow():
     
     Notes
     -----
-    オブジェクトは ``grads_rainbow_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_rainbow_256lev`` という名前でも受け取れる.
 
     |grads_rainbow|
 
@@ -462,7 +463,7 @@ def grads_rainbow():
     return LinearSegmentedColormap('grads_rainbow', cdict)
 
 def grads_b2r():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -470,7 +471,7 @@ def grads_b2r():
     
     Notes
     -----
-    オブジェクトは ``grads_b2r_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_b2r_256lev`` という名前でも受け取れる.
 
     |grads_b2r|
 
@@ -497,7 +498,7 @@ def grads_b2r():
     return LinearSegmentedColormap('grads_b2r', cdict)
 
 def grads_brn2grn():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -505,7 +506,7 @@ def grads_brn2grn():
     
     Notes
     -----
-    オブジェクトは ``grads_brn2grn_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_brn2grn_256lev`` という名前でも受け取れる.
 
     |grads_brn2grn|
 
@@ -532,7 +533,7 @@ def grads_brn2grn():
     return LinearSegmentedColormap('grads_brn2grn', cdict)
 
 def grads_y2b():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -540,7 +541,7 @@ def grads_y2b():
     
     Notes
     -----
-    オブジェクトは ``grads_y2b_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_y2b_256lev`` という名前でも受け取れる.
 
     |grads_y2b|
 
@@ -567,7 +568,7 @@ def grads_y2b():
     return LinearSegmentedColormap('grads_y2b', cdict)
 
 def grads_oj2p():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -575,7 +576,7 @@ def grads_oj2p():
     
     Notes
     -----
-    オブジェクトは ``grads_oj2p_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_oj2p_256lev`` という名前でも受け取れる.
 
     |grads_oj2p|
 
@@ -602,7 +603,7 @@ def grads_oj2p():
     return LinearSegmentedColormap('grads_oj2p', cdict)
 
 def grads_terrain1():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -610,7 +611,7 @@ def grads_terrain1():
     
     Notes
     -----
-    オブジェクトは ``grads_terrain1_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_terrain1_256lev`` という名前でも受け取れる.
 
     |grads_terrain1|
 
@@ -640,7 +641,7 @@ def grads_terrain1():
     return LinearSegmentedColormap('grads_terrain1', cdict)
 
 def grads_ocean():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -648,7 +649,7 @@ def grads_ocean():
     
     Notes
     -----
-    オブジェクトは ``grads_ocean_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_ocean_256lev`` という名前でも受け取れる.
 
     |grads_ocean|
 
@@ -672,7 +673,7 @@ def grads_ocean():
     return LinearSegmentedColormap('grads_ocean', cdict)
 
 def grads_grayscale():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -680,7 +681,7 @@ def grads_grayscale():
     
     Notes
     -----
-    オブジェクトは ``grads_grayscale_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_grayscale_256lev`` という名前でも受け取れる.
 
     |grads_grayscale|
 
@@ -693,7 +694,7 @@ def grads_grayscale():
     return LinearSegmentedColormap('grads_grayscale', cdict)
 
 def grads_red():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -701,7 +702,7 @@ def grads_red():
     
     Notes
     -----
-    オブジェクトは ``grads_red_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_red_256lev`` という名前でも受け取れる.
 
     |grads_red|
 
@@ -714,7 +715,7 @@ def grads_red():
     return LinearSegmentedColormap('grads_red', cdict)
 
 def grads_green():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -722,7 +723,7 @@ def grads_green():
     
     Notes
     -----
-    オブジェクトは ``grads_green_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_green_256lev`` という名前でも受け取れる.
 
     |grads_green|
 
@@ -735,7 +736,7 @@ def grads_green():
     return LinearSegmentedColormap('grads_green', cdict)
 
 def grads_blue():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -743,7 +744,7 @@ def grads_blue():
     
     Notes
     -----
-    オブジェクトは ``grads_blue_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_blue_256lev`` という名前でも受け取れる.
 
     |grads_blue|
 
@@ -756,7 +757,7 @@ def grads_blue():
     return LinearSegmentedColormap('grads_blue', cdict)
 
 def grads_jet():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -764,7 +765,7 @@ def grads_jet():
     
     Notes
     -----
-    オブジェクトは ``grads_jet_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_jet_256lev`` という名前でも受け取れる.
 
     |grads_jet|
 
@@ -803,7 +804,7 @@ def grads_jet():
     return LinearSegmentedColormap('grads_jet', cdict)
 
 def grads_terrain2():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -811,7 +812,7 @@ def grads_terrain2():
     
     Notes
     -----
-    オブジェクトは ``grads_terrain2_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_terrain2_256lev`` という名前でも受け取れる.
 
     |grads_terrain2|
 
@@ -844,7 +845,7 @@ def grads_terrain2():
     return LinearSegmentedColormap('grads_terrain2', cdict)
 
 def grads_dark():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -852,7 +853,7 @@ def grads_dark():
     
     Notes
     -----
-    オブジェクトは ``grads_dark_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_dark_256lev`` という名前でも受け取れる.
 
     |grads_dark|
 
@@ -888,7 +889,7 @@ def grads_dark():
     return LinearSegmentedColormap('grads_dark', cdict)
 
 def grads_snow():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -896,7 +897,7 @@ def grads_snow():
     
     Notes
     -----
-    オブジェクトは ``grads_snow_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_snow_256lev`` という名前でも受け取れる.
 
     |grads_snow|
 
@@ -923,7 +924,7 @@ def grads_snow():
     return LinearSegmentedColormap('grads_snow', cdict)
 
 def grads_satellite():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -931,7 +932,7 @@ def grads_satellite():
     
     Notes
     -----
-    オブジェクトは ``grads_satellite_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_satellite_256lev`` という名前でも受け取れる.
 
     |grads_satellite|
 
@@ -958,7 +959,7 @@ def grads_satellite():
     return LinearSegmentedColormap('grads_satellite', cdict)
 
 def grads_rain():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -966,7 +967,7 @@ def grads_rain():
     
     Notes
     -----
-    オブジェクトは ``grads_rain_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_rain_256lev`` という名前でも受け取れる.
 
     |grads_rain|
 
@@ -993,7 +994,7 @@ def grads_rain():
     return LinearSegmentedColormap('grads_rain', cdict)
 
 def grads_autumn():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -1001,7 +1002,7 @@ def grads_autumn():
     
     Notes
     -----
-    オブジェクトは ``grads_autumn_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_autumn_256lev`` という名前でも受け取れる.
 
     |grads_autumn|
 
@@ -1028,7 +1029,7 @@ def grads_autumn():
     return LinearSegmentedColormap('grads_autumn', cdict)
 
 def grads_cool():
-    r'''GrADSのcolormaps.gsのカラーマップ。
+    r'''GrADSのcolormaps.gsのカラーマップ.
 
     Returns
     -------
@@ -1036,7 +1037,7 @@ def grads_cool():
     
     Notes
     -----
-    オブジェクトは ``grads_cool_256lev`` という名前でも受け取れる。
+    オブジェクトは ``grads_cool_256lev`` という名前でも受け取れる.
 
     |grads_cool|
 
@@ -1061,7 +1062,7 @@ def grads_cool():
 
 
 def BlWhRe():
-    r'''blue -> white -> red のカラーマップ。
+    r'''blue -> white -> red のカラーマップ.
 
     Returns
     -------
@@ -1069,7 +1070,7 @@ def BlWhRe():
     
     Notes
     -----
-    オブジェクトは ``BlWhRe_256lev`` という名前でも受け取れる。
+    オブジェクトは ``BlWhRe_256lev`` という名前でも受け取れる.
 
     |BlWhRe|
 
@@ -1839,6 +1840,183 @@ def jma_BlWhRe_list():
             [1.0, 0.1568627450980392, 0.0]]
     return ListedColormap(clist, 'jma_BlWhRe_list')
 
+def jwa_rainbow():
+    r'''日本気象協会(JWA)のレーダー雨量のカラーマップ.
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``jwa_rainbow_256lev`` という名前でも受け取れる.
+
+    |jwa_rainbow|
+
+    .. |jwa_rainbow| image:: ./img/jwa_rainbow.png
+        :width: 600
+    '''
+    cdict = {'blue': [
+        (0.0, 1.0, 1.0),
+        (0.17, 1.0, 1.0),
+        (0.33, 0.0, 0.0),
+        (0.5, 0.0, 0.0),
+        (0.67, 0.0, 0.0),
+        (0.83, 1.0, 1.0),
+        (1.0, 0.0, 0.0),
+      ],
+
+    'green': [
+        (0.0, 1.0, 1.0),
+        (0.17, 0.0, 0.0),
+        (0.33, 0.5, 0.5),
+        (0.5, 1.0, 1.0),
+        (0.67, 0.5, 0.5),
+        (0.83, 0.0, 0.0),
+        (1.0, 0.0, 0.0),
+      ],
+
+    'red': [
+        (0.0, 0.0, 0.0),
+        (0.17, 0.0, 0.0),
+        (0.33, 0.0, 0.0),
+        (0.5, 1.0, 1.0),
+        (0.67, 1.0, 1.0),
+        (0.83, 1.0, 1.0),
+        (1.0, 1.0, 1.0),
+      ]}
+    return LinearSegmentedColormap('jwa_rainbow', cdict)
+
+def cmthermal():
+    r'''Qiitaに投稿された、温度を表す理想カラーマップ.
+    
+    URL:https://qiita.com/nokos/items/6551b3d3b46be73496cf#python-matplotlib-%E3%81%A7%E3%81%AE%E5%AE%9F%E8%A3%85
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``cmthermal_256lev`` という名前でも受け取れる.
+
+    |cmthermal|
+
+    .. |cmthermal| image:: ./img/cmthermal.png
+        :width: 600
+    '''
+    cdict = {'blue': [
+        (0.0, 117/_CMAX, 117/_CMAX),
+        (0.25, 185/_CMAX, 185/_CMAX),
+        (0.5, 53/_CMAX, 53/_CMAX),
+        (0.75, 139/_CMAX, 139/_CMAX),
+        (1.0, 34/_CMAX, 34/_CMAX),
+      ],
+
+    'green': [
+        (0.0, 63/_CMAX, 63/_CMAX),
+        (0.25, 143/_CMAX, 143/_CMAX),
+        (0.5, 226/_CMAX, 226/_CMAX),
+        (0.75, 78/_CMAX, 78/_CMAX),
+        (1.0, 14/_CMAX, 14/_CMAX),
+      ],
+
+    'red': [
+        (0.0, 28/_CMAX, 28/_CMAX),
+        (0.25, 6/_CMAX, 6/_CMAX),
+        (0.5, 241/_CMAX, 241/_CMAX),
+        (0.75, 214/_CMAX, 214/_CMAX),
+        (1.0, 115/_CMAX, 115/_CMAX),
+      ]}
+    return LinearSegmentedColormap('jwa_rainbow', cdict)
+
+def weathernews_precip_list():
+    r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している.
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.ListedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``weathernews_precip_list_9lev`` という名前でも受け取れる.
+
+    |weathernews_precip_list|
+
+    .. |weathernews_precip_list| image:: ./img/weathernews_precip_list.png
+        :width: 600
+
+    See Also
+    --------
+    jma_linear
+    '''
+    clist = [
+          [244/_CMAX, 244/_CMAX, 244/_CMAX],
+          [154/_CMAX, 235/_CMAX, 255/_CMAX],
+          [ 72/_CMAX, 225/_CMAX, 255/_CMAX],
+          [ 37/_CMAX, 174/_CMAX, 255/_CMAX],
+          [  0/_CMAX, 244/_CMAX,  46/_CMAX],
+          [250/_CMAX, 247/_CMAX,  20/_CMAX],
+          [255/_CMAX, 102/_CMAX, 102/_CMAX],
+          [224/_CMAX,   0/_CMAX,   0/_CMAX],
+        ]
+    return ListedColormap(clist, 'weathernews_precip_list')
+
+def weathernews_precip_linear():
+    r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している.
+
+    Returns
+    -------
+    cmap:  `matplotlib.colors.LinearSegmentedColormap`
+    
+    Notes
+    -----
+    オブジェクトは ``weathernews_precip_linear_256lev`` という名前でも受け取れる.
+
+    |weathernews_precip_linear|
+
+    .. |weathernews_precip_linear| image:: ./img/weathernews_precip_linear.png
+        :width: 600
+
+    See Also
+    --------
+    jma_linear
+    '''
+    cdict = {
+    'red': [
+        (0/7, 244/_CMAX, 244/_CMAX),
+        (1/7, 154/_CMAX, 154/_CMAX),
+        (2/7, 72/_CMAX, 72/_CMAX),
+        (3/7, 37/_CMAX, 37/_CMAX),
+        (4/7, 0/_CMAX, 0/_CMAX),
+        (5/7, 250/_CMAX, 250/_CMAX),
+        (6/7, 255/_CMAX, 255/_CMAX),
+        (7/7, 224/_CMAX, 224/_CMAX),
+      ],
+
+    'green': [
+        (0/7, 244/_CMAX, 244/_CMAX),
+        (1/7, 235/_CMAX, 235/_CMAX),
+        (2/7, 225/_CMAX, 225/_CMAX),
+        (3/7, 174/_CMAX, 174/_CMAX),
+        (4/7, 244/_CMAX, 244/_CMAX),
+        (5/7, 247/_CMAX, 247/_CMAX),
+        (6/7, 102/_CMAX, 102/_CMAX),
+        (7/7,   0/_CMAX,   0/_CMAX),
+      ],
+    
+    'blue': [
+        (0/7, 244/_CMAX, 244/_CMAX),
+        (1/7, 255/_CMAX, 255/_CMAX),
+        (2/7, 255/_CMAX, 255/_CMAX),
+        (3/7, 255/_CMAX, 255/_CMAX),
+        (4/7,  46/_CMAX,  46/_CMAX),
+        (5/7,  20/_CMAX,  20/_CMAX),
+        (6/7, 102/_CMAX, 102/_CMAX),
+        (7/7,   0/_CMAX,   0/_CMAX),
+      ],
+    }
+    return LinearSegmentedColormap('weathernews_precip_linear', cdict)
 
 sunshine_256lev = sunshine()
 BrWhGr_256lev = BrWhGr()
@@ -1887,8 +2065,13 @@ jma_snow_anom_white_256lev = jma_snow_anom_white_linear()
 jma_snow_anom_white_11lev = jma_snow_anom_white_list()
 jma_BlWhRe_256lev = jma_BlWhRe_linear()
 jma_BlWhRe_11lev = jma_BlWhRe_list()
+jwa_rainbow_256lev = jwa_rainbow()
+cmthermal_256lev = cmthermal()
+weathernews_precip_linear_256lev = weathernews_precip_linear()
+weathernews_precip_list_13lev = weathernews_precip_list()
 
-cmap_list = [sunshine_256lev,
+cmap_list = [
+            sunshine_256lev,
             BrWhGr_256lev,
             BlWhRe_256lev,
             precip3_256lev,
@@ -1934,7 +2117,12 @@ cmap_list = [sunshine_256lev,
             jma_snow_anom_white_256lev,
             jma_snow_anom_white_11lev,
             jma_BlWhRe_256lev,
-            jma_BlWhRe_11lev,]
+            jma_BlWhRe_11lev,
+            jwa_rainbow_256lev,
+            cmthermal_256lev,
+            weathernews_precip_linear_256lev,
+            weathernews_precip_list_13lev,
+          ]
 
 
 cmap_names = ['sunshine',
@@ -1984,13 +2172,17 @@ cmap_names = ['sunshine',
             'jma_snow_anom_white_list',
             'jma_BlWhRe_linear',
             'jma_BlWhRe_list',
+            'jwa_rainbow',
+            'cmthermal',
+            'weathernews_precip_rainbow_linear',
+            'weathernews_precip_rainbow_list',
             ]
 
 
 def get_colormap(name):
-    r'''カラーマップを得る関数。
+    r'''カラーマップを得る関数.
 
-    引数の名前は ``get_colormap_list`` で得ることが出来る。
+    引数の名前は ``get_colormap_list`` で得ることが出来る.
 
     Parameters
     ----------
@@ -2012,7 +2204,7 @@ def get_colormap(name):
         return sys.exit(1)
 
 def get_colormap_list():
-    r'''カラーマップ名のリストを得る関数。
+    r'''カラーマップ名のリストを得る関数.
 
     Returns
     -------
@@ -2021,12 +2213,12 @@ def get_colormap_list():
     '''
     return cmap_names
 
-def _plot_each_colorbar(cmap_name, output='../../docs/img'):
-    r'''nakametpy.cmapにあるカラーマップのカラーバーをプロットする関数。
+def _plot_each_colorbar(cmap_name, output=os.path.join(os.path.dirname(__file__), '../../docs/img')):
+    r'''nakametpy.cmapにあるカラーマップのカラーバーをプロットする関数.
 
-    ドキュメンテーション掲載用。
+    ドキュメンテーション掲載用.
 
-    nakametpy.cmapのmain()で実行される。
+    nakametpy.cmapのmain()で実行される.
     
     '''
     import matplotlib.pyplot as plt

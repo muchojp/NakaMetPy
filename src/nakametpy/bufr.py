@@ -304,7 +304,7 @@ class bufr_sec_head:
     else:
       head = binary[0:12+1+8+1+6+1+3+4+1].lstrip(b"\n")
       head_list = binary[0:12+1+8+1+6+1+3+4+1].split()
-      # TODO: ここのロジックは無駄があると思われる。
+      # TODO: ここのロジックは無駄があると思われる.
       # 指示コードなし or 改行済 且つ 末尾が指示コードから始まらない()
       if ((head_list[2][6:10].decode() == "BUFR") | (head_list[2][6:10].decode() == "")):
         if len(head_list) == 3:
@@ -839,9 +839,9 @@ class bufr_sec_5:
     self.sec5_binary = binary[self.sec5_start:self.sec5_start+sec_len['sec5']]
     if self.sec5_binary.decode() == "7777":
       logging.debug(f"{self.sec5_desc_jp} 1  ~ 4   32 BUFR報の終わりを指す = {self.sec5_binary.decode()}")
-      logging.debug(f"BUFRの終端に到達しました。正常に読込が終了しました。")
+      logging.debug(f"BUFRの終端に到達しました.正常に読込が終了しました.")
     else:
-      raise UnexpectedBufrError(f"BUFRの終端に到達しませんでした。ファイルが正常であるか確認してください。")
+      raise UnexpectedBufrError(f"BUFRの終端に到達しませんでした.ファイルが正常であるか確認してください.")
 
 
 class data_constructor:
@@ -892,7 +892,7 @@ class data_constructor:
     if (self.sec4_len*8-16 < self.irec) & (self.irec <= self.sec4_len*8):
       logging.debug('正常にデータを読み込みました')
     else:
-      logging.error('データ読込が途中で終了しました。self.data[:3]までprintします。')
+      logging.error('データ読込が途中で終了しました.self.data[:3]までprintします.')
       for idata in self.data[:3]:
         print(idata)
       raise UnexpectedBufrError('データ読込が途中で終了しました')

@@ -10,7 +10,7 @@ import unittest
 from src.nakametpy.util import dt_ymdhm, dt_yyyymmdd, unit_ms1_knots, unit_knots_ms1,\
                                anom_levels, concat_array, myglob, check_tar_content,\
                                load_jmara_grib2, get_jmara_lat, get_jmara_lon,\
-                               load_jmara250m_grib2,\
+                               load_jmara250m_grib2, load_jmanowc_grib2,\
                                get_grib2_latlon, get_gsmap_lat, get_gsmap_lon,\
                                jma_rain_lat, jma_rain_lon, gsmap_lat, gsmap_lon
 from src.nakametpy._error import NotHaveSetArgError, NotMatchTarContentNameError
@@ -684,6 +684,34 @@ class UtilTest(unittest.TestCase):
         _, actual_array_1000m = load_jmara250m_grib2(path, only250=only250)
         self.assertIsInstance(actual_array_1000m[index_list], expectedType)
 
+  def test_load_jmara250m_grib2_005(self):
+    """
+    test case: test_load_jmara250m_grib2_005
+    method:
+      load_jmara250m_grib2
+    """
+    # print(self.test_load_jmara250m_grib2_005.__doc__)
+    path = "./tests/data/util/load_jmara250m_grib2/Z__C_RJTD_20180707000000_NOWC_GPV_Ggis0p25km_Pri60lv_Aper5min_FH0000-0030_grib2.bin.gz"
+    index_list = (3360//2+200, 2560//2)
+    for only250, expectedType in ((False, np.float64), (True, np.ma.core.MaskedConstant)):
+      with self.subTest(only250=only250, expectedType=expectedType):
+        _, actual_array_1000m = load_jmara250m_grib2(path, only250=only250)
+        self.assertIsInstance(actual_array_1000m[index_list], expectedType)
+
+  def test_load_jmara250m_grib2_006(self):
+    """
+    test case: test_load_jmara250m_grib2_006
+    method:
+      load_jmara250m_grib2
+    """
+    # print(self.test_load_jmara250m_grib2_006.__doc__)
+    path = "./tests/data/util/load_jmara250m_grib2/Z__C_RJTD_20180707000000_NOWC_GPV_Ggis0p25km_Prr05lv_Aper5min_FH0000-0030_grib2.bin.gz"
+    index_list = (3360//2+200, 2560//2)
+    for only250, expectedType in ((False, np.float64), (True, np.ma.core.MaskedConstant)):
+      with self.subTest(only250=only250, expectedType=expectedType):
+        _, actual_array_1000m = load_jmara250m_grib2(path, only250=only250)
+        self.assertIsInstance(actual_array_1000m[index_list], expectedType)
+
   def test_get_grib2_latlon_001(self):
     """
     test case: test_get_grib2_latlon_001
@@ -715,6 +743,36 @@ class UtilTest(unittest.TestCase):
     self.assertEqual(actual3, True)
     actual4 = np.all(np.isclose(jma_rain_lon, actual_glon, atol=1E-6, rtol=0, equal_nan=False))
     self.assertEqual(actual4, True)
+  
+  def test_load_jmanowc_grib2_001(self):
+    """
+    test case: test_load_jmanowc_grib2_001
+    method:
+      load_jmanowc_grib2
+    args:
+      file: `str`
+    """
+    # print(self.test_load_jmanowc_grib2_001.__doc__)
+    
+    path = "./tests/data/util/load_jmanowc_grib2/Z__C_RJTD_20170807020000_NOWC_GPV_Ggis1km_Prr10lv_FH0010-0100_grib2.bin"
+    actual = load_jmanowc_grib2(path, tidx=5).shape
+    expected = (3360, 2560)
+    self.assertEqual(actual, expected)
+  
+  def test_load_jmanowc_grib2_002(self):
+    """
+    test case: test_load_jmanowc_grib2_002
+    method:
+      load_jmanowc_grib2
+    args:
+      file: `str`
+    """
+    # print(self.test_load_jmanowc_grib2_002.__doc__)
+    
+    path = "./tests/data/util/load_jmanowc_grib2/Z__C_RJTD_20170807020000_NOWC_GPV_Ggis1km_Prr05lv_FH0005-0100_grib2.bin"
+    actual = load_jmanowc_grib2(path, tidx=11).shape
+    expected = (3360, 2560)
+    self.assertEqual(actual, expected)
 
   def test_get_gsmap_lat_001(self):
     """

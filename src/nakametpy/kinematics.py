@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022, NakaMetPy Develoers.
+# Copyright (c) 2021-2024, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 #
@@ -10,14 +10,14 @@
 # そもそものプログラム自体はMetPyのsource codeにあるため、自分はあくまでも
 # metpy.unitsを用いないNumPyでの高速な計算を行うプログラムを作成することを目指す
 # 入力データの単位に気をつけなければならない
-# 単位はPa, K, RHは[0, 1]とする。
+# 単位はPa, K, RHは[0, 1]とする.
 # 
 # 更新日：2021/01/25 地衡風と非地衡風、相対渦度、気温減率、偽断熱減率、静的安定パラメタを求める関数の実装
 #
 # To do:
-# lapse_rateの鉛直微分は高度ではなく気圧である必要があるかもしれないのでチェックする。
-# nclは気圧で計算してある。
-# advectionのチェック。移流は次元は1である。
+# lapse_rateの鉛直微分は高度ではなく気圧である必要があるかもしれないのでチェックする.
+# nclは気圧で計算してある.
+# advectionのチェック.移流は次元は1である.
 #
 #
 import numpy as np
@@ -32,9 +32,9 @@ import warnings
 
 def distance(lons, lats, lev_len = None, t_len = None):
     r'''
-    各格子点間の距離を求める関数。次元は[(時間、鉛直方向)、緯度、経度]である。  
+    各格子点間の距離を求める関数.次元は[(時間、鉛直方向)、緯度、経度]である.  
 
-    地球半径の値は6371229mを使用。  
+    地球半径の値は6371229mを使用.  
 
     Calculate the distance from latitude and longitude
 
@@ -89,9 +89,9 @@ def distance(lons, lats, lev_len = None, t_len = None):
 
 def distance_4d(lons, lats, lev_len = 37, t_len = 24):
     r'''
-    各格子点間の距離を求める関数。次元は[時間、鉛直方向、緯度、経度]である。  
+    各格子点間の距離を求める関数.次元は[時間、鉛直方向、緯度、経度]である.  
 
-    地球半径の値は6371229mを使用。  
+    地球半径の値は6371229mを使用.  
 
     Calculate the distance from latitude and longitude
 
@@ -136,10 +136,10 @@ def distance_4d(lons, lats, lev_len = 37, t_len = 24):
 
 def distance_3d(lons, lats, len3d = 24):
     r'''
-    各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。  
-    Single Levelの変数を計算する際に用いる。
+    各格子点間の距離を求める関数.次元は[時間、緯度、経度]である.  
+    Single Levelの変数を計算する際に用いる.
     
-    地球半径の値は6371229mを使用。  
+    地球半径の値は6371229mを使用.  
 
     Calculate the distance from latitude and longitude
 
@@ -185,9 +185,9 @@ def distance_3d(lons, lats, len3d = 24):
 
 def distance_2d(lons, lats):
     r'''
-    各格子点間の距離を求める関数。次元は[時間、緯度、経度]である。  
+    各格子点間の距離を求める関数.次元は[時間、緯度、経度]である.  
     
-    地球半径の値は6371229mを使用。  
+    地球半径の値は6371229mを使用.  
 
     Calculate the distance from latitude and longitude
 
@@ -228,9 +228,9 @@ def distance_2d(lons, lats):
 
 def dis_azi_from_point(lats, lons, *, idx_flag=False, clat=None, clon=None, clat_idx=None, clon_idx=None, lev_len=None, t_len=None):
     r'''
-    ある地点からの距離と方位角を求める関数。次元は[(時間、鉛直方向)、緯度、経度]である。  
+    ある地点からの距離と方位角を求める関数.次元は[(時間、鉛直方向)、緯度、経度]である.  
 
-    地球半径の値は6371229mを使用。  
+    地球半径の値は6371229mを使用.  
 
     Calculate the distance and azimuth from latitude and longitude
 
@@ -298,9 +298,9 @@ def dis_azi_from_point(lats, lons, *, idx_flag=False, clat=None, clon=None, clat
 
 def gradient_h(var, dx, dy, wrfon=0):
     r'''
-    変数の勾配を求める関数。
-    distance_ndを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる。
-    dx, dyにintまたはfloatを代入した場合、一定値として扱われる。
+    変数の勾配を求める関数.
+    distance_ndを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+    dx, dyにintまたはfloatを代入した場合、一定値として扱われる.
 
     Parameters
     ----------
@@ -355,7 +355,7 @@ def gradient_h(var, dx, dy, wrfon=0):
 
 def gradient_h_4d(var, dx, dy, wrfon=0):
     r'''
-    変数の勾配を求める関数。
+    変数の勾配を求める関数.
     distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
@@ -412,7 +412,7 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
 
 def gradient_h_3d(var, dx, dy, wrfon=0):
     r'''
-    変数の勾配を求める関数。
+    変数の勾配を求める関数.
     distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
@@ -469,7 +469,7 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
 
 def gradient_h_2d(var, dx, dy, wrfon=0):
     r'''
-    変数の勾配を求める関数。
+    変数の勾配を求める関数.
     distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
@@ -526,7 +526,7 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
 
 def divergence_2d(fx, fy, dx, dy, wrfon=0):
     r'''
-    直交座標系において変数の発散を求める関数。
+    直交座標系において変数の発散を求める関数.
     distance_2dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
@@ -576,9 +576,9 @@ def divergence_2d(fx, fy, dx, dy, wrfon=0):
 
 
 def divergence(fx, fy, dx, dy, wrfon=0):
-    r'''直交座標系において変数の発散を求める関数。
+    r'''直交座標系において変数の発散を求める関数.
 
-    divergence_2dの拡張で3次元以上の配列に対応している。
+    divergence_2dの拡張で3次元以上の配列に対応している.
     distance_2d, 3d, 4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
@@ -786,7 +786,7 @@ def uv2vr_cfd(fx, fy, lat, lon, boundOpt=4):
 
 def vert_grad_3d(variables, pres_3d, z_dim=0):
     r'''
-    変数の鉛直圧力勾配を求める関数。
+    変数の鉛直圧力勾配を求める関数.
 
     Parameters
     ----------
@@ -797,7 +797,7 @@ def vert_grad_3d(variables, pres_3d, z_dim=0):
         pressure(3d)
         The same shape as var
         Use pressure_3d from 1d pressure array
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     wrfon: `int`
         wrfon
         Flag whether input data is wrfout or not
@@ -829,7 +829,7 @@ def vert_grad_3d(variables, pres_3d, z_dim=0):
 
 def vert_grad_4d(variables, pres_4d, z_dim=1):
     r'''
-    変数の鉛直圧力勾配を求める関数。
+    変数の鉛直圧力勾配を求める関数.
 
     Parameters
     ----------
@@ -840,7 +840,7 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
         pressure(4d)
         The same shape as var
         Use pressure_4d from 1d pressure array
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     
     Returns
     -------
@@ -868,7 +868,7 @@ def vert_grad_4d(variables, pres_4d, z_dim=1):
 
 def vert_grad(variables, pres_4d, z_dim=-3):
     r'''
-    変数の鉛直圧力勾配を求める関数。
+    変数の鉛直圧力勾配を求める関数.
 
     Parameters
     ----------
@@ -879,7 +879,7 @@ def vert_grad(variables, pres_4d, z_dim=-3):
         pressure(nd)
         The same shape as var
         Use pressure_nd from 1d pressure array
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     
     Returns
     -------
@@ -908,7 +908,7 @@ def vert_grad(variables, pres_4d, z_dim=-3):
 
 def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''
-    変数の移流を求める関数。
+    変数の移流を求める関数.
     
     distance_3dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
@@ -923,11 +923,11 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
         eastward wind
 
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     wind_v: `numpy.ndarray`
         northward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     dx: `numpy.ndarray`
         dx
         var.shape[-1]-1 == dx.shape[-1]
@@ -971,7 +971,7 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
 
 def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''
-    変数の移流を求める関数。
+    変数の移流を求める関数.
     distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
     Parameters
@@ -982,11 +982,11 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
     wind_u: `numpy.ndarray`
         eastward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     wind_v: `numpy.ndarray`
         northward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     dx: `numpy.ndarray`
         dx
         var.shape[-1]-1 == dx.shape[-1]
@@ -1030,9 +1030,9 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
 
 def advection_h(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''
-    変数の移流を求める関数。
-    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる。
-    dx, dyにintまたはfloatを代入するとそれが全てのdx, dyとなる。
+    変数の移流を求める関数.
+    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+    dx, dyにintまたはfloatを代入するとそれが全てのdx, dyとなる.
 
     Parameters
     ----------
@@ -1042,11 +1042,11 @@ def advection_h(var, wind_u, wind_v, dx, dy, wrfon=0):
     wind_u: `numpy.ndarray`
         eastward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     wind_v: `numpy.ndarray`
         northward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     dx: `numpy.ndarray`
         dx
         var.shape[-1]-1 == dx.shape[-1]
@@ -1090,11 +1090,11 @@ def advection_h(var, wind_u, wind_v, dx, dy, wrfon=0):
 
 def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity, pressure, dx, dy, time_step=3600, wrfon=0):
     r'''
-    Q1を気温を用いて求める関数です。
+    Q1を気温を用いて求める関数です.
 
-    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。 
+    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます. 
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
-    その前後の時間の気温のデータも与える必要がある。
+    その前後の時間の気温のデータも与える必要がある.
 
     distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
@@ -1103,30 +1103,30 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
     temperature_1: `numpy.ndarray`
         temperature 
         計算したい時間の前の時間のtemp 
-        temperature_2と同じ形で無ければならない。
+        temperature_2と同じ形で無ければならない.
     temperature_2: `numpy.ndarray`
         temperature 
         計算したい時間のtemp
     temperature_3: `numpy.ndarray`
         temperature 
         計算したい時間の後の時間のtemp 
-        temperature_2と同じ形で無ければならない。
+        temperature_2と同じ形で無ければならない.
     wind_u: `numpy.ndarray`
         eastward wind 
         The same shape as var 
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     wind_v: `numpy.ndarray`
         northward wind 
         The same shape as var 
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     p_velocity: `numpy.ndarray`
         vertical p velocity 
         The same shape as var 
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     pressure: `numpy.ndarray`
         pressure 
         The same shape as var 
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     dx: `numpy.ndarray`
         dx 
         var.shape[-1]-1 == dx.shape[-1] 
@@ -1138,7 +1138,7 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
     timestep: `float`
         default = 3600 (for ERA5) 
         This varies on dataset. 
-        使用するデータによって変更する必要がある。
+        使用するデータによって変更する必要がある.
     wrfon: `int`
         wrfon 
         Flag whether input data is wrfout or not 
@@ -1173,11 +1173,11 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
 
 def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, time_step=3600, wrfon=0):
     r'''
-    Q2を相対湿度と気温を用いて混合比から求める関数です。
+    Q2を相対湿度と気温を用いて混合比から求める関数です.
 
-    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。 
+    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます. 
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
-    その前後の時間の気温のデータも与える必要がある。
+    その前後の時間の気温のデータも与える必要がある.
 
     distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
@@ -1186,41 +1186,41 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
     temperature_1: `numpy.ndarray`
         temperature
         計算したい時間の前の時間のtemp
-        temperature_2と同じ形で無ければならない。
+        temperature_2と同じ形で無ければならない.
     temperature_2: `numpy.ndarray`
         temperature
         計算したい時間のtemp
     temperature_3: `numpy.ndarray`
         temperature
         計算したい時間の後の時間のtemp
-        temperature_2と同じ形で無ければならない。
+        temperature_2と同じ形で無ければならない.
     rh_1: `numpy.ndarray`
         Relative Humidity
         計算したい時間の前の時間の相対湿度
-        rh_2と同じ形で無ければならない。
+        rh_2と同じ形で無ければならない.
     rh_2: `numpy.ndarray`
         Relative Humidity
         計算したい時間の相対湿度
     rh_3: `numpy.ndarray`
         Relative Humidity
         計算したい時間の後の時間の相対湿度
-        rh_2と同じ形で無ければならない。
+        rh_2と同じ形で無ければならない.
     wind_u: `numpy.ndarray`
         eastward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     wind_v: `numpy.ndarray`
         northward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     p_velocity: `numpy.ndarray`
         vertical p velocity
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     pressure: `numpy.ndarray`
         pressure
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     dx: `numpy.ndarray`
         dx
         var.shape[-1]-1 == dx.shape[-1]
@@ -1232,7 +1232,7 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
     timestep: `float`
         default = 3600 (for ERA5)
         This varies on dataset.
-        使用するデータによって変更する必要がある。
+        使用するデータによって変更する必要がある.
     wrfon: `int`
         wrfon
         Flag whether input data is wrfout or not
@@ -1269,11 +1269,11 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
 
 def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, time_step=3600, wrfon=0):
     r'''
-    Q2を比湿を用いて混合比から求める関数です。
+    Q2を比湿を用いて混合比から求める関数です.
 
-    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。 
+    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます. 
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
-    その前後の時間の気温のデータも与える必要がある。
+    その前後の時間の気温のデータも与える必要がある.
 
     distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
@@ -1282,30 +1282,30 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
     sh_1: `numpy.ndarray`
         Relative Humidity
         計算したい時間の前の時間の比湿
-        sh_2と同じ形で無ければならない。
+        sh_2と同じ形で無ければならない.
     sh_2: `numpy.ndarray`
         Relative Humidity
         計算したい時間の比湿
     sh_3: `numpy.ndarray`
         Relative Humidity
         計算したい時間の後の時間の比湿
-        sh_2と同じ形で無ければならない。
+        sh_2と同じ形で無ければならない.
     wind_u: `numpy.ndarray`
         eastward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     wind_v: `numpy.ndarray`
         northward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     p_velocity: `numpy.ndarray`
         vertical p velocity
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     pressure: `numpy.ndarray`
         pressure
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     dx: `numpy.ndarray`
         dx
         var.shape[-1]-1 == dx.shape[-1]
@@ -1317,7 +1317,7 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
     timestep: `float`
         default = 3600 (for ERA5)
         This varies on dataset.
-        使用するデータによって変更する必要がある。
+        使用するデータによって変更する必要がある.
     wrfon: `int`
         wrfon
         Flag whether input data is wrfout or not
@@ -1354,11 +1354,11 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
 
 def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, time_step=3600, wrfon=0):
     r'''
-    Q2を比湿を用いて比湿から求める関数です。
+    Q2を比湿を用いて比湿から求める関数です.
 
-    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます。 
+    この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます. 
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
-    その前後の時間の気温のデータも与える必要がある。
+    その前後の時間の気温のデータも与える必要がある.
 
     distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
 
@@ -1367,30 +1367,30 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
     sh_1: `numpy.ndarray`
         Relative Humidity
         計算したい時間の前の時間の比湿
-        sh_2と同じ形で無ければならない。
+        sh_2と同じ形で無ければならない.
     sh_2: `numpy.ndarray`
         Relative Humidity
         計算したい時間の比湿
     sh_3: `numpy.ndarray`
         Relative Humidity
         計算したい時間の後の時間の比湿
-        sh_2と同じ形で無ければならない。
+        sh_2と同じ形で無ければならない.
     wind_u: `numpy.ndarray`
         eastward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     wind_v: `numpy.ndarray`
         northward wind
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     p_velocity: `numpy.ndarray`
         vertical p velocity
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     pressure: `numpy.ndarray`
         pressure
         The same shape as var
-        変数と同じ形で無ければならない。
+        変数と同じ形で無ければならない.
     dx: `numpy.ndarray`
         dx
         var.shape[-1]-1 == dx.shape[-1]
@@ -1402,7 +1402,7 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
     timestep: `float`
         default = 3600 (for ERA5)
         This varies on dataset.
-        使用するデータによって変更する必要がある。
+        使用するデータによって変更する必要がある.
     wrfon: `int`
         wrfon
         Flag whether input data is wrfout or not
@@ -1438,8 +1438,8 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
 
 def pressure_4d(pres, *, time_dim=24, lat_dim=201, lon_dim=401):
     r'''
-    1次元の気圧の配列から4次元の気圧の配列を返す関数。
-    気圧を計算に用いる際に使います。
+    1次元の気圧の配列から4次元の気圧の配列を返す関数.
+    気圧を計算に用いる際に使います.
 
     Parameters
     ----------
@@ -1460,8 +1460,8 @@ def pressure_4d(pres, *, time_dim=24, lat_dim=201, lon_dim=401):
 
 def pressure_3d(pres, *, lat_dim=201, lon_dim=401):
     r'''
-    1次元の気圧の配列から3次元の気圧の配列を返す関数。
-    気圧を計算に用いる際に使います。
+    1次元の気圧の配列から3次元の気圧の配列を返す関数.
+    気圧を計算に用いる際に使います.
 
     Parameters
     ----------
@@ -1482,8 +1482,8 @@ def pressure_3d(pres, *, lat_dim=201, lon_dim=401):
 
 def pressure_nd(pres, *, time_dim=None, lat_dim=201, lon_dim=401):
     r'''
-    1次元の気圧の配列からn次元の気圧の配列を返す関数。
-    気圧を計算に用いる際に使います。
+    1次元の気圧の配列からn次元の気圧の配列を返す関数.
+    気圧を計算に用いる際に使います.
 
     Parameters
     ----------
@@ -1508,7 +1508,7 @@ def pressure_nd(pres, *, time_dim=None, lat_dim=201, lon_dim=401):
 
 def vert_grad_4d_height(variables, height, z_dim=1):
     r'''
-    変数の鉛直高度勾配を求める関数。
+    変数の鉛直高度勾配を求める関数.
 
     Parameters
     ----------
@@ -1518,7 +1518,7 @@ def vert_grad_4d_height(variables, height, z_dim=1):
     height: `numpy.ndarray`
         height(4d)
         The same shape as var
-        ジオポテンシャル高度を用いる。
+        ジオポテンシャル高度を用いる.
     
     Returns
     -------
@@ -1539,7 +1539,7 @@ def vert_grad_4d_height(variables, height, z_dim=1):
 
 def vert_grad_3d_height(variables, height, z_dim=0):
     r'''
-    変数の鉛直高度勾配を求める関数。
+    変数の鉛直高度勾配を求める関数.
 
     Parameters
     ----------
@@ -1549,7 +1549,7 @@ def vert_grad_3d_height(variables, height, z_dim=0):
     height: `numpy.ndarray`
         height(3d)
         The same shape as var
-        ジオポテンシャル高度を用いる。
+        ジオポテンシャル高度を用いる.
     
     Returns
     -------
@@ -1570,7 +1570,7 @@ def vert_grad_3d_height(variables, height, z_dim=0):
 
 def vert_grad_2d_height(variables, height, z_dim=0):
     r'''
-    変数の鉛直高度勾配を求める関数。
+    変数の鉛直高度勾配を求める関数.
 
     Parameters
     ----------
@@ -1580,7 +1580,7 @@ def vert_grad_2d_height(variables, height, z_dim=0):
     height: `numpy.ndarray`
         height(2d)
         The same shape as var
-        ジオポテンシャル高度を用いる。
+        ジオポテンシャル高度を用いる.
     
     Returns
     -------
@@ -1600,8 +1600,8 @@ def vert_grad_2d_height(variables, height, z_dim=0):
 
 def richardson_number(temp, rh, height, pres, u, v):
     r'''
-    リチャードソン数を求める関数。
-    変数はすべて同じ形で無ければならない。
+    リチャードソン数を求める関数.
+    変数はすべて同じ形で無ければならない.
     Variables should be the same shape.
 
     Parameters
@@ -1632,9 +1632,9 @@ def richardson_number(temp, rh, height, pres, u, v):
 
 def geostrophic_wind(geopotential, dx, dy, f0=f0):
     r''' 
-    地衡風を求める。 
+    地衡風を求める. 
     ジオポテンシャルの水平微分を行い、コリオリパラメタで割った後、 
-    u成分にマイナスをかける。 
+    u成分にマイナスをかける. 
 
     Parameters
     ----------
@@ -1661,8 +1661,8 @@ def geostrophic_wind(geopotential, dx, dy, f0=f0):
 
 def ageostrophic_wind(geopotential, u_wind, v_wind, dx, dy, f0=f0):
     r''' 
-    非地衡風成分を求める。 
-    実際の風の東西・南北成分から地衡風成分を引く。 
+    非地衡風成分を求める. 
+    実際の風の東西・南北成分から地衡風成分を引く. 
 
     Parameters
     ----------
@@ -1693,7 +1693,7 @@ def ageostrophic_wind(geopotential, u_wind, v_wind, dx, dy, f0=f0):
 
 def relative_vorticity(u, v, dx, dy):
     r''' 
-    相対渦度を求める。
+    相対渦度を求める.
 
     Parameters
     ----------
@@ -1723,10 +1723,10 @@ def relative_vorticity(u, v, dx, dy):
 
 def lapse_rate(pressure, temperature, height):
     r""" 
-    実際の断熱減率などの呼び方がある。 
+    実際の断熱減率などの呼び方がある. 
     詳しくはHolton 5th edition pp54 
 
-    変数はすべて同じ形で無ければならない。
+    変数はすべて同じ形で無ければならない.
     Variables should be the same shape.
 
     Parameters
@@ -1750,10 +1750,10 @@ def lapse_rate(pressure, temperature, height):
 
 def pseudoadiabatic_lapse_rate(pressure, temperature):
     r""" 
-    偽断熱減率、湿潤断熱減率などの呼び方がある。 
+    偽断熱減率、湿潤断熱減率などの呼び方がある. 
     詳しくはHolton 5th edition pp61 
 
-    変数はすべて同じ形で無ければならない。
+    変数はすべて同じ形で無ければならない.
     Variables should be the same shape.
 
     Parameters
@@ -1782,9 +1782,9 @@ def pseudoadiabatic_lapse_rate(pressure, temperature):
 
 def static_stability(pressure, temperature):
     r""" 
-    大気の安定度を求める関数。
+    大気の安定度を求める関数.
 
-    変数はすべて同じ形で無ければならない。
+    変数はすべて同じ形で無ければならない.
     Variables should be the same shape.
 
     Parameters
@@ -1809,7 +1809,7 @@ def static_stability(pressure, temperature):
 
 def coriolis_parameter(lat):
     r"""
-    コリオリパラメタを求める関数。
+    コリオリパラメタを求める関数.
 
     Parameters
     ----------
@@ -1831,7 +1831,7 @@ def coriolis_parameter(lat):
 
 def gravitational_constant(height):
     r"""
-    重力定数を求める関数。
+    重力定数を求める関数.
 
     Parameters
     ----------
@@ -1853,7 +1853,7 @@ def gravitational_constant(height):
 
 def height_to_geopotential(height):
     r"""
-    高度からジオポテンシャルを求める関数。
+    高度からジオポテンシャルを求める関数.
 
     Parameters
     ----------
@@ -1875,7 +1875,7 @@ def height_to_geopotential(height):
 
 def geopotential_to_height(geopotential):
     r"""
-    ジオポテンシャルから高度を求める関数。
+    ジオポテンシャルから高度を求める関数.
 
     Parameters
     ----------
@@ -1897,8 +1897,8 @@ def geopotential_to_height(geopotential):
 
 def ps2ps_distance(lon1, lat1, lon2, lat2):
   r"""
-  地点間の距離を求める関数。
-  単一の地点間の距離を求める場合はp2p_distanceの方が処理が早い。
+  地点間の距離を求める関数.
+  単一の地点間の距離を求める場合はp2p_distanceの方が処理が早い.
 
   Parameters
   ----------
@@ -1944,7 +1944,7 @@ def ps2ps_distance(lon1, lat1, lon2, lat2):
 
 def p2p_distance(lon1, lat1, lon2, lat2):
   r"""
-  単一の地点間の距離を求める関数。
+  単一の地点間の距離を求める関数.
 
   Parameters
   ----------
