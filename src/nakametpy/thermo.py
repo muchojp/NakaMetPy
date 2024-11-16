@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022, NakaMetPy Develoers.
+# Copyright (c) 2021-2024, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 #
@@ -9,11 +9,11 @@
 # そもそものプログラム自体はMetPyのsource codeにあるため、自分はあくまでも
 # metpy.unitsを用いないNumPyでの高速な計算を行うプログラムを作成することを目指す
 # 入力データの単位に気をつけなければならない
-# 単位はPa, K, RHは[0, 1]とする。
+# 単位はPa, K, RHは[0, 1]とする.
 #
 # To Do:
-# precipitable_waterなど、MetPyにはあってNakaMetPyにはない関数が複数ある。
-# 時間を見つけて実装する。
+# precipitable_waterなど、MetPyにはあってNakaMetPyにはない関数が複数ある.
+# 時間を見つけて実装する.
 #
 #
 import numpy as np
@@ -595,7 +595,7 @@ def relative_humidity_from_specific_humidity(pressure, temperature, specific_hum
 
 
 def k_index_3d(pressure, temperature, rh):
-    r"""相対湿度、気温(およびリファレンスのための気圧)からK指数を計算する。
+    r"""相対湿度、気温(およびリファレンスのための気圧)からK指数を計算する.
 
     Parameters
     ----------
@@ -634,7 +634,7 @@ def k_index_3d(pressure, temperature, rh):
 
 
 def k_index_2d(t850, t700, t500, rh850, rh700):
-    r"""相対湿度、気温(およびリファレンスのための気圧)からK指数を計算する。
+    r"""相対湿度、気温(およびリファレンスのための気圧)からK指数を計算する.
 
     Parameters
     ----------
@@ -670,9 +670,9 @@ def k_index_2d(t850, t700, t500, rh850, rh700):
 
 def showalter_stability_index(t850, t500, p850, p500):
     r'''
-    500hPaにおける気温から850 hPaから500 hPaに断熱変化させた際の気温を引いた指数。
+    500hPaにおける気温から850 hPaから500 hPaに断熱変化させた際の気温を引いた指数.
     この計算では乾燥断熱減率のみを考慮しているため、湿潤断熱変化も含めたSSIを
-    求める方法が必要である。
+    求める方法が必要である.
     
     .. math:: SSI = T_{500} - T_{850\rightarrow 500}^*
     '''
