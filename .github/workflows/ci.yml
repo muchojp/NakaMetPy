@@ -45,8 +45,8 @@ jobs:
       # See: https://github.com/actions/setup-python
       #----------------------------------------------
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
         id: setup-python
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       #----------------------------------------------
