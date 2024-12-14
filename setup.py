@@ -35,7 +35,6 @@ setup(
     author_email = 'contact.muchiwo@gmail.com',
     license='BSD 3-clause',
     # entry_points={'console_scripts': console_scripts},
-    # long_description=open('README.md', encoding='UTF-8').read(),
     long_description=open('README.md', encoding='UTF-8').read(),
     long_description_content_type="text/markdown",
 )
