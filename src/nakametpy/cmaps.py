@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2024, NakaMetPy Develoers.
+# Copyright (c) 2021-2025, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 # 
@@ -12,6 +12,7 @@
 # 　(自作の？)エラーを表示させるようにする
 #
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
+from nakametpy.constants import MPL_DEFAULT_COLOR_LIST
 import os
 import sys
 
@@ -20,7 +21,8 @@ _CMAX = 255
 
 def sunshine():
     r'''
-    NCLのcolor table中の `sunshine_9lev` に対応する.
+    NCLのcolor table中の `sunshine_9lev` に対応する.  
+    
     levelは256である.
 
     Returns
@@ -54,7 +56,9 @@ def sunshine():
 def BrWhGr():
     r'''
     緑白ブラウンのカラーマップ.
+    
     水蒸気の発散収束を表す際に便利.
+    
     levelは256である.
 
     Returns
@@ -2246,7 +2250,6 @@ def _plot_each_colorbar(cmap_name, output=os.path.join(os.path.dirname(__file__)
     plt.close(fig)
 
 
-MPL_DEFAULT_COLOR_LIST = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
 
 def mpl_default_color_cyclic(idx):
     """
