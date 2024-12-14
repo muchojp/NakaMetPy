@@ -8,7 +8,7 @@ jobs:
   pytest:
     name: Run tests with pytest
     # 実行環境として `ubuntu-latest` という名前のものを選ぶ
-    runs-on: ubuntu-latest
+    runs-on: linux-latest
     # 複数の Python のバージョンでテストするために `strategy.matrix` を設定する
     strategy:
       matrix:
