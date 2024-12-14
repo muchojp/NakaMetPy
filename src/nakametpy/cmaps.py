@@ -1232,7 +1232,7 @@ def jma_temp_anom_white_linear():
                   (8/_ncolor, 0/_CMAX, 0/_CMAX),
                   (9/_ncolor, 33/_CMAX, 33/_CMAX),
                   (10/_ncolor, 0/_CMAX, 0/_CMAX)]}
-    return LinearSegmentedColormap('jma_temp_anom_linear', cdict).reversed()
+    return LinearSegmentedColormap('jma_temp_anom_white_linear', cdict).reversed()
 
 def jma_temp_anom_white_list():
     r'''dark blue -> blue -> light blue -> white -> yellow -> orange -> red
@@ -1245,9 +1245,9 @@ def jma_temp_anom_white_list():
     -----
     The object name is ``jma_temp_anom_white_11lev``.
 
-    |jma_temp_anom_list|
+    |jma_temp_anom_white_list|
 
-    .. |jma_temp_anom_list| image:: ./img/jma_temp_anom_white_list.png
+    .. |jma_temp_anom_white_list| image:: ./img/jma_temp_anom_white_list.png
         :width: 600
 
     See Also
@@ -1265,7 +1265,7 @@ def jma_temp_anom_white_list():
             [1.0, 0.6, 0.0],
             [1.0, 0.10196078431372549, 0.10196078431372549],
             [0.5686274509803921, 0, 0.3254901960784314]]
-    return ListedColormap(clist, 'jma_temp_anom_list')
+    return ListedColormap(clist, 'jma_temp_anom_white_list')
 
 def jma_precip_anom_linear():
     r'''brown -> orange -> white -> limegreen -> green -> darkgreen

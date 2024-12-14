@@ -20,14 +20,30 @@ earth_avg_angular_vel    :math:`\Omega`  Omega                  :math:`\text{rad
 General Meteorology Constants
 -----------------------------
 ======================== ================= ============= ========================= =======================================================
-Name                     Symbol            Short Name    Units                    Description
+Name                     Symbol            Short Name    Units                     Description
 ------------------------ ----------------- ------------- ------------------------- -------------------------------------------------------
 pot_temp_ref_press       :math:`P_0`       P0            :math:`\text{Pa}`         Reference pressure for potential temperature
 poisson_exponent         :math:`\kappa`    kappa         :math:`\text{None}`       Exponent in Poisson's equation (Rd/Cp_d)
-dry_adiabatic_lapse_rate :math:`\gamma_d`  GammaD       :math:`\text{K km}^{-1}`   The dry adiabatic lapse rate
+dry_adiabatic_lapse_rate :math:`\gamma_d`  GammaD        :math:`\text{K km}^{-1}`  The dry adiabatic lapse rate
 molecular_weight_ratio   :math:`\epsilon`  epsilon       :math:`\text{None}`       Ratio of molecular weight of water to that of dry air
 absolute_temperature     :math:`K`         kelvin, Tabs  :math:`\text{K}`          Kelvin
 ======================== ================= ============= ========================= =======================================================
+
+cmaps
+-----
+MPL_DEFAULT_COLOR_LIST: `numpy.ndarray`
+  Matplotlibのデフォルトカラーのリスト
+
+bufr
+----
+LATEST_MASTER_TABLE_VERSION: `int`
+  NakaMetPyが対応しているBUFRのマスターテーブルの一番新しいバージョン
+  
+OLDEST_MASTER_TABLE_VERSION: `int`
+  NakaMetPyが対応しているBUFRのマスターテーブルの一番古いバージョン
+
+convert_decimal_to_IA5character: `dict`
+  CCIAA IA5での数字と文字の辞書形式の対応表
 """
 
 # kinematics

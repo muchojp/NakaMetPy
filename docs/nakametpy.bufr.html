@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nakametpy.bufr module &mdash; nakametpy 2024.12.0 documentation</title>
+  <title>nakametpy.bufr module &mdash; nakametpy 2025.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -98,8 +98,9 @@
 <dd><p>get data description in section 3</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>data description&lt;br&gt;
-str</p>
+<dd class="field-odd"><p><p>data description</p>
+<p>str</p>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list</p>
@@ -113,9 +114,10 @@ str</p>
 <dd><p>get data descriptor in section 3</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>data descriptor&lt;br&gt;
-f-xx-yyy, data descriptor&lt;br&gt;
-str, pd.DataFrame or str</p>
+<dd class="field-odd"><p><p>data descriptor</p>
+<p>f-xx-yyy, data descriptor</p>
+<p>str, pd.DataFrame or str</p>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list</p>
@@ -129,8 +131,9 @@ str, pd.DataFrame or str</p>
 <dd><p>get data description extracted F=3 descriptor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>data description&lt;br&gt;
-str</p>
+<dd class="field-odd"><p><p>data description</p>
+<p>str</p>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list</p>
@@ -144,9 +147,10 @@ str</p>
 <dd><p>get data descriptor extracted F=3 descriptor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>data descriptor&lt;br&gt;
-f-xx-yyy, data descriptor, nest&lt;br&gt;
-str, pd.DataFrame or str, int</p>
+<dd class="field-odd"><p><p>data descriptor</p>
+<p>f-xx-yyy, data descriptor, nest</p>
+<p>str, pd.DataFrame or str, int</p>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list</p>
@@ -157,8 +161,8 @@ str, pd.DataFrame or str, int</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nakametpy.bufr.bufr.read_data">
 <span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr.read_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr.read_data" title="Permalink to this definition"></a></dt>
-<dd><p>get BUFR data in data section (section 4)&lt;br&gt;
-データ節 (セクション4) のデータを読み込む&lt;br&gt;</p>
+<dd><p>get BUFR data in data section (section 4)</p>
+<p>データ節 (セクション4) のデータを読み込む</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>data</p>
@@ -196,17 +200,20 @@ str, pd.DataFrame or str, int</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nakametpy.bufr.bufr_sec_4.read_data">
 <span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">descriptors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsubset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/nakametpy/bufr.html#bufr_sec_4.read_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.bufr.bufr_sec_4.read_data" title="Permalink to this definition"></a></dt>
-<dd><p>read bufr data&lt;br&gt;
-BUFRのデータを読み込む</p>
+<dd><p>read bufr data</p>
+<p>BUFRのデータを読み込む</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>descriptors</strong> (<em>list</em>) – data descriptor&lt;br&gt;
-資料記述子</p></li>
-<li><p><strong>sec_len</strong> (<em>dict</em>) – length of sections&lt;br&gt;
-セクションの長さ</p></li>
-<li><p><strong>nsubset</strong> (<em>list</em>) – number of data subset&lt;br&gt;
-データサブセットの数</p></li>
+<li><p><strong>descriptors</strong> (<em>list</em>) – <p>data descriptor</p>
+<p>資料記述子</p>
+</p></li>
+<li><p><strong>sec_len</strong> (<em>dict</em>) – <p>length of sections</p>
+<p>セクションの長さ</p>
+</p></li>
+<li><p><strong>nsubset</strong> (<em>list</em>) – <p>number of data subset</p>
+<p>データサブセットの数</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -266,8 +273,9 @@ BUFRのデータを読み込む</p>
 <dd><p>read master table CODE/FLAG and get dict</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of master table CODE/FLAG, by default f”STD_0_{LATEST_MASTER_TABLE_VERSION:02}”&lt;br&gt;
-Format is “<a href="#id1"><span class="problematic" id="id2">STD_0_</span></a>??” / “LOC_0_7_1” / “ADD_1_0”&lt;br&gt;</p>
+<dd class="field-odd"><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>Version of master table CODE/FLAG, by default f”STD_0_{LATEST_MASTER_TABLE_VERSION:02}”</p>
+<p>Format is “<a href="#id1"><span class="problematic" id="id2">STD_0_</span></a>??” / “LOC_0_7_1” / “ADD_1_0”</p>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>master table CODE/FLAG</p>
@@ -284,8 +292,9 @@ Format is “<a href="#id1"><span class="problematic" id="id2">STD_0_</span></a>
 <dd><p>read master table B and get pandas DataFrame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of master table B, by default f”STD_0_{LATEST_MASTER_TABLE_VERSION:02}”&lt;br&gt;
-Format is “<a href="#id3"><span class="problematic" id="id4">STD_0_</span></a>??” / “LOC_0_7_1” / “ADD_1_0”&lt;br&gt;</p>
+<dd class="field-odd"><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>Version of master table B, by default f”STD_0_{LATEST_MASTER_TABLE_VERSION:02}”</p>
+<p>Format is “<a href="#id3"><span class="problematic" id="id4">STD_0_</span></a>??” / “LOC_0_7_1” / “ADD_1_0”</p>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>master table B</p>
@@ -302,8 +311,9 @@ Format is “<a href="#id3"><span class="problematic" id="id4">STD_0_</span></a>
 <dd><p>read master table D and get dict</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of master table D, by default f”STD_0_{LATEST_MASTER_TABLE_VERSION:02}”&lt;br&gt;
-Format is “<a href="#id5"><span class="problematic" id="id6">STD_0_</span></a>??” / “LOC_0_7_1” / “ADD_1_0”&lt;br&gt;</p>
+<dd class="field-odd"><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>Version of master table D, by default f”STD_0_{LATEST_MASTER_TABLE_VERSION:02}”</p>
+<p>Format is “<a href="#id5"><span class="problematic" id="id6">STD_0_</span></a>??” / “LOC_0_7_1” / “ADD_1_0”</p>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>master table D</p>

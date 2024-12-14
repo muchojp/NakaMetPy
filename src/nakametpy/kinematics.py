@@ -300,7 +300,7 @@ def dis_azi_from_point(lats, lons, *, idx_flag=False, clat=None, clon=None, clat
 def gradient_h(var, dx, dy, wrfon=0):
     r'''変数の勾配を求める関数
 
-    ``distance_nd``を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+    dx, dyは`distance_nd`を使って求め、それらをこの関数の引数に渡すと計算できる.
     dx, dyにintまたはfloatを代入した場合、一定値として扱われる.
 
     Parameters
@@ -358,7 +358,7 @@ def gradient_h(var, dx, dy, wrfon=0):
 def gradient_h_4d(var, dx, dy, wrfon=0):
     r'''変数の勾配を求める関数.
 
-    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる
 
     Parameters
     ----------
@@ -416,7 +416,7 @@ def gradient_h_4d(var, dx, dy, wrfon=0):
 def gradient_h_3d(var, dx, dy, wrfon=0):
     r'''変数の勾配を求める関数.
 
-    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる
 
     Parameters
     ----------
@@ -474,7 +474,7 @@ def gradient_h_3d(var, dx, dy, wrfon=0):
 def gradient_h_2d(var, dx, dy, wrfon=0):
     r'''変数の勾配を求める関数.
 
-    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる
 
     Parameters
     ----------
@@ -532,7 +532,7 @@ def gradient_h_2d(var, dx, dy, wrfon=0):
 def divergence_2d(fx, fy, dx, dy, wrfon=0):
     r'''直交座標系において変数の発散を求める関数.
 
-    distance_2dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_2dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる
 
     Parameters
     ----------
@@ -586,7 +586,7 @@ def divergence(fx, fy, dx, dy, wrfon=0):
     r'''直交座標系において変数の発散を求める関数.
 
     divergence_2dの拡張で3次元以上の配列に対応している.
-    distance_2d, 3d, 4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_2d, 3d, 4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる
 
     Parameters
     ----------
@@ -920,7 +920,7 @@ def vert_grad(variables, pres_4d, z_dim=-3):
 def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''変数の移流を求める関数.
     
-    distance_3dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_3dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる
 
     Parameters
     ----------
@@ -983,7 +983,7 @@ def advection_h_3d(var, wind_u, wind_v, dx, dy, wrfon=0):
 def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''変数の移流を求める関数.
 
-    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる
+    distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる
 
     Parameters
     ----------
@@ -1043,7 +1043,7 @@ def advection_h_4d(var, wind_u, wind_v, dx, dy, wrfon=0):
 def advection_h(var, wind_u, wind_v, dx, dy, wrfon=0):
     r'''変数の移流を求める関数.
     
-    ``distance_4d``を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+    dx, dyは``distance_4d``を使って求め、それらをこの関数の引数に渡すと計算できる.
     dx, dyにintまたはfloatを代入するとそれが全てのdx, dyとなる.
 
     Parameters
@@ -1108,7 +1108,7 @@ def q_1(temperature_1, temperature_2, temperature_3, wind_u, wind_v, p_velocity,
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く、
     その前後の時間の気温のデータも与える必要がある.
 
-    ``distance_4d``を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+    dx, dyは`distance_4d`を使って求め、それらをこの関数の引数に渡すと計算できる.
 
     Parameters
     ----------
@@ -1195,7 +1195,7 @@ def q_2_rh(temperature_1, temperature_2, temperature_3, rh_1, rh_2, rh_3, wind_u
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある.
 
-    distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+    distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる.
 
     Parameters
     ----------
@@ -1298,7 +1298,7 @@ def q_2_sh_mix(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, t
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある.
 
-    ``distance_4d``を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+    dx, dyは`distance_4d`を使って求め、それらをこの関数の引数に渡すと計算できる.
 
     Parameters
     ----------
@@ -1387,7 +1387,7 @@ def q_2_sh_sh(sh_1, sh_2, sh_3, wind_u, wind_v, p_velocity, pressure, dx, dy, ti
     temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
     その前後の時間の気温のデータも与える必要がある.
 
-    ``distance_4d``を使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+    dx, dyは`distance_4d`を使って求め、それらをこの関数の引数に渡すと計算できる.
 
     Parameters
     ----------

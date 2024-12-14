@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nakametpy.kinematics module &mdash; nakametpy 2024.12.0 documentation</title>
+  <title>nakametpy.kinematics module &mdash; nakametpy 2025.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -92,29 +92,30 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.advection_h">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">advection_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#advection_h"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.advection_h" title="Permalink to this definition"></a></dt>
-<dd><p>変数の移流を求める関数.
-distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+<dd><p>変数の移流を求める関数.</p>
+<p>dx, dyは``distance_4d``を使って求め、それらをこの関数の引数に渡すと計算できる.
 dx, dyにintまたはfloatを代入するとそれが全てのdx, dyとなる.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – <p>eastward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – <p>northward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not.</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -130,28 +131,28 @@ Flag whether input data is wrfout or not
 <dt class="sig sig-object py" id="nakametpy.kinematics.advection_h_3d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">advection_h_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#advection_h_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.advection_h_3d" title="Permalink to this definition"></a></dt>
 <dd><p>変数の移流を求める関数.</p>
-<p>distance_3dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<p>distance_3dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – <p>eastward wind</p>
-<p>The same shape as var
-変数と同じ形で無ければならない.</p>
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
 </p></li>
-<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – <p>eastward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – <p>northward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -166,28 +167,29 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.advection_h_4d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">advection_h_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#advection_h_4d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.advection_h_4d" title="Permalink to this definition"></a></dt>
-<dd><p>変数の移流を求める関数.
-distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dd><p>変数の移流を求める関数.</p>
+<p>distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – <p>eastward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – <p>northward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not.</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -202,13 +204,14 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.ageostrophic_wind">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">ageostrophic_wind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geopotential</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_wind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_wind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#ageostrophic_wind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.ageostrophic_wind" title="Permalink to this definition"></a></dt>
-<dd><p>非地衡風成分を求める.
-実際の風の東西・南北成分から地衡風成分を引く.</p>
+<dd><p>非地衡風成分を求める関数.</p>
+<p>実際の風の東西・南北成分から地衡風成分を引く.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>geopotential</strong> (<cite>numpy.ndarray</cite>) – Geopotential (Not Geopotential Height)
-ジオポテンシャル (ジオポテンシャル高度では無い)</p></li>
+<li><p><strong>geopotential</strong> (<cite>numpy.ndarray</cite>) – <p>Geopotential (Not Geopotential Height)</p>
+<p>ジオポテンシャル (ジオポテンシャル高度では無い)</p>
+</p></li>
 <li><p><strong>u_wind</strong> (<cite>numpy.ndarray</cite>) – eastward wind</p></li>
 <li><p><strong>v_wind</strong> (<cite>numpy.ndarray</cite>) – northward wind</p></li>
 <li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – 東西方向の距離</p></li>
@@ -216,8 +219,9 @@ Flag whether input data is wrfout or not
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>ageostrophic wind
-非地衡風</p>
+<dd class="field-even"><p><p>ageostrophic wind</p>
+<p>非地衡風</p>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
@@ -250,8 +254,9 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.dis_azi_from_point">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">dis_azi_from_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clat_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clon_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lev_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#dis_azi_from_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.dis_azi_from_point" title="Permalink to this definition"></a></dt>
-<dd><p>ある地点からの距離と方位角を求める関数.次元は[(時間、鉛直方向)、緯度、経度]である.</p>
-<p>地球半径の値は6371229mを使用.</p>
+<dd><p>ある地点からの距離と方位角を求める関数</p>
+<p>次元は[(時間、鉛直方向)、緯度、経度]である.
+地球半径の値は6371229mを使用.</p>
 <p>Calculate the distance and azimuth from latitude and longitude</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -274,8 +279,9 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.distance">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lev_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.distance" title="Permalink to this definition"></a></dt>
-<dd><p>各格子点間の距離を求める関数.次元は[(時間、鉛直方向)、緯度、経度]である.</p>
-<p>地球半径の値は6371229mを使用.</p>
+<dd><p>各格子点間の距離を求める関数.</p>
+<p>次元は[(時間、鉛直方向)、緯度、経度]である.
+地球半径の値は6371229mを使用.</p>
 <p>Calculate the distance from latitude and longitude</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -296,8 +302,9 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.distance_2d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">distance_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lats</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#distance_2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.distance_2d" title="Permalink to this definition"></a></dt>
-<dd><p>各格子点間の距離を求める関数.次元は[時間、緯度、経度]である.</p>
-<p>地球半径の値は6371229mを使用.</p>
+<dd><p>各格子点間の距離を求める関数.</p>
+<p>次元は[時間、緯度、経度]である.
+地球半径の値は6371229mを使用.</p>
 <p>Calculate the distance from latitude and longitude</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -318,7 +325,8 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.distance_3d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">distance_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len3d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#distance_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.distance_3d" title="Permalink to this definition"></a></dt>
-<dd><p>各格子点間の距離を求める関数.次元は[時間、緯度、経度]である.
+<dd><p>各格子点間の距離を求める関数.</p>
+<p>次元は[時間、緯度、経度]である.
 Single Levelの変数を計算する際に用いる.</p>
 <p>地球半径の値は6371229mを使用.</p>
 <p>Calculate the distance from latitude and longitude</p>
@@ -341,8 +349,9 @@ Single Levelの変数を計算する際に用いる.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.distance_4d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">distance_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lev_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">37</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#distance_4d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.distance_4d" title="Permalink to this definition"></a></dt>
-<dd><p>各格子点間の距離を求める関数.次元は[時間、鉛直方向、緯度、経度]である.</p>
-<p>地球半径の値は6371229mを使用.</p>
+<dd><p>各格子点間の距離を求める関数.</p>
+<p>次元は[時間、鉛直方向、緯度、経度]である.
+地球半径の値は6371229mを使用.</p>
 <p>Calculate the distance from latitude and longitude</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -365,23 +374,25 @@ Single Levelの変数を計算する際に用いる.</p>
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">divergence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#divergence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.divergence" title="Permalink to this definition"></a></dt>
 <dd><p>直交座標系において変数の発散を求める関数.</p>
 <p>divergence_2dの拡張で3次元以上の配列に対応している.
-distance_2d, 3d, 4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+distance_2d, 3d, 4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – x-flux
-x(東西)方向のフラックス</p></li>
-<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – y-flux
-y(南北)方向のフラックス</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – <p>x-flux</p>
+<p>x(東西)方向のフラックス</p>
+</p></li>
+<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – <p>y-flux</p>
+<p>y(南北)方向のフラックス</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -396,24 +407,26 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.divergence_2d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">divergence_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#divergence_2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.divergence_2d" title="Permalink to this definition"></a></dt>
-<dd><p>直交座標系において変数の発散を求める関数.
-distance_2dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dd><p>直交座標系において変数の発散を求める関数.</p>
+<p>distance_2dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – x-flux
-x(東西)方向のフラックス</p></li>
-<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – y-flux
-y(南北)方向のフラックス</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – <p>x-flux</p>
+<p>x(東西)方向のフラックス</p>
+</p></li>
+<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – <p>y-flux</p>
+<p>y(南北)方向のフラックス</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -450,21 +463,23 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.geostrophic_wind">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">geostrophic_wind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geopotential</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#geostrophic_wind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.geostrophic_wind" title="Permalink to this definition"></a></dt>
-<dd><p>地衡風を求める.
-ジオポテンシャルの水平微分を行い、コリオリパラメタで割った後、
+<dd><p>地衡風を求める関数.</p>
+<p>ジオポテンシャルの水平微分を行い、コリオリパラメタで割った後、
 u成分にマイナスをかける.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>geopotential</strong> (<cite>numpy.ndarray</cite>) – Geopotential (Not Geopotential Height)
-ジオポテンシャル (ジオポテンシャル高度では無い)</p></li>
+<li><p><strong>geopotential</strong> (<cite>numpy.ndarray</cite>) – <p>Geopotential (Not Geopotential Height)</p>
+<p>ジオポテンシャル (ジオポテンシャル高度では無い)</p>
+</p></li>
 <li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – 東西方向の距離</p></li>
 <li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – 南北方向の距離</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>geostrophic wind
-地衡風</p>
+<dd class="field-even"><p><p>geostrophic wind</p>
+<p>地衡風</p>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
@@ -475,23 +490,24 @@ u成分にマイナスをかける.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.gradient_h">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">gradient_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#gradient_h"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.gradient_h" title="Permalink to this definition"></a></dt>
-<dd><p>変数の勾配を求める関数.
-distance_ndを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる.
+<dd><p>変数の勾配を求める関数</p>
+<p>dx, dyは`distance_nd`を使って求め、それらをこの関数の引数に渡すと計算できる.
 dx, dyにintまたはfloatを代入した場合、一定値として扱われる.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -506,22 +522,23 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.gradient_h_2d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">gradient_h_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#gradient_h_2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.gradient_h_2d" title="Permalink to this definition"></a></dt>
-<dd><p>変数の勾配を求める関数.
-distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dd><p>変数の勾配を求める関数.</p>
+<p>distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -536,22 +553,23 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.gradient_h_3d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">gradient_h_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#gradient_h_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.gradient_h_3d" title="Permalink to this definition"></a></dt>
-<dd><p>変数の勾配を求める関数.
-distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dd><p>変数の勾配を求める関数.</p>
+<p>distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -566,22 +584,23 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.gradient_h_4d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">gradient_h_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#gradient_h_4d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.gradient_h_4d" title="Permalink to this definition"></a></dt>
-<dd><p>変数の勾配を求める関数.
-distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<dd><p>変数の勾配を求める関数.</p>
+<p>distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>var</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite> or <cite>int</cite> or <cite>float</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -640,10 +659,10 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.lapse_rate">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">lapse_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#lapse_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.lapse_rate" title="Permalink to this definition"></a></dt>
-<dd><p>実際の断熱減率などの呼び方がある.
-詳しくはHolton 5th edition pp54</p>
-<p>変数はすべて同じ形で無ければならない.
-Variables should be the same shape.</p>
+<dd><p>実際の断熱減率などの呼び方がある.</p>
+<p>詳しくはHolton 5th edition pp54</p>
+<p>変数はすべて同じ形で無ければならない.</p>
+<p>Variables should be the same shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -686,8 +705,8 @@ Variables should be the same shape.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.pressure_3d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">pressure_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pres</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">201</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">401</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#pressure_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.pressure_3d" title="Permalink to this definition"></a></dt>
-<dd><p>1次元の気圧の配列から3次元の気圧の配列を返す関数.
-気圧を計算に用いる際に使います.</p>
+<dd><p>1次元の気圧の配列から3次元の気圧の配列を返す関数.</p>
+<p>気圧を計算に用いる際に使います.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pres</strong> (<cite>numpy.ndarray</cite>) – pressure(1d)</p>
@@ -704,8 +723,8 @@ Variables should be the same shape.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.pressure_4d">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">pressure_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pres</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">201</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">401</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#pressure_4d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.pressure_4d" title="Permalink to this definition"></a></dt>
-<dd><p>1次元の気圧の配列から4次元の気圧の配列を返す関数.
-気圧を計算に用いる際に使います.</p>
+<dd><p>1次元の気圧の配列から4次元の気圧の配列を返す関数.</p>
+<p>気圧を計算に用いる際に使います.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pres</strong> (<cite>numpy.ndarray</cite>) – pressure(1d)</p>
@@ -722,8 +741,8 @@ Variables should be the same shape.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.pressure_nd">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">pressure_nd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pres</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">201</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">401</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#pressure_nd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.pressure_nd" title="Permalink to this definition"></a></dt>
-<dd><p>1次元の気圧の配列からn次元の気圧の配列を返す関数.
-気圧を計算に用いる際に使います.</p>
+<dd><p>1次元の気圧の配列からn次元の気圧の配列を返す関数.</p>
+<p>気圧を計算に用いる際に使います.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pres</strong> (<cite>numpy.ndarray</cite>) – pressure(1d)</p>
@@ -740,8 +759,8 @@ Variables should be the same shape.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.ps2ps_distance">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">ps2ps_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lon1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#ps2ps_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.ps2ps_distance" title="Permalink to this definition"></a></dt>
-<dd><p>地点間の距離を求める関数.
-単一の地点間の距離を求める場合はp2p_distanceの方が処理が早い.</p>
+<dd><p>地点間の距離を求める関数.</p>
+<p>単一の地点間の距離を求める場合はp2p_distanceの方が処理が早い.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -763,10 +782,10 @@ Variables should be the same shape.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.pseudoadiabatic_lapse_rate">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">pseudoadiabatic_lapse_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#pseudoadiabatic_lapse_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.pseudoadiabatic_lapse_rate" title="Permalink to this definition"></a></dt>
-<dd><p>偽断熱減率、湿潤断熱減率などの呼び方がある.
-詳しくはHolton 5th edition pp61</p>
-<p>変数はすべて同じ形で無ければならない.
-Variables should be the same shape.</p>
+<dd><p>偽断熱減率、湿潤断熱減率などの呼び方がある.</p>
+<p>詳しくはHolton 5th edition pp61</p>
+<p>変数はすべて同じ形で無ければならない.</p>
+<p>Variables should be the same shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -791,46 +810,50 @@ Variables should be the same shape.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.q_1">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">q_1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#q_1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.q_1" title="Permalink to this definition"></a></dt>
-<dd><p>Q1を気温を用いて求める関数です.</p>
-<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます.
-temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
+<dd><p>Q1を気温を用いて求める関数.</p>
+<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算される.
+temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く、
 その前後の時間の気温のデータも与える必要がある.</p>
-<p>distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<p>dx, dyは`distance_4d`を使って求め、それらをこの関数の引数に渡すと計算できる.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>temperature_1</strong> (<cite>numpy.ndarray</cite>) – temperature
-計算したい時間の前の時間のtemp
-temperature_2と同じ形で無ければならない.</p></li>
-<li><p><strong>temperature_2</strong> (<cite>numpy.ndarray</cite>) – temperature
-計算したい時間のtemp</p></li>
-<li><p><strong>temperature_3</strong> (<cite>numpy.ndarray</cite>) – temperature
-計算したい時間の後の時間のtemp
-temperature_2と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – vertical p velocity
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – pressure
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>timestep</strong> (<cite>float</cite>) – default = 3600 (for ERA5)
-This varies on dataset.
-使用するデータによって変更する必要がある.</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>temperature_1</strong> (<cite>numpy.ndarray</cite>) – <p>temperature</p>
+<p>計算したい時間の前の時間のtemp.
+temperature_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>temperature_2</strong> (<cite>numpy.ndarray</cite>) – <p>temperature</p>
+<p>計算したい時間のtemp.</p>
+</p></li>
+<li><p><strong>temperature_3</strong> (<cite>numpy.ndarray</cite>) – <p>temperature</p>
+<p>計算したい時間の後の時間のtemp.
+temperature_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – <p>eastward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – <p>northward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – <p>vertical p velocity. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – <p>pressure. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>timestep</strong> (<cite>float</cite>) – <p>default = 3600 (for ERA5).</p>
+<p>This varies on dataset.</p>
+<p>使用するデータによって変更する必要がある.</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not.</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -845,54 +868,61 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.q_2_rh">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">q_2_rh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#q_2_rh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.q_2_rh" title="Permalink to this definition"></a></dt>
-<dd><p>Q2を相対湿度と気温を用いて混合比から求める関数です.</p>
-<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます.
+<dd><p>Q2を相対湿度と気温を用いて混合比から求める関数.</p>
+<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算される.
 temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
 その前後の時間の気温のデータも与える必要がある.</p>
-<p>distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<p>distance_4dを使ってdx, dyを求め、それらをこの関数の引数に渡すと計算できる.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>temperature_1</strong> (<cite>numpy.ndarray</cite>) – temperature
-計算したい時間の前の時間のtemp
-temperature_2と同じ形で無ければならない.</p></li>
-<li><p><strong>temperature_2</strong> (<cite>numpy.ndarray</cite>) – temperature
-計算したい時間のtemp</p></li>
-<li><p><strong>temperature_3</strong> (<cite>numpy.ndarray</cite>) – temperature
-計算したい時間の後の時間のtemp
-temperature_2と同じ形で無ければならない.</p></li>
-<li><p><strong>rh_1</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
-計算したい時間の前の時間の相対湿度
-rh_2と同じ形で無ければならない.</p></li>
-<li><p><strong>rh_2</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
-計算したい時間の相対湿度</p></li>
-<li><p><strong>rh_3</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
-計算したい時間の後の時間の相対湿度
-rh_2と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – vertical p velocity
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – pressure
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>timestep</strong> (<cite>float</cite>) – default = 3600 (for ERA5)
-This varies on dataset.
-使用するデータによって変更する必要がある.</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>temperature_1</strong> (<cite>numpy.ndarray</cite>) – <p>temperature</p>
+<p>計算したい時間の前の時間のtemp.
+temperature_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>temperature_2</strong> (<cite>numpy.ndarray</cite>) – <p>temperature</p>
+<p>計算したい時間のtemp.</p>
+</p></li>
+<li><p><strong>temperature_3</strong> (<cite>numpy.ndarray</cite>) – <p>temperature</p>
+<p>計算したい時間の後の時間のtemp.
+temperature_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>rh_1</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity</p>
+<p>計算したい時間の前の時間の相対湿度.
+rh_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>rh_2</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity</p>
+<p>計算したい時間の相対湿度.</p>
+</p></li>
+<li><p><strong>rh_3</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity</p>
+<p>計算したい時間の後の時間の相対湿度.
+rh_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – <p>eastward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – <p>northward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – <p>vertical p velocity. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – <p>pressure. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>timestep</strong> (<cite>float</cite>) – <p>default = 3600 (for ERA5)</p>
+<p>This varies on dataset.</p>
+<p>使用するデータによって変更する必要がある.</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not.</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -907,46 +937,50 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.q_2_sh_mix">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">q_2_sh_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sh_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sh_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sh_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#q_2_sh_mix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.q_2_sh_mix" title="Permalink to this definition"></a></dt>
-<dd><p>Q2を比湿を用いて混合比から求める関数です.</p>
-<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます.
+<dd><p>Q2を比湿を用いて混合比から求める関数.</p>
+<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算される.
 temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
 その前後の時間の気温のデータも与える必要がある.</p>
-<p>distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<p>dx, dyは`distance_4d`を使って求め、それらをこの関数の引数に渡すと計算できる.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sh_1</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
-計算したい時間の前の時間の比湿
-sh_2と同じ形で無ければならない.</p></li>
-<li><p><strong>sh_2</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
-計算したい時間の比湿</p></li>
-<li><p><strong>sh_3</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
-計算したい時間の後の時間の比湿
-sh_2と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – vertical p velocity
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – pressure
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>timestep</strong> (<cite>float</cite>) – default = 3600 (for ERA5)
-This varies on dataset.
-使用するデータによって変更する必要がある.</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>sh_1</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity</p>
+<p>計算したい時間の前の時間の比湿.
+sh_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>sh_2</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity</p>
+<p>計算したい時間の比湿</p>
+</p></li>
+<li><p><strong>sh_3</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity</p>
+<p>計算したい時間の後の時間の比湿.
+sh_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – <p>eastward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – <p>northward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – <p>vertical p velocity. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – <p>pressure. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>timestep</strong> (<cite>float</cite>) – <p>default = 3600 (for ERA5)</p>
+<p>This varies on dataset.</p>
+<p>使用するデータによって変更する必要がある.</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not.</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -961,46 +995,50 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.q_2_sh_sh">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">q_2_sh_sh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sh_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sh_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sh_3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrfon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#q_2_sh_sh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.q_2_sh_sh" title="Permalink to this definition"></a></dt>
-<dd><p>Q2を比湿を用いて比湿から求める関数です.</p>
-<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算が行われます.
+<dd><p>Q2を比湿を用いて比湿から求める関数.</p>
+<p>この関数は時間発展を計算する項が含まれているため、4次元の配列で計算される.
 temperatureに関しては時間変化は中央差分を用いるため、計算したい時間の気温だけで無く
 その前後の時間の気温のデータも与える必要がある.</p>
-<p>distance_4dを使ってdx, dyを求め、それを変数と引数に与えてあげると計算できる</p>
+<p>dx, dyは`distance_4d`を使って求め、それらをこの関数の引数に渡すと計算できる.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sh_1</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
-計算したい時間の前の時間の比湿
-sh_2と同じ形で無ければならない.</p></li>
-<li><p><strong>sh_2</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
-計算したい時間の比湿</p></li>
-<li><p><strong>sh_3</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity
-計算したい時間の後の時間の比湿
-sh_2と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – eastward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – northward wind
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – vertical p velocity
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – pressure
-The same shape as var
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – dx
-var.shape[-1]-1 == dx.shape[-1]
-経度方向の次元はvar.shape[-1]-1でなければならない</p></li>
-<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – dy
-var.shape[-2]-1 == dy.shape[-2]
-経度方向の次元はvar.shape[-2]-1でなければならない</p></li>
-<li><p><strong>timestep</strong> (<cite>float</cite>) – default = 3600 (for ERA5)
-This varies on dataset.
-使用するデータによって変更する必要がある.</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>sh_1</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity</p>
+<p>計算したい時間の前の時間の比湿.
+sh_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>sh_2</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity</p>
+<p>計算したい時間の比湿.</p>
+</p></li>
+<li><p><strong>sh_3</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity</p>
+<p>計算したい時間の後の時間の比湿.
+sh_2と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_u</strong> (<cite>numpy.ndarray</cite>) – <p>eastward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wind_v</strong> (<cite>numpy.ndarray</cite>) – <p>northward wind. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>p_velocity</strong> (<cite>numpy.ndarray</cite>) – <p>vertical p velocity. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – <p>pressure. The same shape as var.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>dx</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-1]-1 == dx.shape[-1]</p>
+<p>経度方向の次元はvar.shape[-1]-1でなければならない</p>
+</p></li>
+<li><p><strong>dy</strong> (<cite>numpy.ndarray</cite>) – <p>var.shape[-2]-1 == dy.shape[-2]</p>
+<p>経度方向の次元はvar.shape[-2]-1でなければならない</p>
+</p></li>
+<li><p><strong>timestep</strong> (<cite>float</cite>) – <p>default = 3600 (for ERA5)</p>
+<p>This varies on dataset.</p>
+<p>使用するデータによって変更する必要がある.</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not.</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1015,7 +1053,7 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.relative_vorticity">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">relative_vorticity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#relative_vorticity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.relative_vorticity" title="Permalink to this definition"></a></dt>
-<dd><p>相対渦度を求める.</p>
+<dd><p>相対渦度を求める関数.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1026,8 +1064,9 @@ Flag whether input data is wrfout or not
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Relative Vorticity
-相対渦度</p>
+<dd class="field-even"><p><p>Relative Vorticity</p>
+<p>相対渦度</p>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
@@ -1038,9 +1077,9 @@ Flag whether input data is wrfout or not
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.kinematics.richardson_number">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">richardson_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pres</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#richardson_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.richardson_number" title="Permalink to this definition"></a></dt>
-<dd><p>リチャードソン数を求める関数.
-変数はすべて同じ形で無ければならない.
-Variables should be the same shape.</p>
+<dd><p>リチャードソン数を求める関数.</p>
+<p>変数はすべて同じ形で無ければならない.</p>
+<p>Variables should be the same shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1065,8 +1104,8 @@ Variables should be the same shape.</p>
 <dt class="sig sig-object py" id="nakametpy.kinematics.static_stability">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.kinematics.</span></span><span class="sig-name descname"><span class="pre">static_stability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/kinematics.html#static_stability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.kinematics.static_stability" title="Permalink to this definition"></a></dt>
 <dd><p>大気の安定度を求める関数.</p>
-<p>変数はすべて同じ形で無ければならない.
-Variables should be the same shape.</p>
+<p>変数はすべて同じ形で無ければならない.</p>
+<p>Variables should be the same shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1095,16 +1134,17 @@ Variables should be the same shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – x-flux
-x(東西)方向のフラックス</p></li>
-<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – y-flux
-y(南北)方向のフラックス</p></li>
-<li><p><strong>lat</strong> (<cite>numpy.ndarray</cite>) – latitude
-緯度</p></li>
-<li><p><strong>lon</strong> (<cite>numpy.ndarray</cite>) – longitude
-経度</p></li>
-<li><p><strong>boundOpt</strong> (<cite>int</cite>) – boundOpt
-今は4(境界は片方の成分の収束のみで計算)のみ対応</p></li>
+<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – <p>x-flux</p>
+<p>x(東西)方向のフラックス</p>
+</p></li>
+<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – <p>y-flux</p>
+<p>y(南北)方向のフラックス</p>
+</p></li>
+<li><p><strong>lat</strong> (<cite>numpy.ndarray</cite>) – latitude</p></li>
+<li><p><strong>lon</strong> (<cite>numpy.ndarray</cite>) – longitude</p></li>
+<li><p><strong>boundOpt</strong> (<cite>int</cite>) – <p>boundOpt</p>
+<p>今は4(境界は片方の成分の収束のみで計算)のみ対応</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1127,16 +1167,17 @@ y(南北)方向のフラックス</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – x-flux
-x(東西)方向のフラックス</p></li>
-<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – y-flux
-y(南北)方向のフラックス</p></li>
-<li><p><strong>lat</strong> (<cite>numpy.ndarray</cite>) – latitude
-緯度</p></li>
-<li><p><strong>lon</strong> (<cite>numpy.ndarray</cite>) – longitude
-経度</p></li>
-<li><p><strong>boundOpt</strong> (<cite>int</cite>) – boundOpt
-今は4(境界は片方の成分の渦度のみで計算)のみ対応</p></li>
+<li><p><strong>fx</strong> (<cite>numpy.ndarray</cite>) – <p>x-flux</p>
+<p>x(東西)方向のフラックス</p>
+</p></li>
+<li><p><strong>fy</strong> (<cite>numpy.ndarray</cite>) – <p>y-flux</p>
+<p>y(南北)方向のフラックス</p>
+</p></li>
+<li><p><strong>lat</strong> (<cite>numpy.ndarray</cite>) – latitude</p></li>
+<li><p><strong>lon</strong> (<cite>numpy.ndarray</cite>) – longitude</p></li>
+<li><p><strong>boundOpt</strong> (<cite>int</cite>) – <p>boundOpt</p>
+<p>今は4(境界は片方の成分の渦度のみで計算)のみ対応</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1159,12 +1200,13 @@ y(南北)方向のフラックス</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>pres_nd</strong> (<cite>numpy.ndarray</cite>) – pressure(nd)
-The same shape as var
-Use pressure_nd from 1d pressure array
-変数と同じ形で無ければならない.</p></li>
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>pres_nd</strong> (<cite>numpy.ndarray</cite>) – <p>pressure(nd). The same shape as var
+Use pressure_nd from 1d pressure array.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1189,11 +1231,12 @@ Use pressure_nd from 1d pressure array
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – height(2d)
-The same shape as var
-ジオポテンシャル高度を用いる.</p></li>
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – <p>variable.</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – <p>height(2d). The same shape as var.</p>
+<p>ジオポテンシャル高度を用いる.</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1212,15 +1255,16 @@ The same shape as var
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>pres_3d</strong> (<cite>numpy.ndarray</cite>) – pressure(3d)
-The same shape as var
-Use pressure_3d from 1d pressure array
-変数と同じ形で無ければならない.</p></li>
-<li><p><strong>wrfon</strong> (<cite>int</cite>) – wrfon
-Flag whether input data is wrfout or not
-入力データがwrfoutか否かのフラグ</p></li>
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>pres_3d</strong> (<cite>numpy.ndarray</cite>) – <p>pressure(3d). The same shape as var
+Use pressure_3d from 1d pressure array.</p>
+<p>変数と同じ形で無ければならない.</p>
+</p></li>
+<li><p><strong>wrfon</strong> (<cite>int</cite>) – <p>Flag whether input data is wrfout or not</p>
+<p>入力データがwrfoutか否かのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1245,11 +1289,12 @@ Flag whether input data is wrfout or not
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – height(3d)
-The same shape as var
-ジオポテンシャル高度を用いる.</p></li>
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – <p>height(3d). The same shape as var.</p>
+<p>ジオポテンシャル高度を用いる.</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1268,11 +1313,11 @@ The same shape as var
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>pres_4d</strong> (<cite>numpy.ndarray</cite>) – pressure(4d)
-The same shape as var
-Use pressure_4d from 1d pressure array
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – <p>variable</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>pres_4d</strong> (<cite>numpy.ndarray</cite>) – pressure(4d). The same shape as var
+Use pressure_4d from 1d pressure array.
 変数と同じ形で無ければならない.</p></li>
 </ul>
 </dd>
@@ -1298,11 +1343,12 @@ Use pressure_4d from 1d pressure array
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – variable
-計算したい変数</p></li>
-<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – height(4d)
-The same shape as var
-ジオポテンシャル高度を用いる.</p></li>
+<li><p><strong>variables</strong> (<cite>numpy.ndarray</cite>) – <p>variable.</p>
+<p>計算したい変数</p>
+</p></li>
+<li><p><strong>height</strong> (<cite>numpy.ndarray</cite>) – <p>height(4d). The same shape as var.</p>
+<p>ジオポテンシャル高度を用いる.</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
