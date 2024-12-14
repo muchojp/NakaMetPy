@@ -1840,7 +1840,7 @@ def jma_BlWhRe_list():
             [1.0, 0.1568627450980392, 0.0]]
     return ListedColormap(clist, 'jma_BlWhRe_list')
 
-def jwa_rainbow():
+def jwa_precip():
     r'''日本気象協会(JWA)のレーダー雨量のカラーマップ.
 
     Returns
@@ -1849,11 +1849,11 @@ def jwa_rainbow():
     
     Notes
     -----
-    オブジェクトは ``jwa_rainbow_256lev`` という名前でも受け取れる.
+    オブジェクトは ``jwa_precip_256lev`` という名前でも受け取れる.
 
-    |jwa_rainbow|
+    |jwa_precip|
 
-    .. |jwa_rainbow| image:: ./img/jwa_rainbow.png
+    .. |jwa_precip| image:: ./img/jwa_precip.png
         :width: 600
     '''
     cdict = {'blue': [
@@ -1885,7 +1885,7 @@ def jwa_rainbow():
         (0.83, 1.0, 1.0),
         (1.0, 1.0, 1.0),
       ]}
-    return LinearSegmentedColormap('jwa_rainbow', cdict)
+    return LinearSegmentedColormap('jwa_precip', cdict)
 
 def cmthermal():
     r'''Qiitaに投稿された、温度を表す理想カラーマップ.
@@ -1928,7 +1928,7 @@ def cmthermal():
         (0.75, 214/_CMAX, 214/_CMAX),
         (1.0, 115/_CMAX, 115/_CMAX),
       ]}
-    return LinearSegmentedColormap('jwa_rainbow', cdict)
+    return LinearSegmentedColormap('jwa_precip', cdict)
 
 def weathernews_precip_list():
     r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している.
@@ -2065,7 +2065,7 @@ jma_snow_anom_white_256lev = jma_snow_anom_white_linear()
 jma_snow_anom_white_11lev = jma_snow_anom_white_list()
 jma_BlWhRe_256lev = jma_BlWhRe_linear()
 jma_BlWhRe_11lev = jma_BlWhRe_list()
-jwa_rainbow_256lev = jwa_rainbow()
+jwa_precip_256lev = jwa_precip()
 cmthermal_256lev = cmthermal()
 weathernews_precip_linear_256lev = weathernews_precip_linear()
 weathernews_precip_list_13lev = weathernews_precip_list()
@@ -2118,7 +2118,7 @@ cmap_list = [
             jma_snow_anom_white_11lev,
             jma_BlWhRe_256lev,
             jma_BlWhRe_11lev,
-            jwa_rainbow_256lev,
+            jwa_precip_256lev,
             cmthermal_256lev,
             weathernews_precip_linear_256lev,
             weathernews_precip_list_13lev,
@@ -2172,10 +2172,10 @@ cmap_names = ['sunshine',
             'jma_snow_anom_white_list',
             'jma_BlWhRe_linear',
             'jma_BlWhRe_list',
-            'jwa_rainbow',
+            'jwa_precip',
             'cmthermal',
-            'weathernews_precip_rainbow_linear',
-            'weathernews_precip_rainbow_list',
+            'weathernews_precip_linear',
+            'weathernews_precip_list',
             ]
 
 
