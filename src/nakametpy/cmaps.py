@@ -1894,7 +1894,7 @@ def jwa_precip():
 def cmthermal():
     r'''Qiitaに投稿された、温度を表す理想カラーマップ.
     
-    URL:https://qiita.com/nokos/items/6551b3d3b46be73496cf#python-matplotlib-%E3%81%A7%E3%81%AE%E5%AE%9F%E8%A3%85
+    URL:`リンク <https://qiita.com/nokos/items/6551b3d3b46be73496cf#python-matplotlib-%E3%81%A7%E3%81%AE%E5%AE%9F%E8%A3%85>`__
 
     Returns
     -------
