@@ -91,8 +91,22 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
     Units(単位) [mm/h]
 
   Note
-  -----
+  ----
   ``jma_rain_lat``, ``jma_rain_lon`` はそれぞれ返り値に対応する. `np.ndarray` 型の緯度/経度である.
+
+  Examples1
+  ---------
+  >>> radar = load_jmara_grib2(path_to_1km_mesh_file)
+  >>> lon = get_jmara_lon()
+  >>> lat = get_jmara_lat()
+  >>> plot = ax.contourf(lon, lat, radar)
+
+  Examples2
+  ---------
+  >>> radar = load_jmara_grib2(path_to_2p5km_mesh_file)
+  >>> lon = get_jmara_lon(2500)
+  >>> lat = get_jmara_lat(2500)
+  >>> plot = ax.contourf(lon, lat, radar)
   '''
   binary = _get_binary(file=file, tar_flag=tar_flag, tar_contentname=tar_contentname)
   
@@ -138,6 +152,13 @@ def get_jmara_lat(mesh : int=None):
   Returns
   -------
   lat: `numpy.ndarray`
+
+  Examples
+  --------
+  >>> lat = get_jmara_lat()
+  >>> lat = get_jmara_lat(1000)
+  >>> lat = get_jmara_lat(2500)
+  >>> lat = get_jmara_lat(250)
   '''
   if mesh in [1000, None]:
     nlat = 3360
@@ -164,6 +185,13 @@ def get_jmara_lon(mesh : int=None):
   Returns
   -------
   lon: `numpy.ndarray`
+
+  Examples
+  --------
+  >>> lat = get_jmara_lon()
+  >>> lat = get_jmara_lon(1000)
+  >>> lat = get_jmara_lon(2500)
+  >>> lat = get_jmara_lon(250)
   '''
   if mesh in [1000, None]:
     nlon = 2560
@@ -364,6 +392,10 @@ def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
   -------
   latlon: set(`numpy.ma.MaskedArray`, `numpy.ma.MaskedArray`)
     (Latitude, Longitude)
+
+  Examples
+  --------
+  >>> lat, lon = get_grib2_latlon(path_to_1km_mesh_file)
   '''
   
   binary = _get_binary(file=file, tar_flag=tar_flag, tar_contentname=tar_contentname)
@@ -411,13 +443,17 @@ def load_jmanowc_grib2(file, tidx=0):
   ``jma_rain_lat``, ``jma_rain_lon`` はそれぞれ返り値に対応する.  
   `np.ndarray` 型の緯度/経度である.
   
-  Examples
-  -------
+  Examples1
+  ---------
   >>> nowc_1000 = load_jmanowc_grib2(path_to_file)
   >>> lon_1000 = get_jmara_lon(1000) # get 1000m mesh longitude array
   >>> lat_1000 = get_jmara_lat(1000) # get 1000m mesh latitude array
   >>>
   >>> plot_1000 = ax.contourf(lon_1000, lat_1000, nowc_1000)
+  
+  Examples2
+  ---------
+  >>> nowc_1000 = load_jmanowc_grib2(path_to_file, tidx=11)
   '''
   binary = _get_binary(file=file)
   
@@ -586,11 +622,9 @@ def anom_levels(levs):
   
   Examples  
   --------
-      >>> levs = [0.5, 1., 2.]
-      >>> print(anom_levels(levs))
-      [-2.  -1.  -0.5  0.5  1.   2. ]
-  
-  
+  >>> levs = [0.5, 1., 2.]
+  >>> print(anom_levels(levs))
+  [-2.  -1.  -0.5  0.5  1.   2. ]
   """
   levs = list(set(np.abs(levs)))
   levs.sort()
@@ -624,9 +658,9 @@ def concat_array(*arr, sort=True):
   
   Examples  
   --------
-      >>> levs = concat_array(np.arange(0.5, 2., 0.5), np.arange(2., 5.1, 1.))
-      >>> print(levs)
-      [0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5  5. ]
+  >>> levs = concat_array(np.arange(0.5, 2., 0.5), np.arange(2., 5.1, 1.))
+  >>> print(levs)
+  [0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5  5. ]
 
   """
   _list = []
@@ -637,16 +671,16 @@ def concat_array(*arr, sort=True):
   return np.array(_list)
 
 def myglob(path, reverse=False):
-    r"""Return sorted glob results.
+  r"""Return sorted glob results.
 
-    Parameters
-    ----------
-    path: `str`
-    
-    reverse: `bool`
+  Parameters
+  ----------
+  path: `str`
+  
+  reverse: `bool`
 
-    Returns
-    -------
-    result_list: `list`
-    """
-    return sorted(glob.glob(path), reverse=reverse)
+  Returns
+  -------
+  result_list: `list`
+  """
+  return sorted(glob.glob(path), reverse=reverse)
