@@ -2207,6 +2207,7 @@ def get_colormap(name):
         print('No such colormap in nakametpy.')
         return sys.exit(1)
 
+
 def get_colormap_list():
     r'''カラーマップ名のリストを得る関数.
 
@@ -2216,6 +2217,7 @@ def get_colormap_list():
     
     '''
     return cmap_names
+
 
 def _plot_each_colorbar(cmap_name, output=os.path.join(os.path.dirname(__file__), '../../docs/img')):
     r'''nakametpy.cmapにあるカラーマップのカラーバーをプロットする関数.
@@ -2250,7 +2252,6 @@ def _plot_each_colorbar(cmap_name, output=os.path.join(os.path.dirname(__file__)
     plt.close(fig)
 
 
-
 def mpl_default_color_cyclic(idx):
     """
     Get matplotlib default color in cyclic
@@ -2270,5 +2271,3 @@ def mpl_default_color_cyclic(idx):
 if __name__=='__main__':
     for i_cmp_name in get_colormap_list():
         _plot_each_colorbar(i_cmp_name)
-    
-

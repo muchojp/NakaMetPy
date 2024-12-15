@@ -21,17 +21,16 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 # logging.disable(logging.CRITICAL)
 
 def parse_bufrtab(file_path: str) -> list:
-  """Common method for parsing bufrtab file.
+  r"""Common method for parsing bufrtab file.
 
   Parameters
   ----------
-  file_path : str
-      path to bufrtab file
+  file_path : `str`
+    path to bufrtab file
 
   Returns
   -------
-  list
-      striped readlines
+  `list`: striped readlines
   """
   with open(file_path, mode="r", encoding="utf-8") as f:
     raw_text = f.readlines()
@@ -47,20 +46,18 @@ def parse_bufrtab(file_path: str) -> list:
   return valid_records
 
 def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> pd.DataFrame:
-  """read master table B and get pandas DataFrame
+  r"""read master table B and get pandas DataFrame
 
   Parameters
   ----------
-  version : str, optional
-      Version of master table B, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"
+  version : `str`, optional
+    Version of master table B, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"
 
-      Format is "STD_0_??" / "LOC_0_7_1" / "ADD_1_0"
-
+    Format is "STD_0_??" / "LOC_0_7_1" / "ADD_1_0"
 
   Returns
   -------
-  pd.DataFrame
-      master table B
+  `pd.DataFrame`: master table B
   """
   columns = ['F-XX-YYY', "SCALE", "REFERENCE_VALUE", "BIT_WIDTH", "UNIT", 'MNEMONIC', "DESC_CODE", 'ELEMENT_NAME']
   
@@ -81,7 +78,7 @@ def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSIO
   return df
 
 def parse_tableD_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> dict:
-  """read master table D and get dict
+  r"""read master table D and get dict
 
   Parameters
   ----------
@@ -90,11 +87,9 @@ def parse_tableD_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}
 
       Format is "STD_0_??" / "LOC_0_7_1" / "ADD_1_0"
 
-
   Returns
   -------
-  dict
-      master table D
+  `dict`: master table D
   """
   bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableD_{version}")
   valid_records = parse_bufrtab(bufrtab)
@@ -120,20 +115,18 @@ def parse_tableD_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}
   return data
 
 def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}") -> dict:
-  """read master table CODE/FLAG and get dict
+  r"""read master table CODE/FLAG and get dict
 
   Parameters
   ----------
   version : str, optional
-      Version of master table CODE/FLAG, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"
+    Version of master table CODE/FLAG, by default f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}"
 
-      Format is "STD_0_??" / "LOC_0_7_1" / "ADD_1_0"
-
+    Format is "STD_0_??" / "LOC_0_7_1" / "ADD_1_0"
 
   Returns
   -------
-  dict
-      master table CODE/FLAG
+  `dict`: master table CODE/FLAG
   """
   bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.CodeFlag_{version}")
   valid_records = parse_bufrtab(bufrtab)
@@ -189,21 +182,20 @@ def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:0
 
 class bufr:
   def __init__(self, file_path: str, highest_priority_add_tbl: bool=False) -> None:
-    """Read BUFR
+    r"""Read BUFR
 
     BUFRを読むクラス
 
-
     Parameters
     ----------
-    file_path : str
-        path to BUFR file.
+    file_path : `str`
+      path to BUFR file.
 
-        BUFRファイルのパス
+      BUFRファイルのパス
     highest_priority_add_tbl : bool, optional
-        Set highest priority on additional table, by default False
+      Set highest priority on additional table, by default False
 
-        追加テーブルを最優先で用いる際に設定するフラグ
+      追加テーブルを最優先で用いる際に設定するフラグ
     
     Notes
     -----
@@ -211,8 +203,7 @@ class bufr:
 
     Raises
     ------
-    NotSupportedBufrError
-        Raise when section 2 exist
+    `NotSupportedBufrError`: Raise when section 2 exist
     """
     self.file_path = file_path
     self.highest_priority_add_tbl = highest_priority_add_tbl
@@ -236,87 +227,86 @@ class bufr:
     self.sec_5 = bufr_sec_5(self.binary, self.sec_len)
   
   def get_data_descriptors(self) -> list:
-    """get data descriptor in section 3
+    r"""get data descriptor in section 3
 
     Returns
     -------
     list
-        data descriptor
+      data descriptor
 
-        f-xx-yyy, data descriptor
+      f-xx-yyy, data descriptor
 
-        str, pd.DataFrame or str
+      str, pd.DataFrame or str
     """
     return self.sec_3.sec3_data_desc_list
     
   def get_data_description(self) -> list:
-    """get data description in section 3
+    r"""get data description in section 3
 
     Returns
     -------
     list
-        data description
+      data description
 
-        str
+      str
     """
     return self.sec_3.sec3_data_desc_str_list
   
   def get_extracted_data_descriptors(self) -> list:
-    """get data descriptor extracted F=3 descriptor
+    r"""get data descriptor extracted F=3 descriptor
 
     Returns
     -------
     list
-        data descriptor
+      data descriptor
 
-        f-xx-yyy, data descriptor, nest
+      f-xx-yyy, data descriptor, nest
 
-        str, pd.DataFrame or str, int
+      str, pd.DataFrame or str, int
     """
     return self.sec_3.sec3_data_desc_extract_list
   
   def get_extracted_data_description(self) -> list:
-    """get data description extracted F=3 descriptor
+    r"""get data description extracted F=3 descriptor
 
     Returns
     -------
     list
-        data description
+      data description
 
-        str
+      str
     """
     return self.sec_3.sec3_data_desc_str_extract_list
   
   def read_data(self) -> list:
-    """get BUFR data in data section (section 4)
+    r"""get BUFR data in data section (section 4)
 
     データ節 (セクション4) のデータを読み込む
-
 
     Returns
     -------
     list
-        data
+      data
     """
     descriptors = self.get_extracted_data_descriptors()
     return self.sec_4.read_data(descriptors, self.sec_len, self.sec_3.sec3_05_06_num_of_data_subset)
 
 class bufr_sec_head:
   def __init__(self, binary: bytes, sec_len: dict) -> None:
-    """read bufr header
+    r"""read bufr header
 
     BUFRのヘッダを読み込むクラス
 
     Parameters
     ----------
     binary : bytes
-        binary data of BUFR
+      binary data of BUFR
 
-        BUFRのバイナリデータ
+      BUFRのバイナリデータ
     sec_len : dict
-        length of sections
+      length of sections
 
-        セクションの長さ
+      セクションの長さ
     """
     if binary[0:4].decode() == "BUFR":
       # print("This telegram has no header.")
@@ -344,20 +334,20 @@ class bufr_sec_head:
 
 class bufr_sec_0:
   def __init__(self, binary: bytes, sec_len: dict) -> None:
-    """read bufr Indicator section (section 0)
+    r"""read bufr Indicator section (section 0)
 
     BUFRの指示節(第0節)を読み込むクラス
 
     Parameters
     ----------
     binary : bytes
-        binary data of BUFR
+      binary data of BUFR
 
-        BUFRのバイナリデータ
+      BUFRのバイナリデータ
     sec_len : dict
-        length of sections
+      length of sections
 
-        セクションの長さ
+      セクションの長さ
     """
     # Section 0, Indicator section
     # print(binary[sec_len['sec_head']:sec_len['sec_head']+1])
@@ -379,20 +369,20 @@ class bufr_sec_0:
 
 class bufr_sec_1:
   def __init__(self, binary: bytes, sec_len: dict) -> None:
-    """read bufr Identification section (section 1)
+    r"""read bufr Identification section (section 1)
 
     BUFRの識別節(第1節)を読み込むクラス
 
     Parameters
     ----------
     binary : bytes
-        binary data of BUFR
+      binary data of BUFR
 
-        BUFRのバイナリデータ
+      BUFRのバイナリデータ
     sec_len : dict
-        length of sections
+      length of sections
 
-        セクションの長さ
+      セクションの長さ
     """
     # Section 1, Identification section
     self.sec1_desc_en = "Section 1, Identification section"
@@ -467,35 +457,35 @@ class bufr_sec_1:
 
 class bufr_sec_3:
   def __init__(self, binary: bytes, sec_len: dict, mst_tbl_version: str, highest_priority_add_tbl: bool) -> None:
-    """read bufr Data description section (section 3)
+    r"""read bufr Data description section (section 3)
 
     BUFRの資料記述節(第3節)を読み込むクラス
 
     Parameters
     ----------
     binary : bytes
-        binary data of BUFR
+      binary data of BUFR
 
-        BUFRのバイナリデータ
+      BUFRのバイナリデータ
     sec_len : dict
-        length of sections
+      length of sections
 
-        セクションの長さ
+      セクションの長さ
     mst_tbl_version : str
-        master table version
+      master table version
 
-        マスターテーブルのバージョン
+      マスターテーブルのバージョン
     highest_priority_add_tbl : bool
-        Set highest priority on additional table
+      Set highest priority on additional table
 
-        追加テーブルを最優先で用いる際に設定するフラグ
+      追加テーブルを最優先で用いる際に設定するフラグ
 
     Raises
     ------
     UnexpectedBufrError
-        raise when encountered unknown data descriptor
+      raise when encountered unknown data descriptor
 
-        予期せぬ資料記述子があった場合に発生
+      予期せぬ資料記述子があった場合に発生
     """
     # Section 1, Identification section
     self.sec3_desc_en = "Section 3, Data description section"
@@ -790,20 +780,20 @@ class bufr_sec_3:
 
 class bufr_sec_4:
   def __init__(self, binary: bytes, sec_len: str) -> None:
-    """read bufr Data section (section 4)
+    r"""read bufr Data section (section 4)
 
     BUFRの資料節(第4節)を読み込むクラス
 
     Parameters
     ----------
     binary : bytes
-        binary data of BUFR
+      binary data of BUFR
 
-        BUFRのバイナリデータ
+      BUFRのバイナリデータ
     sec_len : dict
-        length of sections
+      length of sections
 
-        セクションの長さ
+      セクションの長さ
     """
     # Section 4, Data section
     self.sec4_desc_en = "Section 4, Data section"
@@ -818,24 +808,24 @@ class bufr_sec_4:
     logging.debug(f"{self.sec4_desc_jp} 1  ~ 3   24 第4節の長さ(オクテット単位) = {sec_len['sec4']}")
     
   def read_data(self, descriptors: list, sec_len: dict, nsubset: list) -> list:
-    """read bufr data
+    r"""read bufr data
 
     BUFRのデータを読み込む
 
     Parameters
     ----------
     descriptors : list
-        data descriptor
+      data descriptor
 
-        資料記述子
+      資料記述子
     sec_len : dict
-        length of sections
+      length of sections
 
-        セクションの長さ
+      セクションの長さ
     nsubset : list
-        number of data subset
+      number of data subset
 
-        データサブセットの数
+      データサブセットの数
 
     Returns
     -------
@@ -851,27 +841,27 @@ class bufr_sec_4:
 
 class bufr_sec_5:
   def __init__(self, binary: bytes, sec_len: dict) -> None:
-    """read bufr End section (section 5)
+    r"""read bufr End section (section 5)
 
     BUFRの終端節(第5節)を読み込むクラス
 
     Parameters
     ----------
     binary : bytes
-        binary data of BUFR
+      binary data of BUFR
 
-        BUFRのバイナリデータ
+      BUFRのバイナリデータ
     sec_len : dict
-        length of sections
+      length of sections
 
-        セクションの長さ
+      セクションの長さ
 
     Raises
     ------
     UnexpectedBufrError
-        raise when end of file is not "7777".
+      raise when end of file is not "7777".
 
-        ファイルの終端が"7777"でない場合に発生
+      ファイルの終端が"7777"でない場合に発生
     """
     # Section 5, End section
     self.sec5_desc_en = "Section 5, End section"
@@ -890,35 +880,35 @@ class bufr_sec_5:
 
 class data_constructor:
   def __init__(self, descriptors: list, raw_data: str, sec_len: dict, nsubset: int) -> None:
-    """read data section (section 4)
+    r"""read data section (section 4)
 
     資料節(第4節)を読むクラス
 
     Parameters
     ----------
     descriptors : list
-        data descriptor
+      data descriptor
 
-        資料記述子
+      資料記述子
     raw_data : str
-        0/1 string data
+      0/1 string data
 
-        0/1の文字列のデータ
+      0/1の文字列のデータ
     sec_len : dict
-        length of sections
+      length of sections
 
-        セクションの長さ
+      セクションの長さ
     nsubset : int
-        number of subset
+      number of subset
 
-        サブセットの数
+      サブセットの数
 
     Raises
     ------
     UnexpectedBufrError
-        raise when did not reach end of data section (section 4)
+      raise when did not reach end of data section (section 4)
 
-        データを最後まで読み込めなかった場合に発生
+      データを最後まで読み込めなかった場合に発生
     """
     self.descriptors = descriptors
     self.raw_data = raw_data
@@ -948,34 +938,34 @@ class data_constructor:
       raise UnexpectedBufrError('データ読込が途中で終了しました')
   
   def _read_data_from_str_bin(self, idx: int=0, nest: int=0) -> list:
-    """read data from 0/1 string
+    r"""read data from 0/1 string
 
     0/1の文字列からデータを読み込む
 
     Parameters
     ----------
     idx : int, optional
-        descriptor of index, by default 0
+      descriptor of index, by default 0
 
-        資料記述子のインデックス
+      資料記述子のインデックス
     nest : int, optional
-        nest level, by default 0
+      nest level, by default 0
 
-        ネストの階層
+      ネストの階層
 
     Returns
     -------
     list
-        data of a nest level depth
+      data of a nest level depth
 
-        あるネストの階層に属するデータ
+      あるネストの階層に属するデータ
 
     Raises
     ------
     UnexpectedBufrError
-        raise when encountered unknown data descriptor
+      raise when encountered unknown data descriptor
 
-        予期せぬ資料記述子があった場合に発生
+      予期せぬ資料記述子があった場合に発生
     """
     _data = []
     logging.debug(f'idx = {idx}, nest = {nest}', stack_info=False)
