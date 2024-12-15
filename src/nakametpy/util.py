@@ -558,7 +558,7 @@ def dt_yyyymmdd(date, fmt="yyyymmdd"):
   
   Returns
   -------
-  `str`: string in fmt.
+  string in fmt: str
   
   Examples
   -------
@@ -587,11 +587,11 @@ def unit_ms1_knots(ms):
   Parameters
   ----------
   ms: `int`
-    Velocity in meter per second.  
+    Speed in meter per second.  
   
   Returns
   -------
-  `kt`: Velocity in knots.
+  Speed in knots: float
   """
   return ms*3600/1852
 
@@ -601,11 +601,11 @@ def unit_knots_ms1(kt):
   Parameters
   ----------
   kt: `int`
-    Velocity in knots.  
+    Speed in knots.  
   
   Returns
   -------
-  `ms`: Velocity in meter per second.
+  Speed in meter per second.: float
   """
   return kt*1852/3600
 
