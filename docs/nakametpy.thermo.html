@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nakametpy.thermo module &mdash; nakametpy 2024.12.0 documentation</title>
+  <title>nakametpy.thermo module &mdash; nakametpy 2025.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -350,10 +350,11 @@ they have the same units.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part_press</strong> (<cite>numpy.ndarray</cite>) – Partial pressure of the constituent gas [Pa]</p></li>
 <li><p><strong>tot_press</strong> (<cite>numpy.ndarray</cite>) – Total air pressure Pa</p></li>
-<li><p><strong>molecular_weight_ratio</strong> (<cite>numpy.ndarray</cite> or float, optional) – The ratio of the molecular weight of the constituent gas to that assumed
+<li><p><strong>molecular_weight_ratio</strong> (<cite>numpy.ndarray</cite> or float, optional) – <p>The ratio of the molecular weight of the constituent gas to that assumed
 for air. Defaults to the ratio for water vapor to dry air
-(<span class="math notranslate nohighlight">\(\varepsilon\approx0.622\)</span>).
-水の分子量と空気の平均の分子量の比=18/28.8</p></li>
+(<span class="math notranslate nohighlight">\(\varepsilon\approx0.622\)</span>).</p>
+<p>水の分子量と空気の平均の分子量の比=18/28.8</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -383,13 +384,15 @@ such as <span id="id6">[Hobbs1977]</span> pg.73:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>relative_humidity</strong> (<cite>numpy.ndarray</cite>) – Relative Humidity [0&lt;=rh&lt;=1]
-相対湿度
-値は(0, 1]である必要がある</p></li>
-<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – Air temperature [K]
-気温</p></li>
-<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – Total atmospheric pressure [Pa]
-全圧</p></li>
+<li><p><strong>relative_humidity</strong> (<cite>numpy.ndarray</cite>) – <p>Relative Humidity [0&lt;=rh&lt;=1]</p>
+<p>相対湿度. 値は(0, 1]である必要がある</p>
+</p></li>
+<li><p><strong>temperature</strong> (<cite>numpy.ndarray</cite>) – <p>Air temperature [K]</p>
+<p>気温</p>
+</p></li>
+<li><p><strong>pressure</strong> (<cite>numpy.ndarray</cite>) – <p>Total atmospheric pressure [Pa]</p>
+<p>全圧</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -633,8 +636,8 @@ the actual (ambient) water vapor (partial) pressure.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.thermo.showalter_stability_index">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.thermo.</span></span><span class="sig-name descname"><span class="pre">showalter_stability_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t850</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p850</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p500</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/thermo.html#showalter_stability_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.thermo.showalter_stability_index" title="Permalink to this definition"></a></dt>
-<dd><p>500hPaにおける気温から850 hPaから500 hPaに断熱変化させた際の気温を引いた指数.
-この計算では乾燥断熱減率のみを考慮しているため、湿潤断熱変化も含めたSSIを
+<dd><p>500hPaにおける気温から850 hPaから500 hPaに断熱変化させた際の気温を引いた指数.</p>
+<p>この計算では乾燥断熱減率のみを考慮しているため、湿潤断熱変化も含めたSSIを
 求める方法が必要である.</p>
 <div class="math notranslate nohighlight">
 \[SSI = T_{500} - T_{850\rightarrow 500}^*\]</div>

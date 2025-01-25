@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2024, NakaMetPy Develoers.
+# Copyright (c) 2021-2025, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 # 
@@ -69,14 +69,16 @@ def _get_binary(file, tar_flag=False, tar_contentname=None):
   return binary
 
 def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
-  r'''気象庁解析雨量やレーダー雨量を返す関数  
-  欠損値は負の値として表現される.  
+  r'''気象庁解析雨量やレーダー雨量を返す関数
+
+  欠損値は負の値として表現される.
   ファイルはbin, tar, gz(gzip)を受け付ける  
 
   Parameters
   --------
   file: `str`
-    file path  
+    file path
+
     ファイルのPATH  
   tar_flag: `bool`
     file type are GRIB2, tar and gz(gzip).
@@ -89,9 +91,22 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
     Units(単位) [mm/h]
 
   Note
-  -----
-  ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する  
-  `np.ndarray` 型の緯度/経度である.  
+  ----
+  ``jma_rain_lat``, ``jma_rain_lon`` はそれぞれ返り値に対応する. `np.ndarray` 型の緯度/経度である.
+
+  Examples1
+  ---------
+  >>> radar = load_jmara_grib2(path_to_1km_mesh_file)
+  >>> lon = get_jmara_lon()
+  >>> lat = get_jmara_lat()
+  >>> plot = ax.contourf(lon, lat, radar)
+
+  Examples2
+  ---------
+  >>> radar = load_jmara_grib2(path_to_2p5km_mesh_file)
+  >>> lon = get_jmara_lon(2500)
+  >>> lat = get_jmara_lat(2500)
+  >>> plot = ax.contourf(lon, lat, radar)
   '''
   binary = _get_binary(file=file, tar_flag=tar_flag, tar_contentname=tar_contentname)
   
@@ -127,7 +142,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   return np.ma.masked_less((level_table[decoded]/(10**power))[::-1, :], 0)
 
 def get_jmara_lat(mesh : int=None):
-  r'''解析雨量の緯度を返す関数  
+  r'''解析雨量の緯度を返す関数
 
   Parameters
   --------
@@ -137,6 +152,13 @@ def get_jmara_lat(mesh : int=None):
   Returns
   -------
   lat: `numpy.ndarray`
+
+  Examples
+  --------
+  >>> lat = get_jmara_lat()
+  >>> lat = get_jmara_lat(1000)
+  >>> lat = get_jmara_lat(2500)
+  >>> lat = get_jmara_lat(250)
   '''
   if mesh in [1000, None]:
     nlat = 3360
@@ -153,7 +175,7 @@ def get_jmara_lat(mesh : int=None):
     
 
 def get_jmara_lon(mesh : int=None):
-  r'''解析雨量の経度を返す関数  
+  r'''解析雨量の経度を返す関数
 
   Parameters
   --------
@@ -163,6 +185,13 @@ def get_jmara_lon(mesh : int=None):
   Returns
   -------
   lon: `numpy.ndarray`
+
+  Examples
+  --------
+  >>> lat = get_jmara_lon()
+  >>> lat = get_jmara_lon(1000)
+  >>> lat = get_jmara_lon(2500)
+  >>> lat = get_jmara_lon(250)
   '''
   if mesh in [1000, None]:
     nlon = 2560
@@ -188,7 +217,7 @@ def get_jmarlev_lat():
     
 
 def get_jmarlev_lon():
-  r'''レーダーエコー頂高度の経度を返す関数  
+  r'''レーダーエコー頂高度の経度を返す関数
 
   Returns
   -------
@@ -197,18 +226,21 @@ def get_jmarlev_lon():
   return np.linspace(118, 150, 1024, endpoint=False) + 2.5/80 / 2
 
 def load_jmara250m_grib2(file : str, only250 : bool = False):
-  r'''5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数.  
-  欠損値は負の値として表現される.  
-  ファイルはbin, bin.gzを受け付ける.  
+  r'''5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数
+
+  欠損値は負の値として表現される.
+  ファイルはbin, bin.gzを受け付ける.
   高解像度ナウキャストにも対応している.
 
   Parameters
   --------
   file: `str`
-    file path  
+    file path
+
     ファイルのPATH  
   only250: `bool`
-    ignore 1000m mesh or not  
+    ignore 1000m mesh or not
+
     1000mメッシュ領域を無視するかどうかのフラグ  
 
   Returns
@@ -340,14 +372,16 @@ def load_jmara250m_grib2(file : str, only250 : bool = False):
   return np.ma.masked_less(value_0250m, 0), np.ma.masked_less(value_1000m, 0)
 
 def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
-  r'''気象庁解析雨量やレーダー雨量の緯度/経度を返す関数  
-  欠損値は負の値として表現される.  
-  ファイルはgrib2, tar, gz(gzip)を受け付ける  
+  r'''気象庁解析雨量やレーダー雨量の緯度/経度を返す関数
+
+  欠損値は負の値として表現される.
+  ファイルはgrib2, tar, gz(gzip)を受け付ける
 
   Parameters
   --------
   file: `str`
-    file path  
+    file path
+
     ファイルのPATH  
   tar_flag: `bool`
     file type are GRIB2, tar and gz(gzip).  
@@ -358,6 +392,10 @@ def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
   -------
   latlon: set(`numpy.ma.MaskedArray`, `numpy.ma.MaskedArray`)
     (Latitude, Longitude)
+
+  Examples
+  --------
+  >>> lat, lon = get_grib2_latlon(path_to_1km_mesh_file)
   '''
   
   binary = _get_binary(file=file, tar_flag=tar_flag, tar_contentname=tar_contentname)
@@ -381,14 +419,16 @@ def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
   return (np.linspace(slat, elat, nlat)[::-1]/1E6, np.linspace(slon, elon, nlon)/1E6)
 
 def load_jmanowc_grib2(file, tidx=0):
-  r'''気象庁ナウキャストを返す関数.  
-  欠損値は負の値として表現される.  
+  r'''気象庁ナウキャストを返す関数
+  
+  欠損値は負の値として表現される.
   ファイルはgrib2.binを受け付ける.  
 
   Parameters
   --------
   file: `str`
-    file path  
+    file path
+
     ファイルのPATH  
   tidx: `int`
     tidx x 5 mins forecast.
@@ -400,16 +440,20 @@ def load_jmanowc_grib2(file, tidx=0):
 
   Note
   -----
-  ``jma_rain_lat`` , ``jma_rain_lon`` はそれぞれ返り値に対応する.  
+  ``jma_rain_lat``, ``jma_rain_lon`` はそれぞれ返り値に対応する.  
   `np.ndarray` 型の緯度/経度である.
   
-  Examples
-  -------
+  Examples1
+  ---------
   >>> nowc_1000 = load_jmanowc_grib2(path_to_file)
   >>> lon_1000 = get_jmara_lon(1000) # get 1000m mesh longitude array
   >>> lat_1000 = get_jmara_lat(1000) # get 1000m mesh latitude array
   >>>
   >>> plot_1000 = ax.contourf(lon_1000, lat_1000, nowc_1000)
+  
+  Examples2
+  ---------
+  >>> nowc_1000 = load_jmanowc_grib2(path_to_file, tidx=11)
   '''
   binary = _get_binary(file=file)
   
@@ -475,8 +519,10 @@ def get_gsmap_lon():
 
 def dt_ymdhm(date, opt=1):
   r'''
-  datetime.datetime から year, month, day, hour, minute の set を返す関数.  
-  opt = 1 : `string`  
+  datetime.datetime から year, month, day, hour, minute の set を返す関数
+  
+  opt = 1 : `string`
+  
   opt = 0 : `int`  
 
   Return the set of year, month, day, hour, minute from `datetime.datetime`.  
@@ -499,9 +545,9 @@ def dt_ymdhm(date, opt=1):
 
 
 def dt_yyyymmdd(date, fmt="yyyymmdd"):
-  r'''
-  datetime.datetime を yyyymmdd 形式の文字列で返す関数.  
-  Return yyyymmdd format string from datetime.  
+  r'''datetime.datetime を yyyymmdd 形式の文字列で返す関数
+
+  Return yyyymmdd format string from datetime.
 
   Parameters
   ----------
@@ -512,7 +558,7 @@ def dt_yyyymmdd(date, fmt="yyyymmdd"):
   
   Returns
   -------
-  `str`: string in fmt.
+  string in fmt: str
   
   Examples
   -------
@@ -536,38 +582,35 @@ gsmap_lat = np.arange(-60, 60, 0.1)[::-1] + 0.05
 gsmap_lon = np.arange(0, 360, 0.1) + 0.05
 
 def unit_ms1_knots(ms):
-  r"""
-  Convert unit m/s into knots.  
+  r"""Convert unit m/s into knots.
   
   Parameters
   ----------
   ms: `int`
-    Velocity in meter per second.  
+    Speed in meter per second.  
   
   Returns
   -------
-  `kt`: Velocity in knots.
+  Speed in knots: float
   """
   return ms*3600/1852
 
 def unit_knots_ms1(kt):
-  r"""
-  Convert unit knots into m/s.  
+  r"""Convert unit knots into m/s.
   
   Parameters
   ----------
   kt: `int`
-    Velocity in knots.  
+    Speed in knots.  
   
   Returns
   -------
-  `ms`: Velocity in meter per second.
+  Speed in meter per second.: float
   """
   return kt*1852/3600
 
 def anom_levels(levs):
-  r"""
-  Return minus ans plus levels.  
+  r"""Return minus ans plus levels.
 
   Parameters
   ----------
@@ -579,18 +622,17 @@ def anom_levels(levs):
   
   Examples  
   --------
-      >>> levs = [0.5, 1., 2.]
-      >>> print(anom_levels(levs))
-      [-2.  -1.  -0.5  0.5  1.   2. ]
-  
-  
+  >>> levs = [0.5, 1., 2.]
+  >>> print(anom_levels(levs))
+  [-2.  -1.  -0.5  0.5  1.   2. ]
   """
   levs = list(set(np.abs(levs)))
   levs.sort()
   return np.array([-i for i in levs[::-1]]+levs)
 
 def check_tar_content(file):
-  r'''tar ファイルの中身のファイル名を表示する関数  
+  r'''tar ファイルの中身のファイル名を表示する関数
+
   Print the content name of the tar file.  
 
   Parameters
@@ -604,8 +646,7 @@ def check_tar_content(file):
       print(tarinfo.name)
 
 def concat_array(*arr, sort=True):
-  r"""
-  Return concatenated array in numpy.ndarray.
+  r"""Return concatenated array in numpy.ndarray.
 
   Parameters
   ----------
@@ -617,9 +658,9 @@ def concat_array(*arr, sort=True):
   
   Examples  
   --------
-      >>> levs = concat_array(np.arange(0.5, 2., 0.5), np.arange(2., 5.1, 1.))
-      >>> print(levs)
-      [0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5  5. ]
+  >>> levs = concat_array(np.arange(0.5, 2., 0.5), np.arange(2., 5.1, 1.))
+  >>> print(levs)
+  [0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5  5. ]
 
   """
   _list = []
@@ -630,16 +671,16 @@ def concat_array(*arr, sort=True):
   return np.array(_list)
 
 def myglob(path, reverse=False):
-    r"""
-    Return sorted glob results.
-    Parameters
-    ----------
-    path: `str`
-    
-    reverse: `bool`
+  r"""Return sorted glob results.
 
-    Returns
-    -------
-    result_list: `list`
-    """
-    return sorted(glob.glob(path), reverse=reverse)
+  Parameters
+  ----------
+  path: `str`
+  
+  reverse: `bool`
+
+  Returns
+  -------
+  result_list: `list`
+  """
+  return sorted(glob.glob(path), reverse=reverse)

@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2024, NakaMetPy Develoers.
+# Copyright (c) 2021-2025, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 #
@@ -27,13 +27,15 @@ def mixing_ratio_from_relative_humidity(relative_humidity, temperature, pressure
     ----------
     relative_humidity: `numpy.ndarray`
         Relative Humidity [0<=rh<=1]
-        相対湿度
-        値は(0, 1]である必要がある
+
+        相対湿度. 値は(0, 1]である必要がある
     temperature: `numpy.ndarray`
         Air temperature [K]
+
         気温
     pressure: `numpy.ndarray`
         Total atmospheric pressure [Pa]
+
         全圧
 
     Returns
@@ -101,6 +103,7 @@ def mixing_ratio(part_press, tot_press, molecular_weight_ratio=0.622):
         The ratio of the molecular weight of the constituent gas to that assumed
         for air. Defaults to the ratio for water vapor to dry air
         (:math:`\varepsilon\approx0.622`).
+
         水の分子量と空気の平均の分子量の比=18/28.8
     Returns
     -------
@@ -671,6 +674,7 @@ def k_index_2d(t850, t700, t500, rh850, rh700):
 def showalter_stability_index(t850, t500, p850, p500):
     r'''
     500hPaにおける気温から850 hPaから500 hPaに断熱変化させた際の気温を引いた指数.
+    
     この計算では乾燥断熱減率のみを考慮しているため、湿潤断熱変化も含めたSSIを
     求める方法が必要である.
     

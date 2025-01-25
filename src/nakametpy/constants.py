@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2024, NakaMetPy Develoers.
+# Copyright (c) 2021-2025, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 #
@@ -6,6 +6,7 @@
 # Copyright (c) 2008,2015,2016,2018 MetPy Developers.
 #
 r"""A collection of meteorologically significant constant and thermophysical property values.
+
 Earth
 -----
 ======================== =============== ====================== ========================== ===================================
@@ -15,17 +16,34 @@ earth_avg_radius         :math:`R_e`     Re                     :math:`\text{m}`
 earth_gravity            :math:`g`       g, g0, g_acceralation  :math:`\text{m s}^{-2}`    Avg. gravity acceleration on Earth
 earth_avg_angular_vel    :math:`\Omega`  Omega                  :math:`\text{rad s}^{-1}`  Avg. angular velocity of Earth
 ======================== =============== ====================== ========================== ===================================
+
 General Meteorology Constants
 -----------------------------
 ======================== ================= ============= ========================= =======================================================
-Name                     Symbol            Short Name    Units                    Description
+Name                     Symbol            Short Name    Units                     Description
 ------------------------ ----------------- ------------- ------------------------- -------------------------------------------------------
 pot_temp_ref_press       :math:`P_0`       P0            :math:`\text{Pa}`         Reference pressure for potential temperature
 poisson_exponent         :math:`\kappa`    kappa         :math:`\text{None}`       Exponent in Poisson's equation (Rd/Cp_d)
-dry_adiabatic_lapse_rate :math:`\gamma_d`  GammaD       :math:`\text{K km}^{-1}`  The dry adiabatic lapse rate
+dry_adiabatic_lapse_rate :math:`\gamma_d`  GammaD        :math:`\text{K km}^{-1}`  The dry adiabatic lapse rate
 molecular_weight_ratio   :math:`\epsilon`  epsilon       :math:`\text{None}`       Ratio of molecular weight of water to that of dry air
 absolute_temperature     :math:`K`         kelvin, Tabs  :math:`\text{K}`          Kelvin
 ======================== ================= ============= ========================= =======================================================
+
+cmaps
+-----
+MPL_DEFAULT_COLOR_LIST: `numpy.ndarray`
+  Matplotlibのデフォルトカラーのリスト
+
+bufr
+----
+LATEST_MASTER_TABLE_VERSION: `int`
+  NakaMetPyが対応しているBUFRのマスターテーブルの一番新しいバージョン
+  
+OLDEST_MASTER_TABLE_VERSION: `int`
+  NakaMetPyが対応しているBUFRのマスターテーブルの一番古いバージョン
+
+convert_decimal_to_IA5character: `dict`
+  CCIAA IA5での数字と文字の辞書形式の対応表
 """
 
 # kinematics
@@ -49,6 +67,9 @@ GammaD = g/Cp
 Kelvin = 273.15
 Tabs = Kelvin
 GasC = R
+
+# cmaps
+MPL_DEFAULT_COLOR_LIST = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
 
 # bufr
 LATEST_MASTER_TABLE_VERSION = 42

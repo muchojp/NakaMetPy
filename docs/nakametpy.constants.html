@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nakametpy.constants module &mdash; nakametpy 2024.12.0 documentation</title>
+  <title>nakametpy.constants module &mdash; nakametpy 2025.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -49,7 +49,13 @@
 <li class="toctree-l2 current"><a class="reference internal" href="nakametpy.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.bufr.html">nakametpy.bufr module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.cmaps.html">nakametpy.cmaps module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">nakametpy.constants module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">nakametpy.constants module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#earth">Earth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#general-meteorology-constants">General Meteorology Constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cmaps">cmaps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bufr">bufr</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.grads.html">nakametpy.grads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.jma.html">nakametpy.jma module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.kinematics.html">nakametpy.kinematics module</a></li>
@@ -89,27 +95,99 @@
              
   <section id="module-nakametpy.constants">
 <span id="nakametpy-constants-module"></span><h1>nakametpy.constants module<a class="headerlink" href="#module-nakametpy.constants" title="Permalink to this heading"></a></h1>
-<p>A collection of meteorologically significant constant and thermophysical property values.
-Earth
-—–
-======================== =============== ====================== ========================== ===================================
-Name                     Symbol          Short Name             Units                      Description
-———————— ————— ———————- ————————– ———————————–
-earth_avg_radius         <span class="math notranslate nohighlight">\(R_e\)</span>     Re                     <span class="math notranslate nohighlight">\(\text{m}\)</span>           Avg. radius of the Earth
-earth_gravity            <span class="math notranslate nohighlight">\(g\)</span>       g, g0, g_acceralation  <span class="math notranslate nohighlight">\(\text{m s}^{-2}\)</span>    Avg. gravity acceleration on Earth
-earth_avg_angular_vel    <span class="math notranslate nohighlight">\(\Omega\)</span>  Omega                  <span class="math notranslate nohighlight">\(\text{rad s}^{-1}\)</span>  Avg. angular velocity of Earth
-======================== =============== ====================== ========================== ===================================
-General Meteorology Constants
-—————————–
-======================== ================= ============= ========================= =======================================================
-Name                     Symbol            Short Name    Units                    Description
-———————— —————– ————- ————————- ——————————————————-
-pot_temp_ref_press       <span class="math notranslate nohighlight">\(P_0\)</span>       P0            <span class="math notranslate nohighlight">\(\text{Pa}\)</span>         Reference pressure for potential temperature
-poisson_exponent         <span class="math notranslate nohighlight">\(\kappa\)</span>    kappa         <span class="math notranslate nohighlight">\(\text{None}\)</span>       Exponent in Poisson’s equation (Rd/Cp_d)
-dry_adiabatic_lapse_rate <span class="math notranslate nohighlight">\(\gamma_d\)</span>  GammaD       <span class="math notranslate nohighlight">\(\text{K km}^{-1}\)</span>  The dry adiabatic lapse rate
-molecular_weight_ratio   <span class="math notranslate nohighlight">\(\epsilon\)</span>  epsilon       <span class="math notranslate nohighlight">\(\text{None}\)</span>       Ratio of molecular weight of water to that of dry air
-absolute_temperature     <span class="math notranslate nohighlight">\(K\)</span>         kelvin, Tabs  <span class="math notranslate nohighlight">\(\text{K}\)</span>          Kelvin
-======================== ================= ============= ========================= =======================================================</p>
+<p>A collection of meteorologically significant constant and thermophysical property values.</p>
+<section id="earth">
+<h2>Earth<a class="headerlink" href="#earth" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Symbol</p></td>
+<td><p>Short Name</p></td>
+<td><p>Units</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p>earth_avg_radius</p></td>
+<td><p><span class="math notranslate nohighlight">\(R_e\)</span></p></td>
+<td><p>Re</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{m}\)</span></p></td>
+<td><p>Avg. radius of the Earth</p></td>
+</tr>
+<tr class="row-odd"><td><p>earth_gravity</p></td>
+<td><p><span class="math notranslate nohighlight">\(g\)</span></p></td>
+<td><p>g, g0, g_acceralation</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{m s}^{-2}\)</span></p></td>
+<td><p>Avg. gravity acceleration on Earth</p></td>
+</tr>
+<tr class="row-even"><td><p>earth_avg_angular_vel</p></td>
+<td><p><span class="math notranslate nohighlight">\(\Omega\)</span></p></td>
+<td><p>Omega</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{rad s}^{-1}\)</span></p></td>
+<td><p>Avg. angular velocity of Earth</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="general-meteorology-constants">
+<h2>General Meteorology Constants<a class="headerlink" href="#general-meteorology-constants" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Symbol</p></td>
+<td><p>Short Name</p></td>
+<td><p>Units</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p>pot_temp_ref_press</p></td>
+<td><p><span class="math notranslate nohighlight">\(P_0\)</span></p></td>
+<td><p>P0</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{Pa}\)</span></p></td>
+<td><p>Reference pressure for potential temperature</p></td>
+</tr>
+<tr class="row-odd"><td><p>poisson_exponent</p></td>
+<td><p><span class="math notranslate nohighlight">\(\kappa\)</span></p></td>
+<td><p>kappa</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{None}\)</span></p></td>
+<td><p>Exponent in Poisson’s equation (Rd/Cp_d)</p></td>
+</tr>
+<tr class="row-even"><td><p>dry_adiabatic_lapse_rate</p></td>
+<td><p><span class="math notranslate nohighlight">\(\gamma_d\)</span></p></td>
+<td><p>GammaD</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{K km}^{-1}\)</span></p></td>
+<td><p>The dry adiabatic lapse rate</p></td>
+</tr>
+<tr class="row-odd"><td><p>molecular_weight_ratio</p></td>
+<td><p><span class="math notranslate nohighlight">\(\epsilon\)</span></p></td>
+<td><p>epsilon</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{None}\)</span></p></td>
+<td><p>Ratio of molecular weight of water to that of dry air</p></td>
+</tr>
+<tr class="row-even"><td><p>absolute_temperature</p></td>
+<td><p><span class="math notranslate nohighlight">\(K\)</span></p></td>
+<td><p>kelvin, Tabs</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{K}\)</span></p></td>
+<td><p>Kelvin</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cmaps">
+<h2>cmaps<a class="headerlink" href="#cmaps" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>MPL_DEFAULT_COLOR_LIST: <cite>numpy.ndarray</cite></dt><dd><p>Matplotlibのデフォルトカラーのリスト</p>
+</dd>
+</dl>
+</section>
+<section id="bufr">
+<h2>bufr<a class="headerlink" href="#bufr" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>LATEST_MASTER_TABLE_VERSION: <cite>int</cite></dt><dd><p>NakaMetPyが対応しているBUFRのマスターテーブルの一番新しいバージョン</p>
+</dd>
+<dt>OLDEST_MASTER_TABLE_VERSION: <cite>int</cite></dt><dd><p>NakaMetPyが対応しているBUFRのマスターテーブルの一番古いバージョン</p>
+</dd>
+<dt>convert_decimal_to_IA5character: <cite>dict</cite></dt><dd><p>CCIAA IA5での数字と文字の辞書形式の対応表</p>
+</dd>
+</dl>
+</section>
 </section>
 
 
