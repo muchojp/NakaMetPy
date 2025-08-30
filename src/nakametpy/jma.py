@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022, NakaMetPy Develoers.
+# Copyright (c) 2021-2025, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 from .util import jma_rain_lat, jma_rain_lon
@@ -11,7 +11,8 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   Parameters
   --------
   file: `str`
-    file path 
+    file path
+    
     ファイルのPATH
   tar_flag: `bool`
     file type whether file is tar or GRIB2 (not tar).

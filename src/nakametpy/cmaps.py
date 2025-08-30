@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2024, NakaMetPy Develoers.
+# Copyright (c) 2021-2025, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 # 
@@ -12,6 +12,7 @@
 # 　(自作の？)エラーを表示させるようにする
 #
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
+from nakametpy.constants import MPL_DEFAULT_COLOR_LIST
 import os
 import sys
 
@@ -20,7 +21,8 @@ _CMAX = 255
 
 def sunshine():
     r'''
-    NCLのcolor table中の `sunshine_9lev` に対応する.
+    NCLのcolor table中の `sunshine_9lev` に対応する.  
+    
     levelは256である.
 
     Returns
@@ -54,7 +56,9 @@ def sunshine():
 def BrWhGr():
     r'''
     緑白ブラウンのカラーマップ.
+    
     水蒸気の発散収束を表す際に便利.
+    
     levelは256である.
 
     Returns
@@ -1228,7 +1232,7 @@ def jma_temp_anom_white_linear():
                   (8/_ncolor, 0/_CMAX, 0/_CMAX),
                   (9/_ncolor, 33/_CMAX, 33/_CMAX),
                   (10/_ncolor, 0/_CMAX, 0/_CMAX)]}
-    return LinearSegmentedColormap('jma_temp_anom_linear', cdict).reversed()
+    return LinearSegmentedColormap('jma_temp_anom_white_linear', cdict).reversed()
 
 def jma_temp_anom_white_list():
     r'''dark blue -> blue -> light blue -> white -> yellow -> orange -> red
@@ -1241,9 +1245,9 @@ def jma_temp_anom_white_list():
     -----
     The object name is ``jma_temp_anom_white_11lev``.
 
-    |jma_temp_anom_list|
+    |jma_temp_anom_white_list|
 
-    .. |jma_temp_anom_list| image:: ./img/jma_temp_anom_white_list.png
+    .. |jma_temp_anom_white_list| image:: ./img/jma_temp_anom_white_list.png
         :width: 600
 
     See Also
@@ -1261,7 +1265,7 @@ def jma_temp_anom_white_list():
             [1.0, 0.6, 0.0],
             [1.0, 0.10196078431372549, 0.10196078431372549],
             [0.5686274509803921, 0, 0.3254901960784314]]
-    return ListedColormap(clist, 'jma_temp_anom_list')
+    return ListedColormap(clist, 'jma_temp_anom_white_list')
 
 def jma_precip_anom_linear():
     r'''brown -> orange -> white -> limegreen -> green -> darkgreen
@@ -1840,7 +1844,7 @@ def jma_BlWhRe_list():
             [1.0, 0.1568627450980392, 0.0]]
     return ListedColormap(clist, 'jma_BlWhRe_list')
 
-def jwa_rainbow():
+def jwa_precip():
     r'''日本気象協会(JWA)のレーダー雨量のカラーマップ.
 
     Returns
@@ -1849,11 +1853,11 @@ def jwa_rainbow():
     
     Notes
     -----
-    オブジェクトは ``jwa_rainbow_256lev`` という名前でも受け取れる.
+    オブジェクトは ``jwa_precip_256lev`` という名前でも受け取れる.
 
-    |jwa_rainbow|
+    |jwa_precip|
 
-    .. |jwa_rainbow| image:: ./img/jwa_rainbow.png
+    .. |jwa_precip| image:: ./img/jwa_precip.png
         :width: 600
     '''
     cdict = {'blue': [
@@ -1885,12 +1889,12 @@ def jwa_rainbow():
         (0.83, 1.0, 1.0),
         (1.0, 1.0, 1.0),
       ]}
-    return LinearSegmentedColormap('jwa_rainbow', cdict)
+    return LinearSegmentedColormap('jwa_precip', cdict)
 
 def cmthermal():
     r'''Qiitaに投稿された、温度を表す理想カラーマップ.
     
-    URL:https://qiita.com/nokos/items/6551b3d3b46be73496cf#python-matplotlib-%E3%81%A7%E3%81%AE%E5%AE%9F%E8%A3%85
+    URL:`リンク <https://qiita.com/nokos/items/6551b3d3b46be73496cf#python-matplotlib-%E3%81%A7%E3%81%AE%E5%AE%9F%E8%A3%85>`__
 
     Returns
     -------
@@ -1928,7 +1932,7 @@ def cmthermal():
         (0.75, 214/_CMAX, 214/_CMAX),
         (1.0, 115/_CMAX, 115/_CMAX),
       ]}
-    return LinearSegmentedColormap('jwa_rainbow', cdict)
+    return LinearSegmentedColormap('jwa_precip', cdict)
 
 def weathernews_precip_list():
     r'''気象庁が降水量をプロットする際に利用しているカラーマップを模している.
@@ -2065,7 +2069,7 @@ jma_snow_anom_white_256lev = jma_snow_anom_white_linear()
 jma_snow_anom_white_11lev = jma_snow_anom_white_list()
 jma_BlWhRe_256lev = jma_BlWhRe_linear()
 jma_BlWhRe_11lev = jma_BlWhRe_list()
-jwa_rainbow_256lev = jwa_rainbow()
+jwa_precip_256lev = jwa_precip()
 cmthermal_256lev = cmthermal()
 weathernews_precip_linear_256lev = weathernews_precip_linear()
 weathernews_precip_list_13lev = weathernews_precip_list()
@@ -2118,7 +2122,7 @@ cmap_list = [
             jma_snow_anom_white_11lev,
             jma_BlWhRe_256lev,
             jma_BlWhRe_11lev,
-            jwa_rainbow_256lev,
+            jwa_precip_256lev,
             cmthermal_256lev,
             weathernews_precip_linear_256lev,
             weathernews_precip_list_13lev,
@@ -2172,10 +2176,10 @@ cmap_names = ['sunshine',
             'jma_snow_anom_white_list',
             'jma_BlWhRe_linear',
             'jma_BlWhRe_list',
-            'jwa_rainbow',
+            'jwa_precip',
             'cmthermal',
-            'weathernews_precip_rainbow_linear',
-            'weathernews_precip_rainbow_list',
+            'weathernews_precip_linear',
+            'weathernews_precip_list',
             ]
 
 
@@ -2203,6 +2207,7 @@ def get_colormap(name):
         print('No such colormap in nakametpy.')
         return sys.exit(1)
 
+
 def get_colormap_list():
     r'''カラーマップ名のリストを得る関数.
 
@@ -2212,6 +2217,7 @@ def get_colormap_list():
     
     '''
     return cmap_names
+
 
 def _plot_each_colorbar(cmap_name, output=os.path.join(os.path.dirname(__file__), '../../docs/img')):
     r'''nakametpy.cmapにあるカラーマップのカラーバーをプロットする関数.
@@ -2246,8 +2252,6 @@ def _plot_each_colorbar(cmap_name, output=os.path.join(os.path.dirname(__file__)
     plt.close(fig)
 
 
-MPL_DEFAULT_COLOR_LIST = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
-
 def mpl_default_color_cyclic(idx):
     """
     Get matplotlib default color in cyclic
@@ -2267,5 +2271,3 @@ def mpl_default_color_cyclic(idx):
 if __name__=='__main__':
     for i_cmp_name in get_colormap_list():
         _plot_each_colorbar(i_cmp_name)
-    
-

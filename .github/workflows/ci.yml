@@ -8,12 +8,30 @@ jobs:
   pytest:
     name: Run tests with pytest
     # 実行環境として `ubuntu-latest` という名前のものを選ぶ
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    # 実行環境のlatestである24.04で動かないため、22.04を指定する
+    runs-on: ubuntu-22.04
+    # runs-on: ${{ matrix.os }}
     # 複数の Python のバージョンでテストするために `strategy.matrix` を設定する
     strategy:
       matrix:
-        # python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        # python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
         python-version: ["3.13",]
+        # include:
+          # - python-version: 3.7
+          #   os: ubuntu-22.04
+          # - python-version: 3.8
+          #   os: ubuntu-latest
+          # - python-version: 3.9
+          #   os: ubuntu-latest
+          # - python-version: 3.10
+          #   os: ubuntu-latest
+          # - python-version: 3.11
+          #   os: ubuntu-latest
+          # - python-version: 3.12
+          #   os: ubuntu-latest
+          # - python-version: 3.13
+          #   os: ubuntu-latest
     steps:
       #----------------------------------------------
       # リポジトリをチェックアウトする
@@ -27,10 +45,10 @@ jobs:
       # See: https://github.com/actions/setup-python
       #----------------------------------------------
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        id: setup-python
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-        id: setup-python
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------

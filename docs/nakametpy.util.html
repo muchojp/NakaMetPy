@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nakametpy.util module &mdash; nakametpy 2024.12.0 documentation</title>
+  <title>nakametpy.util module &mdash; nakametpy 2025.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -113,8 +113,8 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.check_tar_content">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">check_tar_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#check_tar_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.check_tar_content" title="Permalink to this definition"></a></dt>
-<dd><p>tar ファイルの中身のファイル名を表示する関数
-Print the content name of the tar file.</p>
+<dd><p>tar ファイルの中身のファイル名を表示する関数</p>
+<p>Print the content name of the tar file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>file</strong> (<cite>str</cite>) – file path
@@ -149,9 +149,9 @@ Print the content name of the tar file.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.dt_ymdhm">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">dt_ymdhm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#dt_ymdhm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.dt_ymdhm" title="Permalink to this definition"></a></dt>
-<dd><p>datetime.datetime から year, month, day, hour, minute の set を返す関数.
-opt = 1 : <cite>string</cite>
-opt = 0 : <cite>int</cite></p>
+<dd><p>datetime.datetime から year, month, day, hour, minute の set を返す関数</p>
+<p>opt = 1 : <cite>string</cite></p>
+<p>opt = 0 : <cite>int</cite></p>
 <p>Return the set of year, month, day, hour, minute from <cite>datetime.datetime</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -172,8 +172,8 @@ opt = 0 : <cite>int</cite></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.dt_yyyymmdd">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">dt_yyyymmdd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yyyymmdd'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#dt_yyyymmdd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.dt_yyyymmdd" title="Permalink to this definition"></a></dt>
-<dd><p>datetime.datetime を yyyymmdd 形式の文字列で返す関数.
-Return yyyymmdd format string from datetime.</p>
+<dd><p>datetime.datetime を yyyymmdd 形式の文字列で返す関数</p>
+<p>Return yyyymmdd format string from datetime.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -199,14 +199,15 @@ Return yyyymmdd format string from datetime.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.get_grib2_latlon">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">get_grib2_latlon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_contentname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#get_grib2_latlon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.get_grib2_latlon" title="Permalink to this definition"></a></dt>
-<dd><p>気象庁解析雨量やレーダー雨量の緯度/経度を返す関数
-欠損値は負の値として表現される.
+<dd><p>気象庁解析雨量やレーダー雨量の緯度/経度を返す関数</p>
+<p>欠損値は負の値として表現される.
 ファイルはgrib2, tar, gz(gzip)を受け付ける</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<cite>str</cite>) – file path
-ファイルのPATH</p></li>
+<li><p><strong>file</strong> (<cite>str</cite>) – <p>file path</p>
+<p>ファイルのPATH</p>
+</p></li>
 <li><p><strong>tar_flag</strong> (<cite>bool</cite>) – file type are GRIB2, tar and gz(gzip).</p></li>
 <li><p><strong>tar_contentname</strong> (<cite>str</cite>) – content name in tar file.</p></li>
 </ul>
@@ -313,14 +314,15 @@ Return yyyymmdd format string from datetime.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.load_jmanowc_grib2">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">load_jmanowc_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tidx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#load_jmanowc_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.load_jmanowc_grib2" title="Permalink to this definition"></a></dt>
-<dd><p>気象庁ナウキャストを返す関数.
-欠損値は負の値として表現される.
+<dd><p>気象庁ナウキャストを返す関数</p>
+<p>欠損値は負の値として表現される.
 ファイルはgrib2.binを受け付ける.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<cite>str</cite>) – file path
-ファイルのPATH</p></li>
+<li><p><strong>file</strong> (<cite>str</cite>) – <p>file path</p>
+<p>ファイルのPATH</p>
+</p></li>
 <li><p><strong>tidx</strong> (<cite>int</cite>) – tidx x 5 mins forecast.</p></li>
 </ul>
 </dd>
@@ -333,7 +335,7 @@ Return yyyymmdd format string from datetime.</p>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code> , <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する.
+<p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code>, <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する.
 <cite>np.ndarray</cite> 型の緯度/経度である.</p>
 </div>
 <p class="rubric">Examples</p>
@@ -349,17 +351,19 @@ Return yyyymmdd format string from datetime.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.load_jmara250m_grib2">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">load_jmara250m_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only250</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#load_jmara250m_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.load_jmara250m_grib2" title="Permalink to this definition"></a></dt>
-<dd><p>5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数.
-欠損値は負の値として表現される.
+<dd><p>5分毎250mメッシュ全国合成レーダー降水強度GPVを返す関数</p>
+<p>欠損値は負の値として表現される.
 ファイルはbin, bin.gzを受け付ける.
 高解像度ナウキャストにも対応している.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<cite>str</cite>) – file path
-ファイルのPATH</p></li>
-<li><p><strong>only250</strong> (<cite>bool</cite>) – ignore 1000m mesh or not
-1000mメッシュ領域を無視するかどうかのフラグ</p></li>
+<li><p><strong>file</strong> (<cite>str</cite>) – <p>file path</p>
+<p>ファイルのPATH</p>
+</p></li>
+<li><p><strong>only250</strong> (<cite>bool</cite>) – <p>ignore 1000m mesh or not</p>
+<p>1000mメッシュ領域を無視するかどうかのフラグ</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -385,14 +389,15 @@ Return yyyymmdd format string from datetime.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.load_jmara_grib2">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">load_jmara_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_contentname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#load_jmara_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.load_jmara_grib2" title="Permalink to this definition"></a></dt>
-<dd><p>気象庁解析雨量やレーダー雨量を返す関数
-欠損値は負の値として表現される.
+<dd><p>気象庁解析雨量やレーダー雨量を返す関数</p>
+<p>欠損値は負の値として表現される.
 ファイルはbin, tar, gz(gzip)を受け付ける</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<cite>str</cite>) – file path
-ファイルのPATH</p></li>
+<li><p><strong>file</strong> (<cite>str</cite>) – <p>file path</p>
+<p>ファイルのPATH</p>
+</p></li>
 <li><p><strong>tar_flag</strong> (<cite>bool</cite>) – file type are GRIB2, tar and gz(gzip).</p></li>
 <li><p><strong>tar_contentname</strong> (<cite>str</cite>) – content name in tar file.</p></li>
 </ul>
@@ -406,25 +411,26 @@ Return yyyymmdd format string from datetime.</p>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code> , <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する
-<cite>np.ndarray</cite> 型の緯度/経度である.</p>
+<p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code>, <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する. <cite>np.ndarray</cite> 型の緯度/経度である.</p>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.util.myglob">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.util.</span></span><span class="sig-name descname"><span class="pre">myglob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/util.html#myglob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.util.myglob" title="Permalink to this definition"></a></dt>
-<dd><p>Return sorted glob results.
-:param path:
-:type path: <cite>str</cite>
-:param reverse:
-:type reverse: <cite>bool</cite></p>
+<dd><p>Return sorted glob results.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>result_list</strong></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<cite>str</cite>) – </p></li>
+<li><p><strong>reverse</strong> (<cite>bool</cite>) – </p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><cite>list</cite></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result_list</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>list</cite></p>
 </dd>
 </dl>
 </dd></dl>
