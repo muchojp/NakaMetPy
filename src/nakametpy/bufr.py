@@ -3,10 +3,10 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 import pandas as pd
-from nakametpy.constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE_VERSION,\
+from .constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE_VERSION,\
                                 convert_decimal_to_IA5character
-from nakametpy.tables import bufrtab_TableA
-from nakametpy._error import NotSupportedNewerVersionMSWarning, NotSupportedOlderVersionMSWarning,\
+from .tables import bufrtab_TableA
+from ._error import NotSupportedNewerVersionMSWarning, NotSupportedOlderVersionMSWarning,\
                     NotSupportedBufrError, UnexpectedBufrError,\
                     MayNotBeAbleToReadBufrWarning
 import os
