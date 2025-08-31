@@ -1,4 +1,9 @@
+# Copyright (c) 2025, NakaMetPy Develoers.
+# Distributed under the terms of the BSD 3-Clause License.
+# SPDX-License-Identifier: BSD-3-Clause
+
 import pandas as pd
+import os
 
 class airport_info:
   r"""Airports Infomaion
@@ -6,16 +11,16 @@ class airport_info:
   飛行場情報クラス
   """
   def __init__(self):
-    self._df = pd.read_json("./data/nws/stations.json")
+    self._df = pd.read_json(os.path.join(os.path.dirname(__file__), "data", "nws", "stations.json"))
 
-  def search_icaoId(self, icaoId:str) -> pd.DataFrame:
+  def search_icao_airport_code(self, code:str) -> pd.DataFrame:
     r"""Search airport for ICAO code
 
     ICAOコードで飛行場を検索
 
     Parameters
     --------
-    icaoId: `str`
+    code: `str`
       ICAO code
 
     Returns
@@ -29,19 +34,19 @@ class airport_info:
     Examples
     --------
     >>> airport = airport_info()
-    >>> df = airport.search_icaoId("RJAA")
+    >>> df = airport.search_icao_airport_code("RJAA")
     >>> print(df)
     """
-    return self._df[self._df["icaoId"] == icaoId]
+    return self._df[self._df["icaoId"] == code]
 
-  def search_iataId(self, iataId:str) -> pd.DataFrame:
+  def search_iata_airport_code(self, code:str) -> pd.DataFrame:
     r"""Search airport for IATA code
 
     IATAコードで飛行場を検索
 
     Parameters
     --------
-    iataId: `str`
+    code: `str`
       IATA code
 
     Returns
@@ -55,19 +60,19 @@ class airport_info:
     Examples
     --------
     >>> airport = airport_info()
-    >>> df = airport.search_iataId("NRT")
+    >>> df = airport.search_iata_airport_code("NRT")
     >>> print(df)
     """
-    return self._df[self._df["iataId"] == iataId]
+    return self._df[self._df["iataId"] == code]
 
-  def search_icaoId_match(self, icaoId:str) -> pd.DataFrame:
+  def search_icao_airport_code_match(self, code:str) -> pd.DataFrame:
     r"""Search airport for ICAO code
 
     ICAOコードで飛行場を検索
 
     Parameters
     --------
-    icaoId: `str`
+    code: `str`
       ICAO code
 
     Returns
@@ -81,19 +86,19 @@ class airport_info:
     Examples
     --------
     >>> airport = airport_info()
-    >>> df = airport.search_icaoId_match(r'^RJ[a-zA-Z0-9]+$'))
+    >>> df = airport.search_icao_airport_code_match(r'^RJ[a-zA-Z0-9]+$'))
     >>> print(df)
     """
-    return self._df[self._df["icaoId"].str.match(icaoId)]
+    return self._df[self._df["icaoId"].str.match(code)]
 
-  def search_iataId_match(self, iataId:str) -> pd.DataFrame:
+  def search_iata_airport_code_match(self, code:str) -> pd.DataFrame:
     r"""Search airport for IATA code
 
     IATAコードで飛行場を検索
 
     Parameters
     --------
-    iataId: `str`
+    code: `str`
       IATA code
 
     Returns
@@ -107,12 +112,56 @@ class airport_info:
     Examples
     --------
     >>> airport = airport_info()
-    >>> df = airport.iataId_match(r'^RO[a-zA-Z]+$'))
+    >>> df = airport.search_iata_airport_code_match(r'^RO[a-zA-Z]+$'))
     >>> print(df)
     """
-    return self._df[self._df["iataId"].str.match(iataId)]
+    return self._df[self._df["iataId"].str.match(code)]
+
+  def search_elem_code_match(self, elem:str, code:str) -> pd.DataFrame:
+    r"""Search an element code
+
+    コードで要素名を検索
+
+    Parameters
+    --------
+    elem: `str`
+      elemment
+    
+    code: `str`
+      code
+
+    Returns
+    -------
+    df: `pandas.DataFrame`
+
+    Note
+    ----
+    Return search results matched by regular expressions.
+
+    Examples
+    --------
+    >>> airport = airport_info()
+    >>> df = airport.search_elem_code_match(r'^[a-zA-Z]+(NPMOD)$'))
+    >>> print(df)
+    """
+    return self._df[self._df[elem].str.match(code)]
   
-  def columns(self) -> list:
+  def get_df(self) -> pd.DataFrame:
+    r"""variables
+
+    Returns
+    -------
+    columns: `pd.DataFrame`
+
+    Examples
+    --------
+    >>> airport = airport_info()
+    >>> df = airport.get_df())
+    >>> print(df)
+    """
+    return self._df
+  
+  def get_columns(self) -> list:
     r"""variables
 
     Returns
@@ -122,18 +171,11 @@ class airport_info:
     Examples
     --------
     >>> airport = airport_info()
-    >>> columns = airport.columns())
+    >>> columns = airport.get_columns())
     >>> print(columns)
     """
     return self._df.columns.to_list()
 
 if __name__ == "__main__":
-  # print(search_icaoId("RJ"), type(search_icaoId("RJ")))
-  # print(search_iataId("NRT"), type(search_iataId("NRT")))
   airport = airport_info()
-  # print(airport.search_icaoId("RJAA"))
-  # print(airport.search_iataId("NRT"))
-  # print(airport.search_icaoId_match(r'^RJ[a-zA-Z0-9]+$'))
-  # print(airport.search_icaoId_match(r'^RO[a-zA-Z]+$'))
-  # print(airport.search_icaoId_match(r'^[a-zA-Z]+JF[a-zA-Z]$'))
-  print(airport.columns())
+  print(airport.search_icao_airport_code("RJAA").values[0])
