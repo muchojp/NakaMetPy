@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2024, NakaMetPy Develoers.
+# Copyright (c) 2021-2025, NakaMetPy Develoers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 from setuptools import setup, find_packages
@@ -23,7 +23,7 @@ console_scripts = [
 setup(
     name='nakametpy',
     python_requires='>=3.7.0',
-    version='2025.1.0',
+    version='2025.8.1',
     description='Meteorological modules for calculation and colormap.',
     # packages=packages,
     packages=find_packages('src'),

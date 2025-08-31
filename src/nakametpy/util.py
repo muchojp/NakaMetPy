@@ -75,7 +75,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   ファイルはbin, tar, gz(gzip)を受け付ける  
 
   Parameters
-  --------
+  ----------
   file: `str`
     file path
 
@@ -94,7 +94,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   ----
   ``jma_rain_lat``, ``jma_rain_lon`` はそれぞれ返り値に対応する. `np.ndarray` 型の緯度/経度である.
 
-  Examples1
+  Examples
   ---------
   >>> radar = load_jmara_grib2(path_to_1km_mesh_file)
   >>> lon = get_jmara_lon()
@@ -145,7 +145,7 @@ def get_jmara_lat(mesh : int=None):
   r'''解析雨量の緯度を返す関数
 
   Parameters
-  --------
+  ----------
   mesh: `int`
     resolution in meter.
 
@@ -178,7 +178,7 @@ def get_jmara_lon(mesh : int=None):
   r'''解析雨量の経度を返す関数
 
   Parameters
-  --------
+  ----------
   mesh: `int`
     resolution in meter.
 
@@ -233,7 +233,7 @@ def load_jmara250m_grib2(file : str, only250 : bool = False):
   高解像度ナウキャストにも対応している.
 
   Parameters
-  --------
+  ----------
   file: `str`
     file path
 
@@ -378,7 +378,7 @@ def get_grib2_latlon(file, tar_flag=False, tar_contentname=None):
   ファイルはgrib2, tar, gz(gzip)を受け付ける
 
   Parameters
-  --------
+  ----------
   file: `str`
     file path
 
@@ -425,7 +425,7 @@ def load_jmanowc_grib2(file, tidx=0):
   ファイルはgrib2.binを受け付ける.  
 
   Parameters
-  --------
+  ----------
   file: `str`
     file path
 
@@ -443,16 +443,16 @@ def load_jmanowc_grib2(file, tidx=0):
   ``jma_rain_lat``, ``jma_rain_lon`` はそれぞれ返り値に対応する.  
   `np.ndarray` 型の緯度/経度である.
   
-  Examples1
-  ---------
+  Examples
+  --------
   >>> nowc_1000 = load_jmanowc_grib2(path_to_file)
   >>> lon_1000 = get_jmara_lon(1000) # get 1000m mesh longitude array
   >>> lat_1000 = get_jmara_lat(1000) # get 1000m mesh latitude array
   >>>
   >>> plot_1000 = ax.contourf(lon_1000, lat_1000, nowc_1000)
   
-  Examples2
-  ---------
+  Examples
+  --------
   >>> nowc_1000 = load_jmanowc_grib2(path_to_file, tidx=11)
   '''
   binary = _get_binary(file=file)
@@ -636,7 +636,7 @@ def check_tar_content(file):
   Print the content name of the tar file.  
 
   Parameters
-  --------
+  ----------
   file: `str`
     file path  
     ファイルのPATH  
