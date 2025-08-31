@@ -10,19 +10,16 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../src/nakametpy'))
+# import os
+# import sys
+# sys.path.insert(0, 'C:\\Users\\yuuki\\Documents\\GitHub\\NakaMetPy\\src\\nakametpy')
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'nakametpy'
-copyright = '2024, muchojp'
-author = 'muchojp'
-
-# The full version, including alpha/beta/rc tags
-release = '2025.8.1'
+copyright = '2025, Author'
+author = 'Author'
 
 
 # -- General configuration ---------------------------------------------------
@@ -34,7 +31,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
-    'sphinx.ext.napoleon',
     'sphinx.ext.githubpages',
 ]
 
@@ -66,7 +62,6 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
 
 # -- Extension configuration -------------------------------------------------
 

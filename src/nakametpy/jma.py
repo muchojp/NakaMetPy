@@ -9,7 +9,7 @@ def load_jmara_grib2(file, tar_flag=False, tar_contentname=None):
   欠損値は負の値として表現される
 
   Parameters
-  --------
+  ----------
   file: `str`
     file path
     
