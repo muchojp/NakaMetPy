@@ -2,17 +2,9 @@
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 
-# import os
-# import sys
-# sys.path.append(os.getcwd())
-# from .._error import NotSupportedNewerVersionMSWarning, NotSupportedOlderVersionMSWarning,\
-#                     NotSupportedBufrError, UnexpectedBufrError,\
-#                     MayNotBeAbleToReadBufrWarning
 import struct
 import os
-import re
 import logging
-import warnings
 
 # Change HERE when developing from INFO into DEBUG
 # It will be help you.
