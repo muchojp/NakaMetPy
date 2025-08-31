@@ -4,7 +4,7 @@
 #
 # Command Example1: python -m unittest tests/product/test_liden.py -v
 # Command Example2: python -m unittest tests.product.test_liden -v
-# Command Example3: python -m unittest tests.product.test_liden.UtilTest.test_parse_tableB_into_dataframe_001 -v
+# Command Example3: python -m unittest tests.product.test_liden.UtilTest.test_get_data_001 -v
 # 
 import unittest
 from src.nakametpy.product.liden import liden

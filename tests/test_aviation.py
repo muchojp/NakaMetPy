@@ -8,10 +8,6 @@
 # 
 import unittest
 from src.nakametpy.aviation import airport_info
-from src.nakametpy._error import MayNotBeAbleToReadBufrWarning
-import os
-import pandas as pd
-import numpy as np
 
 class UtilTest(unittest.TestCase):
   def test_search_icao_airport_code_001(self):
