@@ -87,3 +87,5 @@ jobs:
           poetry run pytest tests/test_thermo.py
           poetry run pytest tests/test_util.py
           poetry run pytest tests/test_bufr.py
+          poetry run pytest tests/test_aviation.py
+          poetry run pytest tests/product/test_liden.py
