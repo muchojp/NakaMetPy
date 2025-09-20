@@ -609,7 +609,7 @@ class bufr_sec_3:
           logging.debug(f"{idescriptor} {idescriptor[1].startswith('Replicate')}", stack_info=False)
           if idescriptor[1].startswith("Delayed replication of"):
             if idescriptor[3] == False:
-              logging.debug(idescriptor[1])
+              logging.info(idescriptor[1])
               # 遅延反復記述子確認済
               # logging.info(target_list[_nlen+1-idx])
               target_list[_nlen-1-idx][3] = True
@@ -621,7 +621,7 @@ class bufr_sec_3:
                 target_list[_nlen+1-idx+i][2] += 1
           elif idescriptor[1].startswith("Replicate"):
             if idescriptor[3] == False:
-              logging.debug(idescriptor[1])
+              logging.info(idescriptor[1])
               # 遅延反復記述子確認済
               # logging.info(target_list[_nlen+1-idx])
               target_list[_nlen-1-idx][3] = True
@@ -632,10 +632,10 @@ class bufr_sec_3:
               for i in range(int(_nvar)):
                 target_list[_nlen-idx+i][2] += 1
           elif idescriptor[1].startswith("Local descriptor"):
-            logging.debug(idescriptor[1])
+            logging.info(idescriptor[1])
             pass
           elif idescriptor[1].startswith("Operate descriptor"):
-            logging.debug(idescriptor[1])
+            logging.info(idescriptor[1])
             pass
           else:
             for itarget in target_list:
