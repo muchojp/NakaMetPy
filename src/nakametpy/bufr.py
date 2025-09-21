@@ -1043,10 +1043,12 @@ class data_constructor:
             text_bin_list = [self.raw_data[self.irec+i:self.irec+i+8] for i in range(0,int(descriptor[3]),8)]
             for text_bin in text_bin_list:
               decimal = int(text_bin, 2)
+              logging.debug(f"decimal = {decimal}", stack_info=False)
               if decimal in convert_decimal_to_IA5character.keys():
                 text += convert_decimal_to_IA5character[decimal]
               else:
                 text += "?"
+            logging.debug(f"text = {text}", stack_info=False)
             _data.append(text)
             self.irec += int(descriptor[3])
           elif descriptor[4] == "Flag table":
