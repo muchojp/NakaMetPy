@@ -3,10 +3,10 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 import pandas as pd
-from nakametpy.constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE_VERSION,\
+from .constants import LATEST_MASTER_TABLE_VERSION, OLDEST_MASTER_TABLE_VERSION,\
                                 convert_decimal_to_IA5character
-from nakametpy.tables import bufrtab_TableA
-from nakametpy._error import NotSupportedNewerVersionMSWarning, NotSupportedOlderVersionMSWarning,\
+from .tables import bufrtab_TableA
+from ._error import NotSupportedNewerVersionMSWarning, NotSupportedOlderVersionMSWarning,\
                     NotSupportedBufrError, UnexpectedBufrError,\
                     MayNotBeAbleToReadBufrWarning
 import os
@@ -61,7 +61,7 @@ def parse_tableB_into_dataframe(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSIO
   """
   columns = ['F-XX-YYY', "SCALE", "REFERENCE_VALUE", "BIT_WIDTH", "UNIT", 'MNEMONIC', "DESC_CODE", 'ELEMENT_NAME']
   
-  bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableB_{version}")
+  bufrtab = os.path.join(os.path.dirname(__file__), "tables", f"bufrtab.TableB_{version}")
   valid_records = parse_bufrtab(bufrtab)
   # print(valid_records[-1])
   df = pd.DataFrame([re.split("[|;]", irecord.strip()) for irecord in valid_records])
@@ -91,7 +91,7 @@ def parse_tableD_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:02}
   -------
   `dict`: master table D
   """
-  bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.TableD_{version}")
+  bufrtab = os.path.join(os.path.dirname(__file__), "tables", f"bufrtab.TableD_{version}")
   valid_records = parse_bufrtab(bufrtab)
   data = dict()
   fxxyyy = r"^\d-\d{2}-\d{3}" # F-XX-YYY
@@ -128,7 +128,7 @@ def parse_codeFlag_into_dict(version: str=f"STD_0_{LATEST_MASTER_TABLE_VERSION:0
   -------
   `dict`: master table CODE/FLAG
   """
-  bufrtab = os.path.join(os.path.dirname(__file__), f"./tables/bufrtab.CodeFlag_{version}")
+  bufrtab = os.path.join(os.path.dirname(__file__), "tables", f"bufrtab.CodeFlag_{version}")
   valid_records = parse_bufrtab(bufrtab)
   data = dict()
   fxxyyy = r"^\d-\d{2}-\d{3}" # F-XX-YYY
@@ -609,7 +609,7 @@ class bufr_sec_3:
           logging.debug(f"{idescriptor} {idescriptor[1].startswith('Replicate')}", stack_info=False)
           if idescriptor[1].startswith("Delayed replication of"):
             if idescriptor[3] == False:
-              logging.debug(idescriptor[1])
+              logging.info(idescriptor[1])
               # 遅延反復記述子確認済
               # logging.info(target_list[_nlen+1-idx])
               target_list[_nlen-1-idx][3] = True
@@ -621,7 +621,7 @@ class bufr_sec_3:
                 target_list[_nlen+1-idx+i][2] += 1
           elif idescriptor[1].startswith("Replicate"):
             if idescriptor[3] == False:
-              logging.debug(idescriptor[1])
+              logging.info(idescriptor[1])
               # 遅延反復記述子確認済
               # logging.info(target_list[_nlen+1-idx])
               target_list[_nlen-1-idx][3] = True
@@ -632,10 +632,10 @@ class bufr_sec_3:
               for i in range(int(_nvar)):
                 target_list[_nlen-idx+i][2] += 1
           elif idescriptor[1].startswith("Local descriptor"):
-            logging.debug(idescriptor[1])
+            logging.info(idescriptor[1])
             pass
           elif idescriptor[1].startswith("Operate descriptor"):
-            logging.debug(idescriptor[1])
+            logging.info(idescriptor[1])
             pass
           else:
             for itarget in target_list:

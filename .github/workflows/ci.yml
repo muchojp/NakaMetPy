@@ -15,8 +15,7 @@ jobs:
     # 複数の Python のバージョンでテストするために `strategy.matrix` を設定する
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
-        # python-version: ["3.12"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
         # include:
           # - python-version: 3.7
           #   os: ubuntu-22.04
@@ -88,3 +87,6 @@ jobs:
           poetry run pytest tests/test_thermo.py
           poetry run pytest tests/test_util.py
           poetry run pytest tests/test_bufr.py
+          poetry run pytest tests/test_aviation.py
+          poetry run pytest tests/product/test_liden.py
+          poetry run pytest tests/product/test_synop1min.py

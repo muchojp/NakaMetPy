@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nakametpy.util module &mdash; nakametpy 2025.1.0 documentation</title>
+  <title>nakametpy.util module &mdash; NakaMetPy 2025.9.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -31,7 +31,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            nakametpy
+            NakaMetPy
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -44,7 +44,9 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="nakametpy.html">nakametpy package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nakametpy.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="nakametpy.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="nakametpy.aviation.html">nakametpy.aviation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.bufr.html">nakametpy.bufr module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.cmaps.html">nakametpy.cmaps module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nakametpy.constants.html">nakametpy.constants module</a></li>
@@ -66,7 +68,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">nakametpy</a>
+          <a href="index.html">NakaMetPy</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -182,10 +184,10 @@
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>`str`</strong></p>
+<dd class="field-even"><p><strong>string in fmt</strong></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>string in fmt.</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -219,6 +221,10 @@
 <dd class="field-odd"><p>set(<cite>numpy.ma.MaskedArray</cite>, <cite>numpy.ma.MaskedArray</cite>)</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">get_grib2_latlon</span><span class="p">(</span><span class="n">path_to_1km_mesh_file</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -264,6 +270,13 @@
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lat</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lat</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lat</span><span class="p">(</span><span class="mi">2500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lat</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -281,6 +294,13 @@
 <dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lon</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lon</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lon</span><span class="p">(</span><span class="mi">2500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lon</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -344,6 +364,10 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lat_1000</span> <span class="o">=</span> <span class="n">get_jmara_lat</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="c1"># get 1000m mesh latitude array</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plot_1000</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lon_1000</span><span class="p">,</span> <span class="n">lat_1000</span><span class="p">,</span> <span class="n">nowc_1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nowc_1000</span> <span class="o">=</span> <span class="n">load_jmanowc_grib2</span><span class="p">(</span><span class="n">path_to_file</span><span class="p">,</span> <span class="n">tidx</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -413,6 +437,19 @@
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">jma_rain_lat</span></code>, <code class="docutils literal notranslate"><span class="pre">jma_rain_lon</span></code> はそれぞれ返り値に対応する. <cite>np.ndarray</cite> 型の緯度/経度である.</p>
 </div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">radar</span> <span class="o">=</span> <span class="n">load_jmara_grib2</span><span class="p">(</span><span class="n">path_to_1km_mesh_file</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lon</span> <span class="o">=</span> <span class="n">get_jmara_lon</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lat</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">radar</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">radar</span> <span class="o">=</span> <span class="n">load_jmara_grib2</span><span class="p">(</span><span class="n">path_to_2p5km_mesh_file</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lon</span> <span class="o">=</span> <span class="n">get_jmara_lon</span><span class="p">(</span><span class="mi">2500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span> <span class="o">=</span> <span class="n">get_jmara_lat</span><span class="p">(</span><span class="mi">2500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">radar</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -441,13 +478,13 @@
 <dd><p>Convert unit knots into m/s.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kt</strong> (<cite>int</cite>) – Velocity in knots.</p>
+<dd class="field-odd"><p><strong>kt</strong> (<cite>int</cite>) – Speed in knots.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>`ms`</strong></p>
+<dd class="field-even"><p><strong>Speed in meter per second.</strong></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Velocity in meter per second.</p>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -458,13 +495,13 @@
 <dd><p>Convert unit m/s into knots.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ms</strong> (<cite>int</cite>) – Velocity in meter per second.</p>
+<dd class="field-odd"><p><strong>ms</strong> (<cite>int</cite>) – Speed in meter per second.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>`kt`</strong></p>
+<dd class="field-even"><p><strong>Speed in knots</strong></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Velocity in knots.</p>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -481,7 +518,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, muchojp.</p>
+    <p>&#169; Copyright 2025, muchojp.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

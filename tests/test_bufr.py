@@ -9,6 +9,7 @@
 import unittest
 from src.nakametpy.bufr import parse_tableB_into_dataframe, parse_tableD_into_dict,\
                         parse_codeFlag_into_dict, bufr
+from src.nakametpy._error import MayNotBeAbleToReadBufrWarning
 import os
 import pandas as pd
 import numpy as np
@@ -313,7 +314,6 @@ class UtilTest(unittest.TestCase):
                       "./data/bufr/bufr/IUSC10_RJTD_300000_CCA_202410300405102_001.send", # 東京編集の地上高層実況気象Ｄ部 訂正報
                       "./data/bufr/bufr/IUSC11_RJTD_300000_202410300212112_001.send", # 東京編集の地上高層実況気象Ｄ部
                       "./data/bufr/bufr/IUSC12_RJTD_300000_202410300212113_001.send", # 東京編集の地上高層実況気象Ｄ部
-                      # "./data/bufr/bufr/ISIC01_RJTD_300300_202410300319110_001.send", # 東京編集の地上気象実況報（03,09,15,21UTC）
                       ):
       with self.subTest(file_path=file_path):
         bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
@@ -354,12 +354,17 @@ class UtilTest(unittest.TestCase):
       file_path: `str`
     """
     # print(self.test_bufr_008.__doc__)
-    for file_path in ("./data/bufr/bufr/IUWG01_WIIX_300600_202410300617189_001.send", # メルボルン編集の地上高層風実況気象報 (PILOT)
-                      "./data/bufr/bufr/IUKN01_BABJ_300000_202410300231070_001.send", # 北京編集の地上高層風実況気象報Ａ部 (PILOT) 
-                      ):
-      with self.subTest(file_path=file_path):
-        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
-        bufr_class.read_data()
+    import warnings
+    with warnings.catch_warnings():
+      # このテストは以下の警告が出るため、無視する
+      # この関数ではこのファイルを正しく読むことが出来ないかもしれません.理由：第1節の長さが22ではなく、23
+      warnings.filterwarnings("ignore", category=MayNotBeAbleToReadBufrWarning)
+      for file_path in ("./data/bufr/bufr/IUWG01_WIIX_300600_202410300617189_001.send", # メルボルン編集の地上高層風実況気象報 (PILOT)
+                        "./data/bufr/bufr/IUKN01_BABJ_300000_202410300231070_001.send", # 北京編集の地上高層風実況気象報Ａ部 (PILOT) 
+                        ):
+        with self.subTest(file_path=file_path):
+          bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
+          bufr_class.read_data()
     
   def test_bufr_009(self):
     """
@@ -381,4 +386,47 @@ class UtilTest(unittest.TestCase):
                       ):
       with self.subTest(file_path=file_path):
         bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path), True)
+        bufr_class.read_data()
+    
+  def test_bufr_010(self):
+    """
+    Test for `Tide`(BUFR)/`潮位観測報`<br>
+    Specification: 30803<br>
+    Tech Info: 551<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_009.__doc__)
+    for file_path in ("./data/bufr/bufr/ISTC81_RJTD_282350.dat", # 潮位観測報 東日本
+                      "./data/bufr/bufr/ISTC82_RJTD_282350.dat", # 潮位観測報 西日本
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path), True)
+        bufr_class.read_data()
+    
+  def test_bufr_011(self):
+    """
+    Test for `SYNOP`(BUFR)/`地上気象実況報`<br>
+    Specification: 13401<br>
+    Tech Info: 595,637<br>
+    
+    Class
+    --------
+      bufr
+    Parameters
+    --------
+      file_path: `str`
+    """
+    # print(self.test_bufr_007.__doc__)
+    for file_path in ("./data/bufr/bufr/ISIC11_RJTD_090900_26830.bin", # 地上気象実況報（03,09,15,21UTC）
+                      "./data/bufr/bufr/ISMC11_RJTD_100000_1671.bin", # 地上気象実況報（00,06,12,18UTC）(SYNOP)
+                      "./data/bufr/bufr/ISNC11_RJTD_091400_13904.bin", # 地上気象実況報（主要時、中間時以外の時刻）(SYNOP)
+                      ):
+      with self.subTest(file_path=file_path):
+        bufr_class = bufr(os.path.join(os.path.dirname(__file__), file_path))
         bufr_class.read_data()

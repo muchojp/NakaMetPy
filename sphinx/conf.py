@@ -17,12 +17,12 @@ sys.path.insert(0, os.path.abspath('../src/nakametpy'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'nakametpy'
-copyright = '2024, muchojp'
+project = 'NakaMetPy'
+copyright = '2025, muchojp'
 author = 'muchojp'
 
 # The full version, including alpha/beta/rc tags
-release = '2025.1.0'
+release = '2025.9.4'
 
 
 # -- General configuration ---------------------------------------------------
