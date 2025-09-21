@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nakametpy.jma module &mdash; nakametpy  documentation</title>
+  <title>nakametpy.jma module &mdash; NakaMetPy 2025.9.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -32,7 +32,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            nakametpy
+            NakaMetPy
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -69,7 +69,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">nakametpy</a>
+          <a href="index.html">NakaMetPy</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -94,16 +94,36 @@
 <dt class="sig sig-object py" id="nakametpy.jma.get_jmara_lat">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.jma.</span></span><span class="sig-name descname"><span class="pre">get_jmara_lat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/jma.html#get_jmara_lat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.jma.get_jmara_lat" title="Permalink to this definition"></a></dt>
 <dd><p>解析雨量の緯度を返す関数</p>
-<p>lat: <cite>numpy.ndarray</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lat</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>The same as util.get_jmara_lat.</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nakametpy.jma.get_jmara_lon">
 <span class="sig-prename descclassname"><span class="pre">nakametpy.jma.</span></span><span class="sig-name descname"><span class="pre">get_jmara_lon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/jma.html#get_jmara_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.jma.get_jmara_lon" title="Permalink to this definition"></a></dt>
 <dd><p>解析雨量の経度を返す関数</p>
-<p>lon: <cite>numpy.ndarray</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lon</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>The same as util.get_jmara_lon.</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -111,20 +131,27 @@
 <span class="sig-prename descclassname"><span class="pre">nakametpy.jma.</span></span><span class="sig-name descname"><span class="pre">load_jmara_grib2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_contentname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nakametpy/jma.html#load_jmara_grib2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nakametpy.jma.load_jmara_grib2" title="Permalink to this definition"></a></dt>
 <dd><p>気象庁解析雨量やレーダー雨量を返す関数</p>
 <p>欠損値は負の値として表現される</p>
-<dl>
-<dt>file: <cite>str</cite></dt><dd><p>file path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<cite>str</cite>) – <p>file path</p>
 <p>ファイルのPATH</p>
+</p></li>
+<li><p><strong>tar_flag</strong> (<cite>bool</cite>) – file type whether file is tar or GRIB2 (not tar).</p></li>
+<li><p><strong>tar_contentname</strong> (<cite>str</cite>) – content name in tar file.</p></li>
+</ul>
 </dd>
-<dt>tar_flag: <cite>bool</cite></dt><dd><p>file type whether file is tar or GRIB2 (not tar).</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>rain</strong> – Units(単位) [mm/h]</p>
 </dd>
-<dt>tar_contentname: <cite>str</cite></dt><dd><p>content name in tar file.</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>numpy.ma.MaskedArray</cite></p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>rain: <cite>numpy.ma.MaskedArray</cite></dt><dd><p>Units(単位) [mm/h]</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>The same as util.load_jmara_grib2.</p>
+</div>
 </dd></dl>
 
 </section>
@@ -140,7 +167,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Author.</p>
+    <p>&#169; Copyright 2025, muchojp.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

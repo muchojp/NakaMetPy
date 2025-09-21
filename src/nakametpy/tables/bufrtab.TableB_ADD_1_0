@@ -18,4 +18,19 @@
   0-25-219 |   0 |           0 |   3 | Code table        | AQCFLG    ;    ; AQC flag of observation value
   0-26-193 |   0 |           0 |   5 | Numeric           | HOUR    ;    ; Hour
   0-26-194 |   0 |           0 |   6 | Numeric           | MINUTE    ;    ; Minute
+# tide
+  0-01-203 |   0 |           0 |  20 | Code table        | TOBSPNO    ;     ; Tide observation point number
+  0-02-037 |   0 |           0 |   3 | Code table        | MOTO     ;     ; Method of tidal observation
+  0-02-200 |   0 |           0 |   4 | Code table        | MTIM     ;     ; Method of tidal measurement
+  0-07-200 |   3 |           0 |  14 | m                 | TOSEL     ;     ; Tide observation station elevation
+  0-07-201 |   3 |      -10000 |  14 | m                 | TOSRSEL     ;     ; Tide observation station reference surface elevation
+  0-08-220 |   0 |           0 |   6 | Code table        | TDTYPE    ;    ; Tide Data Type
+  0-08-221 |   0 |           0 |   8 | Minute            | COPTOF     ;     ; Cut-off period for tide observation filter
+  0-22-120 |   0 |           0 |   5 | Code table        | AWCK     ;     ; Tide station automated water level check
+  0-22-121 |   0 |           0 |   5 | Code table        | MWCK     ;     ; Tide station manual water level check
+  0-22-202 |   3 |       -3000 |  15 | m                 | TTH     ;     ; Tide height geocentric ocean tide
+  0-25-216 |   0 |           0 |   8 | Second            | SITO     ;     ; Sampling interval of tidal observation
+  0-25-217 |   0 |           0 |   8 | Second            | ATTDO     ;     ; Average time for tide data of observation
+  0-25-218 |   0 |           0 |   5 | Code table        | FITO     ;     ; Failure infomation for tide observation station
+  0-33-020 |   0 |           0 |   3 | Code table        | QCIND    ;     ; Quality control indication of following value
 END

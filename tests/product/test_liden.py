@@ -58,5 +58,5 @@ class UtilTest(unittest.TestCase):
     self.assertEqual(1570, actual_value[0])
     self.assertEqual(35811, actual_value[1])
     self.assertEqual(39316, actual_value[2])
-    self.assertEqual("  ", actual_value[3])
-    self.assertEqual(" 4", actual_value[4])
+    self.assertEqual(0, actual_value[3])
+    self.assertEqual(4, actual_value[4])

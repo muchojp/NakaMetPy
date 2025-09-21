@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    nakametpy.product
+   nakametpy.tables
 
 Submodules
 ----------

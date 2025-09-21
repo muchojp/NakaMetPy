@@ -108,8 +108,8 @@ class liden:
       detail_sec = struct.unpack_from('>H', body, 0+i*10)[0]
       lat = struct.unpack_from('>H', body, 2+i*10)[0]
       lon = struct.unpack_from('>H', body, 4+i*10)[0]
-      mmtt = f"{struct.unpack_from('>H', body, 6+i*10)[0]:4}"
-      mm, tt = mmtt[0:2], mmtt[2:4]
+      mmtt = f"{struct.unpack_from('>H', body, 6+i*10)[0]:04}"
+      mm, tt = int(mmtt[0:2]), int(mmtt[2:4])
       logging.debug(f"詳細時刻：{detail_sec}")
       logging.debug(f"緯度（x10-3 度）：{lat}")
       logging.debug(f"経度（x10-3 度-100 度）：{lon}")

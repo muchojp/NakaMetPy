@@ -89,3 +89,4 @@ jobs:
           poetry run pytest tests/test_bufr.py
           poetry run pytest tests/test_aviation.py
           poetry run pytest tests/product/test_liden.py
+          poetry run pytest tests/product/test_synop1min.py

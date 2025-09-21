@@ -1,2 +1,15 @@
 # Include the requirements.txt
 include requirements.txt
+include src/nakametpy/tables/bufrtab*
+include src/nakametpy/data/nws/*
+include tests/*
+include tests/data/bufr/bufr/*
+include tests/data/product/liden/*
+include tests/data/product/synop1min/20241030000000/*
+include tests/data/product/synop1min/20241030071200/*
+include tests/data/util/check_tar_content/*
+include tests/data/util/load_jmanowc_grib2/*
+include tests/data/util/load_jmara_grib2/*
+include tests/data/util/load_jmara250m_grib2/*
+include tests/data/util/myglob/*
+include tests/product/*
