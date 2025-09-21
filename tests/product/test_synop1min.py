@@ -25,3 +25,17 @@ class UtilTest(unittest.TestCase):
   for ifile in filelist:
     synop1min_class = synop1min(os.path.join(os.path.dirname(__file__), ifile))
     actual = synop1min_class.get_data(0)
+    
+  def test_synop1min_002(self):
+    """
+    test case: test_synop1min_002
+    
+    Method
+    --------
+      get_telegram_header
+    """
+    # print(self.test_synop1min_002.__doc__)
+  filename = os.path.join(os.path.dirname(__file__), "../data/product/synop1min/20241030071200/Z__C_RJTD_20241030071200_OBS_SURF_Rjp_Opermin_jmasf.bin")
+  synop1min_class = synop1min(os.path.join(os.path.dirname(__file__), filename))
+  for i in range(155):
+    actual = synop1min_class.get_data(i)
