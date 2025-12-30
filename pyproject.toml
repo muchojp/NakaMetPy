@@ -15,8 +15,8 @@ numpy = [
   {version =          "<=1.21.1", python = "3.6"},
   {version = ">=1.21.3,<1.22.0",  python = "3.7"},
   {version = ">=1.21.3,<1.25.0",  python = "3.8"},
-  {version = ">=1.26.4,<2.1.0",   python = ">=3.9,<3.13"},
-  {version = ">=2.1.0",   python = ">=3.13"},
+  {version = ">=1.26.4,<2.1.0",   python = "3.9"},
+  {version = ">=2.1.0",   python = ">=3.10"},
 ]
 matplotlib = ">=3.3.0"
 pandas = [
