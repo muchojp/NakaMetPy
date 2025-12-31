@@ -73,7 +73,7 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         # Tempolary comment out
-        # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'false'
         run: poetry install --no-interaction --no-root
       #----------------------------------------------
       # install your root project, if required
