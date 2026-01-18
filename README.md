@@ -73,12 +73,12 @@ Such material is not subject to NakaMetPy copyright protection.
 
 ## Citation
 ```
-Nakamura, Y. (2025). NakaMety (Version xxxx.x.x) [Software]. Chiba, Japan. https://github.com/muchojp/NakaMetPy
+Nakamura, Y. (2026). NakaMety (Version xxxx.x.x) [Software]. Kanagawa, Japan. https://github.com/muchojp/NakaMetPy
 ```
 **Note**: The version number xxxx.x.x should be set to the version of NakaMetPy that you are using.
 
 ## Update plans
-Next(`2025.x.0` or later):
+Next(`2026.x.0` or later):
  - No planned
 
 To Do: 
