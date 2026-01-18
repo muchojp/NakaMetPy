@@ -1,9 +1,18 @@
-numpy         <=1.21.1; python_version == '3.6'
-numpy>=1.21.3,<1.22.0;  python_version == '3.7'
-numpy>=1.21.3,<1.25.0;  python_version == '3.8'
-numpy>=1.26.4,<2.1.0;   python_version == '3.9'
-numpy>=2.1.0;           python_version >= '3.10'
-matplotlib>=3.3.0;      python_version >= '3.7'
-pillow<10.0.0;          python_version <  '3.10'
-pillow>=10.0.0;         python_version >= '3.10'
+###### Requirements without Version Specifiers ######
+numpy
+matplotlib
+pandas
+pillow
+#
+###### Requirements with Version Specifiers ######
+#   See https://www.python.org/dev/peps/pep-0440/#version-specifiers
+# Old requirements.txt
+# numpy         <=1.21.1; python_version == '3.6'
+# numpy>=1.21.3,<1.22.0;  python_version == '3.7'
+# numpy>=1.21.3,<1.25.0;  python_version == '3.8'
+# numpy>=1.26.4,<2.1.0;   python_version == '3.9'
+# numpy>=2.1.0;           python_version >= '3.10'
+# matplotlib>=3.3.0;      python_version >= '3.7'
+# pillow<10.0.0;          python_version <  '3.10'
+# pillow>=10.0.0;         python_version >= '3.10'
 
